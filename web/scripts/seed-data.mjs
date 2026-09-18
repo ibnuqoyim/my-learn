@@ -45,7 +45,7 @@ Dua catatan ini relatif independen satu sama lain — tidak ada urutan prasyarat
     slug: "supabase",
     description: `Membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya. Supabase menyediakan semua itu siap pakai di atas Postgres, diakses langsung dari client tanpa perlu backend server terpisah.
 
-Roadmap ini membawamu dari setup client, operasi CRUD dasar, mengenali user lewat autentikasi, sampai mengamankan data per user lewat Row Level Security. Empat langkah yang membangun satu sama lain — RLS di langkah terakhir memakai \`auth.uid()\` dari langkah autentikasi sebelumnya, jadi urutannya penting.
+Roadmap ini membawamu dari setup client, operasi CRUD dasar, mengenali user lewat autentikasi, mengamankan data per user lewat Row Level Security, menyimpan file lewat Storage, sampai mendengarkan perubahan data secara live lewat Realtime. Enam langkah yang membangun satu sama lain — RLS memakai \`auth.uid()\` dari langkah autentikasi sebelumnya, dan policy Storage/Realtime memakai pola RLS yang sama, jadi urutannya penting.
 
 **Asumsi:** familiar dengan JavaScript/TypeScript dasar dan konsep \`async\`/\`await\`. Butuh akun Supabase (gratis) — disebutkan di catatan pertama.`,
   },
@@ -54,7 +54,7 @@ Roadmap ini membawamu dari setup client, operasi CRUD dasar, mengenali user lewa
     slug: "typescript",
     description: `JavaScript murni tidak mendeteksi kesalahan tipe data sampai program benar-benar dijalankan (runtime) — kirim string ke fungsi yang harusnya menerima angka baru ketahuan setelah aplikasi jalan, bahkan mungkin sudah di production. TypeScript menambahkan sistem tipe di atas JavaScript yang dicek saat menulis kode (compile time), sebelum bug itu sempat sampai ke user.
 
-Roadmap ini membawamu dari tipe dasar sampai bisa membaca dan menulis konfigurasi TypeScript sendiri: mulai dari type annotation primitif, mendefinisikan bentuk object lewat interface/type alias, union & literal type untuk merepresentasikan pilihan terbatas, type narrowing untuk menangani union dengan aman, generics untuk kode yang reusable tanpa kehilangan type safety, enum sebagai alternatif union, sampai opsi \`tsconfig.json\` yang paling penting untuk dikonfigurasi. Tujuh langkah, ikuti berurutan.
+Roadmap ini membawamu dari tipe dasar sampai bisa membaca dan menulis konfigurasi TypeScript sendiri: mulai dari type annotation primitif, mendefinisikan bentuk object lewat interface/type alias, union & literal type untuk merepresentasikan pilihan terbatas, type narrowing untuk menangani union dengan aman, type assertion untuk kasus kamu lebih tahu dari compiler, generics untuk kode yang reusable tanpa kehilangan type safety, utility types untuk memanipulasi tipe yang sudah ada, enum sebagai alternatif union, sampai opsi \`tsconfig.json\` yang paling penting untuk dikonfigurasi. Sembilan langkah, ikuti berurutan.
 
 **Asumsi:** TypeScript itu JavaScript plus sistem tipe, bukan bahasa baru dari nol — roadmap ini mengasumsikan kamu familiar dengan JavaScript dasar (variabel, fungsi, object, array). Prasyarat tool (Node.js, TypeScript compiler) disebutkan di catatan pertama.`,
   },
@@ -1664,7 +1664,7 @@ TypeScript secara pintar memotong kemungkinan tipe (*type narrowing*) di setiap 
   {
     category: "typescript",
     slug: "generics-dasar",
-    order: 4,
+    order: 5,
     title: "Generics Dasar",
     content: `Semua fungsi yang kamu tulis sejauh ini punya tipe parameter yang spesifik. **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau bikin fungsi yang bekerja untuk banyak tipe data sekaligus (angka, teks, object apa pun) tanpa menulis versi terpisah untuk masing-masing, dan tanpa kehilangan informasi tipe seperti yang terjadi kalau pakai \`any\`?
 
@@ -1751,9 +1751,9 @@ Generics membuat kode bersifat *reusable* (dapat dipakai ulang) untuk berbagai j
   {
     category: "typescript",
     slug: "enum-dasar",
-    order: 5,
+    order: 7,
     title: "Enum Dasar",
-    content: `Catatan sebelumnya (generics) dan sebelum-sebelumnya (union & literal type) sama-sama cara merepresentasikan "pilihan terbatas" dengan cara yang berbeda. **Masalah yang diselesaikan sekarang:** enum adalah alternatif lain — sekumpulan konstanta bernama yang dikelompokkan dalam satu namespace, umum dipakai di code base yang lebih bergaya OOP.
+    content: `Catatan-catatan sebelumnya (generics, utility types, union & literal type) sama-sama cara merepresentasikan "pilihan terbatas" atau bentuk tipe yang fleksibel dengan cara yang berbeda-beda. **Masalah yang diselesaikan sekarang:** enum adalah alternatif lain — sekumpulan konstanta bernama yang dikelompokkan dalam satu namespace, umum dipakai di code base yang lebih bergaya OOP.
 
 Enum (*enumerations*) adalah fitur TypeScript yang memungkinkan pendefinisian sekumpulan konstanta bernama. Enum memudahkan representasi pilihan opsi yang terbatas dan tetap.
 
@@ -1834,7 +1834,7 @@ Gunakan **String Enum** saat membutuhkan namespace konstanta yang terstruktur, a
   {
     category: "typescript",
     slug: "tsconfig-dasar",
-    order: 6,
+    order: 8,
     title: "Konfigurasi Penting tsconfig.json",
     content: `Sepanjang roadmap ini, TypeScript sudah menjaga banyak kesalahan lewat compiler. **Masalah yang diselesaikan sekarang:** seberapa ketat pengecekannya, versi JavaScript apa yang dihasilkan, dan bagaimana \`import\` di-resolve — semua diatur di satu file: \`tsconfig.json\`. Ini catatan penutup roadmap, tentang mengonfigurasi compiler-nya sendiri, bukan lagi soal sintaks tipe.
 
