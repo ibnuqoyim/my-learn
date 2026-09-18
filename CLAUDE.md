@@ -4,23 +4,22 @@ Repo ini adalah blog statis (Eleventy) berisi catatan pelajaran dalam file
 Markdown di `notes/<kategori>/`. Aturan di bawah ini WAJIB diikuti setiap kali
 ada perubahan materi, baik oleh Claude maupun kontributor lain.
 
-## 1. Alur Git untuk perubahan materi
+## 1. Alur Git untuk pengembangan
 
-- Setiap perubahan pada isi materi (`notes/**/*.md`, folder kategori baru,
-  data kategori `*.json` di dalam `notes/`) **wajib dikerjakan di branch
-  `draft`** (atau branch turunan `draft/<topik>` untuk perubahan besar),
-  **tidak boleh langsung commit/push ke `main`**.
-- Kalau branch `draft` belum ada, buat dari `main` terbaru:
-  `git fetch origin main && git checkout -b draft origin/main`.
+- Semua branch kerja/pengembangan — baik perubahan materi (`notes/**/*.md`,
+  folder kategori baru, data kategori `*.json` di dalam `notes/`) maupun
+  infrastruktur (konfigurasi Eleventy, styling, dependency, dsb.) —
+  **wajib dibuat dari `main` terbaru**:
+  `git fetch origin main && git checkout -b <nama-branch> origin/main`.
+- Hasil pengembangan **digabung (merge) ke `draft` dulu**, **tidak boleh
+  langsung commit/push ke `main`**. `draft` adalah branch staging/integrasi
+  tempat semua perubahan bertemu sebelum dirilis.
 - `draft` **hanya digabung (merge) ke `main` saat ada perintah eksplisit**
   dari user (misalnya: "merge ke main", "publish", "gabungkan draft ke
   main"). Tanpa perintah eksplisit itu, biarkan perubahan tetap di `draft`
   meskipun sudah selesai dan sudah di-push.
 - Jangan merge/push ke `main` atas inisiatif sendiri, sekecil apa pun
   perubahannya (termasuk typo fix).
-- Aturan ini khusus untuk **perubahan materi** di `notes/`. Perubahan
-  infrastruktur (konfigurasi Eleventy, styling, dependency, dsb.) mengikuti
-  branch kerja yang sedang ditugaskan, bukan alur draft/main ini.
 
 ## 2. Standar isi materi
 
