@@ -30,6 +30,17 @@ type Produk = {
 const produk: Produk = { nama: "Buku", harga: 50000 };
 ```
 
+```
+                    interface                type
+------------------  -----------------------  ----------------------------
+extend              interface Admin          type Admin = User & { ... }
+                       extends User {}
+declaration merging  bisa (dua deklarasi       tidak bisa
+                     nama sama digabung)
+union type           tidak bisa                bisa: "aktif" | "nonaktif"
+bentuk object biasa   bisa                      bisa
+```
+
 Perbedaan singkat:
 
 - `interface` bisa di-*extend* (`interface Admin extends User {}`) dan bisa

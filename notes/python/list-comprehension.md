@@ -21,6 +21,18 @@ genap = [n for n in angka if n % 2 == 0]
 
 Pola umum: `[ekspresi for item in iterable if kondisi]`.
 
+```
+angka = [1, 2, 3, 4, 5, 6]
+              |
+              |  for n in angka
+              v
+       [1, 2, 3, 4, 5, 6]  -- tiap elemen dicek --
+              |
+              |  if n % 2 == 0   (saring yang genap)
+              v
+          [2, 4, 6]        -- hasil akhir --
+```
+
 Bisa juga dipakai untuk dictionary comprehension:
 
 ```python

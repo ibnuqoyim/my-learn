@@ -20,6 +20,17 @@ console.log(counter()); // 1
 console.log(counter()); // 2
 ```
 
+```
+buatCounter()  --- scope luar, dijalankan sekali ---
+  |
+  |  jumlah = 0
+  |
+  +--> function () { ... }   --- closure (scope dalam) ---
+           |
+           +-- tetap punya akses ke `jumlah`,
+               walau buatCounter() sudah selesai jalan
+```
+
 Poin penting:
 
 - Setiap pemanggilan `buatCounter()` menghasilkan closure baru dengan `jumlah` masing-masing.

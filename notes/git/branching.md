@@ -6,6 +6,17 @@ updated: 2026-09-18
 
 Branch memungkinkan kita bekerja pada fitur/perbaikan tanpa mengganggu kode di branch utama.
 
+```
+main         A---B-------------E---F
+                  \             /
+fitur-baru         C-----------D
+                (git checkout -b)   (git merge fitur-baru)
+```
+
+Branch `fitur-baru` bercabang dari commit `B` di `main`, berkembang sendiri
+lewat commit `C` dan `D`, lalu digabungkan (merge) kembali jadi commit `E`
+di `main` — sepanjang itu, isi `main` (`A`, `B`) tidak berubah sama sekali.
+
 ```bash
 # membuat branch baru sekaligus pindah ke branch itu
 git checkout -b fitur-baru

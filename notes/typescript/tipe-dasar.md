@@ -7,6 +7,16 @@ updated: 2026-09-18
 TypeScript menambahkan sistem tipe di atas JavaScript. Tipe bisa ditulis
 manual (annotation) atau otomatis ditebak oleh compiler (inference).
 
+```
+Tipe               Contoh nilai
+-----------------  --------------------------
+string              "Budi"
+number               20
+boolean              true
+string[]             ["baca", "coding"]
+[number, number]     [10, 20]   (tuple: jumlah & urutan elemen tetap)
+```
+
 ```ts
 // annotation manual
 let nama: string = "Budi";
