@@ -9,6 +9,25 @@ Component** secara default — dirender di server, tidak mengirim JavaScript
 komponennya ke browser. Untuk komponen yang butuh interaktivitas (state,
 event handler, hooks), harus ditandai sebagai **Client Component**.
 
+```
+Server                                  Browser
++----------------------+                +--------------------------+
+| Server Component      |    HTML       |                           |
+| - fetch data           | -----------> |  Render HTML (statis)     |
+| - render jadi HTML     |               |                           |
++----------------------+                |  +---------------------+  |
+                                         |  | Client Component     |  |
+| Client Component      |  HTML + JS    |  | "use client"         |  |
+| - "use client"        | ------------> |  | (di-hydrate, jadi     |  |
++----------------------+                |  |  interaktif)          |  |
+                                         |  +---------------------+  |
+                                         +--------------------------+
+```
+
+Server Component hanya mengirim hasil render (HTML), JavaScript-nya tidak
+pernah sampai ke browser. Client Component mengirim HTML *dan* bundle
+JS-nya supaya bisa jadi interaktif lewat proses hydration.
+
 ```tsx
 // app/page.tsx — Server Component (default, tanpa directive apa pun)
 async function getData() {

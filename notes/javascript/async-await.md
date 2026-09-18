@@ -6,6 +6,15 @@ updated: 2026-09-18
 
 `async/await` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.
 
+```
+Sinkron (blocking) — tiap baris menunggu baris sebelumnya:
+  tugas1 [====selesai]  tugas2 [====selesai]  tugas3 [====selesai]
+
+Async/await (non-blocking) — kode lain tetap jalan selagi menunggu:
+  await fetch() [========menunggu respons========]  lanjut pakai `data`
+                 ^ thread utama tidak diblokir di sini
+```
+
 ```js
 async function ambilData() {
   try {

@@ -7,6 +7,20 @@ updated: 2026-09-18
 Supabase adalah backend siap pakai (database Postgres, auth, storage, dst)
 yang diakses lewat library `@supabase/supabase-js` di sisi aplikasi.
 
+```
+App (kode kamu)
+     |
+     |  createClient(supabaseUrl, supabaseKey)
+     v
+Supabase Client ("supabase")
+     |
+     v
+Supabase Project
+     +-- Postgres (database)
+     +-- Auth
+     +-- Storage
+```
+
 ```bash
 npm install @supabase/supabase-js
 ```
