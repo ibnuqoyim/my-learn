@@ -4,7 +4,15 @@
 // ada secret key di .env).
 
 export const categories = [
-  { name: "Git", slug: "git" },
+  {
+    name: "Git",
+    slug: "git",
+    description: `Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (\`script_v2_final.js\`, \`script_v2_REVISI.js\`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.
+
+Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), bercabang untuk mengerjakan fitur tanpa mengganggu kode utama (branching), sampai berkolaborasi lewat repository remote seperti GitHub. Tiga langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan command line/terminal dasar. Prasyarat tool (Git, akun GitHub) disebutkan di catatan yang membutuhkannya.`,
+  },
   { name: "JavaScript", slug: "javascript" },
   {
     name: "Next.js",
@@ -48,10 +56,64 @@ Roadmap ini membawamu dari pengenalan ekosistem & CLI \`dotnet\`, dasar bahasa C
 export const notes = [
   {
     category: "git",
-    slug: "branching",
+    slug: "commit-dan-staging",
     order: 0,
+    title: "Dasar Commit & Staging di Git",
+    content: `**Masalah yang diselesaikan:** sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (\`script_v2_final.js\`, \`script_v2_REVISI.js\`) — tidak ada riwayat yang jelas, dan susah tahu apa saja yang sebenarnya berubah antar versi.
+
+Git bekerja dengan melacak perubahan file melalui tiga area utama: **Working Directory** (tempat kita mengedit file), **Staging Area** (area persiapan sebelum disimpan permanen), dan **Local Repository** (tempat riwayat commit tersimpan).
+
+\`\`\`mermaid
+flowchart LR
+  WD["Working Directory<br/>(file diubah)"] -->|git add| SA["Staging Area<br/>(file siap dicommit)"]
+  SA -->|git commit| LR["Local Repository<br/>(riwayat tersimpan)"]
+  LR -.->|git restore| WD
+\`\`\`
+
+Alur kerja dasar untuk menyimpan perubahan:
+
+\`\`\`bash
+# 1. Memeriksa status file yang baru dibuat atau diubah
+git status
+
+# 2. Memasukkan file tertentu ke Staging Area
+git add index.html
+
+# Atau memasukkan semua file yang berubah di direktori saat ini
+git add .
+
+# 3. Menyimpan perubahan dari Staging Area ke Repository dengan pesan deskriptif
+git commit -m "feat: tambah halaman beranda awal"
+
+# 4. Melihat riwayat commit yang sudah tercatat
+git log --oneline
+\`\`\`
+
+Poin penting:
+
+- Memisahkan \`git add\` dan \`git commit\` memberi kontrol penuh: kita bisa memilih file mana saja yang ingin digabungkan dalam satu commit logis, tanpa harus mencampur semua file yang sedang kita edit.
+- Pesan commit sebaiknya ringkas, jelas, dan menjelaskan *mengapa* atau *apa* perubahan yang dilakukan.
+- File baru yang belum pernah di-\`git add\` berstatus *untracked* (belum dilacak oleh Git).`,
+    sources: [
+      {
+        label: "Git Basics - Recording Changes to the Repository — Pro Git Book",
+        url: "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+      },
+    ],
+    prerequisites: [
+      { label: "Git sudah terinstall (cek dengan `git --version`)", url: "https://git-scm.com/downloads" },
+      { label: "Familiar dengan perintah dasar terminal/command line" },
+    ],
+    practice: `Buat folder baru, jalankan \`git init\` di dalamnya. Buat file \`catatan.txt\` berisi satu baris teks, jalankan \`git status\` — harus muncul sebagai *untracked*. Jalankan \`git add catatan.txt\`, cek \`git status\` lagi (sekarang *staged*). Commit dengan \`git commit -m "..."\`. Ubah lagi isi file itu dan jalankan \`git status\` sekali lagi — perhatikan Git membedakan status "modified" dari "untracked". Lihat riwayatnya dengan \`git log --oneline\`.`,
+  },
+  {
+    category: "git",
+    slug: "branching",
+    order: 1,
     title: "Dasar Branching di Git",
-    content: `Branch memungkinkan kita bekerja pada fitur/perbaikan tanpa mengganggu kode di branch utama.
+    content: `Sekarang kamu bisa commit perubahan secara berurutan di satu garis riwayat (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau coba-coba fitur baru atau perbaikan, tapi tidak mau kode \`main\` yang sudah stabil ikut berubah/rusak selama proses coba-coba itu?
+
+Branch memungkinkan kita bekerja pada fitur/perbaikan tanpa mengganggu kode di branch utama.
 
 \`\`\`mermaid
 gitGraph
@@ -92,6 +154,61 @@ Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang j
         url: "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
       },
     ],
+    practice: `Di repository dari latihan sebelumnya, buat branch baru \`git checkout -b fitur-baru\`, edit \`catatan.txt\`, commit perubahannya. Pindah balik ke \`main\` (\`git checkout main\`) — perhatikan isi \`catatan.txt\` kembali ke versi sebelum diedit di branch \`fitur-baru\`. Jalankan \`git merge fitur-baru\` dari \`main\`, cek isinya lagi (sekarang harus dapat perubahan dari branch itu). Terakhir hapus branch-nya: \`git branch -d fitur-baru\`.`,
+  },
+  {
+    category: "git",
+    slug: "remote-dasar",
+    order: 2,
+    title: "Git Remote: Push, Pull, dan Fetch",
+    content: `Sekarang kamu bisa commit dan bercabang di komputer sendiri. **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana kalau kode itu perlu dibagikan ke orang lain, atau di-backup di luar komputer kamu? Riwayat commit yang cuma ada di satu komputer rentan hilang (laptop rusak/hilang) dan tidak bisa diakses tim lain.
+
+Repository remote adalah salinan proyek yang disimpan di server internet atau jaringan (seperti GitHub atau GitLab), memungkinkan kolaborasi tim dan backup kode.
+
+\`\`\`mermaid
+sequenceDiagram
+  autonumber
+  participant L as Komputer Lokal
+  participant R as Remote Repository
+  Note over L,R: Alur Sinkronisasi Kode
+  L->>R: git push origin main
+  Note right of R: Commit lokal diunggah ke remote
+  R-->>L: git fetch origin
+  Note left of L: Unduh riwayat commit tanpa merge
+  R->>L: git pull origin main
+  Note left of L: Unduh dan gabungkan ke branch aktif
+\`\`\`
+
+Perintah umum bekerja dengan remote:
+
+\`\`\`bash
+# Mengkloning repository yang sudah ada ke komputer lokal
+git clone https://github.com/username/nama-repo.git
+
+# Melihat daftar remote yang terhubung beserta URL-nya
+git remote -v
+
+# Mengambil perubahan terbaru dari remote tanpa mengubah branch lokal (fetch)
+git fetch origin
+
+# Mengambil sekaligus menggabungkan perubahan terbaru ke branch lokal saat ini (pull)
+git pull origin main
+
+# Mengunggah commit lokal ke branch di remote repository (push)
+git push origin main
+\`\`\`
+
+Poin penting:
+
+- \`origin\` adalah nama alias standar untuk URL repository remote utama.
+- \`git fetch\` hanya mengunduh data riwayat baru dari remote; file lokalmu belum berubah sebelum kamu menjalankan \`git merge\`.
+- \`git pull\` merupakan kombinasi otomatis dari \`git fetch\` diikuti dengan \`git merge\`.
+- Sebelum melakukan \`git push\`, pastikan branch lokal sudah sinkron dengan versi remote untuk menghindari penolakan (non-fast-forward reject).`,
+    sources: [
+      { url: "https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes", label: "Git Basics - Working with Remotes — Pro Git Book" },
+    ],
+    prerequisites: [{ label: "Akun GitHub (atau GitLab/Bitbucket) sudah dibuat", url: "https://github.com/signup" }],
+    practice: `Buat repository baru di GitHub (kosong, tanpa README). Di project lokal dari latihan sebelumnya, jalankan \`git remote add origin <url-repo-kamu>\`, lalu \`git push origin main\` (atau \`master\`, tergantung nama branch default-nya). Refresh halaman GitHub — pastikan commit-commit kamu muncul di sana. Coba juga \`git clone <url-yang-sama>\` ke folder lain untuk simulasi "komputer lain" yang mengambil kode itu. Ini menutup roadmap Git: dari commit pertama sampai kolaborasi lewat remote.`,
   },
   {
     category: "javascript",
