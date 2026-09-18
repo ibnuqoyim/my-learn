@@ -961,6 +961,134 @@ Poin penting:
     ],
   },
   {
+    category: "supabase",
+    slug: "storage-dasar",
+    order: 4,
+    title: "Storage Dasar: Upload & Ambil URL File",
+    content: `Sekarang kamu bisa autentikasi user dan proteksi data lewat RLS. **Masalah yang diselesaikan sekarang:** bagaimana kalau aplikasi kamu perlu menyimpan *file* — foto profil, dokumen, gambar produk — bukan cuma data terstruktur di tabel? Menyimpan file sebagai base64 di kolom database itu boros dan lambat; kamu butuh tempat penyimpanan file terpisah yang tetap terintegrasi dengan sistem auth & RLS yang sama.
+
+**Supabase Storage** menyediakan penyimpanan file berbasis *bucket* (semacam folder besar), dengan kontrol akses yang bisa diatur sama seperti RLS di database.
+
+\`\`\`mermaid
+flowchart LR
+  File["File dari input user"] -->|upload| Bucket["Bucket (mis. 'avatars')"]
+  Bucket -->|"getPublicUrl()"| URL["URL publik file"]
+  Bucket -->|"createSignedUrl()"| SignedURL["URL sementara (bucket privat)"]
+\`\`\`
+
+\`\`\`ts
+import { supabase } from "./lib/supabase";
+
+// Upload file ke bucket "avatars"
+async function uploadAvatar(userId: string, file: File) {
+  const path = \`\${userId}/\${file.name}\`;
+  const { data, error } = await supabase.storage
+    .from("avatars")
+    .upload(path, file, { upsert: true });
+
+  if (error) throw error;
+  return data.path;
+}
+
+// Ambil URL publik (untuk bucket public)
+function ambilUrlAvatar(path: string) {
+  const { data } = supabase.storage.from("avatars").getPublicUrl(path);
+  return data.publicUrl;
+}
+
+// Ambil URL sementara/kedaluwarsa (untuk bucket privat)
+async function ambilUrlSementara(path: string) {
+  const { data, error } = await supabase.storage
+    .from("dokumen-privat")
+    .createSignedUrl(path, 60); // berlaku 60 detik
+
+  if (error) throw error;
+  return data.signedUrl;
+}
+\`\`\`
+
+| Jenis Bucket | Siapa yang bisa akses URL | Cara ambil URL |
+| --- | --- | --- |
+| Public | Siapa saja yang punya URL-nya | \`getPublicUrl()\` — URL permanen |
+| Private | Cuma yang lolos RLS storage | \`createSignedUrl()\` — URL sementara, kedaluwarsa |
+
+Poin penting:
+
+- Bucket dibuat lewat dashboard (Storage → New bucket) atau API, dan bisa ditandai *public* atau *private* saat pembuatan.
+- Penamaan path yang menyertakan \`userId/\` (seperti contoh di atas) memudahkan penulisan RLS policy storage berdasarkan pemilik file.
+- Storage juga punya RLS sendiri (tabel \`storage.objects\`) — bucket private tanpa policy akan menolak semua akses, sama seperti tabel biasa tanpa policy.`,
+    sources: [
+      { url: "https://supabase.com/docs/guides/storage", label: "Supabase Docs — Storage" },
+      { url: "https://supabase.com/docs/reference/javascript/storage-from-upload", label: "Supabase Docs — Storage Upload Reference" },
+    ],
+    practice: `Buat bucket baru bernama \`avatars\` lewat dashboard Supabase (Storage → New bucket), tandai sebagai *public*. Di project kamu, buat form upload sederhana (\`<input type="file">\`), upload file yang dipilih user ke bucket itu memakai \`uploadAvatar()\` di atas, lalu tampilkan hasilnya lewat tag \`<img src={url} />\` memakai \`ambilUrlAvatar()\`. Setelah berhasil, buat bucket KEDUA yang privat, upload file yang sama ke sana, dan buktikan \`getPublicUrl()\`-nya tidak bisa diakses langsung (403) sementara \`createSignedUrl()\` bisa.`,
+  },
+  {
+    category: "supabase",
+    slug: "realtime-dasar",
+    order: 5,
+    title: "Realtime Subscription Dasar",
+    content: `Sekarang kamu sudah bisa CRUD, auth, RLS, dan simpan file. **Masalah yang diselesaikan sekarang (dan menutup roadmap Supabase ini):** bagaimana kalau aplikasi kamu perlu tahu SAAT ITU JUGA ketika data berubah di database — tanpa user harus refresh halaman manual? Cara lama: *polling* (fetch ulang tiap beberapa detik), yang boros request dan tetap ada delay sampai beberapa detik.
+
+**Supabase Realtime** memungkinkan client mendengarkan perubahan data (INSERT/UPDATE/DELETE) langsung dari database lewat WebSocket, tanpa polling.
+
+\`\`\`mermaid
+sequenceDiagram
+  autonumber
+  participant DB as Database
+  participant RT as Supabase Realtime
+  participant C as Client (Browser)
+  C->>RT: channel().on('postgres_changes').subscribe()
+  Note over C,RT: Koneksi WebSocket terbuka
+  DB->>DB: INSERT INTO produk (...)
+  DB-->>RT: Perubahan terdeteksi
+  RT-->>C: Event terkirim real-time
+  Note over C: UI update tanpa reload
+\`\`\`
+
+\`\`\`ts
+import { supabase } from "./lib/supabase";
+
+// Mendengarkan semua perubahan di tabel "produk"
+const channel = supabase
+  .channel("produk-changes")
+  .on(
+    "postgres_changes",
+    { event: "*", schema: "public", table: "produk" },
+    (payload) => {
+      console.log("Perubahan diterima:", payload.eventType, payload.new);
+    }
+  )
+  .subscribe();
+
+// Berhenti mendengarkan (mis. saat komponen di-unmount)
+supabase.removeChannel(channel);
+\`\`\`
+
+Bisa juga dipersempit cuma ke event atau baris tertentu:
+
+\`\`\`ts
+supabase
+  .channel("produk-baru-saja")
+  .on(
+    "postgres_changes",
+    { event: "INSERT", schema: "public", table: "produk", filter: "kategori_id=eq.5" },
+    (payload) => console.log("Produk baru di kategori 5:", payload.new)
+  )
+  .subscribe();
+\`\`\`
+
+Poin penting:
+
+- Realtime harus diaktifkan dulu per tabel lewat dashboard (Database → Replication) atau SQL \`alter publication supabase_realtime add table produk;\` — tabel yang belum diaktifkan tidak akan mengirim event apa pun.
+- Payload event berisi \`eventType\` (\`INSERT\`/\`UPDATE\`/\`DELETE\`), \`new\` (data terbaru), dan \`old\` (data sebelumnya, untuk UPDATE/DELETE).
+- RLS tetap berlaku untuk Realtime — user cuma menerima event untuk baris yang boleh dia \`SELECT\` menurut policy yang ada.`,
+    sources: [
+      { url: "https://supabase.com/docs/guides/realtime/postgres-changes", label: "Supabase Docs — Postgres Changes (Realtime)" },
+    ],
+    practice: `Aktifkan Realtime untuk tabel \`produk\` (Database → Replication di dashboard, atau lewat SQL). Buka dua tab browser di halaman yang sama, keduanya menjalankan kode \`channel().on(...)\` di atas. Di tab pertama, insert produk baru (lewat kode atau dashboard) — lihat tab KEDUA, data barunya harus muncul di console tanpa reload halaman sama sekali. Coba juga persempit filter-nya cuma ke event \`INSERT\`, lalu ke baris tertentu pakai \`filter\`, dan buktikan event UPDATE/DELETE tidak lagi memicu callback-nya. Ini menutup roadmap Supabase: dari setup client sampai data yang live ter-sinkron ke semua client yang terhubung.`,
+  },
+  {
     category: "typescript",
     slug: "tipe-dasar",
     order: 0,
@@ -1051,5 +1179,106 @@ Perbedaan singkat:
     sources: [
       { label: "TypeScript Handbook — Object Types (Interfaces)", url: "https://www.typescriptlang.org/docs/handbook/2/objects.html" },
     ],
+  },
+  {
+    category: "typescript",
+    slug: "type-assertion-dasar",
+    order: 4,
+    title: "Type Assertion Dasar",
+    content: `Type narrowing di catatan sebelumnya membiarkan TypeScript menyimpulkan tipe lewat pengecekan runtime (\`typeof\`, \`instanceof\`, dst). **Masalah yang diselesaikan sekarang:** kadang KAMU tahu tipe sebenarnya dari sebuah nilai lebih pasti daripada yang bisa disimpulkan compiler — misalnya hasil \`document.getElementById()\` yang TypeScript anggap \`HTMLElement | null\`, padahal kamu yakin elemen itu selalu ada dan bertipe \`HTMLInputElement\` spesifik.
+
+**Type assertion** membiarkan kamu memberi tahu compiler tentang tipe suatu nilai secara manual — TANPA pengecekan runtime seperti narrowing. Ini paradigma yang sepenuhnya berbeda: narrowing itu compiler *memverifikasi*, assertion itu kamu yang *berjanji* (dan compiler percaya begitu saja).
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Narrowing["Type Narrowing (aman)"]
+    N1["if (typeof x === 'string')"] --> N2["Compiler VERIFIKASI saat runtime"]
+  end
+  subgraph Assertion["Type Assertion (janji developer)"]
+    A1["x as string"] --> A2["Compiler PERCAYA tanpa verifikasi"]
+    A2 -.->|"Kalau salah"| A3["Runtime Error!"]
+  end
+\`\`\`
+
+\`\`\`ts
+// Syntax "as" (direkomendasikan, wajib di file .tsx karena <> bentrok dengan JSX)
+const input = document.getElementById("username") as HTMLInputElement;
+input.value = "Budi"; // valid — TypeScript percaya ini HTMLInputElement
+
+// Non-null assertion (!) — bilang "aku yakin ini bukan null/undefined"
+const app = document.getElementById("app")!;
+app.innerHTML = "Halo"; // tanpa "!", TypeScript akan komplain "app mungkin null"
+
+// Assertion yang SALAH tetap lolos compile — bahaya baru terasa saat runtime
+const angka = "123" as unknown as number;
+console.log(angka.toFixed(2)); // compile OK, tapi runtime ERROR (angka aslinya string)
+\`\`\`
+
+Poin penting:
+
+- Assertion cuma memengaruhi apa yang compiler *percaya*, bukan mengubah nilai aslinya saat runtime — kalau assertion-nya salah, error baru muncul belakangan saat kode itu benar-benar dijalankan.
+- Pakai assertion secukupnya, di tempat yang benar-benar kamu yakin (DOM, hasil \`JSON.parse()\`, atau data dari API yang sudah divalidasi) — bukan sebagai jalan pintas untuk mengabaikan error tipe yang sebenarnya valid.
+- \`as unknown as T\` (double assertion) dipakai kalau dua tipe dianggap TypeScript "tidak cukup mirip" untuk di-assert langsung — tanda bahwa perlu dipikir ulang, bukan dipakai sembarangan.`,
+    sources: [
+      { url: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions", label: "TypeScript Handbook — Type Assertions" },
+    ],
+    practice: `Di kode yang berinteraksi dengan DOM (\`document.getElementById(...)\`), gunakan \`as HTMLInputElement\` untuk memberi tahu compiler elemen itu pasti input, lalu akses \`.value\`-nya. Setelah itu, SENGAJA buat assertion yang salah — misalnya \`const x = "halo" as unknown as number\` — lalu panggil \`x.toFixed(2)\`. Perhatikan: TypeScript TIDAK menangkap errornya saat compile (tidak seperti kalau kamu pakai narrowing), tapi kalau kode itu dijalankan sungguhan akan error runtime. Ini membuktikan bedanya "compiler percaya" (assertion) vs "compiler memverifikasi" (narrowing).`,
+  },
+  {
+    category: "typescript",
+    slug: "utility-types-dasar",
+    order: 6,
+    title: "Utility Types Dasar",
+    content: `Sekarang kamu paham generics — parameter tipe yang bisa diisi apa saja. TypeScript sendiri memakai generics secara internal untuk menyediakan **Utility Types**: tipe siap pakai yang memanipulasi tipe lain tanpa kamu perlu menulis ulang strukturnya dari nol. **Masalah yang diselesaikan:** sering kali kamu butuh VARIASI dari satu tipe yang sudah ada — misalnya tipe yang sama tapi semua propertinya opsional (untuk form update parsial), atau cuma sebagian properti saja (untuk preview card) — menulis interface baru dari nol untuk tiap variasi itu duplikatif dan gampang tidak sinkron kalau tipe aslinya berubah.
+
+\`\`\`mermaid
+flowchart TD
+  Produk["interface Produk<br/>{ id, nama, harga, deskripsi }"] --> Partial["Partial&lt;Produk&gt;<br/>semua opsional"]
+  Produk --> Pick["Pick&lt;Produk, 'id'|'nama'&gt;<br/>cuma sebagian"]
+  Produk --> Omit["Omit&lt;Produk, 'id'&gt;<br/>tanpa sebagian"]
+  Produk --> Record["Record&lt;string, number&gt;<br/>key-value custom"]
+\`\`\`
+
+\`\`\`ts
+interface Produk {
+  id: number;
+  nama: string;
+  harga: number;
+  deskripsi: string;
+}
+
+// Partial<T> — semua properti jadi opsional (cocok untuk update parsial/PATCH)
+type ProdukUpdate = Partial<Produk>;
+const update: ProdukUpdate = { harga: 60000 }; // valid, field lain boleh tidak diisi
+
+// Pick<T, K> — ambil beberapa properti saja
+type ProdukPreview = Pick<Produk, "id" | "nama" | "harga">;
+const preview: ProdukPreview = { id: 1, nama: "Buku", harga: 50000 };
+
+// Omit<T, K> — buang beberapa properti
+type ProdukTanpaDeskripsi = Omit<Produk, "deskripsi">;
+
+// Record<K, T> — bikin object type dengan key & value tertentu
+type DaftarHarga = Record<string, number>;
+const harga: DaftarHarga = { "produk-1": 10000, "produk-2": 25000 };
+\`\`\`
+
+| Utility Type | Fungsi | Contoh Use Case |
+| --- | --- | --- |
+| \`Partial<T>\` | Semua properti opsional | Body request \`PATCH\` (update parsial) |
+| \`Required<T>\` | Semua properti wajib (kebalikan \`Partial\`) | Validasi sebelum data disimpan ke database |
+| \`Pick<T, K>\` | Ambil sebagian properti | Data preview/card ringkas |
+| \`Omit<T, K>\` | Buang sebagian properti | Hilangkan field sensitif dari response API |
+| \`Record<K, T>\` | Object dengan key & value tertentu | Mapping/lookup table |
+
+Poin penting:
+
+- Semua utility type ini bawaan TypeScript (*global*), tidak perlu di-\`import\` dari mana pun.
+- \`Pick\`/\`Omit\` tidak membuat properti yang tersisa jadi opsional — kalau properti itu wajib di tipe asli, tetap wajib di hasil \`Pick\`/\`Omit\`.
+- Utility type bisa dikombinasikan, mis. \`Partial<Pick<Produk, "harga" | "deskripsi">>\` untuk "sebagian properti, dan itu pun opsional".`,
+    sources: [
+      { url: "https://www.typescriptlang.org/docs/handbook/utility-types.html", label: "TypeScript Handbook — Utility Types" },
+    ],
+    practice: `Dari \`interface Produk\` di atas (atau buat versi kamu sendiri), buat 4 variasi tipe: \`ProdukUpdate\` (\`Partial\`), \`ProdukPreview\` (\`Pick\` id+nama), \`ProdukTanpaHarga\` (\`Omit\`), dan \`DaftarStok\` (\`Record<string, number>\` memetakan nama produk ke jumlah stoknya). Isi masing-masing dengan data valid. Lalu SENGAJA hilangkan satu field wajib di \`ProdukPreview\` — pastikan compiler menolaknya, membuktikan \`Pick\` tidak membuat field jadi opsional, cuma memilih subset dari tipe aslinya.`,
   },
 ];
