@@ -47,9 +47,7 @@ harus berbentuk kotak-panah.
 ## Git
 
 - [x] Dasar Branching di Git (`notes/git/branching.md`)
-      *(belum ada diagram — tambahkan saat direvisi: commit graph
-      sederhana, garis `main` dengan satu branch bercabang lalu merge
-      balik, mirip output `git log --graph`.)*
+      *(sudah ada diagram commit graph.)*
 - [ ] **Dasar Commit & Staging** — `git init`/`clone`, `add`, `commit`,
       `status`, `diff`, `log` dasar. *(Prasyarat yang sebenarnya lebih
       dasar dari branching — prioritas tinggi karena catatan branching
@@ -77,14 +75,9 @@ harus berbentuk kotak-panah.
 ## JavaScript
 
 - [x] Memahami Closure (`notes/javascript/closure.md`)
-      *(belum ada diagram — tambahkan saat direvisi: kotak scope luar
-      `buatCounter()` yang membungkus kotak scope dalam (fungsi yang
-      di-return), dengan panah menunjukkan fungsi dalam tetap "memegang"
-      variabel `jumlah` walau scope luar sudah selesai dieksekusi.)*
+      *(sudah ada diagram scope luar/dalam.)*
 - [x] Async/Await di JavaScript (`notes/javascript/async-await.md`)
-      *(belum ada diagram — tambahkan saat direvisi: timeline sinkron
-      (blocking, satu per satu) berdampingan dengan timeline async/await
-      (kode lain tetap jalan selagi `await` menunggu).)*
+      *(sudah ada diagram timeline sinkron vs async.)*
 - [ ] **Promise Dasar** — state pending/fulfilled/rejected, `.then()`,
       `.catch()`. *(Idealnya ditulis sebelum Async/Await karena
       async/await adalah gula sintaks di atas Promise; tambahkan sebagai
@@ -116,10 +109,7 @@ harus berbentuk kotak-panah.
       standar, jadi contoh acuan format diagram untuk topik lain.)*
 - [x] Server Component vs Client Component
       (`notes/nextjs/server-client-components.md`)
-      *(belum ada diagram — tambahkan saat direvisi: dua kotak `Server`
-      dan `Browser`, tunjukkan Server Component render HTML di server
-      lalu kirim HTML saja, sedangkan Client Component ikut mengirim
-      bundle JS-nya ke Browser.)*
+      *(sudah ada diagram alur render Server -> Browser.)*
 - [ ] **Instalasi & Struktur Project Dasar** — `create-next-app`, struktur
       folder awal, `npm run dev`. *(Prasyarat sebelum routing, belum ada
       sama sekali di catatan saat ini.)*
@@ -146,14 +136,9 @@ harus berbentuk kotak-panah.
 ## Python
 
 - [x] List Comprehension (`notes/python/list-comprehension.md`)
-      *(belum ada diagram — tambahkan saat direvisi: pipeline
-      `[angka] -> for n in angka if kondisi -> [hasil]`, dibandingkan
-      berdampingan dengan versi loop `for` biasa yang sudah ada di
-      contoh kode.)*
+      *(sudah ada diagram pipeline filter elemen.)*
 - [x] Virtual Environment / venv (`notes/python/virtual-environment.md`)
-      *(belum ada diagram — tambahkan saat direvisi: satu kotak "Python
-      global" vs beberapa kotak "venv proyek A", "venv proyek B" yang
-      terisolasi, masing-masing dengan dependency sendiri.)*
+      *(sudah ada diagram isolasi dependency per proyek.)*
 - [ ] **Sintaks & Tipe Data Dasar** — variabel, `int`/`float`/`str`/`bool`,
       operator dasar. *(Prasyarat paling dasar, belum ada sama sekali.)*
   - Diagram: opsional — tabel ringkas tipe data dengan satu contoh nilai
@@ -182,11 +167,9 @@ harus berbentuk kotak-panah.
 ## Supabase
 
 - [x] Setup Supabase Client (`notes/supabase/setup-client.md`)
-      *(belum ada diagram — tambahkan saat direvisi: `App -> createClient() -> Supabase Client -> Supabase Project (Postgres + Auth + Storage)`.)*
+      *(sudah ada diagram App -> Client -> Supabase Project.)*
 - [x] Query Data Dasar / CRUD (`notes/supabase/query-dasar.md`)
-      *(belum ada diagram — tambahkan saat direvisi: tabel pemetaan
-      method Supabase ke operasi SQL, `select -> SELECT`,
-      `insert -> INSERT`, `update -> UPDATE`, `delete -> DELETE`.)*
+      *(sudah ada tabel pemetaan method -> SQL.)*
 - [ ] Autentikasi Dasar: sign up, sign in, sign out
       (`supabase.auth.*`)
   - Diagram: alur `sign up/sign in -> Supabase Auth -> session/token -> disertakan di request berikutnya`.
@@ -202,14 +185,10 @@ harus berbentuk kotak-panah.
 ## TypeScript
 
 - [x] Tipe Dasar & Type Annotation (`notes/typescript/tipe-dasar.md`)
-      *(belum ada diagram — tambahkan saat direvisi: opsional, tabel
-      ringkas tipe dasar (string/number/boolean/array/tuple) dengan satu
-      contoh nilai per tipe sudah cukup untuk topik ini.)*
+      *(sudah ada tabel tipe & contoh nilai.)*
 - [x] Interface & Type Alias
       (`notes/typescript/interface-dan-type-alias.md`)
-      *(belum ada diagram — tambahkan saat direvisi: opsional, dua blok
-      kode `interface` vs `type` berdampingan untuk bentuk object yang
-      sama biasanya lebih jelas daripada diagram alur.)*
+      *(sudah ada tabel perbandingan interface vs type.)*
 - [ ] Union Type & Literal Type Dasar
   - Diagram: diagram himpunan (set) sederhana — nilai-nilai yang
     termasuk `type Status = "aktif" | "nonaktif"` sebagai dua kotak
