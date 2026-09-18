@@ -24,3 +24,7 @@ Poin penting:
 - Setiap pemanggilan `buatCounter()` menghasilkan closure baru dengan `jumlah` masing-masing.
 - Variabel `jumlah` tetap hidup di memori selama closure-nya masih dipakai.
 - Sering dipakai untuk membuat data privat, seperti pola module.
+
+## Sumber
+
+- [Closures — MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)

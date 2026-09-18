@@ -24,6 +24,10 @@ notes/
 
 ## Menambah catatan baru
 
+> Aturan alur kerja dan standar isi materi (branch `draft`, fokus skill
+> dasar, wajib ada contoh & sumber valid) ada di [`CLAUDE.md`](./CLAUDE.md) —
+> baca dulu sebelum menambah/mengubah catatan.
+
 1. Pilih folder kategori yang sudah ada (`notes/javascript`, `notes/python`,
    `notes/git`), atau buat folder kategori baru di dalam `notes/`.
 2. Jika membuat kategori baru, tambahkan file `<nama-folder>.json` di folder
@@ -35,14 +39,23 @@ notes/
      "tags": "notes"
    }
    ```
-3. Tambahkan file `.md` baru di folder itu dengan front matter:
+3. Tambahkan file `.md` baru di folder itu dengan front matter, sertakan
+   contoh konkret dan tutup dengan bagian `## Sumber`:
    ```md
    ---
    title: Judul Catatan
    date: 2024-05-01
    ---
 
-   Isi catatan di sini, bisa pakai Markdown biasa (heading, list, code block, dst).
+   Penjelasan singkat skill dasar di sini.
+
+   ```lang
+   // contoh kode konkret
+   ```
+
+   ## Sumber
+
+   - [Nama sumber](https://url-resmi-yang-valid)
    ```
 4. Simpan — halaman beranda dan halaman kategori akan otomatis menampilkan
    catatan baru tersebut.

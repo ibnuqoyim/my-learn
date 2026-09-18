@@ -26,3 +26,7 @@ Tips:
 
 - Tambahkan folder `.venv/` ke `.gitignore` agar tidak ikut ter-commit.
 - Simpan daftar dependency dengan `pip freeze > requirements.txt`.
+
+## Sumber
+
+- [venv — Creation of virtual environments — Python Docs](https://docs.python.org/3/library/venv.html)

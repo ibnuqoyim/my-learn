@@ -22,3 +22,7 @@ Poin penting:
 - `await` hanya bisa dipakai di dalam fungsi `async`.
 - `await` menjeda eksekusi fungsi sampai Promise selesai, tanpa memblokir thread utama.
 - Gunakan `try/catch` untuk menangani error, menggantikan `.catch()` pada Promise biasa.
+
+## Sumber
+
+- [Making asynchronous programming easier with async and await — MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await)

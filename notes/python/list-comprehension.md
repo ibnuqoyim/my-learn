@@ -25,3 +25,7 @@ Bisa juga dipakai untuk dictionary comprehension:
 ```python
 kuadrat = {n: n**2 for n in angka}
 ```
+
+## Sumber
+
+- [List Comprehensions — Python Docs](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)

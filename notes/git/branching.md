@@ -23,3 +23,7 @@ git branch -d fitur-baru
 ```
 
 Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang jelas, dan gabungkan (merge) setelah selesai direview.
+
+## Sumber
+
+- [Git Branching - Branches in a Nutshell — Pro Git Book](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)
