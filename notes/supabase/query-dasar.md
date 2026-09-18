@@ -30,6 +30,15 @@ await supabase.from("produk").update({ harga: 60000 }).eq("id", 1);
 await supabase.from("produk").delete().eq("id", 1);
 ```
 
+```
+Method Supabase            Setara perintah SQL
+--------------------------  -------------------------------------
+.select("*")                 SELECT * FROM produk
+.insert({...})                INSERT INTO produk (...) VALUES (...)
+.update({...}).eq("id", 1)   UPDATE produk SET ... WHERE id = 1
+.delete().eq("id", 1)         DELETE FROM produk WHERE id = 1
+```
+
 Poin penting:
 
 - Setiap query mengembalikan `{ data, error }` — selalu cek `error` sebelum

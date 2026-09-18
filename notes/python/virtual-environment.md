@@ -6,6 +6,15 @@ updated: 2026-09-18
 
 Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
 
+```
+Tanpa venv (satu Python global, dependency tercampur & bisa bentrok):
+  Python global -- django==4, flask==3, requests==2.1, requests==2.31 (!?)
+
+Dengan venv (satu environment terisolasi per proyek):
+  Proyek A --- .venv A --- django==4,  requests==2.1
+  Proyek B --- .venv B --- flask==3,   requests==2.31
+```
+
 ```bash
 # membuat venv
 python -m venv .venv
