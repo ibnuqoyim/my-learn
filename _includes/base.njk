@@ -24,9 +24,39 @@
       <span class="icon-dark">☀️</span>
     </button>
   </header>
-  <main>
-    {{ content | safe }}
-  </main>
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <h2>Tulisan Terbaru</h2>
+          <ul class="note-list sidebar-list">
+            {% for note in collections.notes %}
+            {% if loop.index <= 8 %}
+            <li>
+              <a href="{{ note.url }}">{{ note.data.title }}</a>
+              <span class="meta">{{ note.data.category }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="sidebar-section">
+          <h2>Kategori</h2>
+          <ul class="category-list sidebar-list">
+            {% for category in collections.categoryList %}
+            <li>
+              <a href="/kategori/{{ category.slug }}/">{{ category.name }}</a>
+              <span class="count">({{ category.notes.length }})</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    <main>
+      {{ content | safe }}
+    </main>
+  </div>
   <footer class="site-footer">
     <p>Dibuat dengan Eleventy · Ditulis dalam Markdown</p>
   </footer>
