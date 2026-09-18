@@ -19,35 +19,41 @@ function sqlString(value) {
   return `'${String(value).replace(/'/g, "''")}'`;
 }
 
+function sqlNullableString(value) {
+  return value == null ? "null" : sqlString(value);
+}
+
 function buildSql() {
   const statements = [];
 
   for (const category of categories) {
     statements.push(
-      `insert into categories (name, slug) values (${sqlString(category.name)}, ${sqlString(category.slug)}) ` +
-        `on conflict (slug) do update set name = excluded.name;`
+      `insert into categories (name, slug, description) values (` +
+        `${sqlString(category.name)}, ${sqlString(category.slug)}, ${sqlNullableString(category.description)}` +
+        `) on conflict (slug) do update set name = excluded.name, description = excluded.description;`
     );
   }
 
   for (const note of notes) {
     const sourcesJson = sqlString(JSON.stringify(note.sources));
     statements.push(
-      `insert into notes (category_id, title, slug, content, sources, order_index, status) values (` +
+      `insert into notes (category_id, title, slug, content, sources, practice, order_index, status) values (` +
         `(select id from categories where slug = ${sqlString(note.category)}), ` +
         `${sqlString(note.title)}, ` +
         `${sqlString(note.slug)}, ` +
         `${sqlString(note.content)}, ` +
         `${sourcesJson}::jsonb, ` +
+        `${sqlNullableString(note.practice)}, ` +
         `${note.order ?? 0}, ` +
         `'published'` +
         `) on conflict (category_id, slug) do update set ` +
         `title = excluded.title, content = excluded.content, sources = excluded.sources, ` +
-        `order_index = excluded.order_index, status = excluded.status, ` +
+        `practice = excluded.practice, order_index = excluded.order_index, status = excluded.status, ` +
         // Hanya bump updated_at kalau memang ada yang berubah — supaya
         // re-run seed yang isinya sama tidak menggeser urutan "Tulisan
         // Terbaru" di seluruh catatan tanpa alasan.
-        `updated_at = case when (notes.title, notes.content, notes.sources, notes.order_index) ` +
-        `is distinct from (excluded.title, excluded.content, excluded.sources, excluded.order_index) ` +
+        `updated_at = case when (notes.title, notes.content, notes.sources, notes.practice, notes.order_index) ` +
+        `is distinct from (excluded.title, excluded.content, excluded.sources, excluded.practice, excluded.order_index) ` +
         `then now() else notes.updated_at end;`
     );
   }

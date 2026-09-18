@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import MarkdownContent from "@/components/MarkdownContent";
 import { getCategoryBySlug, getCurrentProfile, getNoteProgressMap } from "@/lib/queries";
 
 export async function generateMetadata({
@@ -39,9 +40,16 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         </Link>
       </p>
       <h1 className="mb-2 text-3xl font-bold">{category.name}</h1>
-      <p className="mb-4 text-sm text-muted">
-        Urutan belajar disarankan — mulai dari nomor 1, ikuti sampai selesai.
-      </p>
+
+      {category.description ? (
+        <div className="mb-6 rounded-md border border-accent/30 bg-code-bg p-4">
+          <MarkdownContent content={category.description} />
+        </div>
+      ) : (
+        <p className="mb-4 text-sm text-muted">
+          Urutan belajar disarankan — mulai dari nomor 1, ikuti sampai selesai.
+        </p>
+      )}
 
       {user && notes.length > 0 && (
         <div className="mb-6 rounded-md border border-border bg-code-bg p-3">

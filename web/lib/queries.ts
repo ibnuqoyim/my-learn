@@ -83,7 +83,7 @@ export async function getCategoryBySlug(
   const supabase = await createClient();
   const { data: category, error: categoryError } = await supabase
     .from("categories")
-    .select("id, name, slug")
+    .select("id, name, slug, description")
     .eq("slug", slug)
     .maybeSingle();
 
@@ -108,7 +108,7 @@ export async function getNoteBySlug(categorySlug: string, noteSlug: string): Pro
   const { data, error } = await supabase
     .from("notes")
     .select(
-      "id, title, slug, content, sources, created_at, updated_at, category:categories!inner(id, name, slug)"
+      "id, title, slug, content, sources, practice, order_index, created_at, updated_at, category:categories!inner(id, name, slug)"
     )
     .eq("slug", noteSlug)
     .eq("status", "published")
@@ -119,7 +119,18 @@ export async function getNoteBySlug(categorySlug: string, noteSlug: string): Pro
   if (!data) return null;
 
   const category = Array.isArray(data.category) ? data.category[0] : data.category;
-  return { ...data, category } as Note;
+  return {
+    id: data.id,
+    title: data.title,
+    slug: data.slug,
+    content: data.content,
+    sources: data.sources ?? [],
+    practice: data.practice ?? null,
+    orderIndex: data.order_index ?? 0,
+    created_at: data.created_at,
+    updated_at: data.updated_at,
+    category,
+  };
 }
 
 export async function getCurrentProfile(): Promise<Profile | null> {

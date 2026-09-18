@@ -5,9 +5,10 @@ bukan file Markdown, supaya bisa nambah fitur autentikasi, komentar, dan
 search.
 
 > Live di Vercel (root directory `web`), tersambung ke project Supabase
-> asli, berisi 6 kategori + 11 catatan. Blog statis Eleventy yang dulu ada
-> di root repo sudah dihapus sepenuhnya (cutover selesai) — lihat
-> `CLAUDE.md` di root untuk aturan alur kerja repo ini sekarang.
+> asli. Blog statis Eleventy yang dulu ada di root repo sudah dihapus
+> sepenuhnya (cutover selesai) — lihat `CLAUDE.md` di root untuk aturan
+> alur kerja repo ini sekarang, termasuk bagian 3 & 4 soal standar konten
+> roadmap (framing masalah, latihan hands-on, narasi per kategori).
 
 ## Setup (project Supabase baru dari nol)
 
@@ -17,7 +18,7 @@ search.
    Supabase, lihat komentar di file itu).
 3. Salin `.env.local.example` jadi `.env.local` (atau `.env`), isi dengan
    URL & key dari **Project Settings → API Keys**.
-4. Migrasikan 11 catatan awal — dua jalur, pilih salah satu:
+4. Migrasikan catatan awal (`scripts/seed-data.mjs`) — dua jalur, pilih salah satu:
    - Ada `SUPABASE_SECRET_KEY`: `npm run seed` (lewat supabase-js).
    - Cuma ada personal access token (PAT): `node scripts/seed-via-sql.mjs <project-ref>`
      (lewat Supabase Management API, lihat komentar di file itu).
@@ -42,10 +43,21 @@ search.
   halaman kategori, badge status di tiap catatan
 - [x] Navigasi "Sebelumnya/Selanjutnya" di halaman catatan mengikuti
   `order_index`, bukan cuma daftar kategori
+- [x] Narasi roadmap per kategori (`categories.description`) — masalah
+  besar apa yang diselesaikan teknologinya & bisa bikin apa di akhir,
+  ditampilkan di atas daftar catatan
+- [x] Framing "masalah yang diselesaikan" + kesinambungan antar-catatan di
+  paragraf pembuka (lihat CLAUDE.md bagian 3 poin 2)
+- [x] Latihan hands-on per catatan (`notes.practice`) — kotak
+  "🎯 Coba Sendiri" di halaman catatan, dikerjakan di project sendiri
+
+Kategori `nextjs` (9 catatan, urutan lengkap dari instalasi sampai
+metadata/SEO) jadi contoh acuan pola roadmap ini diterapkan penuh — lihat
+`web/scripts/seed-data.mjs`.
 
 Semua fitur di atas sudah dites end-to-end dengan project Supabase asli
-(signup, konfirmasi email, login, komentar, progress, search) — bukan cuma
-lolos build.
+(signup, konfirmasi email, login, komentar, progress, search, navigasi
+roadmap 9 langkah) — bukan cuma lolos build.
 
 ## Belum dikerjakan
 

@@ -53,6 +53,13 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
 
       <MarkdownContent content={note.content} />
 
+      {note.practice && (
+        <div className="mb-6 rounded-md border-2 border-accent/40 bg-code-bg p-4">
+          <h2 className="mb-2 text-lg font-bold">🎯 Coba Sendiri</h2>
+          <MarkdownContent content={note.practice} />
+        </div>
+      )}
+
       {note.sources.length > 0 && (
         <>
           <h2 className="mt-10 mb-2 border-b border-border pb-1 text-xl font-bold">Sumber</h2>

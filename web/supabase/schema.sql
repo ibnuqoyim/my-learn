@@ -10,6 +10,12 @@ create table if not exists categories (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   slug text not null unique,
+  -- Narasi roadmap: masalah besar apa yang diselesaikan teknologi ini,
+  -- dan bisa bikin apa setelah menyelesaikan urutan catatan di kategori
+  -- ini. Ditampilkan di atas daftar catatan pada halaman kategori.
+  -- Nullable — kategori tanpa deskripsi tetap tampil normal, cuma tanpa
+  -- bagian narasi di atasnya.
+  description text,
   created_at timestamptz not null default now()
 );
 
@@ -26,6 +32,11 @@ create table if not exists notes (
   slug text not null,
   content text not null,
   sources jsonb not null default '[]'::jsonb,
+  -- Latihan hands-on yang disarankan setelah membaca catatan ini (markdown,
+  -- boleh berisi contoh kode). Ditampilkan sebagai kotak "Coba Sendiri"
+  -- terpisah dari isi utama. Nullable — bukan semua catatan (mis. topik
+  -- konfigurasi) cocok punya latihan.
+  practice text,
   status text not null default 'draft' check (status in ('draft', 'published')),
   -- Urutan belajar di dalam kategori (0, 1, 2, ...) — bukan urutan
   -- ditulis/di-update, tapi urutan disarankan dipelajari (prasyarat dulu,
@@ -69,6 +80,8 @@ alter table notes
 -- kolomnya lewat ALTER TABLE idempotent supaya file ini aman dijalankan
 -- ulang kapan saja.
 alter table notes add column if not exists order_index integer not null default 0;
+alter table notes add column if not exists practice text;
+alter table categories add column if not exists description text;
 
 create index if not exists notes_search_vector_idx on notes using gin (search_vector);
 create index if not exists notes_status_idx on notes (status);

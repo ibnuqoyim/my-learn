@@ -31,7 +31,10 @@ async function main() {
   for (const category of categories) {
     const { data, error } = await supabase
       .from("categories")
-      .upsert({ name: category.name, slug: category.slug }, { onConflict: "slug" })
+      .upsert(
+        { name: category.name, slug: category.slug, description: category.description ?? null },
+        { onConflict: "slug" }
+      )
       .select("id, slug")
       .single();
 
@@ -48,6 +51,7 @@ async function main() {
       slug: note.slug,
       content: note.content,
       sources: note.sources,
+      practice: note.practice ?? null,
       order_index: note.order ?? 0,
       status: "published",
     };
@@ -57,7 +61,7 @@ async function main() {
     // "Tulisan Terbaru") tanpa alasan.
     const { data: existing } = await supabase
       .from("notes")
-      .select("title, content, sources, order_index")
+      .select("title, content, sources, practice, order_index")
       .eq("category_id", category_id)
       .eq("slug", note.slug)
       .maybeSingle();
@@ -66,6 +70,7 @@ async function main() {
       !existing ||
       existing.title !== payload.title ||
       existing.content !== payload.content ||
+      existing.practice !== payload.practice ||
       existing.order_index !== payload.order_index ||
       JSON.stringify(existing.sources) !== JSON.stringify(payload.sources);
 

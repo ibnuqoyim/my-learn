@@ -2,6 +2,10 @@ export type Category = {
   id: string;
   name: string;
   slug: string;
+  // Cuma diisi kalau memang di-select (mis. di getCategoryBySlug) — query
+  // yang menyisipkan Category sebagai relasi ringkas (di dalam
+  // NoteSummary) tidak perlu ikut fetch ini.
+  description?: string | null;
 };
 
 export type NoteSource = {
@@ -21,6 +25,7 @@ export type NoteSummary = {
 export type Note = NoteSummary & {
   content: string;
   sources: NoteSource[];
+  practice: string | null;
   created_at: string;
 };
 

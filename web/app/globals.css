@@ -55,6 +55,15 @@ body {
   @apply list-disc pl-6 mb-4 space-y-1;
 }
 
+.prose-note ol {
+  @apply list-decimal pl-6 mb-4 space-y-1;
+}
+
+.prose-note li > ul,
+.prose-note li > ol {
+  @apply mb-0 mt-1;
+}
+
 .prose-note a {
   @apply text-accent underline underline-offset-2;
 }
