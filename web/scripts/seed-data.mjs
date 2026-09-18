@@ -13,7 +13,15 @@ Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), bercaban
 
 **Asumsi:** familiar dengan command line/terminal dasar. Prasyarat tool (Git, akun GitHub) disebutkan di catatan yang membutuhkannya.`,
   },
-  { name: "JavaScript", slug: "javascript" },
+  {
+    name: "JavaScript",
+    slug: "javascript",
+    description: `Dua konsep JavaScript yang sering disalahpahami pemula, tapi jadi fondasi buat memahami kode JS yang lebih besar: closure (bagaimana fungsi "mengingat" variabel dari scope-nya, jadi cara umum membuat data privat) dan async/await (cara menulis kode asinkron yang terlihat sinkron, menghindari "callback hell").
+
+Dua catatan ini relatif independen satu sama lain — tidak ada urutan prasyarat ketat di antaranya, tapi closure biasanya lebih dulu dikenalkan karena polanya lebih dasar.
+
+**Asumsi:** familiar dengan sintaks dasar JavaScript (variabel, function, if/else, array).`,
+  },
   {
     name: "Next.js",
     slug: "nextjs",
@@ -23,7 +31,15 @@ Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router
 
 **Asumsi:** roadmap ini fokus ke Next.js itu sendiri, bukan mengajari React dari nol — kamu perlu familiar dengan dasar JavaScript dan konsep component/props/hooks di React (belum ada roadmap React tersendiri di platform ini). Prasyarat tool spesifik (mis. versi Node.js) disebutkan di catatan pertama.`,
   },
-  { name: "Python", slug: "python" },
+  {
+    name: "Python",
+    slug: "python",
+    description: `Dua skill dasar Python yang sering dipakai harian: list comprehension (cara ringkas membuat list baru dari list lain, menggantikan loop-append manual) dan virtual environment (mengisolasi dependency per proyek supaya versi package tidak bentrok antar proyek).
+
+Dua catatan ini relatif independen satu sama lain — tidak ada urutan prasyarat ketat di antaranya.
+
+**Asumsi:** familiar dengan sintaks dasar Python (variabel, \`for\` loop, function).`,
+  },
   {
     name: "Supabase",
     slug: "supabase",
@@ -215,7 +231,9 @@ Poin penting:
     slug: "closure",
     order: 0,
     title: "Memahami Closure",
-    content: `Closure adalah fungsi yang "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar sudah selesai dieksekusi.
+    content: `**Masalah yang diselesaikan:** bagaimana membuat variabel yang privat ke satu fungsi, tapi tetap bisa diakses/diubah oleh fungsi lain yang terkait dengannya — tanpa membuat variabel itu global (yang berisiko tertimpa atau diubah kode lain secara tidak sengaja)? Sebelum closure dipahami, satu-satunya cara menyimpan state antar pemanggilan fungsi terasa seperti harus pakai variabel global.
+
+Closure adalah fungsi yang "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar sudah selesai dieksekusi.
 
 \`\`\`js
 function buatCounter() {
@@ -250,13 +268,16 @@ Poin penting:
     sources: [
       { label: "Closures — MDN Web Docs", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures" },
     ],
+    practice: `Modifikasi \`buatCounter()\` supaya mengembalikan object berisi dua fungsi sekaligus: \`tambah()\` dan \`kurang()\`, keduanya berbagi variabel \`jumlah\` yang sama lewat closure. Buat dua instance counter berbeda (\`counterA\` dan \`counterB\`) dari \`buatCounter()\` yang sama, lalu buktikan variabel \`jumlah\` masing-masing independen — mengubah \`counterA\` tidak memengaruhi \`counterB\` sama sekali.`,
   },
   {
     category: "javascript",
     slug: "async-await",
     order: 1,
     title: "Async/Await di JavaScript",
-    content: `\`async/await\` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.
+    content: `**Masalah yang diselesaikan:** sebelum Promise dan \`async/await\` umum dipakai, kode asinkron (fetch data, timer, dll) ditulis pakai callback bersarang yang cepat jadi sulit dibaca begitu ada beberapa langkah asinkron berurutan ("callback hell").
+
+\`async/await\` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.
 
 \`\`\`mermaid
 graph LR
@@ -291,6 +312,7 @@ Poin penting:
         url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
       },
     ],
+    practice: `Tulis fungsi \`ambilDuaData()\` yang memanggil dua endpoint berbeda (mis. \`https://jsonplaceholder.typicode.com/users/1\` dan \`.../posts/1\`) satu per satu pakai \`await\` berurutan, catat waktunya (\`console.time\`/\`console.timeEnd\`). Lalu tulis ulang supaya kedua \`fetch\` itu jalan bersamaan pakai \`Promise.all([...])\` — bandingkan waktunya, harus jauh lebih cepat karena tidak menunggu satu selesai dulu sebelum mulai yang lain.`,
   },
   {
     category: "nextjs",
@@ -925,7 +947,9 @@ export default function NoteDetailPage({ params }: Props) {
     slug: "list-comprehension",
     order: 0,
     title: "List Comprehension",
-    content: `List comprehension adalah cara ringkas membuat list baru dari list/iterable lain.
+    content: `**Masalah yang diselesaikan:** transformasi atau filter list yang sering dipakai (misalnya ambil elemen genap saja) biasanya butuh beberapa baris kode (deklarasi list kosong, loop, if, append) untuk operasi yang sebenarnya konsepnya sederhana.
+
+List comprehension adalah cara ringkas membuat list baru dari list/iterable lain.
 
 \`\`\`mermaid
 graph TD
@@ -962,13 +986,16 @@ kuadrat = {n: n**2 for n in angka}
         url: "https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions",
       },
     ],
+    practice: `Diberikan \`kata = ['apel', 'jeruk', 'kiwi', 'nanas', 'anggur']\`, buat list comprehension baru yang cuma mengambil kata dengan panjang lebih dari 4 huruf, dan sekaligus ubah semuanya jadi huruf besar (\`.upper()\`). Lalu buat dictionary comprehension \`{kata: len(kata) for kata in kata}\` untuk memetakan tiap kata ke panjangnya.`,
   },
   {
     category: "python",
     slug: "virtual-environment",
     order: 1,
     title: "Virtual Environment (venv)",
-    content: `Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
+    content: `**Masalah yang diselesaikan:** kalau semua dependency Python diinstall secara global (satu Python untuk semua proyek), proyek A yang butuh \`django==4\` dan proyek B yang butuh \`django==3\` akan bertabrakan — cuma bisa ada satu versi terinstall global di satu waktu.
+
+Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
 
 \`\`\`mermaid
 graph TD
@@ -1004,6 +1031,8 @@ Tips:
     sources: [
       { label: "venv — Creation of virtual environments — Python Docs", url: "https://docs.python.org/3/library/venv.html" },
     ],
+    prerequisites: [{ label: "Python sudah terinstall (cek dengan `python --version`)", url: "https://www.python.org/downloads/" }],
+    practice: `Buat dua folder proyek berbeda. Di masing-masing, buat venv terpisah (\`python -m venv .venv\`), aktifkan, lalu install versi \`requests\` yang BERBEDA di tiap proyek (mis. \`pip install requests==2.31.0\` di satu, \`pip install requests==2.28.0\` di lainnya). Jalankan \`pip freeze\` di kedua venv untuk membuktikan versinya benar-benar berbeda dan tidak saling memengaruhi satu sama lain.`,
   },
   {
     category: "supabase",
