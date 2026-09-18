@@ -70,3 +70,16 @@ body {
 .prose-note pre code {
   @apply bg-transparent p-0;
 }
+
+.prose-note table {
+  @apply w-full mb-4 border-collapse text-sm;
+}
+
+.prose-note th,
+.prose-note td {
+  @apply border border-border px-3 py-2 text-left align-top;
+}
+
+.prose-note th {
+  @apply bg-code-bg font-bold;
+}
