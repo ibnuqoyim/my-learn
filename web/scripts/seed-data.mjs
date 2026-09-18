@@ -20,6 +20,15 @@ Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router
   { name: "Python", slug: "python" },
   { name: "Supabase", slug: "supabase" },
   { name: "TypeScript", slug: "typescript" },
+  {
+    name: ".NET",
+    slug: "dotnet",
+    description: `Sebelum .NET Core (2016 ke atas), .NET Framework hanya berjalan di Windows — sulit dipakai untuk deployment modern yang mengandalkan server Linux dan container. .NET sekarang adalah platform open-source dan cross-platform dari Microsoft: satu SDK yang jalan di Windows, Linux, maupun macOS, untuk membangun aplikasi web, cloud, hingga desktop.
+
+Roadmap ini membawamu dari pengenalan ekosistem & CLI \`dotnet\`, dasar bahasa C# (tipe data, class, record), pola Dependency Injection yang jadi tulang punggung aplikasi .NET modern, sampai membangun REST API sungguhan lewat ASP.NET Core Minimal API. Lima langkah, ikuti berurutan.
+
+**Asumsi:** roadmap ini menjelaskan dari dasar, tapi familiar dengan konsep OOP (object, class) dari bahasa lain akan membantu mempercepat pemahaman. Prasyarat tool (.NET SDK) disebutkan di catatan pertama.`,
+  },
 ];
 
 export const notes = [
@@ -1051,5 +1060,357 @@ Perbedaan singkat:
     sources: [
       { label: "TypeScript Handbook — Object Types (Interfaces)", url: "https://www.typescriptlang.org/docs/handbook/2/objects.html" },
     ],
+  },
+  {
+    category: "dotnet",
+    slug: "pengenalan-dotnet-dan-cli",
+    order: 0,
+    title: "Pengenalan Ekosistem .NET & CLI Dasar",
+    content: `**Masalah yang diselesaikan:** sebelum .NET Core (2016 ke atas), .NET Framework hanya berjalan di Windows — sulit dipakai untuk deployment modern yang mengandalkan server Linux dan container Docker, yang jadi standar industri sekarang.
+
+.NET adalah platform pengembangan perangkat lunak open-source dan cross-platform dari Microsoft untuk membangun berbagai jenis aplikasi (web, mobile, desktop, cloud, hingga IoT).
+
+\`\`\`mermaid
+flowchart TD
+    subgraph Ecosystem [".NET Ecosystem"]
+        Lang["Bahasa: C# / F# / VB.NET"]
+        Comp["Roslyn Compiler"]
+        IL["Intermediate Language (IL)"]
+        CLR["Common Language Runtime (CLR / CoreCLR)"]
+        OS["Sistem Operasi: Linux / Windows / macOS"]
+
+        Lang --> Comp --> IL --> CLR --> OS
+    end
+\`\`\`
+
+### Perintah Dasar .NET CLI (\`dotnet\`)
+Untuk mengelola proyek berbasis .NET, kita menggunakan command-line tool \`dotnet\`:
+
+\`\`\`bash
+# Cek versi SDK yang terpasang
+dotnet --version
+
+# Membuat proyek Console App baru
+dotnet new console -n HaloDunia
+cd HaloDunia
+
+# Menjalankan proyek
+dotnet run
+
+# Membangun (compile) kode
+dotnet build
+
+# Menambahkan package NuGet
+dotnet add package Newtonsoft.Json
+\`\`\`
+
+### Struktur File Proyek .NET
+File \`.csproj\` (C# Project) berisi informasi SDK, target framework (.NET 8/9), dan dependensi:
+
+\`\`\`xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
+\`\`\`
+
+- **Runtime & SDK**: SDK digunakan untuk membangun dan menjalankan proyek, Runtime hanya untuk menjalankan aplikasi yang sudah di-compile.
+- **Cross-Platform**: Kode yang ditulis di C# dapat berjalan di Linux, macOS, dan Windows tanpa perubahan.`,
+    sources: [
+      { url: "https://learn.microsoft.com/en-us/dotnet/core/introduction", label: "Microsoft Learn — What is .NET?" },
+      { url: "https://learn.microsoft.com/en-us/dotnet/core/tools/", label: "Microsoft Learn — .NET CLI Overview" },
+    ],
+    prerequisites: [
+      { label: ".NET SDK versi 8 atau lebih baru sudah terinstall (cek dengan `dotnet --version`)", url: "https://dotnet.microsoft.com/download" },
+      { label: "Familiar dengan perintah dasar terminal/command line" },
+    ],
+    practice: `Jalankan \`dotnet --version\` untuk cek SDK yang terpasang. Buat console app baru (\`dotnet new console -n HaloDunia\`), masuk ke foldernya, jalankan (\`dotnet run\`) — harus muncul "Hello, World!". Lalu:
+
+1. Edit \`Program.cs\` supaya mencetak nama kamu sendiri, jalankan ulang.
+2. Jalankan \`dotnet add package Newtonsoft.Json\`, buka file \`.csproj\` — perhatikan baris \`<PackageReference>\` baru yang otomatis ditambahkan.`,
+  },
+  {
+    category: "dotnet",
+    slug: "csharp-dasar-dan-tipe-data",
+    order: 1,
+    title: "Struktur Program C# & Tipe Data Dasar",
+    content: `Project .NET kamu dari catatan sebelumnya sudah bisa jalan. **Masalah yang diselesaikan sekarang:** bagaimana menulis kode C# yang sebenarnya? Dulu, C# selalu butuh boilerplate \`class Program\` dan method \`Main\` sebelum baris kode aplikasi pertama ditulis — sejak C# 9/10, *Top-Level Statements* menghilangkan boilerplate itu.
+
+C# adalah bahasa pemrograman berorientasi objek yang bertipe statis (*statically typed*) dan *type-safe*. Sejak C# 9/10, kita bisa menggunakan *Top-Level Statements* untuk menulis kode yang sangat ringkas tanpa boilerplate class \`Program\`.
+
+\`\`\`mermaid
+flowchart TD
+    subgraph DataStructures ["Tipe Data di C#"]
+        V["Value Types (Disimpan di Stack)<br/>int, double, bool, char, struct"]
+        R["Reference Types (Disimpan di Heap)<br/>string, object, class, record, array"]
+    end
+\`\`\`
+
+### 1. Contoh Program C# Sederhana (Top-Level Statements)
+\`\`\`csharp
+// Program.cs
+string nama = "Budi";
+int umur = 25;
+double tinggiBadan = 172.5;
+bool isActive = true;
+
+Console.WriteLine($"Halo, nama saya {nama}, umur {umur} tahun.");
+\`\`\`
+
+### 2. Tipe Data Primitif Populer
+
+| Tipe Data | Ukuran | Contoh Nilai | Keterangan |
+| --- | --- | --- | --- |
+| \`int\` | 32-bit | \`42\` | Bilangan bulat standar |
+| \`long\` | 64-bit | \`3000000000L\` | Bilangan bulat besar |
+| \`double\` | 64-bit | \`3.14159\` | Bilangan desimal presisi ganda |
+| \`decimal\` | 128-bit | \`199.99m\` | Sangat akurat untuk perhitungan uang / finansial |
+| \`bool\` | 8-bit | \`true\` / \`false\` | Nilai kebenaran boolean |
+| \`string\` | Variabel | \`"Belajar .NET"\` | Teks / karakter berurutan |
+
+### 3. Nullable Reference Types (\`?\`)
+Secara default pada .NET modern, compiler memperingatkan potensi nilai null (*null safety*):
+
+\`\`\`csharp
+string? namaOpsional = null; // Boleh null karena ada tanda '?'
+string namaWajib = "Ibnu";    // Tidak boleh null
+
+if (namaOpsional is not null)
+{
+    Console.WriteLine(namaOpsional.ToUpper());
+}
+\`\`\``,
+    sources: [
+      { url: "https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/types", label: "Microsoft Learn — C# Types & Variables" },
+    ],
+    practice: `Buat variabel bertipe \`int\`, \`double\`, \`bool\`, \`string\` seperti contoh di atas, cetak semuanya dalam satu baris pakai string interpolation (\`$"..."\`). Lalu coba deklarasikan \`string? namaOpsional = null;\` dan \`string namaWajib = null;\` — perhatikan warning/error yang muncul dari compiler soal nullable reference types pada baris kedua.`,
+  },
+  {
+    category: "dotnet",
+    slug: "csharp-class-dan-record",
+    order: 2,
+    title: "Class, Record, dan Objek di C#",
+    content: `Catatan sebelumnya membahas tipe data untuk nilai tunggal. **Masalah yang diselesaikan sekarang:** bagaimana merepresentasikan data yang punya banyak properti terkait sekaligus (misalnya data mahasiswa: id, nama, jurusan) dan punya perilaku (method) yang menyertainya?
+
+C# mendukung Pemrograman Berorientasi Objek (OOP) dengan \`class\`, serta tipe data *immutable* modern yang ringkas menggunakan \`record\`.
+
+\`\`\`mermaid
+classDiagram
+    class Mahasiswa {
+        +int Id
+        +string Nama
+        +string Jurusan
+        +Belajar() void
+    }
+    class ProdukRecord {
+        <<record>>
+        +string Kode
+        +decimal Harga
+    }
+\`\`\`
+
+### 1. Membuat Class Biasa
+\`\`\`csharp
+public class Mahasiswa
+{
+    // Auto-implemented Properties
+    public int Id { get; set; }
+    public string Nama { get; set; }
+    public string Jurusan { get; set; }
+
+    // Constructor
+    public Mahasiswa(int id, string nama, string jurusan)
+    {
+        Id = id;
+        Nama = nama;
+        Jurusan = jurusan;
+    }
+
+    public void Sapa()
+    {
+        Console.WriteLine($"Halo, saya {Nama} dari jurusan {Jurusan}.");
+    }
+}
+
+var mhs = new Mahasiswa(1, "Siti", "Informatika");
+mhs.Sapa();
+\`\`\`
+
+### 2. Menggunakan \`record\` (Immutable Data Transfer Object)
+\`record\` sangat berguna untuk DTO (Data Transfer Object) karena otomatis memiliki *value-based equality* dan bersifat *immutable*:
+
+\`\`\`csharp
+// Definisi ringkas satu baris (Positional Record)
+public record Produk(string Nama, decimal Harga);
+
+var p1 = new Produk("Laptop", 12000000m);
+var p2 = new Produk("Laptop", 12000000m);
+
+// Value Equality: membandingkan isi nilai, bukan alamat memori
+Console.WriteLine(p1 == p2); // Output: True
+
+// Non-destructive Mutation dengan keyword 'with'
+var p3 = p1 with { Harga = 11500000m };
+Console.WriteLine($"Harga diskon: {p3.Harga}");
+\`\`\`
+
+- Gunakan **\`class\`** saat object memiliki *state* yang sering berubah (mutable) dan memiliki logika bisnis yang kompleks.
+- Gunakan **\`record\`** untuk model data murni / DTO / response API yang tidak berubah.`,
+    sources: [
+      { url: "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes", label: "Microsoft Learn — Classes and Records in C#" },
+    ],
+    practice: `Buat \`class Produk\` dengan properti \`Nama\` & \`Harga\` plus method \`TampilkanInfo()\`. Lalu buat versi \`record\` untuk data yang sama. Buat dua instance \`record\` dengan nilai identik, bandingkan dengan \`==\` (harus \`True\` karena value equality) — lalu coba hal yang sama dengan dua instance \`class\` biasa yang nilainya identik (harus \`False\`, karena class memakai reference equality secara default).`,
+  },
+  {
+    category: "dotnet",
+    slug: "dotnet-dependency-injection",
+    order: 3,
+    title: "Dependency Injection (DI) Dasar di .NET",
+    content: `Sekarang kamu bisa bikin class dan object di C#. **Masalah yang diselesaikan sekarang:** kalau satu class butuh instance dari class lain (misalnya \`NotifikasiManager\` butuh \`EmailService\` untuk mengirim email), cara paling naif adalah \`new EmailService()\` langsung di dalam \`NotifikasiManager\`. Ini membuat kedua class jadi kaku (*tightly coupled*) — susah dites (tidak bisa diganti versi palsu/mock saat testing) dan susah diganti implementasinya (misal ganti dari email ke SMS).
+
+Dependency Injection (DI) adalah pola desain (*design pattern*) bawaan di .NET untuk mencapai *Inversion of Control* (IoC), di mana ketergantungan antar kelas diatur oleh framework (*Service Container*) alih-alih di-instansiasi manual (\`new\`).
+
+\`\`\`mermaid
+flowchart TD
+    subgraph Container ["IoC Service Container"]
+        Reg["Daftarkan: builder.Services.AddScoped&lt;IPembayaran, TransferBank&gt;()"]
+    end
+
+    Req["Request Masuk / Controller"] --> Inject["Injeksi otomatis lewat Constructor"]
+    Container -.->|Menyediakan instance| Inject
+    Inject --> App["PesananService(IPembayaran pembayaran)"]
+\`\`\`
+
+### 3 Macam Service Lifetime di .NET
+
+| Lifetime | Method Registrasi | Karakteristik Siklus Hidup |
+| --- | --- | --- |
+| **Transient** | \`AddTransient<T>()\` | Instance baru dibuat **setiap kali** diminta (cocok untuk service ringan tanpa state). |
+| **Scoped** | \`AddScoped<T>()\` | Satu instance dibuat **per HTTP Request** (standar untuk database context seperti Entity Framework). |
+| **Singleton** | \`AddSingleton<T>()\` | Hanya ada **satu instance** selama aplikasi berjalan (cocok untuk caching global / configuration). |
+
+### Contoh Penggunaan Constructor Injection
+\`\`\`csharp
+// 1. Interface kontrak
+public interface IEmailService
+{
+    void KirimEmail(string tujuan, string pesan);
+}
+
+// 2. Implementasi
+public class EmailService : IEmailService
+{
+    public void KirimEmail(string tujuan, string pesan)
+    {
+        Console.WriteLine($"Mengirim email ke {tujuan}: {pesan}");
+    }
+}
+
+// 3. Konsumen Service (Injeksi lewat Constructor)
+public class NotifikasiManager
+{
+    private readonly IEmailService _emailService;
+
+    public NotifikasiManager(IEmailService emailService)
+    {
+        _emailService = emailService;
+    }
+
+    public void BeritahuUser(string email)
+    {
+        _emailService.KirimEmail(email, "Selamat datang di sistem!");
+    }
+}
+\`\`\`
+
+### Registrasi di \`Program.cs\`:
+\`\`\`csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Mendaftarkan service ke IoC container
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<NotifikasiManager>();
+
+var app = builder.Build();
+\`\`\``,
+    sources: [
+      { url: "https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection", label: "Microsoft Learn — Dependency Injection in .NET" },
+    ],
+    practice: `Ikuti contoh \`IEmailService\`/\`EmailService\`/\`NotifikasiManager\` di atas dalam satu console app (tambahkan package \`Microsoft.Extensions.DependencyInjection\` kalau bukan project web). Daftarkan service-nya, lalu ambil \`NotifikasiManager\` dari container dan panggil \`BeritahuUser\`. Setelah jalan, buat implementasi KEDUA dari \`IEmailService\` (misal \`ConsoleLogEmailService\` yang cuma print ke console), ganti registrasinya ke implementasi baru itu — perhatikan kode \`NotifikasiManager\` tidak perlu diubah sama sekali.`,
+  },
+  {
+    category: "dotnet",
+    slug: "aspnet-core-minimal-api",
+    order: 4,
+    title: "Membangun REST API dengan ASP.NET Core Minimal API",
+    content: `Sekarang kamu paham Dependency Injection, yang jadi tulang punggung ASP.NET Core. **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana mengekspos logic yang sudah kamu bangun jadi HTTP endpoint yang bisa diakses aplikasi lain (mobile app, frontend web)? Sebelum Minimal API, ASP.NET Core butuh struktur controller yang cukup verbose untuk API sederhana.
+
+Minimal API adalah pendekatan modern dan efisien di ASP.NET Core untuk membangun endpoint HTTP / REST API dengan kode yang sangat ringkas tanpa membutuhkan controller yang kompleks.
+
+\`\`\`mermaid
+flowchart LR
+    Client["Client / Frontend"] -->|GET /api/todos| Route["app.MapGet()"]
+    Client -->|POST /api/todos| PostRoute["app.MapPost()"]
+
+    Route --> JSON["Return JSON Response"]
+    PostRoute --> Status["Return Results.Created()"]
+\`\`\`
+
+### Contoh Lengkap CRUD Minimal API di \`Program.cs\`
+\`\`\`csharp
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+// Dummy in-memory database
+var todos = new List<TodoItem>
+{
+    new(1, "Belajar .NET Dasar", true),
+    new(2, "Membangun REST API", false)
+};
+
+// GET: Semua items
+app.MapGet("/api/todos", () => Results.Ok(todos));
+
+// GET: Berdasarkan ID
+app.MapGet("/api/todos/{id:int}", (int id) =>
+{
+    var item = todos.FirstOrDefault(t => t.Id == id);
+    return item is not null ? Results.Ok(item) : Results.NotFound();
+});
+
+// POST: Tambah baru
+app.MapPost("/api/todos", (TodoItem input) =>
+{
+    todos.Add(input);
+    return Results.Created($"/api/todos/{input.Id}", input);
+});
+
+// DELETE: Hapus item
+app.MapDelete("/api/todos/{id:int}", (int id) =>
+{
+    var item = todos.FirstOrDefault(t => t.Id == id);
+    if (item is null) return Results.NotFound();
+
+    todos.Remove(item);
+    return Results.NoContent();
+});
+
+app.Run();
+
+public record TodoItem(int Id, string Judul, bool Selesai);
+\`\`\`
+
+### Keunggulan Minimal API
+- **Performa Tinggi**: Mengurangi *overhead* refleksi controller tradisional.
+- **Sintaks Ringkas**: Struktur file tunggal memudahkan pembuatan microservice atau service kecil.
+- **Dukungan OpenAPI / Swagger**: Cukup tambahkan \`app.UseSwagger()\` untuk dokumentasi interaktif otomatis.`,
+    sources: [
+      { url: "https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis", label: "Microsoft Learn — Minimal APIs Overview" },
+    ],
+    practice: `Buat project baru dengan \`dotnet new web -n TodoApi\`. Salin contoh CRUD Minimal API di atas ke \`Program.cs\`. Jalankan (\`dotnet run\`), lalu tes tiap endpoint (GET semua, GET by id, POST tambah baru, DELETE) lewat browser (untuk GET) atau tool seperti curl/Postman (untuk POST/DELETE). Ini menutup roadmap .NET: dari CLI dasar sampai REST API yang beneran jalan.`,
   },
 ];
