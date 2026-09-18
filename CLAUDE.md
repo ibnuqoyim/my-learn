@@ -66,13 +66,19 @@ berikut:
 5. **Sertakan diagram kalau membantu pemahaman** — untuk konsep yang
    punya alur, state, atau struktur (bukan sekadar daftar API), tambahkan
    diagram sebagai ASCII art polos di dalam code fence (```), persis gaya
-   diagram folder `app/` di `notes/nextjs/routing-dasar.md`. Situs ini
-   Markdown statis tanpa pipeline gambar/mermaid, jadi jangan pakai
-   gambar eksternal atau syntax mermaid. Untuk topik yang lebih pas
-   dijelaskan lewat tabel perbandingan daripada diagram alur (mis. "list
+   diagram folder `app/` di `notes/nextjs/routing-dasar.md`. Situs Eleventy
+   ini Markdown statis tanpa pipeline gambar/mermaid, jadi jangan pakai
+   gambar eksternal atau syntax mermaid **di sini**. Untuk topik yang lebih
+   pas dijelaskan lewat tabel perbandingan daripada diagram alur (mis. "list
    vs tuple vs dict"), tabel juga sah — diagram melengkapi contoh kode di
    poin 2, bukan menggantikannya. Saran diagram per topik ada di
    `RENCANA-MATERI.md`.
+
+   > Aturan ASCII-only ini khusus untuk `notes/**/*.md` (blog Eleventy
+   > lama). Konten yang sudah dimigrasikan ke `web/` (Next.js + Supabase,
+   > lihat bagian 0) justru sebaliknya: pakai diagram Mermaid asli
+   > (termasuk `erDiagram`/`gitGraph`), bukan ASCII — lihat
+   > `web/scripts/seed.mjs` untuk contohnya.
 
 ### Template catatan
 
