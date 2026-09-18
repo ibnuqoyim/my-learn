@@ -1,29 +1,29 @@
 # Catatan Belajar — Next.js + Supabase
 
 Versi baru situs Catatan Belajar, menggantikan blog statis Eleventy di root
-repo. Konten sekarang disimpan di Supabase (database-backed), bukan file
-Markdown lagi, supaya bisa nambah fitur autentikasi, komentar, dan search.
+repo. Konten disimpan di Supabase (database-backed), bukan file Markdown
+lagi, supaya bisa nambah fitur autentikasi, komentar, dan search.
 
-> Selama migrasi berlangsung, versi Eleventy lama di root repo **tetap
-> dipakai untuk situs live** — folder ini dikembangkan terpisah sampai siap
-> di-cutover. Lihat `CLAUDE.md` di root untuk aturan alur kerja lengkap.
+> Status migrasi: sudah deploy ke Vercel (root directory `web`) dan
+> tersambung ke project Supabase asli, berisi 6 kategori + 11 catatan.
+> Eleventy lama di root repo masih tetap ada sampai ada cutover eksplisit —
+> lihat `CLAUDE.md` di root untuk aturan alur kerja lengkap.
 
-## Setup
+## Setup (project Supabase baru dari nol)
 
 1. Buat project baru di [Supabase](https://supabase.com/dashboard).
-2. Buka **SQL Editor** di dashboard project, jalankan isi `supabase/schema.sql`.
-3. Salin `.env.local.example` jadi `.env.local`, isi dengan URL & key dari
-   **Project Settings → API Keys** (publishable key untuk
-   `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, secret key untuk
-   `SUPABASE_SECRET_KEY` — secret key hanya dipakai script seed, jangan
-   pernah di-commit atau dipakai di kode client).
-4. Install dependency & migrasikan 11 catatan awal:
-   ```bash
-   npm install
-   npm run seed
-   ```
+2. Jalankan `supabase/schema.sql` ke project itu — lewat SQL Editor di
+   dashboard, atau lewat `scripts/run-sql.mjs` (butuh personal access token
+   Supabase, lihat komentar di file itu).
+3. Salin `.env.local.example` jadi `.env.local` (atau `.env`), isi dengan
+   URL & key dari **Project Settings → API Keys**.
+4. Migrasikan 11 catatan awal — dua jalur, pilih salah satu:
+   - Ada `SUPABASE_SECRET_KEY`: `npm run seed` (lewat supabase-js).
+   - Cuma ada personal access token (PAT): `node scripts/seed-via-sql.mjs <project-ref>`
+     (lewat Supabase Management API, lihat komentar di file itu).
 5. Jalankan dev server:
    ```bash
+   npm install
    npm run dev
    ```
    Buka http://localhost:3000
@@ -31,19 +31,35 @@ Markdown lagi, supaya bisa nambah fitur autentikasi, komentar, dan search.
 ## Status fitur
 
 - [x] Baca catatan per kategori, render Markdown + diagram Mermaid/ERD
-- [x] Login & daftar (email + password)
-- [x] Skema tabel komentar & progress belajar (`supabase/schema.sql`)
-- [ ] UI komentar per catatan (tabel sudah ada, UI menyusul)
-- [ ] UI search full-text (index sudah ada, UI menyusul)
-- [ ] UI progress/bookmark per catatan (tabel sudah ada, UI menyusul)
+- [x] Login, daftar, dan keluar (email + password), status login tampil di sidebar
+- [x] Komentar per catatan (butuh login untuk menulis, publik untuk baca)
+- [x] Progress belajar per catatan (Belum/Sedang Dipelajari/Selesai) + halaman `/progress`
+- [x] Search full-text (`/cari?q=...`), form GET tanpa perlu JS
+- [x] Title tab browser dinamis per catatan/kategori (`generateMetadata`)
+
+Semua fitur di atas sudah dites end-to-end dengan project Supabase asli
+(signup, konfirmasi email, login, komentar, progress, search) — bukan cuma
+lolos build.
+
+## Belum dikerjakan
+
+- Cutover: hapus Eleventy lama di root repo, arahkan domain utama ke Vercel.
+- Halaman admin untuk menulis/mengedit catatan lewat UI (sekarang lewat
+  script seed atau SQL langsung; lihat bagian 0 `CLAUDE.md` soal kolom
+  `status` draft/published).
 
 ## Struktur
 
 ```
-app/                  Halaman (App Router)
-components/           Komponen React (shell navigasi, render Markdown, Mermaid)
-lib/supabase/         Supabase client (browser & server)
-lib/queries.ts         Helper query data (kategori, catatan)
-supabase/schema.sql    Skema database + RLS, dijalankan sekali di dashboard
-scripts/seed.mjs       Migrasi 11 catatan awal ke Supabase
+app/                     Halaman (App Router)
+components/               Komponen React (shell navigasi, Markdown, Mermaid,
+                           komentar, progress belajar)
+lib/supabase/              Supabase client (browser & server)
+lib/queries.ts              Helper query data (kategori, catatan, komentar,
+                            progress, search, profil user)
+supabase/schema.sql          Skema database + RLS
+scripts/seed.mjs              Migrasi awal lewat supabase-js (perlu secret key)
+scripts/seed-via-sql.mjs       Migrasi awal lewat Management API (perlu PAT)
+scripts/seed-data.mjs           Data 11 catatan, dipakai bersama kedua script di atas
+scripts/run-sql.mjs             Jalankan file .sql apa pun ke project lewat Management API
 ```

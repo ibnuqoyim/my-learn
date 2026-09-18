@@ -1,15 +1,27 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import CommentSection from "@/components/CommentSection";
 import MarkdownContent from "@/components/MarkdownContent";
-import { getNoteBySlug } from "@/lib/queries";
+import ProgressControl from "@/components/ProgressControl";
+import { getComments, getCurrentProfile, getNoteBySlug } from "@/lib/queries";
 
 type Params = { category: string; slug: string };
+
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { category, slug } = await params;
+  const note = await getNoteBySlug(category, slug);
+  if (!note) return { title: "Catatan tidak ditemukan" };
+  return { title: `${note.title} — Catatan Belajar` };
+}
 
 export default async function NotePage({ params }: { params: Promise<Params> }) {
   const { category: categorySlug, slug } = await params;
   const note = await getNoteBySlug(categorySlug, slug);
 
   if (!note) notFound();
+
+  const [comments, currentUser] = await Promise.all([getComments(note.id), getCurrentProfile()]);
 
   const updated = new Date(note.updated_at).toLocaleDateString("id-ID", {
     day: "numeric",
@@ -29,9 +41,11 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
         </Link>
       </p>
       <h1 className="mb-2 text-3xl font-bold">{note.title}</h1>
-      <p className="mb-6 text-sm text-muted">
+      <p className="mb-4 text-sm text-muted">
         {note.category.name} &middot; Diperbarui {updated}
       </p>
+
+      <ProgressControl noteId={note.id} currentUser={currentUser} />
 
       <MarkdownContent content={note.content} />
 
@@ -49,6 +63,8 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
           </ul>
         </>
       )}
+
+      <CommentSection noteId={note.id} initialComments={comments} currentUser={currentUser} />
     </article>
   );
 }

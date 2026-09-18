@@ -1,18 +1,33 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import type { CategoryWithNotes, NoteSummary } from "@/lib/types";
+import { createClient } from "@/lib/supabase/client";
+import type { CategoryWithNotes, NoteSummary, Profile } from "@/lib/types";
 
 type Props = {
   recentNotes: NoteSummary[];
   categories: CategoryWithNotes[];
+  user: Profile | null;
   children: React.ReactNode;
 };
 
-export default function SiteShell({ recentNotes, categories, children }: Props) {
+export default function SiteShell({ recentNotes, categories, user, children }: Props) {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark" | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setLoggingOut(false);
+    setMenuOpen(false);
+    router.push("/");
+    router.refresh();
+  }
 
   useEffect(() => {
     try {
@@ -92,6 +107,51 @@ export default function SiteShell({ recentNotes, categories, children }: Props) 
           </button>
 
           <nav>
+            <div className="mb-6 border-b border-border pb-4">
+              {user ? (
+                <div className="flex flex-col gap-2 text-sm">
+                  <p>
+                    Halo, <strong>{user.displayName || user.email}</strong>
+                  </p>
+                  <div className="flex gap-3">
+                    <Link href="/progress" className="text-accent underline underline-offset-2">
+                      Progress saya
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      disabled={loggingOut}
+                      className="text-accent underline underline-offset-2 disabled:opacity-60"
+                    >
+                      {loggingOut ? "Keluar..." : "Keluar"}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex gap-3 text-sm">
+                  <Link href="/login" className="text-accent underline underline-offset-2">
+                    Masuk
+                  </Link>
+                  <Link href="/daftar" className="text-accent underline underline-offset-2">
+                    Daftar
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <form action="/cari" method="get" className="mb-6">
+              <label htmlFor="q" className="mb-1.5 block text-sm font-bold">
+                Cari Catatan
+              </label>
+              <input
+                id="q"
+                name="q"
+                type="search"
+                placeholder="mis. closure, RLS..."
+                className="w-full rounded-md border border-border bg-code-bg px-3 py-1.5 text-sm text-text"
+              />
+            </form>
+
             <div>
               <h2 className="mb-1.5 border-b border-border pb-1.5 text-sm font-bold">
                 Tulisan Terbaru

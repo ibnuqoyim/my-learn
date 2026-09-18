@@ -1,6 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCategoryBySlug } from "@/lib/queries";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const result = await getCategoryBySlug(slug);
+  if (!result) return { title: "Kategori tidak ditemukan" };
+  return { title: `${result.category.name} — Catatan Belajar` };
+}
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

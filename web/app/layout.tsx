@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
-import { getCategoriesWithNotes, getRecentNotes } from "@/lib/queries";
+import { getCategoriesWithNotes, getCurrentProfile, getRecentNotes } from "@/lib/queries";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +20,11 @@ const THEME_INIT_SCRIPT = `
 `;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [recentNotes, categories] = await Promise.all([getRecentNotes(8), getCategoriesWithNotes()]);
+  const [recentNotes, categories, user] = await Promise.all([
+    getRecentNotes(8),
+    getCategoriesWithNotes(),
+    getCurrentProfile(),
+  ]);
 
   return (
     <html lang="id" suppressHydrationWarning>
@@ -28,7 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="font-sans leading-relaxed">
-        <SiteShell recentNotes={recentNotes} categories={categories}>
+        <SiteShell recentNotes={recentNotes} categories={categories} user={user}>
           {children}
         </SiteShell>
       </body>
