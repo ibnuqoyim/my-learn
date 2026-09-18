@@ -23,7 +23,8 @@ ada perubahan materi, baik oleh Claude maupun kontributor lain.
 
 ## 2. Standar isi materi
 
-Setiap catatan baru atau revisi materi di `notes/` harus memenuhi tiga hal:
+Setiap catatan baru atau revisi materi di `notes/` harus memenuhi hal-hal
+berikut:
 
 1. **Fokus skill dasar** — bahas konsep/skill fundamental dari topik
    tersebut, bukan kasus advanced/niche. Kalau satu topik punya banyak
@@ -42,6 +43,16 @@ Setiap catatan baru atau revisi materi di `notes/` harus memenuhi tiga hal:
    kondisi saat ini, set/perbarui field `updated: YYYY-MM-DD` ke tanggal
    verifikasi itu. `date` tetap tanggal catatan pertama kali ditulis,
    jangan diubah.
+5. **Sertakan diagram kalau membantu pemahaman** — untuk konsep yang
+   punya alur, state, atau struktur (bukan sekadar daftar API), tambahkan
+   diagram sebagai ASCII art polos di dalam code fence (```), persis gaya
+   diagram folder `app/` di `notes/nextjs/routing-dasar.md`. Situs ini
+   Markdown statis tanpa pipeline gambar/mermaid, jadi jangan pakai
+   gambar eksternal atau syntax mermaid. Untuk topik yang lebih pas
+   dijelaskan lewat tabel perbandingan daripada diagram alur (mis. "list
+   vs tuple vs dict"), tabel juga sah — diagram melengkapi contoh kode di
+   poin 2, bukan menggantikannya. Saran diagram per topik ada di
+   `RENCANA-MATERI.md`.
 
 ### Template catatan
 
