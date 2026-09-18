@@ -30,8 +30,13 @@ Contoh dynamic route (segmen URL jadi parameter):
 
 ```tsx
 // app/blog/[slug]/page.tsx
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  return <h1>Artikel: {params.slug}</h1>;
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  return <h1>Artikel: {slug}</h1>;
 }
 ```
 
@@ -42,9 +47,12 @@ Poin penting:
   otomatis jadi halaman.
 - Nama folder di dalam kurung siku `[slug]` berarti segmen URL dinamis, dan
   nilainya diterima lewat prop `params`.
+- Sejak Next.js 15, `params` berupa `Promise` sehingga harus di-`await`
+  dulu sebelum dipakai — bukan object biasa seperti versi Next.js 14 ke
+  bawah.
 - `layout.tsx` di level folder yang sama membungkus semua halaman di
   dalamnya (misalnya untuk header/footer bersama).
 
 ## Sumber
 
-- [Next.js Docs — App Router](https://nextjs.org/docs/app)
+- [Next.js Docs — Dynamic Route Segments](https://nextjs.org/docs/app/api-reference/file-conventions/dynamic-routes)

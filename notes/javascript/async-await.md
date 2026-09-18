@@ -25,4 +25,4 @@ Poin penting:
 
 ## Sumber
 
-- [Making asynchronous programming easier with async and await — MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await)
+- [async function — MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)

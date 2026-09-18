@@ -27,4 +27,4 @@ Poin penting:
 
 ## Sumber
 
-- [Closures — MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
+- [Closures — MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures)

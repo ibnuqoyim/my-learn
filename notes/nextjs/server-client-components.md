@@ -46,4 +46,4 @@ Poin penting:
 
 ## Sumber
 
-- [Next.js Docs — App Router](https://nextjs.org/docs/app)
+- [Next.js Docs — Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components)
