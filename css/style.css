@@ -152,22 +152,61 @@ main {
   max-width: 720px;
 }
 
+.sidebar-toggle {
+  display: none;
+}
+
 @media (max-width: 720px) {
   .layout {
     flex-direction: column;
-    padding: 1.5rem 1.25rem 3rem;
-    gap: 2rem;
+    padding: 1.25rem 1.25rem 3rem;
+    gap: 1.5rem;
   }
 
+  /* Konten utama tampil duluan di mobile; navigasi menyusul di bawahnya
+     supaya pembaca yang datang lewat link catatan tidak perlu scroll
+     lewat 15+ item daftar dulu sebelum sampai ke isi. */
   .sidebar {
     flex: none;
     position: static;
     width: 100%;
+    order: 2;
   }
 
   main {
     max-width: none;
     width: 100%;
+    order: 1;
+  }
+
+  .sidebar-toggle {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 0;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .sidebar-nav {
+    display: none;
+    padding-top: 1.5rem;
+  }
+
+  .sidebar.is-open .sidebar-nav {
+    display: block;
+  }
+
+  /* Target sentuh lebih besar (min. ~44px) untuk layar sentuh */
+  .theme-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
   }
 }
 

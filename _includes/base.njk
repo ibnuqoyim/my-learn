@@ -25,8 +25,11 @@
     </button>
   </header>
   <div class="layout">
-    <aside class="sidebar">
-      <nav class="sidebar-nav">
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-expanded="false" aria-controls="sidebar-nav">
+        Tulisan terbaru &amp; kategori ▾
+      </button>
+      <nav class="sidebar-nav" id="sidebar-nav">
         <div class="sidebar-section">
           <h2>Tulisan Terbaru</h2>
           <ul class="note-list sidebar-list">
@@ -73,6 +76,17 @@
         try {
           localStorage.setItem("theme", next);
         } catch (e) {}
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var sidebar = document.getElementById("sidebar");
+      var toggle = document.getElementById("sidebar-toggle");
+      if (!sidebar || !toggle) return;
+      toggle.addEventListener("click", function () {
+        var isOpen = sidebar.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
       });
     })();
   </script>
