@@ -1,13 +1,13 @@
 # Catatan Belajar — Next.js + Supabase
 
-Versi baru situs Catatan Belajar, menggantikan blog statis Eleventy di root
-repo. Konten disimpan di Supabase (database-backed), bukan file Markdown
-lagi, supaya bisa nambah fitur autentikasi, komentar, dan search.
+Situs Catatan Belajar. Konten disimpan di Supabase (database-backed),
+bukan file Markdown, supaya bisa nambah fitur autentikasi, komentar, dan
+search.
 
-> Status migrasi: sudah deploy ke Vercel (root directory `web`) dan
-> tersambung ke project Supabase asli, berisi 6 kategori + 11 catatan.
-> Eleventy lama di root repo masih tetap ada sampai ada cutover eksplisit —
-> lihat `CLAUDE.md` di root untuk aturan alur kerja lengkap.
+> Live di Vercel (root directory `web`), tersambung ke project Supabase
+> asli, berisi 6 kategori + 11 catatan. Blog statis Eleventy yang dulu ada
+> di root repo sudah dihapus sepenuhnya (cutover selesai) — lihat
+> `CLAUDE.md` di root untuk aturan alur kerja repo ini sekarang.
 
 ## Setup (project Supabase baru dari nol)
 
@@ -43,9 +43,8 @@ lolos build.
 
 ## Belum dikerjakan
 
-- Cutover: hapus Eleventy lama di root repo, arahkan domain utama ke Vercel.
 - Halaman admin untuk menulis/mengedit catatan lewat UI (sekarang lewat
-  script seed atau SQL langsung; lihat bagian 0 `CLAUDE.md` soal kolom
+  script seed atau SQL langsung; lihat `CLAUDE.md` soal kolom
   `status` draft/published).
 
 ## Struktur

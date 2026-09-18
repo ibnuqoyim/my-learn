@@ -1,35 +1,20 @@
 # Aturan Repo: Catatan Belajar
 
-Repo ini adalah blog statis (Eleventy) berisi catatan pelajaran dalam file
-Markdown di `notes/<kategori>/`. Aturan di bawah ini WAJIB diikuti setiap kali
-ada perubahan materi, baik oleh Claude maupun kontributor lain.
+Repo ini adalah aplikasi **Next.js (App Router) + Supabase** di folder
+`web/` — lihat `web/README.md` untuk arsitektur, skema database, dan
+setup lokal. Konten catatan disimpan di tabel `notes` Supabase (bukan
+file Markdown), status `draft`/`published` menentukan apakah sebuah
+catatan tampil di situs publik atau belum.
 
-## 0. Status migrasi ke Next.js + Supabase
-
-Situs ini sedang dimigrasikan ke stack baru: **Next.js + Supabase**, di
-folder `web/` — lihat `web/README.md` untuk arsitektur, skema database, dan
-alur konten yang baru (kolom `notes.status` menggantikan branch `draft`
-sebagai mekanisme "draft vs published").
-
-Selama migrasi belum di-cutover secara eksplisit:
-
-- Situs **live tetap versi Eleventy** ini (root repo, `notes/**/*.md`).
-  Semua aturan di bagian 1 & 2 di bawah **masih berlaku penuh** untuk
-  `notes/**/*.md` sampai ada perintah eksplisit untuk cutover.
-- Kode aplikasi baru di `web/` mengikuti aturan Git yang sama di bagian 1
-  (branch dari `main` terbaru, merge ke `draft` dulu), tapi perubahan di
-  `web/**` **bukan** "perubahan materi" — jadi tidak perlu memenuhi standar
-  isi materi di bagian 2 (itu khusus `notes/**/*.md`).
-- Jangan hapus file Eleventy (`.eleventy.js`, `_includes/`, `*.njk`,
-  `css/style.css`, `notes/**/*.md`, `netlify.toml`) atau ubah `netlify.toml`
-  tanpa perintah eksplisit — situs live masih bergantung pada semua itu.
+Repo ini sebelumnya blog statis Eleventy dengan catatan dalam file
+Markdown di root; sudah dimigrasikan penuh ke Next.js + Supabase
+(cutover selesai) supaya bisa punya autentikasi, komentar, progress
+belajar, dan search. Aturan di bawah ini WAJIB diikuti setiap kali ada
+perubahan di repo, baik oleh Claude maupun kontributor lain.
 
 ## 1. Alur Git untuk pengembangan
 
-- Semua branch kerja/pengembangan — baik perubahan materi (`notes/**/*.md`,
-  folder kategori baru, data kategori `*.json` di dalam `notes/`) maupun
-  infrastruktur (konfigurasi Eleventy, styling, dependency, dsb.) —
-  **wajib dibuat dari `main` terbaru**:
+- Semua branch kerja/pengembangan **wajib dibuat dari `main` terbaru**:
   `git fetch origin main && git checkout -b <nama-branch> origin/main`.
 - Hasil pengembangan **digabung (merge) ke `draft` dulu**, **tidak boleh
   langsung commit/push ke `main`**. `draft` adalah branch staging/integrasi
@@ -40,68 +25,69 @@ Selama migrasi belum di-cutover secara eksplisit:
   meskipun sudah selesai dan sudah di-push.
 - Jangan merge/push ke `main` atas inisiatif sendiri, sekecil apa pun
   perubahannya (termasuk typo fix).
+- `main` adalah branch yang di-deploy Vercel (root directory `web`) —
+  setiap push ke `main` langsung memengaruhi situs live.
 
-## 2. Standar isi materi
+## 2. Alur konten (tabel `notes` di Supabase)
 
-Setiap catatan baru atau revisi materi di `notes/` harus memenuhi hal-hal
-berikut:
+Konten catatan tidak lagi berupa file yang di-commit ke Git. Aturan
+draft/publish-nya dilakukan lewat kolom, bukan branch:
+
+- Catatan baru/revisi disimpan dengan `status = 'draft'` dulu — tidak
+  tampil di situs publik (semua query publik di `lib/queries.ts` selalu
+  filter `status = 'published'`).
+- Publish (`status` diubah jadi `'published'`) **hanya atas perintah
+  eksplisit** user, sama seperti semangat aturan `draft`→`main` di Git:
+  tidak ada yang tayang ke publik tanpa izin.
+- Menulis/mengubah catatan sekarang lewat SQL langsung
+  (`web/scripts/run-sql.mjs`) atau lewat data di
+  `web/scripts/seed-data.mjs` + `npm run seed` /
+  `node scripts/seed-via-sql.mjs`. Belum ada UI admin untuk ini.
+- Setiap kali isi catatan diverifikasi ulang (mis. lewat riset internet)
+  dan dipastikan masih akurat, update kolom `updated_at` catatan itu ke
+  waktu verifikasi.
+
+## 3. Standar isi materi
+
+Setiap catatan baru atau revisi materi harus memenuhi hal-hal berikut:
 
 1. **Fokus skill dasar** — bahas konsep/skill fundamental dari topik
    tersebut, bukan kasus advanced/niche. Kalau satu topik punya banyak
    sub-skill, pecah jadi beberapa catatan kecil per skill dasar, jangan
    digabung jadi satu catatan panjang yang membahas banyak hal sekaligus.
 2. **Ada contoh konkret** — setiap konsep yang dijelaskan harus disertai
-   contoh kode/kasus nyata yang bisa langsung dicoba, bukan cuma penjelasan
-   teori.
+   contoh kode/kasus nyata yang bisa langsung dicoba, bukan cuma
+   penjelasan teori.
 3. **Ada sumber valid** — setiap catatan wajib mencantumkan minimal satu
    sumber rujukan yang kredibel dan benar-benar ada (dokumentasi resmi
-   bahasa/tool, buku, atau situs yang diakui luas) di bagian akhir catatan
-   dalam heading `## Sumber`. Jangan mengarang sumber atau mencantumkan
-   link yang belum diverifikasi keberadaannya.
-4. **Tandai kapan terakhir diverifikasi** — setiap kali isi catatan dicek
-   ulang (misalnya lewat riset internet) dan dipastikan masih akurat untuk
-   kondisi saat ini, set/perbarui field `updated: YYYY-MM-DD` ke tanggal
-   verifikasi itu. `date` tetap tanggal catatan pertama kali ditulis,
-   jangan diubah.
-5. **Sertakan diagram kalau membantu pemahaman** — untuk konsep yang
+   bahasa/tool, buku, atau situs yang diakui luas), disimpan di kolom
+   `sources` (`jsonb`, array `{label, url}`) dan ditampilkan otomatis di
+   bagian "Sumber" halaman catatan. Jangan mengarang sumber atau
+   mencantumkan link yang belum diverifikasi keberadaannya.
+4. **Sertakan diagram kalau membantu pemahaman** — untuk konsep yang
    punya alur, state, atau struktur (bukan sekadar daftar API), tambahkan
-   diagram sebagai ASCII art polos di dalam code fence (```), persis gaya
-   diagram folder `app/` di `notes/nextjs/routing-dasar.md`. Situs Eleventy
-   ini Markdown statis tanpa pipeline gambar/mermaid, jadi jangan pakai
-   gambar eksternal atau syntax mermaid **di sini**. Untuk topik yang lebih
-   pas dijelaskan lewat tabel perbandingan daripada diagram alur (mis. "list
-   vs tuple vs dict"), tabel juga sah — diagram melengkapi contoh kode di
-   poin 2, bukan menggantikannya. Saran diagram per topik ada di
-   `RENCANA-MATERI.md`.
+   diagram **Mermaid asli** (bukan ASCII) di dalam kolom `content`, pakai
+   fenced code block dengan tag ```` ```mermaid ````. Situs ini me-render
+   Mermaid lewat `web/components/Mermaid.tsx`, mendukung `graph`/
+   `flowchart`, `gitGraph`, `erDiagram`, dst. Untuk topik yang lebih pas
+   dijelaskan lewat tabel perbandingan daripada diagram alur (mis. "list
+   vs tuple vs dict"), tabel Markdown (GFM) juga sah — sudah ada styling-nya
+   di `globals.css`. Diagram melengkapi contoh kode di poin 2, bukan
+   menggantikannya. Lihat `web/scripts/seed-data.mjs` untuk contoh nyata
+   tiap jenis diagram.
 
-   > Aturan ASCII-only ini khusus untuk `notes/**/*.md` (blog Eleventy
-   > lama). Konten yang sudah dimigrasikan ke `web/` (Next.js + Supabase,
-   > lihat bagian 0) justru sebaliknya: pakai diagram Mermaid asli
-   > (termasuk `erDiagram`/`gitGraph`), bukan ASCII — lihat
-   > `web/scripts/seed.mjs` untuk contohnya.
+### Struktur data satu catatan
 
-### Template catatan
-
-```md
----
-title: Judul Catatan
-date: YYYY-MM-DD
-updated: YYYY-MM-DD
----
-
-Penjelasan singkat konsep dasar di sini.
-
-```lang
-// contoh kode konkret
+```
+categories          notes
+-------------------  --------------------------------
+id, name, slug       id, category_id, title, slug
+                      content (markdown + mermaid)
+                      sources (jsonb: [{label, url}])
+                      status ('draft' | 'published')
+                      created_at, updated_at
 ```
 
-Poin-poin penting (opsional, kalau perlu).
-
-## Sumber
-
-- [Nama sumber](https://url-resmi-yang-valid)
-```
-
-Kategori & layout otomatis mengikuti folder (lihat file
-`notes/<kategori>/<kategori>.json`) — tidak perlu diatur manual di tiap
-catatan.
+Kategori mengikuti tabel `categories` (bukan folder seperti versi
+Eleventy dulu) — buat baris kategori baru dulu kalau memang perlu
+kategori baru, baru tambahkan catatannya.

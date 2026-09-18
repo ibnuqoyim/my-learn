@@ -1,86 +1,18 @@
 # Catatan Belajar
 
-Blog sederhana untuk menyimpan catatan pelajaran. Semua catatan ditulis dalam
-file Markdown dan dikelompokkan per folder berdasarkan topik. Dibangun dengan
-[Eleventy (11ty)](https://www.11ty.dev/) — static site generator ringan yang
-outputnya HTML murni, sehingga sangat mudah dideploy ke Netlify.
+Blog Catatan Belajar — kumpulan catatan singkat dari berbagai materi
+belajar, dikelompokkan per topik. Dibangun dengan **Next.js (App Router)**
+dan **Supabase** (Postgres, Auth), deploy di **Vercel**.
 
-> **Sedang migrasi ke Next.js + Supabase.** Versi baru sedang dibangun di
-> folder [`web/`](./web) supaya bisa nambah fitur autentikasi, komentar, dan
-> search — lihat [`web/README.md`](./web/README.md). Situs live saat ini
-> **masih versi Eleventy di bawah ini** sampai versi baru siap dan di-cutover
-> secara eksplisit.
+Aplikasinya ada di folder [`web/`](./web) — lihat
+[`web/README.md`](./web/README.md) untuk setup lokal, skema database, dan
+daftar fitur.
 
-## Struktur folder
+> Repo ini sebelumnya blog statis Eleventy dengan catatan dalam file
+> Markdown. Sudah dimigrasikan penuh ke Next.js + Supabase (database-backed)
+> supaya bisa punya autentikasi, komentar, progress belajar, dan search.
 
-```
-notes/
-  javascript/
-    javascript.json   <- data kategori untuk semua file di folder ini
-    closure.md
-    async-await.md
-  python/
-    python.json
-    list-comprehension.md
-    virtual-environment.md
-  git/
-    git.json
-    branching.md
-```
+## Aturan repo
 
-## Menambah catatan baru
-
-> Aturan alur kerja dan standar isi materi (branch `draft`, fokus skill
-> dasar, wajib ada contoh & sumber valid) ada di [`CLAUDE.md`](./CLAUDE.md) —
-> baca dulu sebelum menambah/mengubah catatan.
-
-1. Pilih folder kategori yang sudah ada (`notes/javascript`, `notes/python`,
-   `notes/git`), atau buat folder kategori baru di dalam `notes/`.
-2. Jika membuat kategori baru, tambahkan file `<nama-folder>.json` di folder
-   tersebut, isinya:
-   ```json
-   {
-     "layout": "note.njk",
-     "category": "Nama Kategori",
-     "tags": "notes"
-   }
-   ```
-3. Tambahkan file `.md` baru di folder itu dengan front matter, sertakan
-   contoh konkret dan tutup dengan bagian `## Sumber`:
-   ```md
-   ---
-   title: Judul Catatan
-   date: 2024-05-01
-   ---
-
-   Penjelasan singkat skill dasar di sini.
-
-   ```lang
-   // contoh kode konkret
-   ```
-
-   ## Sumber
-
-   - [Nama sumber](https://url-resmi-yang-valid)
-   ```
-4. Simpan — halaman beranda dan halaman kategori akan otomatis menampilkan
-   catatan baru tersebut.
-
-## Menjalankan secara lokal
-
-```bash
-npm install
-npm start        # jalankan server lokal dengan live reload di http://localhost:8080
-npm run build    # build ke folder _site/
-```
-
-## Deploy ke Netlify
-
-1. Push repo ini ke GitHub.
-2. Di Netlify, klik **Add new site → Import an existing project**, lalu pilih
-   repo ini.
-3. Netlify akan membaca konfigurasi dari `netlify.toml` secara otomatis:
-   - Build command: `npm run build`
-   - Publish directory: `_site`
-4. Klik **Deploy site**. Setiap kali push ke branch utama, Netlify akan
-   otomatis build ulang dan deploy versi terbaru.
+Lihat [`CLAUDE.md`](./CLAUDE.md) untuk alur kerja Git dan standar konten
+sebelum menambah/mengubah apa pun di repo ini.
