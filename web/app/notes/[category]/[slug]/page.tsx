@@ -49,6 +49,25 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
         {note.category.name} &middot; Diperbarui {updated}
       </p>
 
+      {note.prerequisites.length > 0 && (
+        <div className="mb-6 rounded-md border border-border bg-code-bg p-4">
+          <h2 className="mb-2 text-sm font-bold">📋 Prasyarat</h2>
+          <ul className="list-disc space-y-1 pl-6 text-sm">
+            {note.prerequisites.map((prereq) => (
+              <li key={prereq.label}>
+                {prereq.url ? (
+                  <a href={prereq.url} className="text-accent underline underline-offset-2">
+                    {prereq.label}
+                  </a>
+                ) : (
+                  prereq.label
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <ProgressControl noteId={note.id} currentUser={currentUser} />
 
       <MarkdownContent content={note.content} />

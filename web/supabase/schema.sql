@@ -32,6 +32,15 @@ create table if not exists notes (
   slug text not null,
   content text not null,
   sources jsonb not null default '[]'::jsonb,
+  -- Hal konkret yang harus sudah ada SEBELUM mulai catatan ini — tool/software
+  -- terinstall (dengan versi kalau relevan), akun yang harus sudah dibuat,
+  -- atau pengetahuan dari LUAR urutan roadmap kategori ini (roadmap internal
+  -- sudah tercakup otomatis lewat order_index + navigasi sebelumnya/
+  -- selanjutnya, jadi jangan diulang di sini). Array of {label, url?} — sama
+  -- bentuknya dengan `sources`, tapi `url` opsional (boleh murni pengetahuan
+  -- tanpa link). Nullable — banyak catatan lanjutan di tengah roadmap tidak
+  -- butuh apa pun di luar yang sudah didapat dari catatan sebelumnya.
+  prerequisites jsonb not null default '[]'::jsonb,
   -- Latihan hands-on yang disarankan setelah membaca catatan ini (markdown,
   -- boleh berisi contoh kode). Ditampilkan sebagai kotak "Coba Sendiri"
   -- terpisah dari isi utama. Nullable — bukan semua catatan (mis. topik
@@ -81,6 +90,7 @@ alter table notes
 -- ulang kapan saja.
 alter table notes add column if not exists order_index integer not null default 0;
 alter table notes add column if not exists practice text;
+alter table notes add column if not exists prerequisites jsonb not null default '[]'::jsonb;
 alter table categories add column if not exists description text;
 
 create index if not exists notes_search_vector_idx on notes using gin (search_vector);

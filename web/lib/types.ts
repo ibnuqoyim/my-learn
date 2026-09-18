@@ -13,6 +13,13 @@ export type NoteSource = {
   url: string;
 };
 
+export type Prerequisite = {
+  label: string;
+  // Opsional — beda dari NoteSource, prasyarat boleh murni pengetahuan
+  // tanpa link (mis. "familiar dengan JSX dasar").
+  url?: string;
+};
+
 export type NoteSummary = {
   id: string;
   title: string;
@@ -25,6 +32,7 @@ export type NoteSummary = {
 export type Note = NoteSummary & {
   content: string;
   sources: NoteSource[];
+  prerequisites: Prerequisite[];
   practice: string | null;
   created_at: string;
 };

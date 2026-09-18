@@ -108,7 +108,7 @@ export async function getNoteBySlug(categorySlug: string, noteSlug: string): Pro
   const { data, error } = await supabase
     .from("notes")
     .select(
-      "id, title, slug, content, sources, practice, order_index, created_at, updated_at, category:categories!inner(id, name, slug)"
+      "id, title, slug, content, sources, prerequisites, practice, order_index, created_at, updated_at, category:categories!inner(id, name, slug)"
     )
     .eq("slug", noteSlug)
     .eq("status", "published")
@@ -125,6 +125,7 @@ export async function getNoteBySlug(categorySlug: string, noteSlug: string): Pro
     slug: data.slug,
     content: data.content,
     sources: data.sources ?? [],
+    prerequisites: data.prerequisites ?? [],
     practice: data.practice ?? null,
     orderIndex: data.order_index ?? 0,
     created_at: data.created_at,

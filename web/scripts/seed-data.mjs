@@ -13,7 +13,9 @@ export const categories = [
     // belum punya description, masih tampil normal tanpa bagian ini.
     description: `Sebelum ada *file-based routing* seperti di Next.js, menyusun routing di aplikasi React itu kerja manual: install library router, lalu tulis config terpisah yang memetakan tiap URL ke komponennya — dan config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya. Masalah lain: React tradisional mengirim **semua** kode JavaScript ke browser, bahkan untuk bagian yang cuma menampilkan teks statis dari database, bikin aplikasi lambat di koneksi lemah.
 
-Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dan navigasi, menyusun layout bersama antar halaman, memahami batas Server/Client Component, mengambil data dengan aman, membuat API sendiri lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sembilan langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya, jadi jangan lompat kalau belum menyelesaikan langkah sebelumnya.`,
+Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dan navigasi, menyusun layout bersama antar halaman, memahami batas Server/Client Component, mengambil data dengan aman, membuat API sendiri lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sembilan langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya, jadi jangan lompat kalau belum menyelesaikan langkah sebelumnya.
+
+**Asumsi:** roadmap ini fokus ke Next.js itu sendiri, bukan mengajari React dari nol — kamu perlu familiar dengan dasar JavaScript dan konsep component/props/hooks di React (belum ada roadmap React tersendiri di platform ini). Prasyarat tool spesifik (mis. versi Node.js) disebutkan di catatan pertama.`,
   },
   { name: "Python", slug: "python" },
   { name: "Supabase", slug: "supabase" },
@@ -198,6 +200,13 @@ Struktur berbasis folder di \`app/\` secara otomatis memetakan folder menjadi ru
     sources: [
       { url: "https://nextjs.org/docs/app/getting-started/installation", label: "Next.js Docs — Installation" },
       { url: "https://nextjs.org/docs/app/getting-started/project-structure", label: "Next.js Docs — Project Structure" },
+    ],
+    prerequisites: [
+      {
+        label: "Node.js versi 18.17 atau lebih baru sudah terinstall (cek dengan `node --version` di terminal)",
+        url: "https://nodejs.org",
+      },
+      { label: "Familiar dengan perintah dasar terminal/command line (masuk folder, jalankan perintah)" },
     ],
     practice: `Jalankan \`npx create-next-app@latest belajar-nextjs --typescript --tailwind --eslint --app\` di terminal, lalu \`cd belajar-nextjs && npm run dev\`. Buka \`http://localhost:3000\`, lalu:
 

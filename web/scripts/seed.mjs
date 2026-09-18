@@ -51,6 +51,7 @@ async function main() {
       slug: note.slug,
       content: note.content,
       sources: note.sources,
+      prerequisites: note.prerequisites ?? [],
       practice: note.practice ?? null,
       order_index: note.order ?? 0,
       status: "published",
@@ -61,7 +62,7 @@ async function main() {
     // "Tulisan Terbaru") tanpa alasan.
     const { data: existing } = await supabase
       .from("notes")
-      .select("title, content, sources, practice, order_index")
+      .select("title, content, sources, prerequisites, practice, order_index")
       .eq("category_id", category_id)
       .eq("slug", note.slug)
       .maybeSingle();
@@ -72,7 +73,8 @@ async function main() {
       existing.content !== payload.content ||
       existing.practice !== payload.practice ||
       existing.order_index !== payload.order_index ||
-      JSON.stringify(existing.sources) !== JSON.stringify(payload.sources);
+      JSON.stringify(existing.sources) !== JSON.stringify(payload.sources) ||
+      JSON.stringify(existing.prerequisites) !== JSON.stringify(payload.prerequisites);
 
     const { error } = await supabase
       .from("notes")

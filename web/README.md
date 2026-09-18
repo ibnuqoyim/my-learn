@@ -50,6 +50,12 @@ search.
   paragraf pembuka (lihat CLAUDE.md bagian 3 poin 2)
 - [x] Latihan hands-on per catatan (`notes.practice`) — kotak
   "🎯 Coba Sendiri" di halaman catatan, dikerjakan di project sendiri
+- [x] Prasyarat eksplisit per catatan (`notes.prerequisites`) — tool/versi
+  yang harus terinstall, akun eksternal, atau pengetahuan di luar roadmap
+  ini, ditampilkan sebagai kotak "📋 Prasyarat"
+- [x] Standar penulisan materi terformalisasi di `CLAUDE.md` (termasuk
+  template objek JS persis) supaya AI agent mana pun yang menambah
+  catatan menghasilkan bentuk yang konsisten
 
 Kategori `nextjs` (9 catatan, urutan lengkap dari instalasi sampai
 metadata/SEO) jadi contoh acuan pola roadmap ini diterapkan penuh — lihat
@@ -77,6 +83,7 @@ lib/queries.ts              Helper query data (kategori, catatan, komentar,
 supabase/schema.sql          Skema database + RLS
 scripts/seed.mjs              Migrasi awal lewat supabase-js (perlu secret key)
 scripts/seed-via-sql.mjs       Migrasi awal lewat Management API (perlu PAT)
-scripts/seed-data.mjs           Data 11 catatan, dipakai bersama kedua script di atas
+scripts/seed-data.mjs           Data semua catatan & kategori, sumber kebenaran tunggal
+                                (lihat CLAUDE.md untuk template & standar isinya)
 scripts/run-sql.mjs             Jalankan file .sql apa pun ke project lewat Management API
 ```

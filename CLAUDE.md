@@ -54,7 +54,11 @@ satu langkah di **roadmap belajar** kategorinya (lihat bagian 4), jadi
 harus terasa seperti bagian dari cerita yang berkesinambungan, bukan
 entri glosarium.
 
-Setiap catatan baru atau revisi materi harus memenuhi hal-hal berikut:
+Setiap catatan baru atau revisi materi **wajib** memenuhi hal-hal
+berikut. Ini standar mengikat untuk siapa pun/apa pun yang menulis
+catatan di repo ini — termasuk AI agent lain yang bukan Claude — supaya
+kualitas dan bentuknya konsisten di seluruh platform, bukan tergantung
+siapa yang menulis.
 
 1. **Fokus skill dasar** — bahas konsep/skill fundamental dari topik
    tersebut, bukan kasus advanced/niche. Kalau satu topik punya banyak
@@ -63,21 +67,49 @@ Setiap catatan baru atau revisi materi harus memenuhi hal-hal berikut:
 2. **Buka dengan masalah nyata, bukan syntax** — paragraf pembuka harus
    menjawab "masalah apa yang diselesaikan konsep ini" (idealnya dengan
    membandingkan ke cara lama/tanpa konsep ini) sebelum masuk ke definisi
-   atau contoh kode. Kalau catatan ini punya prasyarat catatan lain di
-   kategori yang sama (lihat `order_index` di bagian 4), sebut secara
-   eksplisit di paragraf pembuka apa yang tadinya sudah dipelajari dan
-   kenapa itu jadi dasar buat topik ini — supaya pembaca yang mengikuti
-   urutan roadmap merasakan kesinambungan, bukan lompat topik.
-3. **Ada contoh konkret** — setiap konsep yang dijelaskan harus disertai
+   atau contoh kode. Kalau catatan ini bukan langkah pertama roadmap
+   kategorinya (lihat `order_index` di bagian 4), sebut secara eksplisit
+   di paragraf pembuka apa yang tadinya sudah dipelajari di catatan
+   sebelumnya dan kenapa itu jadi dasar buat topik ini — supaya pembaca
+   yang mengikuti urutan roadmap merasakan kesinambungan, bukan lompat
+   topik. Jangan mengulang kalimat penyambung ini kalau isinya cuma
+   template kosong ("Setelah paham X di catatan sebelumnya...") tanpa
+   makna — harus benar-benar menjelaskan keterkaitannya.
+3. **Prasyarat eksplisit kalau ada hal DI LUAR roadmap ini** — isi kolom
+   `prerequisites` (`jsonb`, array `{label, url?}`, sama bentuknya dengan
+   `sources` tapi `url` opsional) untuk hal konkret yang harus sudah ada
+   *sebelum* mulai catatan ini dan **tidak** didapat dari catatan
+   sebelumnya di roadmap yang sama:
+   - Tool/software yang harus sudah terinstall, sebutkan versi minimum
+     kalau relevan dan `url` ke halaman download/install resminya. Contoh:
+     `{ label: "Node.js versi 18.17+ sudah terinstall", url: "https://nodejs.org" }`.
+   - Akun/layanan eksternal yang harus sudah dibuat (mis. akun Supabase).
+   - Pengetahuan dari topik/kategori lain yang platform ini belum punya
+     roadmap-nya sendiri (mis. dasar React untuk roadmap Next.js) — kalau
+     ini berlaku untuk **seluruh kategori**, taruh sekali di
+     `categories.description` (lihat bagian 4), bukan diulang di tiap
+     catatan.
+
+   **Jangan** isi `prerequisites` dengan "sudah menyelesaikan catatan
+   sebelumnya di roadmap ini" — itu sudah otomatis jelas dari posisi
+   `order_index` dan sudah ditangani oleh poin 2. Kolom ini nullable/array
+   kosong secara default; kebanyakan catatan di tengah roadmap tidak
+   butuh apa pun di luar itu, jadi biarkan kosong.
+4. **Ada contoh konkret** — setiap konsep yang dijelaskan harus disertai
    contoh kode/kasus nyata yang bisa langsung dicoba, bukan cuma
-   penjelasan teori.
-4. **Ada sumber valid** — setiap catatan wajib mencantumkan minimal satu
+   penjelasan teori. **Kalau catatan ini tentang instalasi/setup sebuah
+   tool** (seperti "Instalasi & Struktur Project"), WAJIB sertakan
+   command CLI instalasinya secara lengkap dan siap disalin-jalankan
+   (fenced code block ` ```bash `), bukan dideskripsikan naratif saja.
+5. **Ada sumber valid** — setiap catatan wajib mencantumkan minimal satu
    sumber rujukan yang kredibel dan benar-benar ada (dokumentasi resmi
    bahasa/tool, buku, atau situs yang diakui luas), disimpan di kolom
-   `sources` (`jsonb`, array `{label, url}`) dan ditampilkan otomatis di
-   bagian "Sumber" halaman catatan. Jangan mengarang sumber atau
-   mencantumkan link yang belum diverifikasi keberadaannya.
-5. **Sertakan diagram kalau membantu pemahaman** — untuk konsep yang
+   `sources` (`jsonb`, array `{label, url}`, keduanya wajib diisi di
+   sini — beda dengan `prerequisites` yang `url`-nya opsional) dan
+   ditampilkan otomatis di bagian "Sumber" halaman catatan. Jangan
+   mengarang sumber atau mencantumkan link yang belum diverifikasi
+   keberadaannya.
+6. **Sertakan diagram kalau membantu pemahaman** — untuk konsep yang
    punya alur, state, atau struktur (bukan sekadar daftar API), tambahkan
    diagram **Mermaid asli** (bukan ASCII) di dalam kolom `content`, pakai
    fenced code block dengan tag ```` ```mermaid ````. Situs ini me-render
@@ -85,10 +117,10 @@ Setiap catatan baru atau revisi materi harus memenuhi hal-hal berikut:
    `flowchart`, `gitGraph`, `erDiagram`, dst. Untuk topik yang lebih pas
    dijelaskan lewat tabel perbandingan daripada diagram alur (mis. "list
    vs tuple vs dict"), tabel Markdown (GFM) juga sah — sudah ada styling-nya
-   di `globals.css`. Diagram melengkapi contoh kode di poin 3, bukan
-   menggantikannya. Lihat `web/scripts/seed-data.mjs` untuk contoh nyata
-   tiap jenis diagram.
-6. **Latihan hands-on kalau topiknya cocok** — isi kolom `practice`
+   di `globals.css` (termasuk `ol`/`ul` numbered & bullet list). Diagram
+   melengkapi contoh kode di poin 4, bukan menggantikannya. Lihat
+   `web/scripts/seed-data.mjs` untuk contoh nyata tiap jenis diagram.
+7. **Latihan hands-on kalau topiknya cocok** — isi kolom `practice`
    (markdown, terpisah dari `content`) dengan instruksi latihan konkret
    yang dikerjakan pembaca di project/environment mereka sendiri (bukan
    di platform ini — belum ada sandbox interaktif). Latihan yang bagus
@@ -98,6 +130,36 @@ Setiap catatan baru atau revisi materi harus memenuhi hal-hal berikut:
    boleh tidak punya latihan. Ditampilkan otomatis sebagai kotak
    "🎯 Coba Sendiri" di halaman catatan.
 
+### Template objek catatan (WAJIB diikuti bentuknya)
+
+Ini bentuk persis satu entri di array `notes` pada
+`web/scripts/seed-data.mjs` — dipakai baik oleh `npm run seed` maupun
+`node scripts/seed-via-sql.mjs`. Ikuti field dan urutannya supaya
+konsisten dengan catatan yang sudah ada:
+
+```js
+{
+  category: "slug-kategori-yang-sudah-ada", // wajib — kategori harus sudah ada di array `categories`
+  slug: "slug-singkat-kebab-case",           // wajib, unik di dalam kategorinya
+  order: 0,                                   // wajib — urutan belajar (0, 1, 2, ...), lihat bagian 4
+  title: "Judul Catatan",                     // wajib
+  content: `...markdown, ikuti poin 1-2 & 4-6 di atas...`, // wajib
+  sources: [{ label: "...", url: "https://..." }],         // wajib, minimal 1 — lihat poin 5
+  prerequisites: [{ label: "...", url: "https://..." }],   // opsional (default []) — lihat poin 3, url boleh diomit
+  practice: `...markdown, latihan hands-on...`,             // opsional (default null) — lihat poin 7
+}
+```
+
+Kategori baru (di array `categories`) bentuknya:
+
+```js
+{
+  name: "Nama Kategori",
+  slug: "slug-kategori",
+  description: `...markdown, narasi roadmap...`, // opsional (default null) — lihat bagian 4
+}
+```
+
 ## 4. Roadmap per kategori
 
 Kategori bukan cuma pengelompokan, tapi representasi satu **roadmap
@@ -106,23 +168,29 @@ belajar** untuk teknologi tertentu:
 - `notes.order_index` menentukan urutan belajar yang disarankan di dalam
   kategori — halaman kategori menampilkannya sebagai daftar bernomor, dan
   ini juga yang dipakai untuk navigasi "Sebelumnya/Selanjutnya" di
-  halaman catatan (`lib/queries.ts`: `getAdjacentNotes`). Prasyarat harus
-  ber-`order_index` lebih kecil dari catatan yang membutuhkannya.
+  halaman catatan (`lib/queries.ts`: `getAdjacentNotes`). Catatan baru
+  masuk di posisi yang tepat sesuai prasyaratnya — kalau perlu
+  menyisipkan di tengah roadmap yang sudah ada, geser `order_index`
+  catatan-catatan setelahnya.
 - `categories.description` (nullable, markdown) adalah **narasi
   roadmap**: masalah besar apa yang diselesaikan teknologi ini secara
-  keseluruhan, dan pembaca akan bisa bikin apa setelah menyelesaikan
-  urutan catatan di kategori itu. Ditampilkan di atas daftar catatan pada
-  halaman kategori. Tulis ini begitu kategori punya narasi
-  berkesinambungan yang jelas antar-catatannya — kategori dengan cuma
-  satu catatan atau catatan yang saling lepas boleh dibiarkan `null`.
+  keseluruhan, pembaca akan bisa bikin apa setelah menyelesaikan urutan
+  catatan di kategori itu, dan asumsi pengetahuan dasar yang berlaku ke
+  **seluruh roadmap** (lihat poin 3 soal prasyarat lintas-kategori).
+  Ditampilkan di atas daftar catatan pada halaman kategori. Tulis ini
+  begitu kategori punya narasi berkesinambungan yang jelas
+  antar-catatannya — kategori dengan cuma satu catatan atau catatan yang
+  saling lepas boleh dibiarkan `null`.
 - Progress belajar (`note_progress`) dihitung per kategori di halaman
   kategori (progress bar "X dari Y selesai") — pastikan `order_index`
   yang benar supaya progress terasa seperti menyelesaikan roadmap, bukan
   centang-centang acak.
 
-Lihat kategori `nextjs` (`web/scripts/seed-data.mjs`) sebagai contoh
-acuan pola ini diterapkan penuh: `description` di level kategori, dan
-kedua catatannya saling menyambung eksplisit di paragraf pembuka.
+Lihat kategori `nextjs` (`web/scripts/seed-data.mjs`, 9 catatan) sebagai
+contoh acuan pola ini diterapkan penuh: `description` di level kategori
+(termasuk asumsi pengetahuan dasarnya), `prerequisites` tool di catatan
+pertama, dan tiap catatan saling menyambung eksplisit di paragraf
+pembuka.
 
 ### Struktur data satu catatan
 
@@ -130,8 +198,11 @@ kedua catatannya saling menyambung eksplisit di paragraf pembuka.
 categories                    notes
 -----------------------------  --------------------------------
 id, name, slug                 id, category_id, title, slug
-description (narasi roadmap)   content (markdown + mermaid)
-                                sources (jsonb: [{label, url}])
+description (narasi roadmap +  content (markdown + mermaid)
+  asumsi pengetahuan dasar)    sources (jsonb: [{label, url}], url wajib)
+                                prerequisites (jsonb: [{label, url?}],
+                                  url opsional — tool/akun/pengetahuan
+                                  di LUAR roadmap ini)
                                 practice (markdown, latihan hands-on)
                                 order_index (urutan belajar)
                                 status ('draft' | 'published')
