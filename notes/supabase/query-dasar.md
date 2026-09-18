@@ -1,6 +1,7 @@
 ---
 title: Query Data Dasar (CRUD)
 date: 2024-04-25
+updated: 2026-09-18
 ---
 
 Setelah client Supabase siap, operasi dasar ke database (CRUD) dipanggil

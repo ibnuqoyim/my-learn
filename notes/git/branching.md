@@ -1,6 +1,7 @@
 ---
 title: Dasar Branching di Git
 date: 2024-03-01
+updated: 2026-09-18
 ---
 
 Branch memungkinkan kita bekerja pada fitur/perbaikan tanpa mengganggu kode di branch utama.

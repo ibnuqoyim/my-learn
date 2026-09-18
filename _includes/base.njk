@@ -18,18 +18,20 @@
 </head>
 <body>
   <header class="site-header">
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="sidebar">
+      ☰
+    </button>
     <a class="site-title" href="/">📚 Catatan Belajar</a>
     <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode gelap/terang">
       <span class="icon-light">🌙</span>
       <span class="icon-dark">☀️</span>
     </button>
   </header>
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
   <div class="layout">
     <aside class="sidebar" id="sidebar">
-      <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-expanded="false" aria-controls="sidebar-nav">
-        Tulisan terbaru &amp; kategori ▾
-      </button>
-      <nav class="sidebar-nav" id="sidebar-nav">
+      <button type="button" class="sidebar-close" id="sidebar-close" aria-label="Tutup menu navigasi">✕</button>
+      <nav class="sidebar-nav">
         <div class="sidebar-section">
           <h2>Tulisan Terbaru</h2>
           <ul class="note-list sidebar-list">
@@ -82,11 +84,36 @@
   <script>
     (function () {
       var sidebar = document.getElementById("sidebar");
-      var toggle = document.getElementById("sidebar-toggle");
-      if (!sidebar || !toggle) return;
-      toggle.addEventListener("click", function () {
-        var isOpen = sidebar.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      var backdrop = document.getElementById("sidebar-backdrop");
+      var menuToggle = document.getElementById("menu-toggle");
+      var closeBtn = document.getElementById("sidebar-close");
+      if (!sidebar || !backdrop || !menuToggle) return;
+
+      function openMenu() {
+        sidebar.classList.add("is-open");
+        backdrop.classList.add("is-open");
+        document.body.classList.add("menu-open");
+        menuToggle.setAttribute("aria-expanded", "true");
+      }
+
+      function closeMenu() {
+        sidebar.classList.remove("is-open");
+        backdrop.classList.remove("is-open");
+        document.body.classList.remove("menu-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      }
+
+      menuToggle.addEventListener("click", function () {
+        if (sidebar.classList.contains("is-open")) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+      backdrop.addEventListener("click", closeMenu);
+      if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeMenu();
       });
     })();
   </script>

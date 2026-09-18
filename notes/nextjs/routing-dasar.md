@@ -1,6 +1,7 @@
 ---
 title: Routing Dasar dengan App Router
 date: 2024-04-10
+updated: 2026-09-18
 ---
 
 Next.js (App Router) memakai file-based routing: struktur folder di dalam

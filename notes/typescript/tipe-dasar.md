@@ -1,6 +1,7 @@
 ---
 title: Tipe Dasar & Type Annotation
 date: 2024-04-01
+updated: 2026-09-18
 ---
 
 TypeScript menambahkan sistem tipe di atas JavaScript. Tipe bisa ditulis
