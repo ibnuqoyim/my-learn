@@ -4,6 +4,26 @@ Repo ini adalah blog statis (Eleventy) berisi catatan pelajaran dalam file
 Markdown di `notes/<kategori>/`. Aturan di bawah ini WAJIB diikuti setiap kali
 ada perubahan materi, baik oleh Claude maupun kontributor lain.
 
+## 0. Status migrasi ke Next.js + Supabase
+
+Situs ini sedang dimigrasikan ke stack baru: **Next.js + Supabase**, di
+folder `web/` — lihat `web/README.md` untuk arsitektur, skema database, dan
+alur konten yang baru (kolom `notes.status` menggantikan branch `draft`
+sebagai mekanisme "draft vs published").
+
+Selama migrasi belum di-cutover secara eksplisit:
+
+- Situs **live tetap versi Eleventy** ini (root repo, `notes/**/*.md`).
+  Semua aturan di bagian 1 & 2 di bawah **masih berlaku penuh** untuk
+  `notes/**/*.md` sampai ada perintah eksplisit untuk cutover.
+- Kode aplikasi baru di `web/` mengikuti aturan Git yang sama di bagian 1
+  (branch dari `main` terbaru, merge ke `draft` dulu), tapi perubahan di
+  `web/**` **bukan** "perubahan materi" — jadi tidak perlu memenuhi standar
+  isi materi di bagian 2 (itu khusus `notes/**/*.md`).
+- Jangan hapus file Eleventy (`.eleventy.js`, `_includes/`, `*.njk`,
+  `css/style.css`, `notes/**/*.md`, `netlify.toml`) atau ubah `netlify.toml`
+  tanpa perintah eksplisit — situs live masih bergantung pada semua itu.
+
 ## 1. Alur Git untuk pengembangan
 
 - Semua branch kerja/pengembangan — baik perubahan materi (`notes/**/*.md`,

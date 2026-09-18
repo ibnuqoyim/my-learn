@@ -5,6 +5,12 @@ file Markdown dan dikelompokkan per folder berdasarkan topik. Dibangun dengan
 [Eleventy (11ty)](https://www.11ty.dev/) — static site generator ringan yang
 outputnya HTML murni, sehingga sangat mudah dideploy ke Netlify.
 
+> **Sedang migrasi ke Next.js + Supabase.** Versi baru sedang dibangun di
+> folder [`web/`](./web) supaya bisa nambah fitur autentikasi, komentar, dan
+> search — lihat [`web/README.md`](./web/README.md). Situs live saat ini
+> **masih versi Eleventy di bawah ini** sampai versi baru siap dan di-cutover
+> secara eksplisit.
+
 ## Struktur folder
 
 ```
