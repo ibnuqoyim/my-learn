@@ -4,29 +4,5 @@ title: Catatan Belajar
 ---
 <section class="intro">
   <h1>Catatan Belajar</h1>
-  <p>Kumpulan catatan singkat dari berbagai materi yang sedang saya pelajari, dikelompokkan per topik.</p>
-</section>
-
-<section class="categories">
-  <h2>Kategori</h2>
-  <ul class="category-list">
-    {% for category in collections.categoryList %}
-    <li>
-      <a href="/kategori/{{ category.slug }}/">{{ category.name }}</a>
-      <span class="count">({{ category.notes.length }})</span>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
-
-<section class="recent">
-  <h2>Catatan Terbaru</h2>
-  <ul class="note-list">
-    {% for note in collections.notes %}
-    <li>
-      <a href="{{ note.url }}">{{ note.data.title }}</a>
-      <span class="meta">{{ note.data.category }} &middot; {{ note.data.date | readableDate }}</span>
-    </li>
-    {% endfor %}
-  </ul>
+  <p>Kumpulan catatan singkat dari berbagai materi yang sedang saya pelajari, dikelompokkan per topik. Lihat daftar kategori dan tulisan terbaru di sebelah kiri.</p>
 </section>
