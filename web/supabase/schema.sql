@@ -1,0 +1,128 @@
+-- Skema database Catatan Belajar (Supabase / Postgres).
+-- Jalankan file ini sekali lewat SQL Editor di dashboard Supabase project
+-- kamu (atau lewat Supabase CLI), sebelum menjalankan `npm run seed`.
+
+-- ============================================================
+-- Tabel
+-- ============================================================
+
+create table if not exists categories (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  slug text not null unique,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists profiles (
+  id uuid primary key references auth.users (id) on delete cascade,
+  display_name text,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists notes (
+  id uuid primary key default gen_random_uuid(),
+  category_id uuid not null references categories (id) on delete restrict,
+  title text not null,
+  slug text not null,
+  content text not null,
+  sources jsonb not null default '[]'::jsonb,
+  status text not null default 'draft' check (status in ('draft', 'published')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (category_id, slug)
+);
+
+create table if not exists comments (
+  id uuid primary key default gen_random_uuid(),
+  note_id uuid not null references notes (id) on delete cascade,
+  user_id uuid not null references auth.users (id) on delete cascade,
+  body text not null,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists note_progress (
+  user_id uuid not null references auth.users (id) on delete cascade,
+  note_id uuid not null references notes (id) on delete cascade,
+  status text not null default 'belum' check (status in ('belum', 'dipelajari', 'selesai')),
+  updated_at timestamptz not null default now(),
+  primary key (user_id, note_id)
+);
+
+-- ============================================================
+-- Full-text search
+-- ============================================================
+
+alter table notes
+  add column if not exists search_vector tsvector
+  generated always as (
+    setweight(to_tsvector('indonesian', coalesce(title, '')), 'A') ||
+    setweight(to_tsvector('indonesian', coalesce(content, '')), 'B')
+  ) stored;
+
+create index if not exists notes_search_vector_idx on notes using gin (search_vector);
+create index if not exists notes_status_idx on notes (status);
+
+-- ============================================================
+-- Row Level Security
+-- ============================================================
+
+alter table categories enable row level security;
+alter table profiles enable row level security;
+alter table notes enable row level security;
+alter table comments enable row level security;
+alter table note_progress enable row level security;
+
+-- categories: semua orang boleh baca, tulis hanya lewat service role (admin)
+create policy "categories_public_read" on categories
+  for select using (true);
+
+-- notes: publik hanya lihat yang published; tulis hanya lewat service role
+create policy "notes_public_read_published" on notes
+  for select using (status = 'published');
+
+-- profiles: pemilik boleh baca/ubah profil sendiri; publik boleh lihat nama
+-- tampilan (dipakai untuk menampilkan nama penulis komentar)
+create policy "profiles_public_read" on profiles
+  for select using (true);
+
+create policy "profiles_owner_update" on profiles
+  for update using (auth.uid() = id);
+
+create policy "profiles_owner_insert" on profiles
+  for insert with check (auth.uid() = id);
+
+-- comments: publik boleh baca; hanya user login yang boleh menulis
+-- komentar atas namanya sendiri, dan hanya boleh hapus komentar sendiri
+create policy "comments_public_read" on comments
+  for select using (true);
+
+create policy "comments_owner_insert" on comments
+  for insert with check (auth.uid() = user_id);
+
+create policy "comments_owner_delete" on comments
+  for delete using (auth.uid() = user_id);
+
+-- note_progress: strictly per-user, tidak ada yang lain bisa lihat/ubah
+create policy "note_progress_owner_all" on note_progress
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- ============================================================
+-- Trigger: buat baris profiles otomatis saat user baru daftar
+-- ============================================================
+
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id, display_name)
+  values (new.id, coalesce(new.raw_user_meta_data ->> 'display_name', split_part(new.email, '@', 1)));
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
