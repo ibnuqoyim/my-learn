@@ -1,6 +1,7 @@
 ---
 title: Async/Await di JavaScript
 date: 2024-01-20
+updated: 2026-09-18
 ---
 
 `async/await` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.

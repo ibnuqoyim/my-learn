@@ -1,6 +1,7 @@
 ---
 title: Interface & Type Alias
 date: 2024-04-05
+updated: 2026-09-18
 ---
 
 `interface` dan `type` sama-sama dipakai untuk mendefinisikan bentuk

@@ -37,6 +37,11 @@ Setiap catatan baru atau revisi materi di `notes/` harus memenuhi tiga hal:
    bahasa/tool, buku, atau situs yang diakui luas) di bagian akhir catatan
    dalam heading `## Sumber`. Jangan mengarang sumber atau mencantumkan
    link yang belum diverifikasi keberadaannya.
+4. **Tandai kapan terakhir diverifikasi** — setiap kali isi catatan dicek
+   ulang (misalnya lewat riset internet) dan dipastikan masih akurat untuk
+   kondisi saat ini, set/perbarui field `updated: YYYY-MM-DD` ke tanggal
+   verifikasi itu. `date` tetap tanggal catatan pertama kali ditulis,
+   jangan diubah.
 
 ### Template catatan
 
@@ -44,6 +49,7 @@ Setiap catatan baru atau revisi materi di `notes/` harus memenuhi tiga hal:
 ---
 title: Judul Catatan
 date: YYYY-MM-DD
+updated: YYYY-MM-DD
 ---
 
 Penjelasan singkat konsep dasar di sini.

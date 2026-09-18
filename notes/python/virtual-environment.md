@@ -1,6 +1,7 @@
 ---
 title: Virtual Environment (venv)
 date: 2024-02-12
+updated: 2026-09-18
 ---
 
 Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.

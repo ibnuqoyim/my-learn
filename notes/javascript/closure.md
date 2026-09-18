@@ -1,6 +1,7 @@
 ---
 title: Memahami Closure
 date: 2024-01-10
+updated: 2026-09-18
 ---
 
 Closure adalah fungsi yang "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar sudah selesai dieksekusi.

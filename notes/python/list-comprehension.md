@@ -1,6 +1,7 @@
 ---
 title: List Comprehension
 date: 2024-02-05
+updated: 2026-09-18
 ---
 
 List comprehension adalah cara ringkas membuat list baru dari list/iterable lain.

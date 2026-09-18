@@ -1,6 +1,7 @@
 ---
 title: Server Component vs Client Component
 date: 2024-04-15
+updated: 2026-09-18
 ---
 
 Di App Router, semua komponen di dalam folder `app/` adalah **Server

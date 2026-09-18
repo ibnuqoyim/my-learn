@@ -1,6 +1,7 @@
 ---
 title: Setup Supabase Client
 date: 2024-04-20
+updated: 2026-09-18
 ---
 
 Supabase adalah backend siap pakai (database Postgres, auth, storage, dst)
