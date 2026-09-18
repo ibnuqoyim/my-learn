@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import CommentSection from "@/components/CommentSection";
 import MarkdownContent from "@/components/MarkdownContent";
 import ProgressControl from "@/components/ProgressControl";
-import { getComments, getCurrentProfile, getNoteBySlug } from "@/lib/queries";
+import { getAdjacentNotes, getComments, getCurrentProfile, getNoteBySlug } from "@/lib/queries";
 
 type Params = { category: string; slug: string };
 
@@ -21,7 +21,11 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
 
   if (!note) notFound();
 
-  const [comments, currentUser] = await Promise.all([getComments(note.id), getCurrentProfile()]);
+  const [comments, currentUser, adjacent] = await Promise.all([
+    getComments(note.id),
+    getCurrentProfile(),
+    getAdjacentNotes(note.category.id, note.id),
+  ]);
 
   const updated = new Date(note.updated_at).toLocaleDateString("id-ID", {
     day: "numeric",
@@ -63,6 +67,27 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
           </ul>
         </>
       )}
+
+      <nav className="mt-10 flex flex-wrap justify-between gap-4 border-t border-border pt-4 text-sm">
+        {adjacent.prev ? (
+          <Link
+            href={`/notes/${adjacent.prev.category.slug}/${adjacent.prev.slug}`}
+            className="text-accent underline underline-offset-2"
+          >
+            ← {adjacent.prev.title}
+          </Link>
+        ) : (
+          <span />
+        )}
+        {adjacent.next && (
+          <Link
+            href={`/notes/${adjacent.next.category.slug}/${adjacent.next.slug}`}
+            className="text-accent underline underline-offset-2"
+          >
+            {adjacent.next.title} →
+          </Link>
+        )}
+      </nav>
 
       <CommentSection noteId={note.id} initialComments={comments} currentUser={currentUser} />
     </article>

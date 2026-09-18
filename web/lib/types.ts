@@ -15,6 +15,7 @@ export type NoteSummary = {
   slug: string;
   category: Category;
   updated_at: string;
+  orderIndex: number;
 };
 
 export type Note = NoteSummary & {
@@ -47,4 +48,15 @@ export type ProgressEntry = {
   status: ProgressStatus;
   updatedAt: string;
   note: NoteSummary;
+};
+
+export type CategoryProgress = {
+  total: number;
+  selesai: number;
+  dipelajari: number;
+};
+
+export type AdjacentNotes = {
+  prev: NoteSummary | null;
+  next: NoteSummary | null;
 };

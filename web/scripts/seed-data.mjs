@@ -16,6 +16,7 @@ export const notes = [
   {
     category: "git",
     slug: "branching",
+    order: 0,
     title: "Dasar Branching di Git",
     content: `Branch memungkinkan kita bekerja pada fitur/perbaikan tanpa mengganggu kode di branch utama.
 
@@ -62,6 +63,7 @@ Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang j
   {
     category: "javascript",
     slug: "closure",
+    order: 0,
     title: "Memahami Closure",
     content: `Closure adalah fungsi yang "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar sudah selesai dieksekusi.
 
@@ -102,6 +104,7 @@ Poin penting:
   {
     category: "javascript",
     slug: "async-await",
+    order: 1,
     title: "Async/Await di JavaScript",
     content: `\`async/await\` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.
 
@@ -142,16 +145,17 @@ Poin penting:
   {
     category: "nextjs",
     slug: "routing-dasar",
+    order: 0,
     title: "Routing Dasar dengan App Router",
     content: `Next.js (App Router) memakai file-based routing: struktur folder di dalam \`app/\` menentukan URL, dan file \`page.tsx\` di dalam folder itu yang jadi halamannya.
 
 \`\`\`mermaid
 graph TD
-  A["app/"] --> B["page.tsx → \\"/\\""]
+  A["app/"] --> B["page.tsx → /"]
   A --> C["about/"]
-  C --> D["page.tsx → \\"/about\\""]
+  C --> D["page.tsx → /about"]
   A --> E["blog/[slug]/"]
-  E --> F["page.tsx → \\"/blog/apa-saja\\" (dynamic route)"]
+  E --> F["page.tsx → /blog/apa-saja (dynamic route)"]
 \`\`\`
 
 Contoh halaman dasar:
@@ -193,6 +197,7 @@ Poin penting:
   {
     category: "nextjs",
     slug: "server-client-components",
+    order: 1,
     title: "Server Component vs Client Component",
     content: `Di App Router, semua komponen di dalam folder \`app/\` adalah **Server Component** secara default — dirender di server, tidak mengirim JavaScript komponennya ke browser. Untuk komponen yang butuh interaktivitas (state, event handler, hooks), harus ditandai sebagai **Client Component**.
 
@@ -242,6 +247,7 @@ Poin penting:
   {
     category: "python",
     slug: "list-comprehension",
+    order: 0,
     title: "List Comprehension",
     content: `List comprehension adalah cara ringkas membuat list baru dari list/iterable lain.
 
@@ -284,6 +290,7 @@ kuadrat = {n: n**2 for n in angka}
   {
     category: "python",
     slug: "virtual-environment",
+    order: 1,
     title: "Virtual Environment (venv)",
     content: `Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
 
@@ -325,6 +332,7 @@ Tips:
   {
     category: "supabase",
     slug: "setup-client",
+    order: 0,
     title: "Setup Supabase Client",
     content: `Supabase adalah backend siap pakai (database Postgres, auth, storage, dst) yang diakses lewat library \`@supabase/supabase-js\` di sisi aplikasi.
 
@@ -373,6 +381,7 @@ Poin penting:
   {
     category: "supabase",
     slug: "query-dasar",
+    order: 1,
     title: "Query Data Dasar (CRUD)",
     content: `Setelah client Supabase siap, operasi dasar ke database (CRUD) dipanggil lewat method di atas nama tabel.
 
@@ -418,6 +427,7 @@ Poin penting:
   {
     category: "typescript",
     slug: "tipe-dasar",
+    order: 0,
     title: "Tipe Dasar & Type Annotation",
     content: `TypeScript menambahkan sistem tipe di atas JavaScript. Tipe bisa ditulis manual (annotation) atau otomatis ditebak oleh compiler (inference).
 
@@ -463,6 +473,7 @@ Poin penting:
   {
     category: "typescript",
     slug: "interface-dan-type-alias",
+    order: 1,
     title: "Interface & Type Alias",
     content: `\`interface\` dan \`type\` sama-sama dipakai untuk mendefinisikan bentuk (shape) sebuah object, supaya TypeScript bisa memeriksa strukturnya.
 

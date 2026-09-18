@@ -1,7 +1,16 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Category, CategoryWithNotes, Comment, Note, NoteSummary, Profile, ProgressEntry } from "@/lib/types";
+import type {
+  AdjacentNotes,
+  Category,
+  CategoryWithNotes,
+  Comment,
+  Note,
+  NoteSummary,
+  Profile,
+  ProgressEntry,
+} from "@/lib/types";
 
-const NOTE_SUMMARY_SELECT = "id, title, slug, updated_at, category:categories(id, name, slug)";
+const NOTE_SUMMARY_SELECT = "id, title, slug, updated_at, order_index, category:categories(id, name, slug)";
 
 // Supabase project belum terhubung (mis. baru clone repo, .env.local belum
 // diisi) — jangan sampai seluruh app crash, tampilkan saja state kosong
@@ -22,6 +31,7 @@ function normalizeNoteSummary(row: any): NoteSummary {
     title: row.title,
     slug: row.slug,
     updated_at: row.updated_at,
+    orderIndex: row.order_index ?? 0,
     category,
   };
 }
@@ -85,7 +95,7 @@ export async function getCategoryBySlug(
     .select(NOTE_SUMMARY_SELECT)
     .eq("category_id", category.id)
     .eq("status", "published")
-    .order("updated_at", { ascending: false });
+    .order("order_index", { ascending: true });
 
   if (notesError) throw notesError;
 
@@ -175,6 +185,38 @@ export async function getUserProgress(userId: string): Promise<ProgressEntry[]> 
       return { status: row.status, updatedAt: row.updated_at, note: normalizeNoteSummary(note) };
     })
     .filter((entry): entry is ProgressEntry => entry !== null);
+}
+
+export async function getNoteProgressMap(userId: string, noteIds: string[]): Promise<Record<string, string>> {
+  if (!supabaseConfigured || noteIds.length === 0) return {};
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("note_progress")
+    .select("note_id, status")
+    .eq("user_id", userId)
+    .in("note_id", noteIds);
+
+  if (error) throw error;
+  return Object.fromEntries((data ?? []).map((row) => [row.note_id, row.status]));
+}
+
+export async function getAdjacentNotes(categoryId: string, currentNoteId: string): Promise<AdjacentNotes> {
+  if (!supabaseConfigured) return { prev: null, next: null };
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("notes")
+    .select(NOTE_SUMMARY_SELECT)
+    .eq("category_id", categoryId)
+    .eq("status", "published")
+    .order("order_index", { ascending: true });
+
+  if (error) throw error;
+
+  const ordered = (data ?? []).map(normalizeNoteSummary);
+  const index = ordered.findIndex((note) => note.id === currentNoteId);
+  if (index === -1) return { prev: null, next: null };
+
+  return { prev: ordered[index - 1] ?? null, next: ordered[index + 1] ?? null };
 }
 
 export async function searchNotes(query: string): Promise<NoteSummary[]> {

@@ -32,16 +32,23 @@ function buildSql() {
   for (const note of notes) {
     const sourcesJson = sqlString(JSON.stringify(note.sources));
     statements.push(
-      `insert into notes (category_id, title, slug, content, sources, status) values (` +
+      `insert into notes (category_id, title, slug, content, sources, order_index, status) values (` +
         `(select id from categories where slug = ${sqlString(note.category)}), ` +
         `${sqlString(note.title)}, ` +
         `${sqlString(note.slug)}, ` +
         `${sqlString(note.content)}, ` +
         `${sourcesJson}::jsonb, ` +
+        `${note.order ?? 0}, ` +
         `'published'` +
         `) on conflict (category_id, slug) do update set ` +
         `title = excluded.title, content = excluded.content, sources = excluded.sources, ` +
-        `status = excluded.status, updated_at = now();`
+        `order_index = excluded.order_index, status = excluded.status, ` +
+        // Hanya bump updated_at kalau memang ada yang berubah — supaya
+        // re-run seed yang isinya sama tidak menggeser urutan "Tulisan
+        // Terbaru" di seluruh catatan tanpa alasan.
+        `updated_at = case when (notes.title, notes.content, notes.sources, notes.order_index) ` +
+        `is distinct from (excluded.title, excluded.content, excluded.sources, excluded.order_index) ` +
+        `then now() else notes.updated_at end;`
     );
   }
 

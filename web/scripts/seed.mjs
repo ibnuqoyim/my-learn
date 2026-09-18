@@ -42,20 +42,42 @@ async function main() {
 
   for (const note of notes) {
     const category_id = categorySlugToId.get(note.category);
-    const { error } = await supabase.from("notes").upsert(
-      {
-        category_id,
-        title: note.title,
-        slug: note.slug,
-        content: note.content,
-        sources: note.sources,
-        status: "published",
-      },
-      { onConflict: "category_id,slug" }
-    );
+    const payload = {
+      category_id,
+      title: note.title,
+      slug: note.slug,
+      content: note.content,
+      sources: note.sources,
+      order_index: note.order ?? 0,
+      status: "published",
+    };
+
+    // Cek dulu apakah isinya beda dari yang sudah ada — supaya re-run
+    // seed yang isinya sama tidak menggeser updated_at (dan urutan
+    // "Tulisan Terbaru") tanpa alasan.
+    const { data: existing } = await supabase
+      .from("notes")
+      .select("title, content, sources, order_index")
+      .eq("category_id", category_id)
+      .eq("slug", note.slug)
+      .maybeSingle();
+
+    const changed =
+      !existing ||
+      existing.title !== payload.title ||
+      existing.content !== payload.content ||
+      existing.order_index !== payload.order_index ||
+      JSON.stringify(existing.sources) !== JSON.stringify(payload.sources);
+
+    const { error } = await supabase
+      .from("notes")
+      .upsert(
+        changed ? { ...payload, updated_at: new Date().toISOString() } : payload,
+        { onConflict: "category_id,slug" }
+      );
 
     if (error) throw error;
-    console.log(`Catatan tersimpan: ${note.title}`);
+    console.log(`Catatan tersimpan: ${note.title}${changed ? "" : " (tidak berubah)"}`);
   }
 
   console.log(`\nSelesai: ${categories.length} kategori, ${notes.length} catatan.`);

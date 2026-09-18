@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCategoryBySlug } from "@/lib/queries";
+import { getCategoryBySlug, getCurrentProfile, getNoteProgressMap } from "@/lib/queries";
 
 export async function generateMetadata({
   params,
@@ -14,12 +14,22 @@ export async function generateMetadata({
   return { title: `${result.category.name} — Catatan Belajar` };
 }
 
+const STATUS_BADGE: Record<string, string> = {
+  selesai: "✓ Selesai",
+  dipelajari: "Sedang Dipelajari",
+};
+
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const result = await getCategoryBySlug(slug);
 
   if (!result) notFound();
   const { category, notes } = result;
+
+  const user = await getCurrentProfile();
+  const progressMap = user ? await getNoteProgressMap(user.id, notes.map((n) => n.id)) : {};
+  const selesaiCount = notes.filter((n) => progressMap[n.id] === "selesai").length;
+  const progressPercent = notes.length > 0 ? Math.round((selesaiCount / notes.length) * 100) : 0;
 
   return (
     <div>
@@ -28,23 +38,50 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           Beranda
         </Link>
       </p>
-      <h1 className="mb-4 text-3xl font-bold">{category.name}</h1>
-      <ul>
-        {notes.map((note) => (
-          <li key={note.id} className="flex flex-wrap justify-between gap-4 border-b border-border py-2.5">
-            <Link href={`/notes/${category.slug}/${note.slug}`} className="text-accent underline underline-offset-2">
-              {note.title}
-            </Link>
-            <span className="text-sm text-muted">
-              {new Date(note.updated_at).toLocaleDateString("id-ID", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </span>
-          </li>
-        ))}
-      </ul>
+      <h1 className="mb-2 text-3xl font-bold">{category.name}</h1>
+      <p className="mb-4 text-sm text-muted">
+        Urutan belajar disarankan — mulai dari nomor 1, ikuti sampai selesai.
+      </p>
+
+      {user && notes.length > 0 && (
+        <div className="mb-6 rounded-md border border-border bg-code-bg p-3">
+          <p className="mb-2 text-sm font-bold">
+            Progress kamu: {selesaiCount} dari {notes.length} selesai ({progressPercent}%)
+          </p>
+          <div className="h-2 w-full overflow-hidden rounded-full bg-border">
+            <div className="h-full rounded-full bg-accent" style={{ width: `${progressPercent}%` }} />
+          </div>
+        </div>
+      )}
+
+      <ol>
+        {notes.map((note, index) => {
+          const status = progressMap[note.id];
+          return (
+            <li
+              key={note.id}
+              className="flex flex-wrap items-center justify-between gap-4 border-b border-border py-2.5"
+            >
+              <span className="flex items-baseline gap-2">
+                <span className="text-sm text-muted">{index + 1}.</span>
+                <Link
+                  href={`/notes/${category.slug}/${note.slug}`}
+                  className="text-accent underline underline-offset-2"
+                >
+                  {note.title}
+                </Link>
+              </span>
+              {status && STATUS_BADGE[status] && (
+                <span
+                  className={`text-sm ${status === "selesai" ? "text-accent" : "text-muted"}`}
+                >
+                  {STATUS_BADGE[status]}
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }

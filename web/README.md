@@ -36,6 +36,12 @@ search.
 - [x] Progress belajar per catatan (Belum/Sedang Dipelajari/Selesai) + halaman `/progress`
 - [x] Search full-text (`/cari?q=...`), form GET tanpa perlu JS
 - [x] Title tab browser dinamis per catatan/kategori (`generateMetadata`)
+- [x] Urutan belajar per kategori (`notes.order_index`) — catatan tampil
+  bernomor sesuai urutan disarankan, bukan tanggal update
+- [x] Progress belajar per kategori — progress bar + "X dari Y selesai" di
+  halaman kategori, badge status di tiap catatan
+- [x] Navigasi "Sebelumnya/Selanjutnya" di halaman catatan mengikuti
+  `order_index`, bukan cuma daftar kategori
 
 Semua fitur di atas sudah dites end-to-end dengan project Supabase asli
 (signup, konfirmasi email, login, komentar, progress, search) — bukan cuma

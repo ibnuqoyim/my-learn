@@ -27,6 +27,11 @@ create table if not exists notes (
   content text not null,
   sources jsonb not null default '[]'::jsonb,
   status text not null default 'draft' check (status in ('draft', 'published')),
+  -- Urutan belajar di dalam kategori (0, 1, 2, ...) — bukan urutan
+  -- ditulis/di-update, tapi urutan disarankan dipelajari (prasyarat dulu,
+  -- baru lanjutan). Dipakai untuk daftar kategori & navigasi
+  -- sebelumnya/selanjutnya di halaman catatan.
+  order_index integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (category_id, slug)
@@ -59,8 +64,15 @@ alter table notes
     setweight(to_tsvector('indonesian', coalesce(content, '')), 'B')
   ) stored;
 
+-- `create table if not exists` di atas tidak mengubah tabel yang sudah ada
+-- (project ini sudah punya tabel `notes` dari migrasi awal), jadi tambahkan
+-- kolomnya lewat ALTER TABLE idempotent supaya file ini aman dijalankan
+-- ulang kapan saja.
+alter table notes add column if not exists order_index integer not null default 0;
+
 create index if not exists notes_search_vector_idx on notes using gin (search_vector);
 create index if not exists notes_status_idx on notes (status);
+create index if not exists notes_category_order_idx on notes (category_id, order_index);
 
 -- ============================================================
 -- Row Level Security
@@ -72,37 +84,50 @@ alter table notes enable row level security;
 alter table comments enable row level security;
 alter table note_progress enable row level security;
 
+-- Semua CREATE POLICY didahului DROP POLICY IF EXISTS supaya file ini aman
+-- dijalankan ulang kapan saja (Postgres tidak punya
+-- `create policy if not exists`).
+
 -- categories: semua orang boleh baca, tulis hanya lewat service role (admin)
+drop policy if exists "categories_public_read" on categories;
 create policy "categories_public_read" on categories
   for select using (true);
 
 -- notes: publik hanya lihat yang published; tulis hanya lewat service role
+drop policy if exists "notes_public_read_published" on notes;
 create policy "notes_public_read_published" on notes
   for select using (status = 'published');
 
 -- profiles: pemilik boleh baca/ubah profil sendiri; publik boleh lihat nama
 -- tampilan (dipakai untuk menampilkan nama penulis komentar)
+drop policy if exists "profiles_public_read" on profiles;
 create policy "profiles_public_read" on profiles
   for select using (true);
 
+drop policy if exists "profiles_owner_update" on profiles;
 create policy "profiles_owner_update" on profiles
   for update using (auth.uid() = id);
 
+drop policy if exists "profiles_owner_insert" on profiles;
 create policy "profiles_owner_insert" on profiles
   for insert with check (auth.uid() = id);
 
 -- comments: publik boleh baca; hanya user login yang boleh menulis
 -- komentar atas namanya sendiri, dan hanya boleh hapus komentar sendiri
+drop policy if exists "comments_public_read" on comments;
 create policy "comments_public_read" on comments
   for select using (true);
 
+drop policy if exists "comments_owner_insert" on comments;
 create policy "comments_owner_insert" on comments
   for insert with check (auth.uid() = user_id);
 
+drop policy if exists "comments_owner_delete" on comments;
 create policy "comments_owner_delete" on comments
   for delete using (auth.uid() = user_id);
 
 -- note_progress: strictly per-user, tidak ada yang lain bisa lihat/ubah
+drop policy if exists "note_progress_owner_all" on note_progress;
 create policy "note_progress_owner_all" on note_progress
   for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
