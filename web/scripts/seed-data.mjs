@@ -18,7 +18,15 @@ Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router
 **Asumsi:** roadmap ini fokus ke Next.js itu sendiri, bukan mengajari React dari nol — kamu perlu familiar dengan dasar JavaScript dan konsep component/props/hooks di React (belum ada roadmap React tersendiri di platform ini). Prasyarat tool spesifik (mis. versi Node.js) disebutkan di catatan pertama.`,
   },
   { name: "Python", slug: "python" },
-  { name: "Supabase", slug: "supabase" },
+  {
+    name: "Supabase",
+    slug: "supabase",
+    description: `Membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya. Supabase menyediakan semua itu siap pakai di atas Postgres, diakses langsung dari client tanpa perlu backend server terpisah.
+
+Roadmap ini membawamu dari setup client, operasi CRUD dasar, mengenali user lewat autentikasi, sampai mengamankan data per user lewat Row Level Security. Empat langkah yang membangun satu sama lain — RLS di langkah terakhir memakai \`auth.uid()\` dari langkah autentikasi sebelumnya, jadi urutannya penting.
+
+**Asumsi:** familiar dengan JavaScript/TypeScript dasar dan konsep \`async\`/\`await\`. Butuh akun Supabase (gratis) — disebutkan di catatan pertama.`,
+  },
   { name: "TypeScript", slug: "typescript" },
 ];
 
@@ -870,7 +878,9 @@ Tips:
     slug: "setup-client",
     order: 0,
     title: "Setup Supabase Client",
-    content: `Supabase adalah backend siap pakai (database Postgres, auth, storage, dst) yang diakses lewat library \`@supabase/supabase-js\` di sisi aplikasi.
+    content: `**Masalah yang diselesaikan:** membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya.
+
+Supabase adalah backend siap pakai (database Postgres, auth, storage, dst) yang diakses lewat library \`@supabase/supabase-js\` di sisi aplikasi.
 
 \`\`\`mermaid
 graph LR
@@ -913,13 +923,20 @@ Poin penting:
         url: "https://supabase.com/docs/guides/getting-started/migrating-to-new-api-keys",
       },
     ],
+    prerequisites: [
+      { label: "Akun & project Supabase sudah dibuat (gratis)", url: "https://supabase.com/dashboard" },
+      { label: "Node.js & npm sudah terinstall", url: "https://nodejs.org" },
+    ],
+    practice: `Buat project baru di dashboard Supabase (kalau belum ada), install \`@supabase/supabase-js\`, lalu buat file \`lib/supabase.ts\` seperti contoh di atas dengan URL & key project kamu sendiri (dari Project Settings → API Keys). Panggil \`await supabase.auth.getSession()\` dari mana saja di project untuk memastikan client-nya berhasil terhubung — harus return object tanpa error, walau sesinya masih \`null\` karena belum ada yang login.`,
   },
   {
     category: "supabase",
     slug: "query-dasar",
     order: 1,
     title: "Query Data Dasar (CRUD)",
-    content: `Setelah client Supabase siap, operasi dasar ke database (CRUD) dipanggil lewat method di atas nama tabel.
+    content: `Client Supabase dari catatan sebelumnya sudah siap. **Masalah yang diselesaikan sekarang:** bagaimana benar-benar membaca dan mengubah data di database dari kode aplikasi, tanpa menulis query SQL manual satu per satu?
+
+Setelah client Supabase siap, operasi dasar ke database (CRUD) dipanggil lewat method di atas nama tabel.
 
 \`\`\`ts
 import { supabase } from "./lib/supabase";
@@ -959,6 +976,138 @@ Poin penting:
     sources: [
       { label: "Supabase Docs — JavaScript Client Reference", url: "https://supabase.com/docs/reference/javascript/introduction" },
     ],
+    practice: `Di project Supabase kamu, buat tabel \`produk\` (kolom: \`id\`, \`nama\` text, \`harga\` numeric). Praktikkan keempat operasi CRUD di atas lewat client — insert 2-3 produk, select semuanya, update salah satu harganya, lalu delete satu. Cek tabel \`produk\` di dashboard Supabase (Table Editor) setiap habis satu operasi, untuk memastikan perubahannya benar-benar tersimpan di database.`,
+  },
+  {
+    category: "supabase",
+    slug: "auth-dasar",
+    order: 2,
+    title: "Autentikasi Dasar Pengguna",
+    content: `Sekarang kamu bisa query data bebas (asalkan RLS belum aktif). **Masalah yang diselesaikan sekarang:** bagaimana tahu *siapa* yang sedang mengakses aplikasi, supaya nanti data bisa dibatasi per user — bukan semua orang melihat/mengubah data yang sama?
+
+Supabase menyediakan modul autentikasi lengkap (**Supabase Auth**) untuk mengelola pendaftaran, login, sesi token JWT, dan verifikasi email pengguna.
+
+\`\`\`mermaid
+sequenceDiagram
+  autonumber
+  participant C as Browser Client
+  participant A as Supabase Auth
+  participant DB as PostgreSQL Database
+  C->>A: Kirim email dan password
+  A->>A: Verifikasi hash kata sandi
+  A-->>C: Kembalikan Session dan Token JWT
+  C->>DB: Query data dengan Bearer JWT
+  DB->>DB: Validasi JWT dan isi auth.uid
+  DB-->>C: Kembalikan baris data sesuai RLS
+\`\`\`
+
+Contoh kode alur autentikasi email dan kata sandi:
+
+\`\`\`ts
+import { supabase } from "./lib/supabase";
+
+// 1. Mendaftarkan user baru (Sign Up)
+async function daftarUser(email: string, kataSandi: string) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password: kataSandi,
+  });
+  if (error) throw error;
+  return data.user;
+}
+
+// 2. Masuk menggunakan email & password (Sign In)
+async function masukUser(email: string, kataSandi: string) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password: kataSandi,
+  });
+  if (error) throw error;
+  return data.session;
+}
+
+// 3. Mendapatkan user yang sedang aktif saat ini
+async function ambilUserAktif() {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user;
+}
+
+// 4. Keluar dari sesi aplikasi (Sign Out)
+async function keluar() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+}
+\`\`\`
+
+Poin penting:
+
+- Data akun autentikasi disimpan terpisah secara aman di dalam skema \`auth.users\`, bukan di skema \`public\`.
+- Untuk membaca identitas user di server atau client secara aman dan terverifikasi ke server auth, selalu utamakan pemanggilan \`supabase.auth.getUser()\`.
+- Setelah login berhasil, token JWT sesi otomatis disimpan (di cookie atau localStorage) dan disertakan di setiap panggilan query database berikutnya, sehingga RLS mengenali \`auth.uid()\`.`,
+    sources: [
+      { url: "https://supabase.com/docs/guides/auth", label: "Supabase Docs — User Management & Authentication" },
+      { url: "https://supabase.com/docs/reference/javascript/auth-signup", label: "Supabase Docs — Auth Reference (JavaScript)" },
+    ],
+    practice: `Buat form sederhana (atau langsung panggil dari kode/console) untuk \`daftarUser()\` dengan email+password sungguhan, cek email konfirmasi yang masuk. Setelah konfirmasi, coba \`masukUser()\`, lalu \`ambilUserAktif()\` untuk memastikan sesinya tersimpan. Terakhir panggil \`keluar()\` dan \`ambilUserAktif()\` lagi — pastikan hasilnya \`null\`.`,
+  },
+  {
+    category: "supabase",
+    slug: "rls-dasar",
+    order: 3,
+    title: "Dasar Row Level Security (RLS)",
+    content: `Sekarang kamu punya cara mengenali user yang login (\`auth.uid()\`, dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana memastikan user A tidak bisa membaca/mengubah data milik user B, padahal keduanya memakai publishable key yang sama dan bisa langsung memanggil database dari browser?
+
+**Row Level Security (RLS)** adalah fitur keamanan bawaan PostgreSQL yang membatasi baris data mana saja yang boleh dibaca (*SELECT*), ditambah (*INSERT*), diubah (*UPDATE*), atau dihapus (*DELETE*) oleh pengguna tertentu.
+
+Di Supabase, karena client browser memanggil database langsung menggunakan Publishable Key, RLS adalah lapisan pertahanan utama agar pengguna tidak bisa membaca atau memanipulasi data milik orang lain.
+
+\`\`\`mermaid
+flowchart TD
+  Req["Client Request<br/>SELECT dari browser"] --> CheckRLS{"Apakah RLS Aktif?"}
+  CheckRLS -->|Tidak| AllowAll["Izinkan Akses Semua Baris (Bahaya)"]
+  CheckRLS -->|Ya| EvalPolicy{"Evaluasi Policy per Baris"}
+  EvalPolicy -->|Lolos Policy: Sesuai User ID| ReturnRow["Baris Dikembalikan ke Client"]
+  EvalPolicy -->|Gagal: Bukan Pemilik Data| DropRow["Baris Diabaikan atau Ditolak"]
+\`\`\`
+
+Mengaktifkan RLS dan membuat policy melalui SQL:
+
+\`\`\`sql
+-- 1. Selalu aktifkan RLS pada tabel yang dibuat
+ALTER TABLE catatan ENABLE ROW LEVEL SECURITY;
+
+-- 2. Policy: Siapa saja (publik) boleh membaca catatan yang berstatus published
+CREATE POLICY "Catatan published dapat dibaca publik"
+ON catatan
+FOR SELECT
+USING (status = 'published');
+
+-- 3. Policy: User yang login hanya boleh membaca catatan miliknya
+CREATE POLICY "User dapat membaca catatan miliknya"
+ON catatan
+FOR SELECT
+TO authenticated
+USING (auth.uid() = user_id);
+
+-- 4. Policy: User yang login hanya boleh menambah catatan dengan user_id miliknya
+CREATE POLICY "User dapat menambah catatan miliknya"
+ON catatan
+FOR INSERT
+TO authenticated
+WITH CHECK (auth.uid() = user_id);
+\`\`\`
+
+Poin penting:
+
+- Saat RLS diaktifkan pada suatu tabel tanpa policy apa pun, perilakunya adalah **default deny** (semua query dari client anon/authenticated akan menghasilkan data kosong atau error).
+- Klausa \`USING\` digunakan untuk memeriksa baris yang sudah ada di database (cocok untuk \`SELECT\`, \`UPDATE\`, \`DELETE\`).
+- Klausa \`WITH CHECK\` digunakan untuk memvalidasi baris data baru yang akan ditulis ke database (cocok untuk \`INSERT\`, \`UPDATE\`).
+- Fungsi pembantu \`auth.uid()\` mengembalikan UUID pengguna yang sedang login berdasarkan token JWT sesi saat ini.`,
+    sources: [
+      { url: "https://supabase.com/docs/guides/database/postgres/row-level-security", label: "Supabase Docs — Row Level Security" },
+      { url: "https://www.postgresql.org/docs/current/ddl-rowsecurity.html", label: "PostgreSQL Docs — Row Security Policies" },
+    ],
+    practice: `Di tabel \`produk\` dari latihan sebelumnya, aktifkan RLS (\`ALTER TABLE produk ENABLE ROW LEVEL SECURITY\`) TANPA membuat policy apa pun dulu — coba \`select\` dari client, harus mendapat data kosong (default deny). Lalu tambahkan kolom \`user_id uuid\` ke tabel itu, buat policy SELECT & INSERT seperti contoh di atas berdasarkan \`auth.uid()\`. Terakhir, tes dengan dua akun berbeda: pastikan tiap akun cuma bisa melihat produk yang dia insert sendiri. Ini menutup roadmap Supabase: dari setup client sampai data yang benar-benar aman per user.`,
   },
   {
     category: "typescript",
