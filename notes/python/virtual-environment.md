@@ -1,0 +1,28 @@
+---
+title: Virtual Environment (venv)
+date: 2024-02-12
+---
+
+Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
+
+```bash
+# membuat venv
+python -m venv .venv
+
+# mengaktifkan (Linux/Mac)
+source .venv/bin/activate
+
+# mengaktifkan (Windows)
+.venv\Scripts\activate
+
+# menginstal dependency
+pip install -r requirements.txt
+
+# keluar dari venv
+deactivate
+```
+
+Tips:
+
+- Tambahkan folder `.venv/` ke `.gitignore` agar tidak ikut ter-commit.
+- Simpan daftar dependency dengan `pip freeze > requirements.txt`.
