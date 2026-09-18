@@ -9,8 +9,6 @@ export const categories = [
   {
     name: "Next.js",
     slug: "nextjs",
-    // Pilot narasi roadmap (lihat CLAUDE.md bagian 3) — kategori lain
-    // belum punya description, masih tampil normal tanpa bagian ini.
     description: `Sebelum ada *file-based routing* seperti di Next.js, menyusun routing di aplikasi React itu kerja manual: install library router, lalu tulis config terpisah yang memetakan tiap URL ke komponennya — dan config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya. Masalah lain: React tradisional mengirim **semua** kode JavaScript ke browser, bahkan untuk bagian yang cuma menampilkan teks statis dari database, bikin aplikasi lambat di koneksi lemah.
 
 Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dan navigasi, menyusun layout bersama antar halaman, memahami batas Server/Client Component, mengambil data dengan aman, membuat API sendiri lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sembilan langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya, jadi jangan lompat kalau belum menyelesaikan langkah sebelumnya.
@@ -19,7 +17,15 @@ Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router
   },
   { name: "Python", slug: "python" },
   { name: "Supabase", slug: "supabase" },
-  { name: "TypeScript", slug: "typescript" },
+  {
+    name: "TypeScript",
+    slug: "typescript",
+    description: `JavaScript murni tidak mendeteksi kesalahan tipe data sampai program benar-benar dijalankan (runtime) — kirim string ke fungsi yang harusnya menerima angka baru ketahuan setelah aplikasi jalan, bahkan mungkin sudah di production. TypeScript menambahkan sistem tipe di atas JavaScript yang dicek saat menulis kode (compile time), sebelum bug itu sempat sampai ke user.
+
+Roadmap ini membawamu dari tipe dasar sampai bisa membaca dan menulis konfigurasi TypeScript sendiri: mulai dari type annotation primitif, mendefinisikan bentuk object lewat interface/type alias, union & literal type untuk merepresentasikan pilihan terbatas, type narrowing untuk menangani union dengan aman, generics untuk kode yang reusable tanpa kehilangan type safety, enum sebagai alternatif union, sampai opsi \`tsconfig.json\` yang paling penting untuk dikonfigurasi. Tujuh langkah, ikuti berurutan.
+
+**Asumsi:** TypeScript itu JavaScript plus sistem tipe, bukan bahasa baru dari nol — roadmap ini mengasumsikan kamu familiar dengan JavaScript dasar (variabel, fungsi, object, array). Prasyarat tool (Node.js, TypeScript compiler) disebutkan di catatan pertama.`,
+  },
 ];
 
 export const notes = [
@@ -965,7 +971,9 @@ Poin penting:
     slug: "tipe-dasar",
     order: 0,
     title: "Tipe Dasar & Type Annotation",
-    content: `TypeScript menambahkan sistem tipe di atas JavaScript. Tipe bisa ditulis manual (annotation) atau otomatis ditebak oleh compiler (inference).
+    content: `**Masalah yang diselesaikan:** JavaScript murni tidak mendeteksi kesalahan tipe data sampai program benar-benar dijalankan — kirim string ke tempat yang harusnya angka baru ketahuan saat aplikasi sudah jalan (bahkan mungkin sudah di production), bukan saat menulis kode.
+
+TypeScript menambahkan sistem tipe di atas JavaScript, dicek SEBELUM kode dijalankan (compile time). Tipe bisa ditulis manual (annotation) atau otomatis ditebak oleh compiler (inference).
 
 | Tipe | Contoh nilai |
 | --- | --- |
@@ -1005,13 +1013,26 @@ Poin penting:
     sources: [
       { label: "TypeScript Handbook — Everyday Types", url: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html" },
     ],
+    prerequisites: [
+      { label: "Node.js & npm sudah terinstall", url: "https://nodejs.org" },
+      {
+        label:
+          "TypeScript compiler tersedia (`npm install -g typescript`, atau lewat project yang sudah menyertakannya seperti Next.js)",
+      },
+    ],
+    practice: `Buat file \`coba.ts\`, isi dengan variabel beranotasi tipe (\`string\`, \`number\`, \`boolean\`) dan satu function bertipe seperti contoh di atas. Jalankan \`npx tsc coba.ts --noEmit\` di terminal — perintah ini cuma mengecek tipe tanpa menghasilkan file \`.js\`. Lalu:
+
+1. Ubah salah satu nilai supaya tipenya salah (mis. \`let umur: number = "dua puluh";\`), jalankan lagi \`npx tsc\` — baca pesan error yang muncul.
+2. Kembalikan ke benar, lalu coba panggil \`tambah("1", 2)\` seperti komentar di atas — pastikan compiler menolaknya sebelum kode itu sempat dijalankan.`,
   },
   {
     category: "typescript",
     slug: "interface-dan-type-alias",
     order: 1,
     title: "Interface & Type Alias",
-    content: `\`interface\` dan \`type\` sama-sama dipakai untuk mendefinisikan bentuk (shape) sebuah object, supaya TypeScript bisa memeriksa strukturnya.
+    content: `Catatan sebelumnya membahas tipe untuk nilai tunggal (\`string\`, \`number\`, dst). **Masalah yang diselesaikan sekarang:** bagaimana kalau yang perlu diberi tipe adalah *object* dengan banyak properti — misalnya data user dengan \`id\`, \`nama\`, \`email\`? Menuliskan ulang bentuk object yang sama di setiap fungsi yang memakainya itu berulang dan gampang tidak konsisten kalau salah satu lupa di-update.
+
+\`interface\` dan \`type\` sama-sama dipakai untuk mendefinisikan bentuk (shape) sebuah object, supaya TypeScript bisa memeriksa strukturnya.
 
 \`\`\`ts
 // pakai interface
@@ -1051,5 +1072,396 @@ Perbedaan singkat:
     sources: [
       { label: "TypeScript Handbook — Object Types (Interfaces)", url: "https://www.typescriptlang.org/docs/handbook/2/objects.html" },
     ],
+    practice: `Buat \`interface Buku { judul: string; penulis: string; tahun?: number }\`. Tulis fungsi \`cetakInfo(buku: Buku)\` yang menampilkan info buku (tahun opsional, tampilkan "Tahun tidak diketahui" kalau tidak diisi). Lalu buat ULANG hal yang sama pakai \`type\` alih-alih \`interface\` — bandingkan, apa bedanya secara sintaks? Terakhir, coba \`interface Buku { penerbit: string }\` sekali lagi dengan nama yang sama — perhatikan declaration merging (TypeScript menggabungkan otomatis), lalu coba hal yang sama dengan \`type\` — harus muncul error "duplicate identifier".`,
+  },
+  {
+    category: "typescript",
+    slug: "union-dan-literal-type",
+    order: 2,
+    title: "Union Type & Literal Type",
+    content: `Sekarang kamu bisa mendefinisikan bentuk object lewat interface/type alias di catatan sebelumnya. **Masalah yang diselesaikan sekarang:** bagaimana kalau sebuah nilai cuma boleh salah satu dari beberapa pilihan spesifik — misalnya status pesanan yang cuma boleh \`"pending"\`, \`"success"\`, atau \`"failed"\`? Kalau cuma dianotasi \`string\` biasa, TypeScript tidak akan komplain kalau ada yang salah ketik \`"pendign"\` atau mengirim status yang sama sekali tidak valid.
+
+Union type memungkinkan suatu variabel atau parameter memiliki lebih dari satu kemungkinan tipe data (menggunakan operator \`|\`). Literal type mempersempit tipe data ke nilai eksak tertentu (bukan sekadar \`string\` atau \`number\` umum).
+
+\`\`\`mermaid
+flowchart TD
+    subgraph UnionType ["type Status = 'pending' | 'success' | 'failed'"]
+        A["'pending'"]
+        B["'success'"]
+        C["'failed'"]
+    end
+    Val["Input Nilai: 'success'"] -->|Valid| B
+    ValInvalid["Input Nilai: 'cancelled'"] -->|Type Error| UnionType
+\`\`\`
+
+### 1. Union Type Sederhana
+Mengizinkan nilai berupa salah satu dari tipe yang didefinisikan:
+
+\`\`\`ts
+function formatID(id: string | number): string {
+  return \`ID: \${id}\`;
+}
+
+console.log(formatID(101));       // Output: ID: 101
+console.log(formatID("USR-001")); // Output: ID: USR-001
+\`\`\`
+
+### 2. Literal Type (String & Number Literal)
+Mengunci nilai agar hanya menerima teks atau angka tertentu:
+
+\`\`\`ts
+type Role = "admin" | "member" | "guest";
+type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6;
+
+let userRole: Role = "admin";
+// userRole = "superadmin"; // Error: Type '"superadmin"' is not assignable to type 'Role'.
+
+let roll: DiceRoll = 6;
+// let invalidRoll: DiceRoll = 7; // Error: Type '7' is not assignable to type 'DiceRoll'.
+\`\`\`
+
+### 3. Discriminated Union (Tagged Union)
+Teknik menggabungkan beberapa object type yang memiliki properti penanda (*discriminant property*) yang sama untuk membedakan struktur datanya:
+
+\`\`\`ts
+type ResponseData =
+  | { status: "loading" }
+  | { status: "success"; data: string[] }
+  | { status: "error"; message: string };
+
+function renderResponse(res: ResponseData) {
+  if (res.status === "loading") {
+    console.log("Sedang memuat data...");
+  } else if (res.status === "success") {
+    console.log("Data diterima:", res.data.length, "item");
+  } else {
+    console.log("Error:", res.message);
+  }
+}
+\`\`\`
+
+- **Union (\`|\`)** = nilai bisa bertipe A **atau** B.
+- **Literal Type** = nilai harus persis teks/angka tertentu, sangat berguna menggantikan magic string/number.
+- **Discriminated Union** = pola standar di TypeScript untuk menangani state kompleks (misal: state API, aksi Redux, dll).`,
+    sources: [
+      { url: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types", label: "TypeScript Handbook — Everyday Types (Unions)" },
+      { url: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#literal-types", label: "TypeScript Handbook — Literal Types" },
+    ],
+    practice: `Definisikan \`type Pembayaran = "transfer" | "kartu" | "cod"\`. Buat fungsi \`prosesPembayaran(metode: Pembayaran)\` yang mencetak pesan berbeda per metode. Coba panggil dengan nilai yang salah ketik (\`"trasfer"\`) — pastikan TypeScript langsung menolak sebelum kode dijalankan. Lalu buat discriminated union \`type Notifikasi = { tipe: "email"; alamat: string } | { tipe: "sms"; nomor: string }\` dan fungsi yang menangani keduanya seperti contoh \`renderResponse\` di atas.`,
+  },
+  {
+    category: "typescript",
+    slug: "type-narrowing",
+    order: 3,
+    title: "Type Narrowing Dasar",
+    content: `Union type dan literal type dari catatan sebelumnya menyelesaikan masalah "nilai apa saja yang valid". **Masalah yang diselesaikan sekarang:** begitu kamu punya variabel bertipe union (misalnya \`string | number\`), compiler tidak tahu persis tipe konkretnya di titik tertentu dalam kode — jadi method yang spesifik ke satu tipe (\`.toUpperCase()\` untuk string, \`.toFixed()\` untuk number) tidak bisa langsung dipanggil tanpa pengecekan dulu.
+
+Type Narrowing adalah proses di mana TypeScript mempersempit tipe variabel yang luas menjadi tipe yang lebih spesifik berdasarkan pemeriksaan kondisi logika di kode (*control flow analysis*).
+
+\`\`\`mermaid
+flowchart TD
+    Input["Input: string | number"] --> Check{"typeof value === 'string'?"}
+    Check -- Yes --> BranchStr["Tipe menyempit ke: string<br/>(Bisa akses .toUpperCase(), .slice())"]
+    Check -- No --> BranchNum["Tipe menyempit ke: number<br/>(Bisa akses .toFixed(), operasi hitung)"]
+\`\`\`
+
+### 1. \`typeof\` Guard
+Digunakan untuk tipe primitif (\`string\`, \`number\`, \`boolean\`, \`symbol\`, \`bigint\`):
+
+\`\`\`ts
+function padLeft(padding: number | string, input: string): string {
+  if (typeof padding === "number") {
+    // Di dalam blok ini, padding pasti bertipe \`number\`
+    return " ".repeat(padding) + input;
+  }
+  // Di luar blok if, TypeScript tahu padding pasti bertipe \`string\`
+  return padding + input;
+}
+\`\`\`
+
+### 2. Equality Guard (\`===\`, \`!==\`)
+Pemeriksaan kesamaan nilai literal mempersempit tipe union:
+
+\`\`\`ts
+function prosesStatus(state: "idle" | "loading" | "success") {
+  if (state === "loading") {
+    console.log("Animasi spinner...");
+  } else if (state === "success") {
+    console.log("Tampilkan konten!");
+  } else {
+    console.log("Menunggu aksi user.");
+  }
+}
+\`\`\`
+
+### 3. Operator \`in\`
+Memeriksa keberadaan sebuah property pada object:
+
+\`\`\`ts
+type Burung = { terbang: () => void };
+type Ikan = { berenang: () => void };
+
+function gerak(hewan: Burung | Ikan) {
+  if ("terbang" in hewan) {
+    hewan.terbang(); // TypeScript tahu ini Burung
+  } else {
+    hewan.berenang(); // TypeScript tahu ini Ikan
+  }
+}
+\`\`\`
+
+### 4. \`instanceof\` Guard
+Memeriksa apakah object merupakan instance dari suatu \`class\`:
+
+\`\`\`ts
+function logDateOrString(x: Date | string) {
+  if (x instanceof Date) {
+    console.log(x.toUTCString()); // x bertipe Date
+  } else {
+    console.log(x.toUpperCase()); // x bertipe string
+  }
+}
+\`\`\`
+
+TypeScript secara pintar memotong kemungkinan tipe (*type narrowing*) di setiap cabang \`if/else\`, sehingga method yang dipanggil dijamin aman tanpa perlu casting manual (\`as\`).`,
+    sources: [
+      { url: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html", label: "TypeScript Handbook — Narrowing" },
+    ],
+    practice: `Tulis fungsi \`formatNilai(value: string | number | boolean)\` yang mengembalikan versi string dari \`value\` dengan format berbeda per tipe (uppercase untuk string, 2 angka desimal untuk number, "Ya"/"Tidak" untuk boolean). Pakai \`typeof\` guard untuk tiap cabang. Lalu coba hapus salah satu pengecekan \`typeof\`-nya dan lihat error yang muncul saat memanggil method yang tidak sesuai tipe di cabang itu.`,
+  },
+  {
+    category: "typescript",
+    slug: "generics-dasar",
+    order: 4,
+    title: "Generics Dasar",
+    content: `Semua fungsi yang kamu tulis sejauh ini punya tipe parameter yang spesifik. **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau bikin fungsi yang bekerja untuk banyak tipe data sekaligus (angka, teks, object apa pun) tanpa menulis versi terpisah untuk masing-masing, dan tanpa kehilangan informasi tipe seperti yang terjadi kalau pakai \`any\`?
+
+Generics memungkinkan kita membuat fungsi, interface, atau class yang dapat bekerja dengan berbagai tipe data tanpa kehilangan informasi tipe aslinya (*type safety*), bertindak seperti variabel penampung tipe (*type placeholder*).
+
+\`\`\`mermaid
+flowchart LR
+    subgraph Function ["Fungsi Generic: identitas&lt;T&gt;(arg: T): T"]
+        T["T (Type Placeholder)"]
+    end
+    Call1["identitas&lt;number&gt;(42)"] -->|T = number| Result1["Return: 42 (number)"]
+    Call2["identitas&lt;string&gt;('halo')"] -->|T = string| Result2["Return: 'halo' (string)"]
+\`\`\`
+
+### 1. Masalah Tanpa Generics vs Dengan Generics
+Jika menggunakan \`any\`, tipe return akan hilang. Dengan generics (\`<T>\`), tipe input dan output tetap terjaga:
+
+\`\`\`ts
+// Tanpa Generics: kehilangan type check
+function identitasAny(arg: any): any {
+  return arg;
+}
+
+// Dengan Generics: tipe tetap terjaga
+function identitas<T>(arg: T): T {
+  return arg;
+}
+
+const angka = identitas<number>(100);    // tipe: number
+const teks = identitas("Selamat Datang"); // tipe: string (type inference otomatis)
+\`\`\`
+
+### 2. Generic pada Interface & Type Alias
+Sangat umum digunakan untuk response API:
+
+\`\`\`ts
+interface ApiResponse<T> {
+  status: number;
+  sukses: boolean;
+  data: T;
+}
+
+interface UserProfile {
+  id: string;
+  nama: string;
+}
+
+const userRes: ApiResponse<UserProfile> = {
+  status: 200,
+  sukses: true,
+  data: { id: "u1", nama: "Ahmad" }
+};
+
+const countRes: ApiResponse<number> = {
+  status: 200,
+  sukses: true,
+  data: 42
+};
+\`\`\`
+
+### 3. Generic Constraints (\`extends\`)
+Membatasi tipe yang boleh masuk ke dalam parameter generic:
+
+\`\`\`ts
+interface MemilikiPanjang {
+  length: number;
+}
+
+function hitungPanjang<T extends MemilikiPanjang>(item: T): number {
+  return item.length;
+}
+
+console.log(hitungPanjang("Halo Dunia")); // valid (string punya .length)
+console.log(hitungPanjang([1, 2, 3]));     // valid (array punya .length)
+// hitungPanjang(123); // Error: Argument of type 'number' is not assignable to 'MemilikiPanjang'
+\`\`\`
+
+Generics membuat kode bersifat *reusable* (dapat dipakai ulang) untuk berbagai jenis data namun tetap 100% *type-safe*.`,
+    sources: [
+      { url: "https://www.typescriptlang.org/docs/handbook/2/generics.html", label: "TypeScript Handbook — Generics" },
+    ],
+    practice: `Buat fungsi generic \`ambilElemenPertama<T>(arr: T[]): T\` yang mengembalikan elemen pertama array apa pun. Panggil dengan array number, array string, dan array object — pastikan tipe hasil return-nya ikut menyesuaikan tanpa perlu casting manual. Lalu buat \`interface Kotak<T> { isi: T }\` dan buat dua instance kotak dengan tipe isi yang berbeda.`,
+  },
+  {
+    category: "typescript",
+    slug: "enum-dasar",
+    order: 5,
+    title: "Enum Dasar",
+    content: `Catatan sebelumnya (generics) dan sebelum-sebelumnya (union & literal type) sama-sama cara merepresentasikan "pilihan terbatas" dengan cara yang berbeda. **Masalah yang diselesaikan sekarang:** enum adalah alternatif lain — sekumpulan konstanta bernama yang dikelompokkan dalam satu namespace, umum dipakai di code base yang lebih bergaya OOP.
+
+Enum (*enumerations*) adalah fitur TypeScript yang memungkinkan pendefinisian sekumpulan konstanta bernama. Enum memudahkan representasi pilihan opsi yang terbatas dan tetap.
+
+\`\`\`mermaid
+flowchart TD
+    subgraph NumericEnum ["Numeric Enum (Auto Increment)"]
+        D0["Direction.Up = 0"]
+        D1["Direction.Right = 1"]
+        D2["Direction.Down = 2"]
+        D3["Direction.Left = 3"]
+    end
+    subgraph StringEnum ["String Enum (Eksplisit)"]
+        S1["StatusPesanan.Pending = 'PENDING'"]
+        S2["StatusPesanan.Proses = 'PROSES'"]
+        S3["StatusPesanan.Selesai = 'SELESAI'"]
+    end
+\`\`\`
+
+### 1. Numeric Enum (Enum Angka)
+Secara default, nilai enum dimulai dari \`0\` dan otomatis bertambah 1:
+
+\`\`\`ts
+enum Arah {
+  Atas,    // 0
+  Kanan,   // 1
+  Bawah,   // 2
+  Kiri     // 3
+}
+
+let gerakan: Arah = Arah.Atas;
+console.log(gerakan); // Output: 0
+\`\`\`
+
+Kita juga bisa menentukan nilai awal:
+\`\`\`ts
+enum HttpStatus {
+  OK = 200,
+  BadRequest = 400,
+  NotFound = 404,
+  InternalServerError = 500
+}
+\`\`\`
+
+### 2. String Enum (Direkomendasikan)
+String enum lebih mudah di-debug karena nilainya langsung terbaca saat di-log atau disimpan ke database:
+
+\`\`\`ts
+enum PeranPengguna {
+  Admin = "ADMIN",
+  Editor = "EDITOR",
+  Viewer = "VIEWER"
+}
+
+function cekAkses(peran: PeranPengguna) {
+  if (peran === PeranPengguna.Admin) {
+    console.log("Akses penuh diberikan.");
+  }
+}
+
+cekAkses(PeranPengguna.Admin);
+\`\`\`
+
+### Enum vs String Literal Union
+Dalam ekosistem TypeScript modern, ada perbandingan umum antara \`enum\` dan \`union literal\`:
+
+| Fitur | \`enum\` | \`type Status = "a" \\| "b"\` |
+| --- | --- | --- |
+| Transpile Output | Menghasilkan kode JavaScript (object IIFE) | Hilang setelah transpile (0 runtime overhead) |
+| Import | Harus import nama enum-nya | Cukup gunakan string literal langsung |
+| Keterbacaan | Terkapsulasi rapi di namespace | Sangat ringkas dan idiomatis di React/Next.js |
+
+Gunakan **String Enum** saat membutuhkan namespace konstanta yang terstruktur, atau gunakan **Union Literal** untuk tipe opsi yang ringan dan sering dioper langsung.`,
+    sources: [
+      { url: "https://www.typescriptlang.org/docs/handbook/2/enums.html", label: "TypeScript Handbook — Enums" },
+    ],
+    practice: `Buat \`enum StatusTugas { Belum, Proses, Selesai }\`, tulis fungsi yang menerima parameter bertipe \`StatusTugas\` dan mencetak pesan berbeda per status. Lalu tulis ULANG hal yang sama pakai union literal (\`type StatusTugas = "belum" | "proses" | "selesai"\`). Bandingkan: mana yang menurutmu lebih enak dibaca saat hover ke variabelnya di editor?`,
+  },
+  {
+    category: "typescript",
+    slug: "tsconfig-dasar",
+    order: 6,
+    title: "Konfigurasi Penting tsconfig.json",
+    content: `Sepanjang roadmap ini, TypeScript sudah menjaga banyak kesalahan lewat compiler. **Masalah yang diselesaikan sekarang:** seberapa ketat pengecekannya, versi JavaScript apa yang dihasilkan, dan bagaimana \`import\` di-resolve — semua diatur di satu file: \`tsconfig.json\`. Ini catatan penutup roadmap, tentang mengonfigurasi compiler-nya sendiri, bukan lagi soal sintaks tipe.
+
+File \`tsconfig.json\` adalah file konfigurasi utama proyek TypeScript yang menentukan aturan kompilasi, target JavaScript, sistem modul, dan tingkat ketatnya pemeriksaan tipe (*type-checking*).
+
+\`\`\`mermaid
+flowchart TD
+    Config["tsconfig.json"]
+    Config --> Comp["compilerOptions (Aturan Compiler)"]
+    Config --> Inc["include / exclude (Target File)"]
+
+    Comp --> C1["target: 'ES2022' (Versi output JS)"]
+    Comp --> C2["module: 'ESNext' (Sistem import/export)"]
+    Comp --> C3["strict: true (Keamanan tipe maksimal)"]
+    Comp --> C4["noEmit: true (Hanya cek tipe, tanpa build file .js)"]
+\`\`\`
+
+### Contoh Konfigurasi Standar untuk Web Modern / Next.js
+\`\`\`json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+\`\`\`
+
+### Opsi Compiler Paling Penting untuk Pemula
+
+| Opsi | Nilai Populer | Fungsi |
+| --- | --- | --- |
+| \`strict\` | \`true\` | Menyalakan semua aturan ketat TypeScript (termasuk \`noImplicitAny\`, \`strictNullChecks\`). Sangat direkomendasikan selalu \`true\`. |
+| \`target\` | \`ES2020\` / \`ES2022\` | Menentukan versi JavaScript hasil output kompilasi. |
+| \`moduleResolution\` | \`node\` / \`bundler\` | Menentukan bagaimana TypeScript mencari path module saat \`import\`. \`bundler\` standar untuk Vite/Next.js modern. |
+| \`paths\` | \`{"@/*": ["./*"]}\` | Alias path import agar tidak perlu menulis \`../../components\`. |
+| \`noEmit\` | \`true\` | Memberitahu TypeScript hanya melakukan *type checking* (biasanya bundler lain seperti Vite/Webpack/Next.js yang menghasilkan file JS-nya). |
+| \`skipLibCheck\` | \`true\` | Melewati pemeriksaan tipe di file \`.d.ts\` pihak ketiga (\`node_modules\`) agar proses kompilasi jauh lebih cepat. |
+
+Menjaga \`strict: true\` sejak awal proyek membantu mencegah bug seperti \`null pointer exception\` sebelum kode sampai ke produksi.`,
+    sources: [
+      { url: "https://www.typescriptlang.org/docs/handbook/tsconfig-json.html", label: "TypeScript Handbook — What is a tsconfig.json" },
+      { url: "https://www.typescriptlang.org/tsconfig", label: "TSConfig Reference Guide" },
+    ],
+    practice: `Buka \`tsconfig.json\` di sebuah project TypeScript/Next.js yang sudah kamu punya (dari roadmap Next.js kalau sudah dikerjakan). Cek apakah \`strict\` bernilai \`true\`. Kalau belum, set jadi \`true\`, lalu jalankan ulang type-check (\`npx tsc --noEmit\` atau \`npm run build\`) — lihat apakah muncul error baru yang sebelumnya lolos karena strict mode belum aktif. Ini menutup roadmap TypeScript: dari sintaks tipe sampai konfigurasi compiler-nya sendiri.`,
   },
 ];
