@@ -9,18 +9,18 @@ export const categories = [
     slug: "git",
     description: `Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (\`script_v2_final.js\`, \`script_v2_REVISI.js\`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.
 
-Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), bercabang untuk mengerjakan fitur tanpa mengganggu kode utama (branching), berkolaborasi lewat repository remote seperti GitHub, mengabaikan file yang tidak seharusnya ikut ter-commit, sampai menyelesaikan konflik yang muncul saat menggabungkan perubahan. Lima langkah, ikuti berurutan.
+Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), membatalkan perubahan yang salah, bercabang untuk mengerjakan fitur tanpa mengganggu kode utama (branching), menyimpan perubahan sementara lewat stash, berkolaborasi lewat repository remote seperti GitHub, mengabaikan file yang tidak seharusnya ikut ter-commit, sampai menyelesaikan konflik yang muncul saat menggabungkan perubahan. Tujuh langkah, ikuti berurutan.
 
 **Asumsi:** familiar dengan command line/terminal dasar. Prasyarat tool (Git, akun GitHub) disebutkan di catatan yang membutuhkannya.`,
   },
   {
     name: "JavaScript",
     slug: "javascript",
-    description: `Dua konsep JavaScript yang sering disalahpahami pemula, tapi jadi fondasi buat memahami kode JS yang lebih besar: closure (bagaimana fungsi "mengingat" variabel dari scope-nya, jadi cara umum membuat data privat) dan async/await (cara menulis kode asinkron yang terlihat sinkron, menghindari "callback hell").
+    description: `JavaScript adalah bahasa pemrograman inti di balik hampir semua interaktivitas web — dari validasi form sampai aplikasi kompleks seperti Gmail. Roadmap ini membangun fondasinya secara bertahap: banyak konsep JS lanjutan (closure, Promise) sering disalahpahami pemula justru karena dasar-dasarnya (scope, fungsi) belum kokoh.
 
-Dua catatan ini relatif independen satu sama lain — tidak ada urutan prasyarat ketat di antaranya, tapi closure biasanya lebih dulu dikenalkan karena polanya lebih dasar.
+Roadmap ini membawamu dari variabel & scope, mendefinisikan fungsi (termasuk arrow function), membongkar object/array lewat destructuring, mentransformasi array secara deklaratif, closure untuk data privat, menangani error runtime, Promise untuk kode asinkron, async/await sebagai gula sintaksnya, sampai memecah kode jadi module terorganisir. Sembilan langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
 
-**Asumsi:** familiar dengan sintaks dasar JavaScript (variabel, function, if/else, array).`,
+**Asumsi:** belum pernah menulis JavaScript sama sekali juga tidak masalah — roadmap ini menjelaskan dari variabel. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.`,
   },
   {
     name: "Next.js",
@@ -142,8 +142,76 @@ Poin penting:
   },
   {
     category: "git",
-    slug: "branching",
+    slug: "membatalkan-perubahan-dasar",
     order: 1,
+    title: "Membatalkan Perubahan: restore, reset, dan revert",
+    content: `Sekarang kamu paham tiga area Git — Working Directory, Staging Area, dan Local Repository (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kadang perubahan yang kamu buat ternyata salah atau tidak jadi dipakai — tapi cara membatalkannya BEDA-BEDA tergantung perubahan itu sudah sejauh mana: baru diedit, sudah di-\`add\`, atau sudah di-\`commit\`. Pakai command yang salah bisa kehilangan pekerjaan yang sebenarnya masih ingin disimpan.
+
+\`\`\`mermaid
+flowchart TD
+  Q1{Seberapa jauh<br/>perubahannya?}
+  Q1 -->|Baru diedit,<br/>belum git add| R1["git restore file"]
+  Q1 -->|Sudah git add,<br/>belum commit| R2["git restore --staged file"]
+  Q1 -->|Sudah commit,<br/>BELUM di-push/dibagikan| R3["git reset"]
+  Q1 -->|Sudah commit DAN<br/>sudah di-push/dibagikan| R4["git revert"]
+
+  R1 --> Out1["Perubahan di working directory hilang"]
+  R2 --> Out2["Balik ke working directory<br/>(perubahan TIDAK hilang)"]
+  R3 --> Out3["Riwayat commit lokal diubah"]
+  R4 --> Out4["Commit BARU dibuat<br/>(riwayat lama tetap ada)"]
+\`\`\`
+
+### 1. Belum \`git add\`: \`git restore\`
+\`\`\`bash
+# Buang perubahan di file tertentu, kembalikan ke versi commit terakhir
+git restore catatan.txt
+
+# Buang SEMUA perubahan yang belum di-add
+git restore .
+\`\`\`
+
+### 2. Sudah \`git add\`, belum commit: \`git restore --staged\`
+\`\`\`bash
+# Keluarkan file dari staging area — perubahannya TIDAK hilang,
+# cuma balik jadi "belum di-add" lagi
+git restore --staged catatan.txt
+\`\`\`
+
+### 3. Sudah commit, BELUM di-push: \`git reset\`
+\`\`\`bash
+# --soft: batalkan commit, tapi perubahannya tetap staged
+git reset --soft HEAD~1
+
+# --mixed (default): batalkan commit, perubahan balik ke working directory
+git reset HEAD~1
+
+# --hard: batalkan commit, perubahan HILANG SEPENUHNYA (hati-hati!)
+git reset --hard HEAD~1
+\`\`\`
+
+### 4. Sudah commit DAN sudah di-push: \`git revert\`
+\`\`\`bash
+# Buat commit BARU yang isinya kebalikan dari commit tertentu
+git revert <hash-commit>
+\`\`\`
+
+Poin penting:
+
+- \`git reset\` MENGUBAH riwayat commit lokal — aman dipakai selama commit itu belum di-\`push\`/dibagikan ke orang lain. Kalau sudah di-\`push\`, \`reset\` lalu \`push --force\` bisa membuat riwayat rekan tim jadi tidak sinkron.
+- \`git revert\` TIDAK mengubah riwayat lama — dia menambah commit baru di atasnya. Ini kenapa \`revert\` yang dipakai untuk commit yang sudah dibagikan: aman untuk branch bersama.
+- \`git reset --hard\` bersifat destruktif dan permanen (kecuali kamu tahu cara memakai \`git reflog\` untuk pemulihan darurat) — selalu pastikan dulu perubahan itu memang tidak dibutuhkan lagi.
+- \`HEAD~1\` berarti "satu commit sebelum HEAD saat ini" — ganti angkanya untuk mundur lebih jauh (\`HEAD~2\`, dst).`,
+    sources: [
+      { url: "https://git-scm.com/docs/git-restore", label: "Git Documentation — git-restore" },
+      { url: "https://git-scm.com/docs/git-reset", label: "Git Documentation — git-reset" },
+      { url: "https://git-scm.com/docs/git-revert", label: "Git Documentation — git-revert" },
+    ],
+    practice: `Di repository latihan kamu: (1) edit \`catatan.txt\` tapi JANGAN di-\`add\`, jalankan \`git restore catatan.txt\` — buktikan perubahannya hilang, kembali ke versi commit terakhir. (2) Edit lagi, kali ini \`git add\`-kan, lalu \`git restore --staged catatan.txt\` — cek \`git status\`, perubahannya masih ada tapi statusnya balik jadi belum di-\`add\`. (3) Commit perubahan itu, lalu \`git reset --soft HEAD~1\` — buktikan commit-nya hilang dari \`git log\` tapi perubahannya masih staged, siap di-commit ulang. (4) Terakhir, buat satu commit lagi, anggap itu sudah "dibagikan ke tim", lalu jalankan \`git revert <hash-commitnya>\` — perhatikan Git membuat commit BARU yang membatalkan perubahan itu, bukan menghapus commit lamanya dari riwayat.`,
+  },
+  {
+    category: "git",
+    slug: "branching",
+    order: 2,
     title: "Dasar Branching di Git",
     content: `Sekarang kamu bisa commit perubahan secara berurutan di satu garis riwayat (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau coba-coba fitur baru atau perbaikan, tapi tidak mau kode \`main\` yang sudah stabil ikut berubah/rusak selama proses coba-coba itu?
 
@@ -192,8 +260,59 @@ Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang j
   },
   {
     category: "git",
+    slug: "git-stash-dasar",
+    order: 3,
+    title: "git stash: Menyimpan Perubahan Sementara",
+    content: `Sekarang kamu bisa bercabang lewat branch (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kamu sedang di tengah mengerjakan sesuatu (file sudah diedit, belum siap di-commit), tapi tiba-tiba HARUS pindah branch cepat — misalnya ada bug mendesak di branch lain. Git menolak pindah branch kalau perubahan yang belum di-commit itu berisiko tertimpa. Commit "setengah jadi" cuma supaya bisa pindah branch juga bukan solusi bagus — riwayat jadi kotor berisi commit "WIP" yang tidak berarti.
+
+\`git stash\` menyimpan perubahan di working directory & staging area sementara TANPA commit, mengembalikan working directory ke kondisi bersih (seperti commit terakhir) — siap dikembalikan lagi kapan pun.
+
+\`\`\`mermaid
+flowchart LR
+  A["Working directory kotor<br/>(ada perubahan belum commit)"] -->|git stash| B["Working directory bersih<br/>perubahan disimpan di stash"]
+  B -->|git checkout branch-lain| C["Kerjakan hal lain<br/>di branch berbeda"]
+  C -->|git checkout branch-asal| D["Balik ke branch semula<br/>(masih bersih)"]
+  D -->|git stash pop| E["Perubahan kembali<br/>seperti sebelum di-stash"]
+\`\`\`
+
+\`\`\`bash
+# Simpan perubahan saat ini ke stash (dengan pesan opsional)
+git stash push -m "sedang kerjakan form validasi"
+
+# Lihat daftar stash yang tersimpan
+git stash list
+# stash@{0}: On fitur-baru: sedang kerjakan form validasi
+
+# Kembalikan stash PALING BARU, sekaligus hapus dari daftar
+git stash pop
+
+# Kembalikan tapi TETAP simpan di daftar stash (bisa di-apply ke branch lain juga)
+git stash apply
+
+# Hapus satu entri stash tanpa mengembalikannya
+git stash drop stash@{0}
+\`\`\`
+
+| Command | Perubahan Dikembalikan? | Tetap di Daftar Stash? |
+| --- | --- | --- |
+| \`git stash pop\` | Ya | Tidak (dihapus setelah dikembalikan) |
+| \`git stash apply\` | Ya | Ya (bisa di-\`apply\` lagi ke branch lain) |
+| \`git stash drop\` | Tidak | Tidak (langsung dihapus) |
+
+Poin penting:
+
+- Stash bersifat lokal per repository — tidak ikut ter-\`push\` ke remote, jadi bukan cara mem-backup perubahan penting.
+- Bisa ada lebih dari satu stash tersimpan sekaligus (\`stash@{0}\`, \`stash@{1}\`, dst) — \`pop\`/\`apply\` tanpa argumen selalu mengambil yang PALING BARU.
+- \`git stash apply\` berguna kalau kamu mau menerapkan perubahan yang sama ke lebih dari satu branch, tanpa harus stash ulang tiap kali.`,
+    sources: [
+      { url: "https://git-scm.com/docs/git-stash", label: "Git Documentation — git-stash" },
+    ],
+    practice: `Di branch \`fitur-baru\` dari latihan sebelumnya, edit \`catatan.txt\` TAPI JANGAN commit. Jalankan \`git stash push -m "belum selesai"\` — buktikan \`git status\` kembali bersih (perubahan hilang dari working directory). Pindah ke \`main\` (\`git checkout main\`), lihat isi \`catatan.txt\` tidak terpengaruh sama sekali. Pindah balik ke \`fitur-baru\`, jalankan \`git stash list\` untuk lihat stash tersimpan, lalu \`git stash pop\` — buktikan perubahan yang tadi kamu buat kembali persis seperti sebelum di-stash.`,
+  },
+  {
+    category: "git",
     slug: "remote-dasar",
-    order: 2,
+    order: 4,
     title: "Git Remote: Push, Pull, dan Fetch",
     content: `Sekarang kamu bisa commit dan bercabang di komputer sendiri. **Masalah yang diselesaikan sekarang:** bagaimana kalau kode itu perlu dibagikan ke orang lain, atau di-backup di luar komputer kamu? Riwayat commit yang cuma ada di satu komputer rentan hilang (laptop rusak/hilang) dan tidak bisa diakses tim lain.
 
@@ -247,7 +366,7 @@ Poin penting:
   {
     category: "git",
     slug: "gitignore-dasar",
-    order: 3,
+    order: 5,
     title: "Mengabaikan File dengan .gitignore",
     content: `Sekarang project kamu sudah bisa di-push ke remote dan dibagikan ke orang lain (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** tidak semua file di folder project seharusnya ikut dilacak Git — file dependency yang bisa di-generate ulang (\`node_modules/\`), hasil build (\`dist/\`, \`.next/\`), atau file berisi rahasia (\`.env\` yang isinya API key/password). Kalau ikut ter-\`push\` ke remote publik, itu bisa membengkakkan ukuran repo atau — lebih parah — membocorkan kredensial ke siapa saja yang bisa lihat repo-nya.
 \`.gitignore\` adalah file konfigurasi berisi daftar pola nama file/folder yang sengaja Git abaikan — tidak akan pernah muncul sebagai *untracked* di \`git status\`, dan tidak bisa ikut ke-\`git add\` secara tidak sengaja (termasuk lewat \`git add .\`).
@@ -299,7 +418,7 @@ Poin penting:
   {
     category: "git",
     slug: "merge-conflict-dasar",
-    order: 4,
+    order: 6,
     title: "Menyelesaikan Merge Conflict",
     content: `Sekarang kamu tahu cara branching, push/pull, dan mengabaikan file yang tidak perlu (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau dua branch (atau kamu dan rekan tim) sama-sama mengubah BARIS YANG SAMA di file yang sama, Git tidak tahu versi mana yang benar saat \`merge\`/\`pull\` — proses berhenti di tengah jalan dan minta kamu memutuskan sendiri.
 
@@ -363,10 +482,270 @@ Poin penting:
   },
   {
     category: "javascript",
-    slug: "closure",
+    slug: "variabel-dan-scope",
     order: 0,
+    title: "Variabel & Scope: let, const, dan var",
+    content: `**Masalah yang diselesaikan:** \`var\` (satu-satunya cara deklarasi variabel sebelum ES6) punya scope di level FUNGSI, bukan di level BLOK (\`if\`, \`for\`, \`{}\`) — variabel yang harusnya cuma dipakai sementara di dalam satu blok malah "bocor" ke luar dan bisa tertimpa nilai lain tanpa sadar. \`var\` juga boleh di-deklarasi ulang dengan nama sama tanpa error, membuat bug penimpaan variabel susah dilacak.
+
+\`\`\`js
+if (true) {
+  var a = "bocor";
+}
+console.log(a); // "bocor" — var BOCOR keluar dari blok if!
+
+if (true) {
+  let b = "aman";
+}
+console.log(b); // ReferenceError: b is not defined — let terkurung di blok
+\`\`\`
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Fn["Function Scope (var)"]
+    V["var a"]
+    subgraph Blok["Block { }"]
+      V2["var a (masih function scope!)"]
+      L["let b (block scope)"]
+    end
+  end
+  V -.->|"terlihat di seluruh fungsi"| Fn
+  L -.->|"cuma terlihat di dalam { }"| Blok
+\`\`\`
+
+### \`let\` vs \`const\`
+\`const\` mengunci BINDING-nya (nama variabel itu tidak bisa diarahkan ke nilai lain), bukan mengunci isinya — kalau isinya object/array, propertinya masih bisa diubah:
+
+\`\`\`js
+const user = { nama: "Budi" };
+user.nama = "Ani"; // BOLEH — mengubah properti, bukan mengganti binding
+console.log(user.nama); // "Ani"
+
+user = { nama: "Lain" }; // TypeError — tidak boleh, ini mengganti binding const
+\`\`\`
+
+| | \`var\` | \`let\` | \`const\` |
+| --- | --- | --- | --- |
+| Scope | Function | Block | Block |
+| Boleh di-redeclare? | Ya | Tidak (error) | Tidak (error) |
+| Boleh di-reassign? | Ya | Ya | Tidak (error) |
+| Diakses sebelum deklarasi? | \`undefined\` (hoisted) | Error (*temporal dead zone*) | Error (*temporal dead zone*) |
+
+Poin penting:
+
+- Aturan praktis modern: pakai \`const\` secara default, pakai \`let\` cuma kalau variabelnya memang perlu diubah nilainya nanti (misal counter di loop), dan hindari \`var\` sepenuhnya di kode baru.
+- *Temporal dead zone* adalah rentang kode antara awal blok sampai baris deklarasi \`let\`/\`const\` — mengakses variabelnya di rentang itu melempar error, beda dengan \`var\` yang diam-diam bernilai \`undefined\`.
+- Scope block berarti \`{ }\` di mana pun — bukan cuma \`if\`/\`for\`, tapi blok kurung kurawal biasa juga membuat scope baru untuk \`let\`/\`const\`.`,
+    sources: [
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let", label: "let — MDN Web Docs" },
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const", label: "const — MDN Web Docs" },
+    ],
+    practice: `Tulis loop \`for (var i = 0; i < 3; i++) { ... }\` lalu \`console.log(i)\` SETELAH loop-nya selesai — buktikan \`i\` masih bisa diakses (bocor). Ganti \`var\` jadi \`let\`, jalankan lagi — buktikan sekarang muncul \`ReferenceError\`. Buat \`const angka = 5\`, coba \`angka = 10\` — catat error-nya. Buat \`const arr = [1, 2, 3]\`, coba \`arr.push(4)\` — buktikan ini BERHASIL (karena mengubah isi, bukan mengganti binding-nya).`,
+  },
+  {
+    category: "javascript",
+    slug: "fungsi-dan-arrow-function",
+    order: 1,
+    title: "Fungsi & Arrow Function Dasar",
+    content: `Sekarang kamu paham \`let\`/\`const\` dan scope (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** function declaration biasa punya \`this\` yang nilainya ditentukan SAAT DIPANGGIL (dynamic) — ini sering bikin bug tidak terduga di dalam callback (misalnya method object yang dipanggil lewat \`setTimeout\`, \`this\`-nya berubah jadi bukan object aslinya lagi). Arrow function (ES6) menyelesaikan ini dengan mewarisi \`this\` dari scope tempat dia DITULIS (lexical), bukan dari cara dia dipanggil.
+
+### Tiga Cara Mendefinisikan Fungsi
+\`\`\`js
+// Function declaration — di-hoisting, bisa dipanggil sebelum baris definisinya
+function sapa(nama) {
+  return \`Halo, \${nama}\`;
+}
+
+// Function expression — TIDAK di-hoisting seperti declaration
+const sapa2 = function (nama) {
+  return \`Halo, \${nama}\`;
+};
+
+// Arrow function — sintaks ringkas, this lexical
+const sapa3 = (nama) => \`Halo, \${nama}\`;
+\`\`\`
+
+### Masalah \`this\` yang Diselesaikan Arrow Function
+\`\`\`js
+const timer = {
+  detik: 0,
+  mulai() {
+    // RUSAK: function biasa, "this" di dalam setTimeout BUKAN lagi "timer"
+    setTimeout(function () {
+      this.detik++; // this = undefined/window, BUKAN timer — error atau salah!
+    }, 1000);
+  },
+  mulaiBenar() {
+    // BENAR: arrow function mewarisi "this" dari mulaiBenar() (yaitu timer)
+    setTimeout(() => {
+      this.detik++; // this = timer, sesuai harapan
+      console.log(this.detik);
+    }, 1000);
+  },
+};
+\`\`\`
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Regular["Function Biasa"]
+    R1["this ditentukan SAAT dipanggil"] --> R2["Bisa berubah tergantung caller<br/>(rawan bug di callback)"]
+  end
+  subgraph Arrow["Arrow Function"]
+    A1["this diwarisi dari scope penulisan"] --> A2["Selalu konsisten,<br/>tidak berubah tergantung caller"]
+  end
+\`\`\`
+
+| | Function Declaration | Function Expression | Arrow Function |
+| --- | --- | --- | --- |
+| Hoisting | Ya, bisa dipanggil sebelum definisi | Tidak | Tidak |
+| \`this\` | Dynamic (tergantung cara dipanggil) | Dynamic | Lexical (dari scope penulisan) |
+| Bisa jadi constructor (\`new\`)? | Ya | Ya | Tidak |
+
+Poin penting:
+
+- Arrow function TIDAK cocok dipakai sebagai method object yang butuh akses \`this\` ke object itu sendiri secara langsung (\`this\` di situ akan merujuk ke scope LUAR object, bukan object-nya) — tapi cocok untuk callback DI DALAM method seperti contoh di atas.
+- \`() => ekspresi\` tanpa kurung kurawal otomatis me-return nilai ekspresinya (*implicit return*) — \`() => { return ekspresi; }\` kalau pakai kurung kurawal harus eksplisit \`return\`.
+- Function declaration di-hoisting sepenuhnya (bisa dipanggil sebelum baris definisinya di kode), function expression dan arrow function tidak.`,
+    sources: [
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions", label: "Arrow function expressions — MDN Web Docs" },
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this", label: "this — MDN Web Docs" },
+    ],
+    practice: `Salin object \`timer\` di atas persis (dengan \`mulai()\` yang rusak dan \`mulaiBenar()\` yang benar). Panggil \`timer.mulai()\` dulu — perhatikan errornya (\`this.detik\` gagal karena \`this\` bukan \`timer\`). Lalu panggil \`timer.mulaiBenar()\` — buktikan \`this.detik\` bertambah dengan benar setelah 1 detik. Jelaskan dengan kata-katamu sendiri kenapa dua fungsi yang isinya mirip itu berperilaku beda.`,
+  },
+  {
+    category: "javascript",
+    slug: "destructuring-dasar",
+    order: 2,
+    title: "Destructuring Object & Array",
+    content: `Sekarang kamu bisa mendefinisikan fungsi, termasuk arrow function (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** mengambil beberapa nilai dari object atau array biasanya berarti menulis \`obj.properti\` berulang kali baris demi baris — repetitif, apalagi kalau properti itu langsung mau dipakai sebagai variabel terpisah.
+
+**Destructuring** membongkar object/array langsung jadi variabel-variabel terpisah dalam satu baris.
+
+\`\`\`js
+// SEBELUM destructuring — repetitif
+const user = { nama: "Budi", umur: 25, kota: "Jakarta" };
+const nama = user.nama;
+const umur = user.umur;
+
+// SESUDAH destructuring — satu baris
+const { nama, umur } = user;
+\`\`\`
+
+### Object Destructuring: Rename & Default Value
+\`\`\`js
+const user = { nama: "Budi", umur: 25 };
+
+// Rename: "nama" diambil tapi disimpan sebagai variabel "namaUser"
+const { nama: namaUser } = user;
+
+// Default value: dipakai kalau propertinya tidak ada di object
+const { kota = "Tidak diketahui" } = user;
+console.log(kota); // "Tidak diketahui" — karena user.kota memang tidak ada
+\`\`\`
+
+### Array Destructuring
+\`\`\`js
+const koordinat = [10, 20];
+const [x, y] = koordinat;
+
+// Lewati elemen dengan koma kosong
+const [pertama, , ketiga] = [1, 2, 3];
+
+// Trik menukar dua variabel tanpa variabel sementara
+let a = 1, b = 2;
+[a, b] = [b, a];
+console.log(a, b); // 2 1
+\`\`\`
+
+### Destructuring di Parameter Fungsi
+Ini kombinasi paling umum dipakai — menyambung langsung dari catatan sebelumnya soal fungsi:
+
+\`\`\`js
+function tampilkanProfil({ nama, umur }) {
+  console.log(\`\${nama}, \${umur} tahun\`);
+}
+tampilkanProfil({ nama: "Ani", umur: 30 }); // langsung destructure dari argumen
+\`\`\`
+
+Poin penting:
+
+- Nested destructuring bisa dipakai untuk object bersarang: \`const { alamat: { kota } } = user;\` langsung ambil \`kota\` dari \`user.alamat.kota\`.
+- Destructuring array mengandalkan URUTAN (posisi index), destructuring object mengandalkan NAMA properti — beda cara kerja meski sintaksnya mirip.
+- Kombinasi destructuring parameter + default value sangat umum dipakai untuk "opsi" fungsi: \`function buat({ warna = "biru", ukuran = "M" } = {}) {...}\`.`,
+    sources: [
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment", label: "Destructuring assignment — MDN Web Docs" },
+    ],
+    practice: `Buat object \`produk = { nama: "Laptop", harga: 15000000, spesifikasi: { ram: "16GB", storage: "512GB" } }\`. Destructure \`nama\` dan \`harga\` langsung ke variabel, lalu destructure \`ram\` dari \`spesifikasi\` yang bersarang (nested). Buat array \`[a, b, c] = [1, 2, 3]\`, praktikkan trik tukar nilai \`a\` dan \`c\` dalam satu baris tanpa variabel sementara. Terakhir, tulis fungsi \`cetakProduk({ nama, harga })\` yang langsung destructure dari parameter, panggil dengan object \`produk\` di atas.`,
+  },
+  {
+    category: "javascript",
+    slug: "array-method-dasar",
+    order: 3,
+    title: "Array Method Dasar: map, filter, reduce",
+    content: `Sekarang kamu bisa pakai arrow function dan destructuring (dari catatan-catatan sebelumnya) — dua hal itu sering dipakai BARENGAN dengan topik catatan ini. **Masalah yang diselesaikan sekarang:** mengubah atau menyaring isi array dengan \`for\` loop manual itu verbose — harus bikin array kosong dulu, manual \`push\` satu-satu, gampang salah index atau lupa inisialisasi.
+
+\`\`\`js
+const produk = [
+  { nama: "Buku", harga: 50000 },
+  { nama: "Pensil", harga: 5000 },
+  { nama: "Tas", harga: 150000 },
+];
+
+// SEBELUM: for loop manual untuk ambil nama produk di atas 10rb
+const namaMahal = [];
+for (let i = 0; i < produk.length; i++) {
+  if (produk[i].harga > 10000) {
+    namaMahal.push(produk[i].nama);
+  }
+}
+
+// SESUDAH: filter + map, dibaca sebagai satu alur deklaratif
+const namaMahal2 = produk
+  .filter((p) => p.harga > 10000)
+  .map((p) => p.nama);
+\`\`\`
+
+\`\`\`mermaid
+flowchart LR
+  Arr["Array awal"] -->|"filter(fn)"| Filtered["Array baru, cuma<br/>elemen yang lolos kondisi"]
+  Filtered -->|"map(fn)"| Mapped["Array baru,<br/>setiap elemen ditransformasi"]
+  Arr -->|"reduce(fn, awal)"| Reduced["SATU nilai akhir<br/>(bukan array)"]
+\`\`\`
+
+### \`reduce\`: Menggabungkan Array Jadi Satu Nilai
+\`\`\`js
+const total = produk.reduce((akumulator, p) => akumulator + p.harga, 0);
+console.log(total); // 205000
+\`\`\`
+
+### \`forEach\`: Cuma Menjalankan Efek Samping, Bukan Mengembalikan Array Baru
+\`\`\`js
+produk.forEach((p) => console.log(p.nama)); // cuma print, tidak menghasilkan array baru
+\`\`\`
+
+| Method | Mengembalikan | Kegunaan |
+| --- | --- | --- |
+| \`map\` | Array baru, panjang SAMA | Transformasi tiap elemen |
+| \`filter\` | Array baru, panjang bisa lebih pendek | Menyaring elemen berdasarkan kondisi |
+| \`reduce\` | Satu nilai apa saja (angka, object, dll) | Menggabungkan/mengakumulasi array jadi satu hasil |
+| \`forEach\` | \`undefined\` (tidak mengembalikan apa-apa) | Efek samping saja (mis. \`console.log\` tiap elemen) |
+
+Poin penting:
+
+- Semua method ini TIDAK mengubah array aslinya (kecuali \`forEach\` yang memang tidak menghasilkan array baru sama sekali) — \`produk\` tetap utuh setelah \`.filter()\`/\`.map()\` dipanggil.
+- \`map\`/\`filter\` bisa di-*chain* (disambung) karena masing-masing mengembalikan array baru yang siap dipanggil method array lagi.
+- \`reduce\` adalah yang paling fleksibel — \`map\` dan \`filter\` sebenarnya bisa ditulis ulang pakai \`reduce\`, tapi kebalikannya tidak selalu semudah itu.`,
+    sources: [
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map", label: "Array.prototype.map() — MDN Web Docs" },
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce", label: "Array.prototype.reduce() — MDN Web Docs" },
+    ],
+    practice: `Dari array \`produk\` di atas (atau buat versi kamu sendiri dengan minimal 5 item), pakai \`.filter()\` + \`.map()\` di-chain untuk mendapatkan nama-nama produk dengan harga di atas 50000. Pakai \`.reduce()\` untuk menjumlahkan total harga SEMUA produk. Pakai \`.reduce()\` lagi untuk menghitung berapa banyak produk yang harganya di atas 50000 (harus dapat angka yang sama dengan panjang hasil \`.filter()\` sebelumnya) — buktikan \`reduce\` bisa menggantikan \`filter\`+hitung panjang array.`,
+  },
+  {
+    category: "javascript",
+    slug: "closure",
+    order: 4,
     title: "Memahami Closure",
-    content: `**Masalah yang diselesaikan:** bagaimana membuat variabel yang privat ke satu fungsi, tapi tetap bisa diakses/diubah oleh fungsi lain yang terkait dengannya — tanpa membuat variabel itu global (yang berisiko tertimpa atau diubah kode lain secara tidak sengaja)? Sebelum closure dipahami, satu-satunya cara menyimpan state antar pemanggilan fungsi terasa seperti harus pakai variabel global.
+    content: `Sekarang kamu paham cara mendefinisikan fungsi dan konsep scope (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana membuat variabel yang privat ke satu fungsi, tapi tetap bisa diakses/diubah oleh fungsi lain yang terkait dengannya — tanpa membuat variabel itu global (yang berisiko tertimpa atau diubah kode lain secara tidak sengaja)? Sebelum closure dipahami, satu-satunya cara menyimpan state antar pemanggilan fungsi terasa seperti harus pakai variabel global.
 
 Closure adalah fungsi yang "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar sudah selesai dieksekusi.
 
@@ -407,10 +786,125 @@ Poin penting:
   },
   {
     category: "javascript",
+    slug: "error-handling-dasar",
+    order: 5,
+    title: "Error Handling: try, catch, finally",
+    content: `Sekarang kamu paham fungsi dan closure (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau ada error runtime yang tidak ditangani (misalnya \`JSON.parse()\` gagal karena string-nya tidak valid), SELURUH script berhenti jalan di situ juga (*uncaught exception*) — bagaimana caranya program tetap jalan dan memberi respons yang masuk akal, walau satu bagian kecil gagal?
+
+\`\`\`js
+// TANPA error handling — kalau JSON-nya rusak, seluruh script berhenti
+const data = JSON.parse(teksTidakValid); // Uncaught SyntaxError, program crash
+
+// DENGAN try/catch — error ditangkap, program tetap jalan
+try {
+  const data = JSON.parse(teksTidakValid);
+  console.log(data);
+} catch (error) {
+  console.error("Gagal parse JSON:", error.message);
+} finally {
+  console.log("Percobaan parse selesai."); // SELALU jalan, apa pun hasilnya
+}
+\`\`\`
+
+\`\`\`mermaid
+flowchart TD
+  Try["Kode di dalam try { }"] -->|Berhasil, tanpa error| Skip["catch DILEWATI"]
+  Try -->|Error dilempar| Catch["catch (error) { } dijalankan"]
+  Skip --> Finally["finally { } — SELALU dijalankan"]
+  Catch --> Finally
+\`\`\`
+
+### Melempar Error Sendiri (\`throw\`)
+\`\`\`js
+function bagi(a, b) {
+  if (b === 0) {
+    throw new Error("Tidak bisa membagi dengan nol");
+  }
+  return a / b;
+}
+
+try {
+  bagi(10, 0);
+} catch (error) {
+  console.error(error.message); // "Tidak bisa membagi dengan nol"
+  console.error(error.name); // "Error"
+}
+\`\`\`
+
+Poin penting:
+
+- \`finally\` dijalankan SELALU — baik \`try\`-nya berhasil maupun gagal — cocok untuk kode pembersihan (*cleanup*) yang wajib jalan apa pun hasilnya (mis. menutup koneksi, menyembunyikan loading spinner).
+- \`error.message\` berisi pesan error yang bisa dibaca manusia, \`error.name\` berisi jenis error-nya (\`TypeError\`, \`SyntaxError\`, \`Error\` kustom, dst) — berguna kalau perlu menangani jenis error yang berbeda dengan cara berbeda.
+- Jangan \`catch\` error TANPA melakukan apa-apa (\`catch (e) {}\` kosong) — itu menyembunyikan bug alih-alih menyelesaikannya. Minimal log error-nya supaya masih terlihat saat debugging.`,
+    sources: [
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch", label: "try...catch — MDN Web Docs" },
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw", label: "throw — MDN Web Docs" },
+    ],
+    practice: `Tulis fungsi \`parseAman(teks)\` yang membungkus \`JSON.parse(teks)\` dalam \`try/catch\` — kalau gagal, kembalikan \`null\` dan \`console.error\` pesan errornya, bukan sampai program crash. Tes dengan JSON valid dan JSON rusak (mis. \`"{tidak valid"\`). Tambahkan \`finally\` yang selalu mencetak "Percobaan parse selesai" — buktikan baris itu tetap muncul di KEDUA kasus (berhasil maupun gagal). Terakhir, buat fungsi \`bagi(a, b)\` yang melempar \`Error\` kustom kalau \`b === 0\`, panggil dalam \`try/catch\`, cetak \`error.message\`-nya.`,
+  },
+  {
+    category: "javascript",
+    slug: "promise-dasar",
+    order: 6,
+    title: "Promise Dasar",
+    content: `\`try/catch\` dari catatan sebelumnya menangani error di kode SINKRON. **Masalah yang diselesaikan sekarang:** kode ASINKRON (timer, request ke server) yang ditulis pakai callback bersarang berkali-kali cepat jadi sulit dibaca begitu ada beberapa langkah berurutan ("*callback hell*"), dan tiap callback butuh error handling-nya sendiri-sendiri, tidak konsisten satu jalur.
+
+**Promise** adalah object yang merepresentasikan hasil operasi asinkron yang BELUM tentu selesai sekarang, tapi akan selesai (atau gagal) di masa depan.
+
+\`\`\`mermaid
+stateDiagram-v2
+  [*] --> Pending: Promise dibuat
+  Pending --> Fulfilled: resolve(nilai) dipanggil
+  Pending --> Rejected: reject(error) dipanggil
+  Fulfilled --> [*]: .then() dijalankan
+  Rejected --> [*]: .catch() dijalankan
+\`\`\`
+
+### Membuat & Memakai Promise
+\`\`\`js
+function tunggu(ms) {
+  return new Promise((resolve, reject) => {
+    if (ms < 0) {
+      reject(new Error("Durasi tidak boleh negatif"));
+      return;
+    }
+    setTimeout(() => resolve(\`Selesai menunggu \${ms}ms\`), ms);
+  });
+}
+
+tunggu(1000)
+  .then((pesan) => console.log(pesan)) // dijalankan kalau resolve()
+  .catch((error) => console.error(error.message)) // dijalankan kalau reject()
+  .finally(() => console.log("Promise selesai diproses")); // selalu jalan
+\`\`\`
+
+### Menyambung Beberapa Promise (Chaining)
+\`\`\`js
+tunggu(500)
+  .then((pesan) => {
+    console.log(pesan);
+    return tunggu(500); // return Promise lain, lanjut ke .then() berikutnya
+  })
+  .then((pesan) => console.log("Langkah kedua:", pesan));
+\`\`\`
+
+Poin penting:
+
+- Promise cuma punya TIGA state: \`pending\` (belum selesai), \`fulfilled\` (berhasil, sudah \`resolve\`), \`rejected\` (gagal, sudah \`reject\`) — begitu pindah dari \`pending\` ke salah satu state lain, state-nya PERMANEN, tidak bisa berubah lagi.
+- \`.then()\` yang me-\`return\` Promise lain memungkinkan chaining berurutan tanpa nesting callback — inilah yang menyelesaikan masalah "callback hell".
+- \`.catch()\` menangkap error dari SEMUA \`.then()\` sebelumnya di rantai yang sama, tidak perlu \`.catch()\` di tiap langkah.`,
+    sources: [
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises", label: "Using Promises — MDN Web Docs" },
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise", label: "Promise — MDN Web Docs" },
+    ],
+    practice: `Tulis fungsi \`tunggu(ms)\` persis seperti contoh di atas. Panggil \`tunggu(1000).then(console.log)\` — buktikan pesannya muncul setelah kira-kira 1 detik. Panggil \`tunggu(-100).catch(console.error)\` — buktikan \`.catch()\` menangkap error dari \`reject()\`. Buat CHAIN tiga \`tunggu()\` berurutan (masing-masing 500ms) memakai \`.then()\` bersambung — bandingkan keterbacaannya dengan kalau itu ditulis pakai callback \`setTimeout\` bersarang tiga level.`,
+  },
+  {
+    category: "javascript",
     slug: "async-await",
-    order: 1,
+    order: 7,
     title: "Async/Await di JavaScript",
-    content: `**Masalah yang diselesaikan:** sebelum Promise dan \`async/await\` umum dipakai, kode asinkron (fetch data, timer, dll) ditulis pakai callback bersarang yang cepat jadi sulit dibaca begitu ada beberapa langkah asinkron berurutan ("callback hell").
+    content: `Promise dari catatan sebelumnya sudah menyelesaikan masalah callback bersarang, tapi rantai \`.then().then().then()\` yang panjang masih agak sulit dibaca urutannya sekilas mata. **Masalah yang diselesaikan sekarang:** bagaimana menulis kode asinkron yang TERLIHAT seperti kode sinkron biasa (baris demi baris), padahal di baliknya tetap non-blocking?
 
 \`async/await\` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.
 
@@ -448,6 +942,77 @@ Poin penting:
       },
     ],
     practice: `Tulis fungsi \`ambilDuaData()\` yang memanggil dua endpoint berbeda (mis. \`https://jsonplaceholder.typicode.com/users/1\` dan \`.../posts/1\`) satu per satu pakai \`await\` berurutan, catat waktunya (\`console.time\`/\`console.timeEnd\`). Lalu tulis ulang supaya kedua \`fetch\` itu jalan bersamaan pakai \`Promise.all([...])\` — bandingkan waktunya, harus jauh lebih cepat karena tidak menunggu satu selesai dulu sebelum mulai yang lain.`,
+  },
+  {
+    category: "javascript",
+    slug: "modules-dasar",
+    order: 8,
+    title: "Modules Dasar: import dan export",
+    content: `Sekarang kamu sudah menguasai variabel, fungsi, closure, error handling, sampai async/await (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** sebelum module, semua kode JS di satu file besar — atau digabung lewat banyak tag \`<script>\` di HTML — berbagi SATU scope global yang sama. Variabel/fungsi dengan nama sama di file berbeda saling menimpa (*naming collision*), dan urutan \`<script>\` di HTML harus manual diatur sesuai dependency-nya.
+
+**ES Modules** membuat tiap file JS punya scope-nya SENDIRI — variabel/fungsi cuma bisa diakses file lain kalau di-\`export\` secara eksplisit, dan dipakai lewat \`import\`.
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Sebelum["Sebelum Modules"]
+    S1["script1.js"] --- G["SATU scope global"]
+    S2["script2.js"] --- G
+    G -.->|"rawan naming collision"| Bug["variabel saling menimpa"]
+  end
+  subgraph Sesudah["Dengan ES Modules"]
+    M1["math.js<br/>(scope sendiri)"] -->|export| Exp["export { tambah, kurang }"]
+    Exp -->|import| M2["main.js<br/>(scope sendiri)"]
+  end
+\`\`\`
+
+### \`export\` (di \`math.js\`)
+\`\`\`js
+// Named export — bisa lebih dari satu per file
+export function tambah(a, b) {
+  return a + b;
+}
+export function kurang(a, b) {
+  return a - b;
+}
+
+// Default export — maksimal SATU per file
+export default function kali(a, b) {
+  return a * b;
+}
+\`\`\`
+
+### \`import\` (di \`main.js\`)
+\`\`\`js
+// Named import — nama HARUS sama persis dengan yang di-export (bisa di-rename pakai "as")
+import { tambah, kurang } from "./math.js";
+
+// Default import — boleh dikasih nama apa saja
+import kali from "./math.js";
+
+console.log(tambah(2, 3)); // 5
+console.log(kali(2, 3)); // 6
+\`\`\`
+
+### Menjalankan Module
+\`\`\`html
+<!-- Di browser: wajib type="module" -->
+<script type="module" src="main.js"></script>
+\`\`\`
+
+\`\`\`bash
+# Di Node.js: pakai ekstensi .mjs, ATAU tambahkan "type": "module" di package.json
+node main.mjs
+\`\`\`
+
+Poin penting:
+
+- Variabel/fungsi di dalam module TIDAK otomatis jadi global — kalau tidak di-\`export\`, dia betul-betul privat ke file itu, tidak bisa diakses file lain sama sekali.
+- Named export bisa banyak per file, default export maksimal SATU — pilih named kalau file punya beberapa hal yang mau di-export sekaligus (seperti \`math.js\` di atas).
+- Module HANYA dieksekusi SEKALI meski di-\`import\` dari banyak file berbeda — hasilnya di-cache dan dipakai bersama, bukan dijalankan ulang tiap \`import\`.`,
+    sources: [
+      { url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules", label: "JavaScript modules — MDN Web Docs" },
+    ],
+    practice: `Buat dua file: \`math.js\` berisi dua named export (\`tambah\`, \`kurang\`) dan satu default export (\`kali\`), lalu \`main.js\` yang meng-\`import\` ketiganya dan memanggilnya, cetak hasilnya ke console. Jalankan lewat \`<script type="module" src="main.js"></script>\` di file HTML kosong, buka di browser, cek hasilnya di DevTools console. Coba HAPUS \`type="module"\` dari tag script-nya — perhatikan muncul error \`Cannot use import statement outside a module\`, membuktikan \`type="module"\` memang wajib. Ini menutup roadmap JavaScript: dari variabel dasar sampai memecah kode jadi file-file yang terorganisir.`,
   },
   {
     category: "nextjs",
