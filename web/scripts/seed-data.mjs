@@ -67,6 +67,15 @@ Roadmap ini membawamu dari pengenalan ekosistem & CLI \`dotnet\`, dasar bahasa C
 
 **Asumsi:** roadmap ini menjelaskan dari dasar, tapi familiar dengan konsep OOP (object, class) dari bahasa lain akan membantu mempercepat pemahaman. Prasyarat tool (.NET SDK) disebutkan di catatan pertama.`,
   },
+  {
+    name: "Agentic AI (Hermes)",
+    slug: "agentic-ai-hermes",
+    description: `Chatbot LLM biasa cuma bisa membalas teks — begitu jawabannya berupa kode atau command, KAMU yang harus menyalin, menjalankannya sendiri di terminal, membaca hasil/errornya, lalu menempelkannya balik ke chat supaya model tahu apa yang terjadi. Untuk task yang butuh banyak langkah, siklus manual ini melelahkan dan lambat. Agentic AI membalik itu: model yang mengeksekusi tool-nya sendiri (terminal, file, browser) secara langsung, mengamati hasilnya, dan melanjutkan sampai task selesai — kamu cukup kasih instruksi dan menyetujui langkah yang berisiko.
+
+Roadmap ini pakai **Hermes Agent** dari Nous Research (open-source, *self-improving*) sebagai contoh konkret: instalasi & autentikasi, menjalankan task pertama lewat CLI, memahami memori lintas sesi, membuat & memakai ulang pengetahuan prosedural (*skills*), sampai menghubungkan tool eksternal lewat MCP. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan command line/terminal dasar. Tidak perlu pengalaman sebelumnya dengan agentic AI atau LLM API — roadmap ini menjelaskan dari instalasi. Prasyarat tool (Git) dan akun untuk akses model disebutkan di catatan pertama.`,
+  },
 ];
 
 export const notes = [
@@ -2455,5 +2464,337 @@ Poin penting:
       { url: "https://www.typescriptlang.org/docs/handbook/utility-types.html", label: "TypeScript Handbook — Utility Types" },
     ],
     practice: `Dari \`interface Produk\` di atas (atau buat versi kamu sendiri), buat 4 variasi tipe: \`ProdukUpdate\` (\`Partial\`), \`ProdukPreview\` (\`Pick\` id+nama), \`ProdukTanpaHarga\` (\`Omit\`), dan \`DaftarStok\` (\`Record<string, number>\` memetakan nama produk ke jumlah stoknya). Isi masing-masing dengan data valid. Lalu SENGAJA hilangkan satu field wajib di \`ProdukPreview\` — pastikan compiler menolaknya, membuktikan \`Pick\` tidak membuat field jadi opsional, cuma memilih subset dari tipe aslinya.`,
+  },
+  {
+    category: "agentic-ai-hermes",
+    slug: "pengenalan-hermes-agent-dan-instalasi",
+    order: 0,
+    title: "Pengenalan Hermes Agent & Instalasi",
+    content: `**Masalah yang diselesaikan:** chatbot LLM biasa cuma membalas teks — begitu jawabannya berupa command atau kode, KAMU yang harus menyalinnya, menjalankannya sendiri di terminal, membaca hasil/error-nya, lalu menempelkan balik ke chat supaya modelnya tahu apa yang terjadi. Untuk task yang butuh banyak langkah bolak-balik, siklus manual ini melelahkan dan lambat.
+
+**Hermes Agent** adalah AI agent open-source dan *self-improving* dari Nous Research — bukan sekadar chatbot, tapi agent yang bisa langsung mengeksekusi tool-nya sendiri (terminal, baca/tulis file, browser, web search), mengamati hasilnya, dan melanjutkan sampai task selesai.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Manual["Chatbot Biasa (manual loop)"]
+    M1["Kamu tanya"] --> M2["Model jawab teks/kode"]
+    M2 --> M3["KAMU jalankan sendiri di terminal"]
+    M3 --> M4["KAMU salin hasil/error balik ke chat"]
+    M4 --> M1
+  end
+
+  subgraph Agent["Hermes Agent (agentic loop)"]
+    A1["Kamu kasih task"] --> A2["Agent jalankan tool sendiri<br/>(terminal/file/browser)"]
+    A2 --> A3["Agent amati hasilnya"]
+    A3 -->|belum selesai| A2
+    A3 -->|selesai| A4["Agent kasih laporan akhir"]
+  end
+\`\`\`
+
+### Instalasi
+\`\`\`bash
+# Linux / macOS / WSL2 / Android (Termux)
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+
+# Reload shell setelah instalasi
+source ~/.bashrc   # atau ~/.zshrc di macOS
+\`\`\`
+
+\`\`\`powershell
+# Windows (PowerShell)
+iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+\`\`\`
+
+Untuk macOS/Windows, alternatifnya download installer **Hermes Desktop** dari situs resminya. Installer otomatis mengurus dependency lain (Python, Node.js, ripgrep, ffmpeg) — prasyarat manual cuma \`git\`.
+
+### Autentikasi & Verifikasi
+\`\`\`bash
+# Cara tercepat: langganan Nous Portal (akses 300+ model + tool gateway)
+hermes setup --portal
+
+# Cek instalasi bermasalah atau tidak
+hermes doctor
+
+# Cek versi terinstall
+hermes --version
+\`\`\`
+
+| | Chatbot Biasa | Hermes Agent |
+| --- | --- | --- |
+| Eksekusi command/kode | Tidak bisa — kamu jalankan manual | Langsung dieksekusi agent lewat tool |
+| Ingat konteks lintas sesi | Tidak (kecuali fitur khusus platform) | Ya, lewat sistem memory bawaan |
+| Belajar prosedur baru | Tidak | Ya, lewat sistem skills |
+| Akses tool eksternal (API, database) | Tidak | Ya, lewat MCP |
+
+Poin penting:
+
+- Hermes Agent bisa jalan di macOS/Linux/Windows(WSL2), dan juga di infrastruktur cloud (VPS, Modal, Daytona) untuk task yang butuh jalan lama tanpa laptop kamu nyala terus.
+- \`hermes setup --portal\` adalah jalur setup paling cepat, tapi provider model lain (OpenAI-compatible endpoint, OpenRouter) juga didukung lewat \`hermes model\`.
+- Instalasi per-user menyimpan datanya di \`~/.hermes/\` — ini folder yang akan sering direferensikan di catatan-catatan berikutnya (memory, skills, config).`,
+    sources: [
+      { url: "https://hermes-agent.nousresearch.com/docs/getting-started/installation", label: "Hermes Agent Docs — Installation" },
+      { url: "https://hermes-agent.nousresearch.com/", label: "Hermes Agent — Homepage" },
+    ],
+    prerequisites: [
+      { label: "Git sudah terinstall (cek dengan `git --version`)", url: "https://git-scm.com/downloads" },
+      { label: "Akun untuk akses model — Nous Portal (langganan), atau API key provider lain yang kompatibel (OpenAI, OpenRouter)", url: "https://hermes-agent.nousresearch.com/" },
+      { label: "Familiar dengan command line/terminal dasar" },
+    ],
+    practice: `Install Hermes Agent sesuai OS kamu, reload shell, lalu jalankan \`hermes doctor\` — pastikan tidak ada error dependency. Jalankan \`hermes setup --portal\` (atau \`hermes model\` kalau pakai provider lain) untuk autentikasi. Cek \`hermes --version\` berhasil menampilkan versi terinstall. Kalau semua langkah ini lolos tanpa error, instalasi kamu siap dipakai di catatan berikutnya.`,
+  },
+  {
+    category: "agentic-ai-hermes",
+    slug: "task-pertama-dan-cli-dasar",
+    order: 1,
+    title: "Menjalankan Task Pertama & CLI Dasar",
+    content: `Hermes Agent sekarang sudah terinstall dan terautentikasi (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana caranya kasih task ke agent dan memastikan dia BENAR-BENAR mengeksekusi tool (bukan cuma menjawab teks tebakan tanpa verifikasi)?
+
+\`\`\`bash
+# Interface modern (disarankan)
+hermes --tui
+
+# Atau CLI klasik
+hermes
+\`\`\`
+
+### Kasih Task yang Mudah Diverifikasi
+Task pertama sebaiknya spesifik dan hasilnya gampang dicek — supaya kamu tahu pasti agent benar-benar menjalankan tool, bukan menebak jawaban:
+
+\`\`\`text
+Cek direktori saat ini dan sebutkan apa yang kelihatan seperti file utama project ini.
+\`\`\`
+
+\`\`\`text
+Berapa penggunaan disk saya? Tampilkan 5 folder terbesar.
+\`\`\`
+
+Interaksi yang berhasil menampilkan: banner model/provider yang dipakai, agent membalas tanpa error, dan — kalau tool dipakai — kamu bisa lihat eksekusi tool-nya (terminal command, baca file, web search) sebelum jawaban akhir muncul.
+
+### Melanjutkan Sesi
+\`\`\`bash
+# Lanjutkan sesi paling terakhir
+hermes --continue
+# atau bentuk pendeknya
+hermes -c
+
+# Lihat daftar sesi sebelumnya
+hermes sessions list
+\`\`\`
+
+| Fitur | Cara Pakai |
+| --- | --- |
+| Menu slash command | Ketik \`/\` untuk lihat pilihan (\`/help\`, \`/tools\`, \`/model\`, dst) |
+| Input multi-baris | \`Alt+Enter\`, \`Ctrl+J\`, atau \`Shift+Enter\` |
+| Interupsi proses berjalan | Ketik pesan baru lalu Enter — proses saat ini dihentikan |
+
+Poin penting:
+
+- \`hermes --tui\` (Text User Interface) menampilkan progress tool-calling secara visual real-time — lebih mudah diamati dibanding CLI klasik saat belajar.
+- Sesi yang sudah selesai TIDAK hilang begitu terminal ditutup — \`hermes --continue\` membuka kembali histori percakapan & konteksnya.
+- Ketik \`/tools\` untuk melihat daftar tool bawaan yang tersedia (60+ tool: terminal, file, web search, browser automation, dst) — agent memilih sendiri tool mana yang relevan untuk task-mu.`,
+    sources: [
+      { url: "https://hermes-agent.nousresearch.com/docs/getting-started/quickstart", label: "Hermes Agent Docs — Quickstart" },
+    ],
+    practice: `Jalankan \`hermes --tui\`. Kasih task yang hasilnya gampang diverifikasi, misalnya "Cek direktori saat ini dan sebutkan apa yang kelihatan seperti file utama project ini" — perhatikan agent benar-benar menjalankan command \`ls\`/\`dir\` (bukan menebak) sebelum menjawab. Tutup terminal, buka lagi, jalankan \`hermes --continue\` — buktikan agent masih ingat percakapan sebelumnya di sesi yang sama. Ketik \`/tools\` untuk lihat daftar tool bawaan yang tersedia.`,
+  },
+  {
+    category: "agentic-ai-hermes",
+    slug: "memory-lintas-sesi",
+    order: 2,
+    title: "Memory: Ingatan Lintas Sesi",
+    content: `Sekarang kamu bisa kasih task dan lanjutkan sesi yang sama (dari catatan sebelumnya) — tapi \`--continue\` cuma bekerja untuk sesi yang SAMA. **Masalah yang diselesaikan sekarang:** begitu kamu mulai sesi yang benar-benar BARU, agent (seperti chatbot biasa pada umumnya) kembali dari nol — kamu harus jelaskan ulang preferensi dan konteks project dari awal, setiap kali.
+
+**Memory** di Hermes Agent adalah dua file berukuran terbatas yang disimpan di \`~/.hermes/memories/\`: \`MEMORY.md\` (catatan lingkungan/konvensi/hal yang dipelajari) dan \`USER.md\` (profil preferensi & gaya komunikasi kamu).
+
+\`\`\`mermaid
+flowchart LR
+  S1["Sesi 1 selesai"] -->|"tool memory: add/replace/remove"| Files[("MEMORY.md + USER.md<br/>~/.hermes/memories/")]
+  Files -->|"Injeksi ke system prompt saat sesi mulai"| S2["Sesi 2 (baru)"]
+  S2 -.->|"Kalau butuh detail lama<br/>yang tidak ada di snapshot"| Search["Full-text search<br/>histori sesi lama"]
+\`\`\`
+
+### Cara Kerja
+- **Snapshot di awal sesi**: isi \`MEMORY.md\` dan \`USER.md\` dimuat ke system prompt saat sesi baru dimulai — langsung tersedia tanpa biaya token tambahan di tengah percakapan. Perubahan yang terjadi DALAM sesi baru muncul di sesi BERIKUTNYA, bukan langsung di sesi yang sama.
+- **Pencarian sesi lama**: kalau info yang dibutuhkan tidak ada di snapshot memory aktif, agent bisa mencari lewat histori sesi lama (full-text search) — bisa menemukan hal yang dibahas berminggu-minggu lalu meski tidak ada di memory aktif.
+
+### Perintah Terkait
+\`\`\`bash
+# Lihat daftar sesi lama
+hermes sessions list
+\`\`\`
+
+Di dalam chat:
+- \`/journey\` — lihat timeline skill & entri memory yang sudah dipelajari agent
+- \`/memory pending\` — review perubahan memory yang belum disimpan (kalau mode approval aktif)
+
+| File | Isi |
+| --- | --- |
+| \`MEMORY.md\` | Fakta lingkungan, konvensi project, workaround yang ditemukan |
+| \`USER.md\` | Preferensi kamu, gaya komunikasi, ekspektasi |
+
+Poin penting:
+
+- Memory di Hermes BERBEDA dari sekadar context window panjang: kapasitasnya dibatasi ketat (karakter maksimum per file) dan agent aktif memutuskan apa yang layak disimpan vs dibuang, bukan menyimpan semuanya.
+- Kamu bisa audit dan edit apa yang sudah "dipelajari" agent lewat \`/journey\` — bukan black box.
+- Kalau \`write_approval\` diaktifkan, agent minta persetujuan kamu dulu sebelum menulis perubahan ke memory — berguna kalau kamu mau kontrol penuh atas apa yang disimpan.`,
+    sources: [
+      { url: "https://hermes-agent.nousresearch.com/docs/user-guide/features/memory", label: "Hermes Agent Docs — Memory" },
+    ],
+    practice: `Di satu sesi, kasih tahu agent sebuah preferensi spesifik (mis. "selalu jawab pakai Bahasa Indonesia santai, jangan formal"). Tutup terminal SEPENUHNYA (bukan cuma \`--continue\`), buka \`hermes --tui\` lagi sebagai sesi BARU tanpa flag \`--continue\` — tanya sesuatu yang tidak berhubungan, dan perhatikan apakah gaya jawabannya masih mengikuti preferensi yang kamu kasih tahu sebelumnya. Ketik \`/journey\` untuk melihat apa saja yang sudah tersimpan sebagai memory.`,
+  },
+  {
+    category: "agentic-ai-hermes",
+    slug: "skills-pengetahuan-prosedural",
+    order: 3,
+    title: "Skills: Pengetahuan Prosedural yang Dipakai Ulang",
+    content: `Memory dari catatan sebelumnya bagus untuk fakta & preferensi singkat — tapi punya batas ukuran ketat. **Masalah yang diselesaikan sekarang:** bagaimana kalau agent berulang kali harus mengerjakan PROSEDUR multi-langkah yang sama (misalnya alur review PR khusus project kamu)? Menjelaskan ulang instruksi detailnya setiap kali itu boros token dan rawan ada detail kecil yang terlewat.
+
+**Skill** adalah dokumen pengetahuan prosedural yang dimuat *on-demand* (bukan selalu aktif di context seperti memory) — mengikuti pola *progressive disclosure* supaya hemat token: agent cuma lihat daftar nama & deskripsi skill dulu, baru memuat isi lengkapnya kalau memang relevan dengan task saat itu.
+
+\`\`\`mermaid
+flowchart TD
+  Exp["Agent kerjakan prosedur<br/>multi-langkah berulang"] -->|"tool: skill_manage"| Auto["Skill dibuat OTOMATIS<br/>dari pengalaman"]
+  Doc["Dokumentasi/SDK yang ada"] -->|"/learn"| Manual["Skill dibuat MANUAL<br/>dari materi referensi"]
+  Auto --> Store[("SKILL.md<br/>~/.hermes/skills/")]
+  Manual --> Store
+  Store -->|"/nama-skill instruksi"| Load["Dimuat saat dibutuhkan<br/>(progressive disclosure)"]
+\`\`\`
+
+### Format \`SKILL.md\`
+\`\`\`yaml
+---
+name: github-pr-workflow
+description: Alur review & merge PR khusus project ini
+version: 1.0.0
+---
+# GitHub PR Workflow
+
+## When to Use
+Saat diminta membuat atau review pull request di repo ini.
+
+## Procedure
+1. ...langkah-langkah spesifik...
+
+## Pitfalls
+- ...hal yang sering salah...
+
+## Verification
+- ...cara memastikan berhasil...
+\`\`\`
+
+### Cara Skill Terbentuk
+- **Otomatis dari pengalaman**: lewat tool \`skill_manage\`, agent sendiri yang membuat skill saat menemukan prosedur non-trivial yang layak dipakai ulang (habis mengerjakan alur berulang, menemukan solusi dari error, atau menerima koreksi darimu).
+- **Manual lewat \`/learn\`**: kamu convert materi referensi (dokumentasi lokal, halaman web, catatan yang kamu ketik) jadi skill.
+- **Dari hub**: install skill siap pakai dari komunitas lewat \`hermes skills install <sumber>\`.
+
+\`\`\`bash
+# Cari & pasang skill dari hub
+hermes skills browse
+hermes skills search <kata kunci>
+hermes skills install <sumber>
+
+# Lihat skill yang tersedia
+hermes skills list  # atau /skills list di dalam chat
+\`\`\`
+
+Memanggil skill secara eksplisit lewat slash command:
+\`\`\`text
+/github-pr-workflow buatkan PR untuk refactor auth ini
+\`\`\`
+
+| Cara Terbentuk | Trigger |
+| --- | --- |
+| Otomatis (\`skill_manage\`) | Agent sendiri, setelah kerjakan prosedur berulang atau menerima koreksi |
+| Manual (\`/learn\`) | Kamu, dari dokumentasi/materi yang sudah ada |
+| Hub | Kamu, install skill siap pakai dari komunitas |
+
+Poin penting:
+
+- Skill BEDA dari memory: memory itu fakta/preferensi singkat yang selalu aktif di context, skill itu prosedur lebih panjang yang cuma dimuat kalau relevan — supaya tidak membebani context dengan hal yang jarang dipakai.
+- Skill dari hub melewati security scanning (deteksi command berbahaya, prompt injection) sebelum dipakai — level trust-nya bertingkat dari \`builtin\` sampai \`community\`.
+- Beberapa skill bisa digabung jadi satu \`bundle\` (\`~/.hermes/skill-bundles/\`) dan dipanggil sekaligus lewat satu slash command.`,
+    sources: [
+      { url: "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills", label: "Hermes Agent Docs — Skills" },
+    ],
+    practice: `Pilih satu prosedur berulang yang relevan buat kamu (mis. alur commit & PR project tertentu), lalu jalankan \`/learn\` sambil menunjukkan dokumentasinya ke agent (atau jelaskan prosedurnya langsung). Setelah skill terbentuk, cek isinya di \`~/.hermes/skills/\`. Buka sesi BARU, panggil skill itu lewat slash command (\`/nama-skill <instruksi>\`) — buktikan agent langsung mengikuti prosedur yang tersimpan tanpa kamu jelaskan ulang detailnya.`,
+  },
+  {
+    category: "agentic-ai-hermes",
+    slug: "mcp-menghubungkan-tool-eksternal",
+    order: 4,
+    title: "MCP: Menghubungkan Tool Eksternal",
+    content: `Sekarang agent bisa eksekusi tool bawaan, ingat konteks, dan pakai ulang skill (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana kalau kamu butuh agent bisa akses tool yang TIDAK dibawa bawaan Hermes — API internal perusahaan, database tertentu, atau service pihak ketiga seperti GitHub/Linear?
+
+**MCP (Model Context Protocol)** adalah protokol standar yang menghubungkan Hermes Agent ke *tool server* eksternal, tanpa perlu membangun integrasi native satu-satu untuk tiap service.
+
+\`\`\`mermaid
+flowchart LR
+  Hermes["Hermes Agent"] --> Client["MCP Client"]
+  Client -->|"stdio (subprocess lokal)"| Local["MCP Server Lokal<br/>(mis. filesystem)"]
+  Client -->|"HTTP (remote)"| Remote["MCP Server Remote<br/>(mis. API internal)"]
+  Local --> Tools["Tool tersedia untuk agent"]
+  Remote --> Tools
+\`\`\`
+
+### Konfigurasi (\`~/.hermes/config.yaml\`)
+Ada dua tipe transport: **stdio** (subprocess lokal) dan **HTTP** (endpoint remote):
+
+\`\`\`yaml
+mcp_servers:
+  # stdio — dijalankan sebagai subprocess lokal
+  filesystem:
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-filesystem", "/home/user/projects"]
+
+  # HTTP — connect ke server remote
+  company_api:
+    url: "https://mcp.internal.contoh.com"
+    headers:
+      Authorization: "Bearer ***"
+\`\`\`
+
+Contoh menghubungkan GitHub dengan filter tool tertentu saja:
+\`\`\`yaml
+mcp_servers:
+  github:
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-github"]
+    env:
+      GITHUB_PERSONAL_ACCESS_TOKEN: "***"
+    tools:
+      include: [create_issue, list_issues]
+\`\`\`
+
+### Cara Cepat Lewat CLI
+\`\`\`bash
+# Pilih interaktif dari katalog server yang sudah direkomendasikan Nous
+hermes mcp
+
+# Install langsung by name
+hermes mcp install linear
+
+# Lihat semua entri katalog
+hermes mcp catalog
+\`\`\`
+
+Setelah terhubung, cukup minta secara natural — agent otomatis menemukan tool dari MCP server itu dan memakainya:
+\`\`\`text
+List open bugs dan draft issue baru untuk masalah reconnection yang flaky.
+\`\`\`
+
+| Transport | Kapan Dipakai |
+| --- | --- |
+| \`stdio\` | Tool server jalan sebagai proses lokal di komputer/server yang sama dengan Hermes |
+| \`HTTP\` | Tool server sudah di-deploy sebagai endpoint terpisah (internal API, service pihak ketiga) |
+
+Poin penting:
+
+- \`tools.include\` (atau \`exclude\`) membatasi tool mana saja dari satu MCP server yang boleh dipakai agent — berguna untuk membatasi akses (misalnya cuma boleh baca issue, tidak boleh hapus repo).
+- \`hermes mcp catalog\` berisi server yang sudah direkomendasikan/diverifikasi Nous — titik awal paling aman dibanding menulis config MCP server pihak ketiga secara manual.
+- MCP membuat Hermes Agent bisa terus diperluas kapabilitasnya tanpa update aplikasi Hermes itu sendiri — cukup tambah entri di \`mcp_servers\`.`,
+    sources: [
+      { url: "https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp", label: "Hermes Agent Docs — MCP Integration" },
+    ],
+    practice: `Jalankan \`hermes mcp catalog\` untuk lihat server yang tersedia, lalu \`hermes mcp install <salah satu nama dari katalog>\` (atau tambahkan server \`filesystem\` secara manual ke \`~/.hermes/config.yaml\` seperti contoh di atas kalau mau coba tanpa akun pihak ketiga). Mulai sesi baru, minta agent melakukan sesuatu yang HANYA bisa dikerjakan lewat tool dari MCP server itu (bukan tool bawaan) — verifikasi dari responsnya bahwa dia benar-benar memanggil tool eksternal itu, bukan tool bawaan Hermes. Ini menutup roadmap Agentic AI: dari instalasi dasar sampai agent yang bisa diperluas kapabilitasnya ke sistem eksternal apa pun.`,
   },
 ];
