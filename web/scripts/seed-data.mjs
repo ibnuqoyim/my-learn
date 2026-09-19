@@ -63,7 +63,7 @@ Roadmap ini membawamu dari tipe dasar sampai bisa membaca dan menulis konfiguras
     slug: "dotnet",
     description: `Sebelum .NET Core (2016 ke atas), .NET Framework hanya berjalan di Windows — sulit dipakai untuk deployment modern yang mengandalkan server Linux dan container. .NET sekarang adalah platform open-source dan cross-platform dari Microsoft: satu SDK yang jalan di Windows, Linux, maupun macOS, untuk membangun aplikasi web, cloud, hingga desktop.
 
-Roadmap ini membawamu dari pengenalan ekosistem & CLI \`dotnet\`, dasar bahasa C# (tipe data, class, record), pola Dependency Injection yang jadi tulang punggung aplikasi .NET modern, sampai membangun REST API sungguhan lewat ASP.NET Core Minimal API. Lima langkah, ikuti berurutan.
+Roadmap ini membawamu dari pengenalan ekosistem & CLI \`dotnet\`, dasar bahasa C# (tipe data, class, record), pola Dependency Injection yang jadi tulang punggung aplikasi .NET modern, membangun REST API sungguhan lewat ASP.NET Core Minimal API, sampai menyimpan datanya secara permanen ke database lewat Entity Framework Core. Enam langkah, ikuti berurutan.
 
 **Asumsi:** roadmap ini menjelaskan dari dasar, tapi familiar dengan konsep OOP (object, class) dari bahasa lain akan membantu mempercepat pemahaman. Prasyarat tool (.NET SDK) disebutkan di catatan pertama.`,
   },
@@ -2182,7 +2182,7 @@ var app = builder.Build();
     slug: "aspnet-core-minimal-api",
     order: 4,
     title: "Membangun REST API dengan ASP.NET Core Minimal API",
-    content: `Sekarang kamu paham Dependency Injection, yang jadi tulang punggung ASP.NET Core. **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana mengekspos logic yang sudah kamu bangun jadi HTTP endpoint yang bisa diakses aplikasi lain (mobile app, frontend web)? Sebelum Minimal API, ASP.NET Core butuh struktur controller yang cukup verbose untuk API sederhana.
+    content: `Sekarang kamu paham Dependency Injection, yang jadi tulang punggung ASP.NET Core. **Masalah yang diselesaikan sekarang:** bagaimana mengekspos logic yang sudah kamu bangun jadi HTTP endpoint yang bisa diakses aplikasi lain (mobile app, frontend web)? Sebelum Minimal API, ASP.NET Core butuh struktur controller yang cukup verbose untuk API sederhana.
 
 Minimal API adalah pendekatan modern dan efisien di ASP.NET Core untuk membangun endpoint HTTP / REST API dengan kode yang sangat ringkas tanpa membutuhkan controller yang kompleks.
 
@@ -2246,7 +2246,114 @@ public record TodoItem(int Id, string Judul, bool Selesai);
     sources: [
       { url: "https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis", label: "Microsoft Learn — Minimal APIs Overview" },
     ],
-    practice: `Buat project baru dengan \`dotnet new web -n TodoApi\`. Salin contoh CRUD Minimal API di atas ke \`Program.cs\`. Jalankan (\`dotnet run\`), lalu tes tiap endpoint (GET semua, GET by id, POST tambah baru, DELETE) lewat browser (untuk GET) atau tool seperti curl/Postman (untuk POST/DELETE). Ini menutup roadmap .NET: dari CLI dasar sampai REST API yang beneran jalan.`,
+    practice: `Buat project baru dengan \`dotnet new web -n TodoApi\`. Salin contoh CRUD Minimal API di atas ke \`Program.cs\`. Jalankan (\`dotnet run\`), lalu tes tiap endpoint (GET semua, GET by id, POST tambah baru, DELETE) lewat browser (untuk GET) atau tool seperti curl/Postman (untuk POST/DELETE). Simpan project ini — catatan berikutnya akan menyambungkannya ke database beneran lewat Entity Framework Core.`,
+  },
+  {
+    category: "dotnet",
+    slug: "efcore-dasar",
+    order: 5,
+    title: "Entity Framework Core Dasar: Akses Database",
+    content: `Minimal API dari catatan sebelumnya sudah bisa menerima request dan balas response, tapi datanya cuma \`List<TodoItem>\` di memori — hilang total tiap aplikasi di-restart. **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana menyimpan data ke database beneran yang bertahan lintas restart, tanpa menulis SQL mentah satu per satu untuk tiap operasi CRUD?
+
+**Entity Framework Core (EF Core)** adalah ORM (*Object-Relational Mapper*) resmi dari Microsoft — class C# biasa dipetakan otomatis jadi tabel database, query ditulis pakai LINQ (C#) bukan string SQL.
+
+\`\`\`mermaid
+flowchart TD
+    Model["Class C# (Entity)<br/>public class Todo { ... }"] --> Ctx["DbContext<br/>DbSet&lt;Todo&gt; Todos"]
+    Ctx -->|"dotnet ef migrations add"| Migration["File Migration (C#)"]
+    Migration -->|"dotnet ef database update"| DB[("Database (SQLite/Postgres/dst)")]
+    Ctx -->|"LINQ: ToListAsync(), Add(), SaveChangesAsync()"| DB
+\`\`\`
+
+### 1. Definisikan Entity & DbContext
+EF Core butuh dua hal: class yang merepresentasikan tabel (*entity*), dan \`DbContext\` yang jadi jembatan ke database. Karena EF Core perlu melacak perubahan nilai propertinya, di sini kita pakai \`class\` biasa (bukan \`record\` seperti \`TodoItem\` di catatan sebelumnya):
+
+\`\`\`csharp
+// Entity — dipetakan jadi tabel "Todos"
+public class Todo
+{
+    public int Id { get; set; }
+    public string Judul { get; set; } = "";
+    public bool Selesai { get; set; }
+}
+
+// DbContext — jembatan ke database
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    public DbSet<Todo> Todos => Set<Todo>();
+}
+\`\`\`
+
+### 2. Registrasi & Migration
+\`\`\`bash
+# Install package (SQLite dipilih karena tidak butuh server database terpisah)
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet tool install --global dotnet-ef
+
+# Buat migration pertama dari model di atas
+dotnet ef migrations add InitialCreate
+
+# Terapkan migration ke database (bikin file todos.db)
+dotnet ef database update
+\`\`\`
+
+\`\`\`csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Daftarkan DbContext ke DI container (Scoped secara default — 1 instance per request)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite("Data Source=todos.db"));
+
+var app = builder.Build();
+\`\`\`
+
+### 3. CRUD Lewat EF Core (Ganti List In-Memory)
+Endpoint dari catatan sebelumnya sekarang menerima \`AppDbContext\` lewat DI, bukan lagi baca/tulis ke \`List\` statis:
+
+\`\`\`csharp
+app.MapGet("/api/todos", async (AppDbContext db) =>
+    Results.Ok(await db.Todos.ToListAsync()));
+
+app.MapGet("/api/todos/{id:int}", async (int id, AppDbContext db) =>
+    await db.Todos.FindAsync(id) is Todo todo ? Results.Ok(todo) : Results.NotFound());
+
+app.MapPost("/api/todos", async (Todo input, AppDbContext db) =>
+{
+    db.Todos.Add(input);
+    await db.SaveChangesAsync();
+    return Results.Created($"/api/todos/{input.Id}", input);
+});
+
+app.MapDelete("/api/todos/{id:int}", async (int id, AppDbContext db) =>
+{
+    var todo = await db.Todos.FindAsync(id);
+    if (todo is null) return Results.NotFound();
+
+    db.Todos.Remove(todo);
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+});
+\`\`\`
+
+| Operasi | Method EF Core | Catatan |
+| --- | --- | --- |
+| Baca semua | \`ToListAsync()\` | Query dieksekusi ke database saat method ini dipanggil, bukan saat \`db.Todos\` ditulis (*deferred execution*). |
+| Baca satu by key | \`FindAsync(id)\` | Cek dulu di memori (*change tracker*) sebelum query ke database. |
+| Tambah | \`Add()\` + \`SaveChangesAsync()\` | \`Add()\` cuma menandai di memori — perubahan baru benar-benar ditulis ke database saat \`SaveChangesAsync()\` dipanggil. |
+| Hapus | \`Remove()\` + \`SaveChangesAsync()\` | Sama seperti \`Add()\` — perlu \`SaveChangesAsync()\` untuk commit. |
+
+Poin penting:
+
+- \`SaveChangesAsync()\` membungkus semua perubahan (\`Add\`/\`Remove\`/edit properti) dalam satu transaksi — kalau ada yang gagal, semuanya di-rollback.
+- Migration adalah riwayat perubahan skema (file C# yang di-generate otomatis) — tiap kali entity berubah (nambah properti baru, dst), jalankan \`dotnet ef migrations add <NamaPerubahan>\` lagi lalu \`dotnet ef database update\`.
+- SQLite dipakai di sini karena paling sederhana untuk belajar (satu file \`.db\`, tanpa install server) — provider lain (\`Npgsql.EntityFrameworkCore.PostgreSQL\` untuk Postgres, dst) dipakai dengan pola yang sama persis, cuma beda \`UseSqlite\` jadi \`UseNpgsql\`.`,
+    sources: [
+      { url: "https://learn.microsoft.com/en-us/ef/core/", label: "Microsoft Learn — Entity Framework Core" },
+      { url: "https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli", label: "Microsoft Learn — EF Core Get Started" },
+    ],
+    practice: `Lanjutkan project \`TodoApi\` dari catatan sebelumnya. Ganti \`List<TodoItem>\` in-memory dengan \`AppDbContext\` + SQLite seperti contoh di atas (termasuk jalankan migration-nya). Jalankan API, tambah beberapa todo lewat POST, lalu STOP aplikasinya (Ctrl+C) dan jalankan ulang (\`dotnet run\`) — panggil GET /api/todos lagi dan buktikan data yang kamu tambahkan sebelumnya masih ada (tidak hilang seperti versi in-memory yang direset tiap restart). Ini menutup roadmap .NET: dari CLI dasar sampai REST API yang datanya beneran tersimpan permanen.`,
   },
   {
     category: "typescript",
