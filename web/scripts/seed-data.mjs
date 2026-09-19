@@ -67,6 +67,15 @@ Roadmap ini membawamu dari pengenalan ekosistem & CLI \`dotnet\`, dasar bahasa C
 
 **Asumsi:** roadmap ini menjelaskan dari dasar, tapi familiar dengan konsep OOP (object, class) dari bahasa lain akan membantu mempercepat pemahaman. Prasyarat tool (.NET SDK) disebutkan di catatan pertama.`,
   },
+  {
+    name: "Ansible",
+    slug: "ansible",
+    description: `Mengelola belasan atau ratusan server secara manual berarti SSH satu per satu, menjalankan command yang sama berulang-ulang — lambat, gampang lupa satu langkah di salah satu server, dan hasilnya gampang beda-beda antar server (*configuration drift*) meski niatnya sama persis. Ansible menyelesaikan ini dengan otomasi *agentless*: definisikan konfigurasi yang diinginkan sekali dalam file YAML, jalankan ke banyak server sekaligus lewat SSH.
+
+Roadmap ini membawamu dari instalasi & cara kerja dasar, mendata server yang dikelola lewat inventory, menjalankan playbook untuk otomasi berulang, membuat konfigurasi yang fleksibel lewat variables & templating, sampai mengorganisir automation jadi modular lewat roles. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan command line/terminal, SSH ke server Linux, dan sintaks dasar YAML. Butuh minimal satu mesin Linux untuk dipraktikkan (VM lokal atau VPS) — disebutkan di catatan pertama.`,
+  },
 ];
 
 export const notes = [
@@ -2455,5 +2464,331 @@ Poin penting:
       { url: "https://www.typescriptlang.org/docs/handbook/utility-types.html", label: "TypeScript Handbook — Utility Types" },
     ],
     practice: `Dari \`interface Produk\` di atas (atau buat versi kamu sendiri), buat 4 variasi tipe: \`ProdukUpdate\` (\`Partial\`), \`ProdukPreview\` (\`Pick\` id+nama), \`ProdukTanpaHarga\` (\`Omit\`), dan \`DaftarStok\` (\`Record<string, number>\` memetakan nama produk ke jumlah stoknya). Isi masing-masing dengan data valid. Lalu SENGAJA hilangkan satu field wajib di \`ProdukPreview\` — pastikan compiler menolaknya, membuktikan \`Pick\` tidak membuat field jadi opsional, cuma memilih subset dari tipe aslinya.`,
+  },
+  {
+    category: "ansible",
+    slug: "pengenalan-ansible-dan-instalasi",
+    order: 0,
+    title: "Pengenalan Ansible & Instalasi",
+    content: `**Masalah yang diselesaikan:** kalau kamu punya 20 server yang butuh package sama ter-install dan config sama ter-apply, cara manual (SSH satu-satu, jalankan command yang sama berulang) itu lambat dan rawan salah — gampang lupa jalankan di satu server, atau versi command yang dijalankan sedikit beda tanpa sadar, sehingga tiap server jadi tidak identik lagi (*configuration drift*).
+
+**Ansible** adalah tool otomasi IT yang bersifat *agentless* — tidak perlu install software tambahan apa pun di server yang dikelola (*managed node*), cukup akses SSH dan Python sudah terinstall di sana (biasanya sudah ada secara default di distro Linux modern). Konfigurasi didefinisikan secara *declarative* dalam YAML: kamu bilang *state* seperti apa yang diinginkan ("nginx harus ter-install dan running"), bukan langkah-langkah imperatif ("jalankan apt install, lalu systemctl start").
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Control["Control Node (komputer kamu)"]
+    Ansible["Ansible + Inventory + Playbook"]
+  end
+
+  Ansible -->|SSH| S1["Managed Node 1"]
+  Ansible -->|SSH| S2["Managed Node 2"]
+  Ansible -->|SSH| S3["Managed Node 3"]
+\`\`\`
+
+Tidak ada agent/daemon yang jalan terus-menerus di managed node — Ansible cuma "mampir" lewat SSH saat dijalankan, mengeksekusi task-nya, lalu selesai.
+
+### Instalasi (di Control Node)
+\`\`\`bash
+# Lewat pip (disarankan, cross-platform)
+python3 -m pip install --user ansible
+
+# Atau lewat package manager (Ubuntu/Debian)
+sudo apt update && sudo apt install ansible -y
+
+# Cek versi terinstall
+ansible --version
+\`\`\`
+
+### Tes Koneksi Pertama
+Modul \`ping\` (bukan ICMP ping biasa) memastikan Ansible bisa connect & menjalankan Python di target:
+
+\`\`\`bash
+# Tes ke localhost (mesin kamu sendiri) tanpa perlu server lain dulu
+ansible localhost -m ping
+\`\`\`
+
+Kalau berhasil, akan muncul respons \`"ping": "pong"\` — tandanya Ansible siap dipakai untuk mengelola server sungguhan.
+
+Poin penting:
+
+- *Agentless* berarti tidak ada proses tambahan yang jalan di background managed node — bedanya dengan tool seperti Puppet/Chef yang butuh agent ter-install permanen di tiap server.
+- *Idempotent* adalah sifat penting Ansible: menjalankan playbook yang sama berkali-kali menghasilkan state akhir yang sama, tidak menduplikasi efek (misalnya, "pastikan package X ter-install" tidak akan error atau install ulang kalau X sudah ada).
+- Managed node cukup punya Python terinstall (untuk generasi modern Ansible tidak lagi butuh Python di control node vs managed node versi tertentu — cek dokumentasi kalau target-nya sistem lama).`,
+    sources: [
+      { url: "https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html", label: "Ansible Docs — Installation Guide" },
+      { url: "https://docs.ansible.com/ansible/latest/getting_started/index.html", label: "Ansible Docs — Getting Started" },
+    ],
+    prerequisites: [
+      { label: "Python 3 sudah terinstall di control node", url: "https://www.python.org/downloads/" },
+      { label: "Familiar dengan command line/terminal dan SSH dasar" },
+      { label: "Minimal satu mesin Linux untuk dipraktikkan (VM lokal seperti VirtualBox/Vagrant, atau VPS murah) — kalau belum ada, catatan ini tetap bisa dipraktikkan ke localhost" },
+    ],
+    practice: `Install Ansible lewat \`pip\` atau package manager sesuai OS kamu, lalu cek dengan \`ansible --version\`. Jalankan \`ansible localhost -m ping\` — pastikan hasilnya \`"pong"\`. Kalau kamu punya akses SSH ke server lain (VM lokal atau VPS), coba juga \`ansible <ip-server> -m ping -u <username> --private-key <path-ke-ssh-key>\` untuk membuktikan Ansible bisa connect ke server sungguhan, bukan cuma localhost.`,
+  },
+  {
+    category: "ansible",
+    slug: "inventory-dan-ad-hoc-command",
+    order: 1,
+    title: "Inventory & Ad-Hoc Command",
+    content: `Ansible sekarang sudah terinstall dan bisa connect ke \`localhost\` (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau server yang dikelola ada belasan atau ratusan, menulis alamat IP/hostname-nya satu-satu di command itu tidak praktis — dan gimana caranya mengelompokkan server berdasarkan perannya (web server vs database server) supaya bisa ditarget terpisah?
+
+**Inventory** adalah daftar server yang dikelola Ansible, dikelompokkan jadi *groups*. Bentuk paling sederhana adalah file teks format INI:
+
+\`\`\`ini
+# inventory.ini
+[webservers]
+web1.contoh.com
+web2.contoh.com ansible_host=192.168.1.20
+
+[dbservers]
+db1.contoh.com
+
+# Grup bisa berisi grup lain
+[semua_server:children]
+webservers
+dbservers
+\`\`\`
+
+\`\`\`mermaid
+flowchart TD
+  Inv["inventory.ini"] --> WS["Group: webservers<br/>(web1, web2)"]
+  Inv --> DB["Group: dbservers<br/>(db1)"]
+  WS --> Cmd["ansible webservers -m ..."]
+  DB --> Cmd2["ansible dbservers -m ..."]
+\`\`\`
+
+### Ad-Hoc Command
+Command satu-baris untuk menjalankan satu task cepat ke sekelompok server, tanpa perlu menulis playbook dulu — cocok untuk pengecekan cepat, bukan otomasi berulang (untuk itu, lihat catatan berikutnya soal playbook):
+
+\`\`\`bash
+# Ping semua server di grup webservers
+ansible webservers -i inventory.ini -m ping
+
+# Install nginx di semua webservers (--become = jalankan sebagai sudo)
+ansible webservers -i inventory.ini -m apt -a "name=nginx state=present" --become
+
+# Jalankan command shell mentah di semua server
+ansible semua_server -i inventory.ini -m shell -a "df -h"
+
+# Lihat daftar modul yang tersedia
+ansible-doc -l
+\`\`\`
+
+| Modul | Fungsi |
+| --- | --- |
+| \`ping\` | Tes koneksi & Python di target |
+| \`command\` / \`shell\` | Jalankan command mentah (\`shell\` mendukung pipe \`\|\`/redirect, \`command\` tidak — lebih aman) |
+| \`apt\` / \`yum\` | Install/hapus package (tergantung distro Linux) |
+| \`copy\` | Salin file dari control node ke managed node |
+| \`service\` | Start/stop/restart service |
+
+Poin penting:
+
+- \`-i inventory.ini\` menunjuk file inventory yang dipakai — bisa juga di-skip kalau sudah dikonfigurasi sebagai default di \`ansible.cfg\`.
+- Ad-hoc command bagus untuk tugas sekali-jalan/pengecekan cepat, tapi tidak tersimpan sebagai kode yang bisa di-review atau dijalankan ulang secara konsisten — untuk itu perlu playbook.
+- \`--become\` diperlukan kalau task butuh privilege root (setara \`sudo\`) di managed node.`,
+    sources: [
+      { url: "https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html", label: "Ansible Docs — How to Build Your Inventory" },
+    ],
+    practice: `Buat file \`inventory.ini\` dengan satu grup berisi \`localhost ansible_connection=local\` (supaya tidak perlu SSH ke server lain dulu). Jalankan \`ansible <nama_grup> -i inventory.ini -m ping\` — harus berhasil. Coba modul lain: \`ansible <nama_grup> -i inventory.ini -m shell -a "uname -a"\` untuk lihat info sistem. Kalau kamu punya server lain, tambahkan sebagai grup kedua dan coba target masing-masing grup secara terpisah.`,
+  },
+  {
+    category: "ansible",
+    slug: "playbook-dasar",
+    order: 2,
+    title: "Playbook Dasar",
+    content: `Ad-hoc command dari catatan sebelumnya bagus untuk tugas sekali-jalan, tapi tidak tersimpan sebagai kode. **Masalah yang diselesaikan sekarang:** bagaimana menyimpan serangkaian langkah konfigurasi (install package, copy config, restart service) supaya bisa di-*review*, disimpan di Git, dan dijalankan ulang secara konsisten kapan saja — persis seperti *Infrastructure as Code*?
+
+**Playbook** adalah file YAML berisi daftar *task* yang dijalankan berurutan ke host/grup target.
+
+\`\`\`mermaid
+flowchart TD
+  PB["Playbook (site.yml)"] --> H["hosts: webservers"]
+  H --> T1["Task 1: Install nginx"]
+  T1 --> T2["Task 2: Copy file konfigurasi"]
+  T2 --> T3["Task 3: Pastikan service running"]
+\`\`\`
+
+\`\`\`yaml
+# site.yml
+---
+- name: Setup web server dasar
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Pastikan nginx running dan enabled saat boot
+      service:
+        name: nginx
+        state: started
+        enabled: true
+\`\`\`
+
+\`\`\`bash
+# Menjalankan playbook
+ansible-playbook -i inventory.ini site.yml
+\`\`\`
+
+### Idempotency: Jalankan Dua Kali
+Ini yang membedakan playbook dari sekadar script shell — jalankan \`ansible-playbook\` yang sama dua kali:
+
+- **Run pertama**: task menunjukkan status \`changed\` (nginx baru diinstall, service baru distart).
+- **Run kedua**: task menunjukkan status \`ok\` (bukan \`changed\`) — karena nginx sudah ter-install dan sudah running, Ansible tidak melakukan apa-apa lagi. Tidak ada efek samping dari menjalankannya berulang.
+
+Poin penting:
+
+- \`hosts:\` menentukan grup/host mana dari inventory yang jadi target playbook ini.
+- \`become: true\` setara \`--become\` di ad-hoc command — jalankan task sebagai root/sudo.
+- Setiap task idealnya punya \`name:\` deskriptif — ini yang muncul di output saat playbook dijalankan, memudahkan membaca log.
+- \`state: present\`/\`started\` mendeklarasikan *state* yang diinginkan, bukan perintah imperatif — inilah yang membuat Ansible idempotent.`,
+    sources: [
+      { url: "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html", label: "Ansible Docs — Playbooks Intro" },
+    ],
+    practice: `Tulis \`site.yml\` seperti contoh di atas (ganti \`nginx\` dengan package lain kalau perlu, mis. \`apache2\`). Jalankan \`ansible-playbook -i inventory.ini site.yml\` — perhatikan tiap task berstatus \`changed\` di run pertama. Jalankan PERSIS command yang sama sekali lagi tanpa mengubah apa pun — buktikan semua task sekarang berstatus \`ok\`, bukan \`changed\`. Ini membuktikan sifat idempotent Ansible: menjalankan konfigurasi yang sama berkali-kali aman, tidak menduplikasi efek.`,
+  },
+  {
+    category: "ansible",
+    slug: "variables-dan-jinja2-templating",
+    order: 3,
+    title: "Variables & Jinja2 Templating",
+    content: `Playbook dari catatan sebelumnya sudah menginstall & menjalankan nginx, tapi semua nilainya hardcoded langsung di YAML. **Masalah yang diselesaikan sekarang:** bagaimana kalau port atau nama domain yang dipakai beda antara environment *staging* dan *production*? Menulis playbook terpisah untuk tiap environment itu duplikatif dan gampang tidak sinkron kalau salah satu diubah tapi yang lain lupa.
+
+**Variables** menyimpan nilai yang bisa berbeda per host/environment, dirujuk lewat sintaks **Jinja2** (\`{{ nama_variabel }}\`) di playbook maupun di file template.
+
+\`\`\`mermaid
+flowchart LR
+  Var["Variable<br/>server_port: 8080"] --> Tmpl["Template .j2<br/>listen {{ server_port }};"]
+  Tmpl -->|"module: template"| File["File hasil di managed node<br/>listen 8080;"]
+\`\`\`
+
+### Mendefinisikan Variables
+\`\`\`yaml
+# site.yml
+---
+- name: Setup web server dengan port kustom
+  hosts: webservers
+  become: true
+  vars:
+    server_port: 8080
+    server_name: "contoh.local"
+
+  tasks:
+    - name: Deploy konfigurasi nginx dari template
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/default
+      notify: Restart nginx
+
+  handlers:
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+\`\`\`
+
+### Template Jinja2
+\`\`\`text
+# templates/nginx.conf.j2
+server {
+    listen {{ server_port }};
+    server_name {{ server_name }};
+
+    location / {
+        root /var/www/html;
+    }
+}
+\`\`\`
+
+Modul \`template\` memproses file \`.j2\`, mengganti \`{{ server_port }}\` dan \`{{ server_name }}\` dengan nilai variabel-nya, lalu menyalin HASIL-nya (bukan file \`.j2\` mentah) ke managed node.
+
+Poin penting:
+
+- Variable bisa didefinisikan di banyak tempat (\`vars:\` di playbook, file terpisah di \`group_vars/\`/\`host_vars/\`, atau lewat \`-e\` saat menjalankan \`ansible-playbook\`) — nilai dari sumber yang lebih spesifik (host) menang atas yang lebih umum (group).
+- Modul \`template\` berbeda dari \`copy\`: \`template\` memproses Jinja2 dulu sebelum menyalin, \`copy\` menyalin file apa adanya tanpa substitusi variabel.
+- Handler (\`notify\`/\`handlers:\`) cuma jalan kalau task yang memanggilnya berstatus \`changed\` — di sini, nginx cuma di-restart kalau config filenya BENAR-BENAR berubah, bukan di setiap run.`,
+    sources: [
+      { url: "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_templating.html", label: "Ansible Docs — Templating (Jinja2)" },
+    ],
+    practice: `Ubah \`site.yml\` dari catatan sebelumnya supaya memakai \`vars\` dan \`template\` seperti contoh di atas. Buat file \`templates/nginx.conf.j2\` dengan variabel \`{{ server_port }}\`. Jalankan playbook-nya, lalu cek isi file hasil di managed node (\`/etc/nginx/sites-available/default\`) — pastikan \`{{ server_port }}\` sudah tergantikan jadi angka aslinya, bukan teks mentah. Ubah nilai \`server_port\` di \`vars\`, jalankan ulang playbook-nya, dan buktikan HANYA task \`template\` yang \`changed\` sekaligus men-trigger handler restart nginx — task lain tetap \`ok\`.`,
+  },
+  {
+    category: "ansible",
+    slug: "roles-dasar",
+    order: 4,
+    title: "Roles Dasar",
+    content: `Playbook dari catatan-catatan sebelumnya masih satu file — untuk satu service sederhana itu masih rapi. **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** begitu kamu mengelola banyak service (nginx, database, aplikasi sendiri) dalam satu proyek infrastruktur, satu file playbook raksasa berisi semua task/vars/template jadi susah dibaca dan tidak bisa dipakai ulang di proyek lain.
+
+**Role** adalah cara Ansible mengorganisir playbook jadi unit yang modular dan reusable, lewat struktur folder standar yang otomatis dikenali Ansible.
+
+\`\`\`mermaid
+flowchart TD
+  Role["roles/nginx/"] --> Tasks["tasks/main.yml<br/>(daftar task)"]
+  Role --> Templates["templates/<br/>(file .j2)"]
+  Role --> Handlers["handlers/main.yml<br/>(mis. restart service)"]
+  Role --> Defaults["defaults/main.yml<br/>(nilai default variable)"]
+  Role --> Vars["vars/main.yml<br/>(variable tetap)"]
+\`\`\`
+
+### Membuat Struktur Role
+\`\`\`bash
+ansible-galaxy init roles/nginx
+\`\`\`
+
+Perintah di atas otomatis membuat folder \`roles/nginx/\` berisi sub-folder standar (\`tasks/\`, \`templates/\`, \`handlers/\`, \`defaults/\`, \`vars/\`, dst) masing-masing dengan \`main.yml\` kosong siap diisi.
+
+### Memindahkan Isi Playbook ke Role
+\`\`\`yaml
+# roles/nginx/tasks/main.yml — isi dipindah dari tasks: di site.yml sebelumnya
+---
+- name: Deploy konfigurasi nginx dari template
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+  notify: Restart nginx
+\`\`\`
+
+\`\`\`yaml
+# roles/nginx/handlers/main.yml
+---
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+\`\`\`
+
+\`\`\`yaml
+# roles/nginx/defaults/main.yml — nilai default, gampang di-override
+---
+server_port: 8080
+server_name: "contoh.local"
+\`\`\`
+
+Playbook utama sekarang jadi jauh lebih ringkas — cuma memanggil role-nya:
+
+\`\`\`yaml
+# site.yml
+---
+- name: Setup semua server
+  hosts: webservers
+  become: true
+  roles:
+    - nginx
+\`\`\`
+
+Poin penting:
+
+- File \`.j2\` di dalam role TIDAK perlu path lengkap \`templates/nginx.conf.j2\` lagi saat dirujuk dari task di dalam role itu sendiri — Ansible otomatis mencari di folder \`templates/\` milik role tersebut.
+- Satu playbook (\`roles:\`) bisa memanggil banyak role sekaligus (misalnya \`nginx\`, \`postgresql\`, \`app-sendiri\`) — tiap role independen dan bisa dipakai ulang di proyek lain.
+- \`defaults/main.yml\` beda prioritas dari \`vars/main.yml\`: nilai di \`defaults\` paling gampang di-override dari luar role, sedangkan \`vars\` di dalam role punya prioritas lebih tinggi.`,
+    sources: [
+      { url: "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html", label: "Ansible Docs — Roles" },
+    ],
+    practice: `Jalankan \`ansible-galaxy init roles/nginx\` untuk membuat struktur role. Pindahkan task, handler, dan variable dari \`site.yml\` (catatan sebelumnya) ke file-file di dalam \`roles/nginx/\` sesuai contoh di atas. Sederhanakan \`site.yml\` supaya cuma memanggil \`roles: - nginx\`. Jalankan ulang \`ansible-playbook -i inventory.ini site.yml\` — hasil akhirnya harus identik dengan sebelum di-refactor jadi role. Ini menutup roadmap Ansible: dari instalasi dasar sampai automation yang terorganisir dan bisa dipakai ulang.`,
   },
 ];
