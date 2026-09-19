@@ -34,11 +34,11 @@ Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router
   {
     name: "Python",
     slug: "python",
-    description: `Dua skill dasar Python yang sering dipakai harian: list comprehension (cara ringkas membuat list baru dari list lain, menggantikan loop-append manual) dan virtual environment (mengisolasi dependency per proyek supaya versi package tidak bentrok antar proyek).
+    description: `Python dikenal sebagai bahasa yang mudah dibaca dan cepat dipelajari, dipakai luas mulai dari scripting, web backend, sampai data science. Roadmap ini membangun fondasinya secara bertahap dari nol.
 
-Dua catatan ini relatif independen satu sama lain — tidak ada urutan prasyarat ketat di antaranya.
+Roadmap ini membawamu dari sintaks & tipe data dasar, struktur kontrol (percabangan & perulangan), struktur data (list/tuple/dict/set), menulis fungsi sendiri, list comprehension untuk kode yang lebih ringkas, menangani error runtime, membaca/menulis file, memakai module & library, sampai mengisolasi dependency tiap proyek lewat virtual environment. Sembilan langkah, ikuti berurutan.
 
-**Asumsi:** familiar dengan sintaks dasar Python (variabel, \`for\` loop, function).`,
+**Asumsi:** belum pernah menulis Python sama sekali juga tidak masalah — roadmap ini menjelaskan dari sintaks dasar. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.`,
   },
   {
     name: "Supabase",
@@ -1079,10 +1079,220 @@ export default function NoteDetailPage({ params }: Props) {
   },
   {
     category: "python",
-    slug: "list-comprehension",
+    slug: "sintaks-dan-tipe-data-dasar",
     order: 0,
+    title: "Sintaks & Tipe Data Dasar",
+    content: `**Masalah yang diselesaikan:** bahasa seperti Java/C# mewajibkan kamu mendeklarasikan tipe tiap variabel secara eksplisit (\`int umur = 25;\`) sebelum bisa dipakai — boilerplate ini menambah baris kode untuk hal yang sering kali sudah jelas dari nilainya sendiri. Python memakai *dynamic typing*: tipe ditentukan otomatis dari nilai yang diisikan, dan bisa berubah kapan saja variabelnya diisi ulang dengan nilai bertipe lain.
+
+\`\`\`python
+umur = 25        # int — otomatis dikenali sebagai angka bulat
+tinggi = 1.75     # float — angka desimal
+nama = "Budi"     # str — teks
+aktif = True      # bool — True/False
+
+print(type(umur))  # <class 'int'>
+
+umur = "dua puluh lima"  # BOLEH — Python tidak melarang ganti tipe
+print(type(umur))         # <class 'str'>
+\`\`\`
+
+### Operator Dasar & f-string
+\`\`\`python
+a = 10
+b = 3
+print(a + b)   # 13
+print(a // b)  # 3  — pembagian bulat (floor division)
+print(a % b)   # 1  — sisa bagi (modulo)
+print(a ** b)  # 1000 — pangkat
+
+nama = "Ani"
+umur = 30
+# f-string — cara modern menyisipkan variabel ke dalam teks
+print(f"{nama} berumur {umur} tahun")
+\`\`\`
+
+| Tipe | Contoh | Fungsi Konversi |
+| --- | --- | --- |
+| \`int\` | \`25\`, \`-3\` | \`int("25")\` |
+| \`float\` | \`1.75\`, \`-0.5\` | \`float("1.75")\` |
+| \`str\` | \`"halo"\` | \`str(25)\` |
+| \`bool\` | \`True\`, \`False\` | \`bool(1)\` (hampir semua nilai selain \`0\`/kosong dianggap \`True\`) |
+
+Poin penting:
+
+- \`type(nilai)\` selalu bisa dipakai untuk mengecek tipe suatu nilai saat ini — berguna terutama karena tipe variabel Python bisa berubah.
+- Indentasi (spasi di awal baris) di Python BUKAN sekadar gaya penulisan — ia bagian dari sintaks, menentukan blok kode mana yang termasuk bagian mana (akan terlihat jelas di catatan berikutnya soal struktur kontrol).
+- Konversi tipe eksplisit (\`int()\`, \`str()\`, dst) diperlukan saat Python tidak bisa menebak otomatis, misalnya menggabungkan angka dengan teks: \`"Umur: " + str(umur)\` — \`"Umur: " + umur\` akan error kalau \`umur\` berupa \`int\`.`,
+    sources: [
+      { url: "https://docs.python.org/3/tutorial/introduction.html", label: "An Informal Introduction to Python — Python Docs" },
+      { url: "https://docs.python.org/3/library/stdtypes.html", label: "Built-in Types — Python Docs" },
+    ],
+    prerequisites: [
+      { label: "Python 3 sudah terinstall (cek dengan `python --version` atau `python3 --version`)", url: "https://www.python.org/downloads/" },
+    ],
+    practice: `Buat empat variabel dengan masing-masing tipe (\`int\`, \`float\`, \`str\`, \`bool\`), cetak tipe masing-masing pakai \`type()\`. Buat variabel \`umur = 25\` (angka) dan coba \`print("Umur saya: " + umur)\` — catat error-nya (\`TypeError\`). Perbaiki dengan \`str(umur)\` atau f-string \`f"Umur saya: {umur}"\`. Terakhir, hitung luas persegi panjang dari \`panjang = 8\` dan \`lebar = 3\` lalu cetak hasilnya pakai f-string.`,
+  },
+  {
+    category: "python",
+    slug: "struktur-kontrol-dasar",
+    order: 1,
+    title: "Struktur Kontrol: if, for, while",
+    content: `Sekarang kamu paham variabel dan tipe data dasar (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** program yang cuma dijalankan baris demi baris secara linear tidak bisa membuat KEPUTUSAN (melakukan hal berbeda tergantung kondisi) atau MENGULANG pekerjaan yang sama tanpa menulis ulang kodenya berkali-kali.
+
+### Percabangan: \`if\` / \`elif\` / \`else\`
+\`\`\`python
+nilai = 75
+
+if nilai >= 90:
+    kategori = "A"
+elif nilai >= 75:
+    kategori = "B"
+else:
+    kategori = "C"
+
+print(kategori)  # "B"
+\`\`\`
+
+\`\`\`mermaid
+flowchart TD
+  Start["nilai = 75"] --> Q1{"nilai >= 90?"}
+  Q1 -->|Ya| A["kategori = A"]
+  Q1 -->|Tidak| Q2{"nilai >= 75?"}
+  Q2 -->|Ya| B["kategori = B"]
+  Q2 -->|Tidak| C["kategori = C"]
+\`\`\`
+
+### Perulangan: \`for\` dan \`while\`
+\`\`\`python
+# for — mengulang untuk tiap elemen di sebuah iterable
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+buah = ["apel", "jeruk", "kiwi"]
+for b in buah:
+    print(b)
+
+# while — mengulang SELAMA kondisi masih True
+hitung = 0
+while hitung < 3:
+    print(hitung)
+    hitung += 1
+\`\`\`
+
+### \`break\` dan \`continue\`
+\`\`\`python
+for n in range(10):
+    if n == 5:
+        break  # hentikan loop sepenuhnya
+    if n % 2 == 0:
+        continue  # lewati sisa kode, lanjut ke iterasi berikutnya
+    print(n)  # cuma cetak angka ganjil sebelum 5: 1, 3
+\`\`\`
+
+Poin penting:
+
+- Python TIDAK pakai kurung kurawal \`{ }\` untuk menandai blok kode seperti banyak bahasa lain — blok ditandai lewat INDENTASI (biasanya 4 spasi) setelah tanda titik dua (\`:\`). Indentasi yang salah/tidak konsisten menyebabkan \`IndentationError\`.
+- \`range(5)\` menghasilkan urutan \`0, 1, 2, 3, 4\` (5 ANGKA, tapi berhenti SEBELUM angka 5) — pola ini sering bikin bingung pemula (*off-by-one*).
+- Pakai \`for\` kalau tahu persis berapa kali/apa yang mau diiterasi (list, range), pakai \`while\` kalau pengulangannya tergantung kondisi yang tidak diketahui jumlahnya di awal.`,
+    sources: [
+      { url: "https://docs.python.org/3/tutorial/controlflow.html", label: "More Control Flow Tools — Python Docs" },
+    ],
+    practice: `Tulis program yang mengecek satu angka: cetak "Fizz" kalau habis dibagi 3, "Buzz" kalau habis dibagi 5, "FizzBuzz" kalau habis dibagi KEDUANYA, atau angkanya sendiri kalau tidak keduanya — pakai \`if\`/\`elif\`/\`else\`. Bungkus dalam \`for n in range(1, 21)\` supaya jalan untuk angka 1 sampai 20. Lalu tulis \`while\` loop terpisah yang mencetak angka 10 turun ke 1 (hitung mundur), berhenti otomatis begitu mencapai 0.`,
+  },
+  {
+    category: "python",
+    slug: "struktur-data-dasar",
+    order: 2,
+    title: "Struktur Data Dasar: list, tuple, dict, set",
+    content: `Sekarang kamu bisa membuat keputusan dan mengulang (dari catatan sebelumnya) — biasanya dipakai BARENGAN dengan struktur data untuk mengolah kumpulan nilai. **Masalah yang diselesaikan sekarang:** satu variabel cuma menyimpan SATU nilai — bagaimana menyimpan banyak nilai sekaligus, dan bagaimana memilih struktur yang tepat tergantung kebutuhan (perlu urutan? boleh duplikat? perlu pasangan key-value? perlu nilai unik saja)?
+
+\`\`\`python
+# list — urutan, BISA diubah (mutable), boleh duplikat
+belanja = ["telur", "roti", "susu", "roti"]
+belanja.append("gula")
+
+# tuple — urutan, TIDAK BISA diubah (immutable)
+koordinat = (10, 20)
+# koordinat[0] = 99  # TypeError — tuple tidak bisa diubah
+
+# dict — pasangan key-value
+profil = {"nama": "Budi", "umur": 25}
+print(profil["nama"])  # "Budi"
+
+# set — cuma nilai UNIK, tanpa urutan pasti
+tag = {"python", "web", "python"}  # duplikat otomatis dibuang
+print(tag)  # {"python", "web"}
+\`\`\`
+
+\`\`\`mermaid
+flowchart TD
+  Q1{"Perlu urutan?"}
+  Q1 -->|Tidak, cuma unik| Set["set"]
+  Q1 -->|Ya| Q2{"Perlu key-value?"}
+  Q2 -->|Ya| Dict["dict"]
+  Q2 -->|Tidak| Q3{"Boleh berubah?"}
+  Q3 -->|Ya| List["list"]
+  Q3 -->|Tidak| Tuple["tuple"]
+\`\`\`
+
+| Struktur | Urutan? | Bisa Diubah? | Boleh Duplikat? | Contoh Sintaks |
+| --- | --- | --- | --- | --- |
+| \`list\` | Ya | Ya | Ya | \`[1, 2, 3]\` |
+| \`tuple\` | Ya | Tidak | Ya | \`(1, 2, 3)\` |
+| \`dict\` | Ya (sejak Python 3.7+) | Ya | Key harus unik | \`{"a": 1}\` |
+| \`set\` | Tidak | Ya (isi boleh ditambah/dibuang) | Tidak | \`{1, 2, 3}\` |
+
+Poin penting:
+
+- Pakai \`tuple\` untuk data yang secara konsep TIDAK BOLEH berubah (koordinat, RGB warna) — sifat immutable-nya jadi jaminan, bukan sekadar konvensi.
+- Akses \`dict\` dengan key yang tidak ada melempar \`KeyError\` — pakai \`profil.get("kota", "tidak ada")\` untuk ambil dengan nilai default kalau key-nya mungkin tidak ada.
+- \`set\` berguna untuk operasi seperti mengecek keberadaan nilai secara cepat, atau menghilangkan duplikat dari sebuah list: \`list(set(list_dengan_duplikat))\`.`,
+    sources: [
+      { url: "https://docs.python.org/3/tutorial/datastructures.html", label: "Data Structures — Python Docs" },
+    ],
+    practice: `Buat \`list\` berisi 5 nama buah, tambahkan satu buah lagi pakai \`.append()\`. Buat \`tuple\` berisi koordinat \`(x, y)\`, coba ubah salah satu elemennya dan catat error-nya. Buat \`dict\` profil diri sendiri (\`nama\`, \`umur\`, \`kota\`), akses satu key yang TIDAK ada pakai \`.get()\` dengan default value. Buat \`set\` dari sebuah list yang sengaja punya banyak duplikat, buktikan hasilnya cuma berisi nilai unik.`,
+  },
+  {
+    category: "python",
+    slug: "fungsi-dasar",
+    order: 3,
+    title: "Fungsi Dasar: def, Parameter, dan Return",
+    content: `Sekarang kamu bisa membuat keputusan, mengulang, dan menyimpan koleksi data (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** logic yang sama (misalnya menghitung diskon) sering dibutuhkan di banyak tempat berbeda dalam program — menyalin-tempel kode yang sama berkali-kali bikin susah dipelihara (kalau ada bug, harus diperbaiki di SEMUA tempat yang menyalinnya).
+
+\`\`\`python
+def hitung_diskon(harga, persen=10):
+    """Menghitung harga setelah diskon. Default diskon 10%."""
+    potongan = harga * (persen / 100)
+    return harga - potongan
+
+print(hitung_diskon(100000))       # pakai default 10%: 90000.0
+print(hitung_diskon(100000, 25))   # override jadi 25%: 75000.0
+\`\`\`
+
+\`\`\`mermaid
+flowchart LR
+  Call["hitung_diskon(100000, 25)"] --> Fn["def hitung_diskon(harga, persen=10)"]
+  Fn --> Body["potongan = harga * (persen / 100)"]
+  Body --> Return["return harga - potongan"]
+  Return --> Result["75000.0 dikembalikan ke pemanggil"]
+\`\`\`
+
+Poin penting:
+
+- Parameter dengan nilai default (\`persen=10\`) bersifat OPSIONAL saat memanggil fungsi — kalau tidak diisi, nilai default itu yang dipakai.
+- Fungsi TANPA \`return\` eksplisit otomatis mengembalikan \`None\` — beda dengan fungsi yang memang sengaja \`return None\`.
+- Argumen bisa dikirim berdasarkan POSISI (\`hitung_diskon(100000, 25)\`) atau berdasarkan NAMA (\`hitung_diskon(harga=100000, persen=25)\`) — cara kedua lebih jelas dibaca kalau parameternya banyak.`,
+    sources: [
+      { url: "https://docs.python.org/3/tutorial/controlflow.html#defining-functions", label: "Defining Functions — Python Docs" },
+    ],
+    practice: `Tulis fungsi \`cek_kelulusan(nilai, batas=60)\` yang mengembalikan \`"Lulus"\` kalau \`nilai >= batas\`, atau \`"Tidak Lulus"\` kalau tidak — dengan \`batas\` bernilai default 60. Panggil tanpa argumen kedua (pakai default), lalu panggil lagi dengan \`batas=75\` untuk kasus yang lebih ketat. Tulis fungsi kedua \`rata_rata(daftar_nilai)\` yang menerima sebuah \`list\` angka dan mengembalikan rata-ratanya — gunakan bersama fungsi \`cek_kelulusan\` untuk mengecek apakah rata-rata itu lulus atau tidak.`,
+  },
+  {
+    category: "python",
+    slug: "list-comprehension",
+    order: 4,
     title: "List Comprehension",
-    content: `**Masalah yang diselesaikan:** transformasi atau filter list yang sering dipakai (misalnya ambil elemen genap saja) biasanya butuh beberapa baris kode (deklarasi list kosong, loop, if, append) untuk operasi yang sebenarnya konsepnya sederhana.
+    content: `Sekarang kamu paham \`for\` loop dan struktur data \`list\` (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** transformasi atau filter list yang sering dipakai (misalnya ambil elemen genap saja) biasanya butuh beberapa baris kode (deklarasi list kosong, loop, if, append) untuk operasi yang sebenarnya konsepnya sederhana.
 
 List comprehension adalah cara ringkas membuat list baru dari list/iterable lain.
 
@@ -1125,10 +1335,174 @@ kuadrat = {n: n**2 for n in angka}
   },
   {
     category: "python",
+    slug: "error-handling-dasar",
+    order: 5,
+    title: "Error Handling: try, except, finally",
+    content: `Sekarang kamu bisa menulis fungsi dan mengolah struktur data (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau ada error runtime yang tidak ditangani (misalnya user mengetik teks padahal program mengharapkan angka), seluruh program berhenti total (*uncaught exception*) — bagaimana caranya program tetap jalan dan memberi respons yang masuk akal?
+
+\`\`\`python
+# TANPA error handling — kalau input bukan angka, program CRASH total
+umur = int(input("Umur kamu: "))
+
+# DENGAN try/except — error ditangkap, program tetap jalan
+try:
+    umur = int(input("Umur kamu: "))
+    print(f"Tahun depan umur kamu {umur + 1}")
+except ValueError:
+    print("Itu bukan angka yang valid!")
+finally:
+    print("Selesai mencoba baca input.")  # SELALU jalan
+\`\`\`
+
+\`\`\`mermaid
+flowchart TD
+  Try["Kode di dalam try:"] -->|Berhasil, tanpa error| Skip["except DILEWATI"]
+  Try -->|Error dilempar| Except["except ValueError: dijalankan"]
+  Skip --> Finally["finally: — SELALU dijalankan"]
+  Except --> Finally
+\`\`\`
+
+### Menangani Beberapa Jenis Error & Melempar Error Sendiri
+\`\`\`python
+def bagi(a, b):
+    if b == 0:
+        raise ValueError("Tidak bisa membagi dengan nol")
+    return a / b
+
+try:
+    hasil = bagi(10, 0)
+except ValueError as e:
+    print(f"Error: {e}")
+except ZeroDivisionError:
+    print("Pembagian nol terdeteksi dari operator langsung")
+except Exception as e:
+    print(f"Error tidak terduga: {e}")
+\`\`\`
+
+Poin penting:
+
+- Tangkap jenis exception SPESIFIK (\`ValueError\`, \`KeyError\`, dst) sebisa mungkin, bukan langsung \`except:\` tanpa jenis — supaya kamu tahu persis error apa yang sedang ditangani, dan tidak diam-diam menyembunyikan bug lain yang tidak terkait.
+- \`finally\` dijalankan SELALU, baik \`try\`-nya berhasil maupun gagal — cocok untuk kode pembersihan (menutup file/koneksi) yang wajib jalan apa pun hasilnya.
+- \`raise\` melempar exception secara manual — berguna untuk menandai kondisi yang secara logis salah meski tidak menyebabkan error Python secara langsung.`,
+    sources: [
+      { url: "https://docs.python.org/3/tutorial/errors.html", label: "Errors and Exceptions — Python Docs" },
+    ],
+    practice: `Tulis program yang minta input umur lewat \`input()\`, coba konversi ke \`int()\` di dalam \`try/except ValueError\` — kalau gagal, cetak pesan error yang jelas alih-alih program crash. Tambahkan \`finally\` yang selalu mencetak "Selesai". Tulis fungsi \`bagi(a, b)\` yang \`raise ValueError\` kalau \`b == 0\`, panggil dalam \`try/except\`, cetak pesan error-nya lewat \`except ValueError as e: print(e)\`.`,
+  },
+  {
+    category: "python",
+    slug: "membaca-menulis-file-dasar",
+    order: 6,
+    title: "Membaca & Menulis File Dasar",
+    content: `Sekarang kamu bisa menangani error dengan aman (dari catatan sebelumnya) — penting karena operasi file gampang gagal (file tidak ada, tidak ada izin akses, dst). **Masalah yang diselesaikan sekarang:** data yang cuma hidup di variabel HILANG begitu program selesai dijalankan — bagaimana caranya menyimpan data ke file supaya tetap ada (*persistent*) untuk dibaca lagi nanti, bahkan oleh program lain?
+
+\`\`\`python
+# Menulis ke file — mode "w" (write, menimpa isi lama)
+with open("catatan.txt", "w") as f:
+    f.write("Baris pertama\\n")
+    f.write("Baris kedua\\n")
+
+# Membaca seluruh isi file
+with open("catatan.txt", "r") as f:
+    isi = f.read()
+    print(isi)
+
+# Membaca baris per baris
+with open("catatan.txt", "r") as f:
+    for baris in f:
+        print(baris.strip())  # .strip() buang newline di akhir baris
+
+# Menambahkan ke file TANPA menghapus isi lama — mode "a" (append)
+with open("catatan.txt", "a") as f:
+    f.write("Baris tambahan\\n")
+\`\`\`
+
+\`\`\`mermaid
+flowchart LR
+  Open["with open('file', mode) as f:"] --> Ops["Baca/tulis lewat f"]
+  Ops --> Close["File OTOMATIS ditutup<br/>saat keluar blok with"]
+\`\`\`
+
+| Mode | Fungsi |
+| --- | --- |
+| \`"r"\` | Baca (*read*) — error kalau file tidak ada |
+| \`"w"\` | Tulis (*write*) — MENIMPA seluruh isi lama, atau buat file baru kalau belum ada |
+| \`"a"\` | Tambah (*append*) — menambah di akhir file, isi lama tetap ada |
+
+Poin penting:
+
+- Pakai \`with open(...) as f:\` (*context manager*), BUKAN \`f = open(...)\` manual — \`with\` menjamin file otomatis ditutup begitu blok kodenya selesai, bahkan kalau terjadi error di tengah jalan. Lupa menutup file bisa menyebabkan kebocoran resource.
+- Mode \`"w"\` MENGHAPUS seluruh isi file lama tanpa peringatan — pastikan memang itu yang diinginkan, kalau tidak pakai \`"a"\`.
+- Kombinasikan dengan \`try/except FileNotFoundError\` (dari catatan sebelumnya) untuk menangani kasus file yang mau dibaca ternyata belum ada.`,
+    sources: [
+      { url: "https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files", label: "Reading and Writing Files — Python Docs" },
+    ],
+    practice: `Tulis program yang membuat file \`tugas.txt\` berisi 3 baris tugas (mode \`"w"\`). Baca ulang file itu dan cetak isinya baris per baris. Tambahkan satu baris tugas baru pakai mode \`"a"\`, baca lagi untuk buktikan baris lama TIDAK hilang. Terakhir, coba \`open("tidak-ada.txt", "r")\` pada file yang sengaja tidak ada, bungkus dengan \`try/except FileNotFoundError\` supaya program tidak crash, cetak pesan error yang jelas.`,
+  },
+  {
+    category: "python",
+    slug: "import-dan-module-dasar",
+    order: 7,
+    title: "Import & Module Dasar",
+    content: `Sekarang kamu sudah bisa membaca/menulis file (dari catatan sebelumnya) — kode kamu makin banyak melakukan hal berbeda-beda. **Masalah yang diselesaikan sekarang:** menaruh SEMUA kode di satu file besar makin lama makin susah dikelola — bagaimana caranya memecah kode jadi beberapa file terpisah dan memakai ulang fungsi dari file lain, atau dari library yang sudah ada (bukan menulis ulang dari nol)?
+
+### Import dari Standard Library
+Python punya banyak module bawaan (*standard library*) siap pakai tanpa install apa pun:
+
+\`\`\`python
+import math
+print(math.sqrt(16))  # 4.0
+
+import random
+print(random.randint(1, 10))  # angka acak 1-10
+
+from datetime import datetime
+print(datetime.now())  # waktu saat ini
+\`\`\`
+
+### Membuat Module Sendiri
+\`\`\`python
+# file: kalkulator.py
+def tambah(a, b):
+    return a + b
+
+def kurang(a, b):
+    return a - b
+\`\`\`
+
+\`\`\`python
+# file: main.py — di folder yang sama dengan kalkulator.py
+import kalkulator
+print(kalkulator.tambah(2, 3))  # 5
+
+# atau import fungsi tertentu langsung
+from kalkulator import kurang
+print(kurang(5, 2))  # 3
+\`\`\`
+
+\`\`\`mermaid
+flowchart LR
+  Std["Standard Library<br/>(bawaan Python: math, random, dst)"] -->|import| Code["Kode kamu"]
+  Pip["Package pihak ketiga<br/>(diinstall lewat pip)"] -->|import| Code
+  Own["Module buatan sendiri<br/>(file .py lain)"] -->|import| Code
+\`\`\`
+
+Poin penting:
+
+- \`import module\` mengharuskan pakai prefix \`module.fungsi()\`, sedangkan \`from module import fungsi\` bisa langsung panggil \`fungsi()\` tanpa prefix — tapi lebih rawan bentrok nama kalau banyak module diimpor sekaligus.
+- Package pihak ketiga (yang tidak termasuk standard library, misalnya \`requests\`) harus di-\`pip install\` dulu sebelum bisa di-\`import\` — dibahas lebih lanjut di catatan berikutnya soal virtual environment.
+- \`import module as alias\` (mis. \`import numpy as np\`) memberi nama pendek supaya tidak perlu mengetik nama module lengkap berulang kali — konvensi umum di banyak library populer.`,
+    sources: [
+      { url: "https://docs.python.org/3/tutorial/modules.html", label: "Modules — Python Docs" },
+    ],
+    practice: `Buat file \`kalkulator.py\` berisi minimal 3 fungsi (\`tambah\`, \`kurang\`, \`kali\`). Buat file \`main.py\` di folder yang sama, \`import kalkulator\` lalu panggil ketiga fungsinya. Coba juga \`from kalkulator import tambah\` dan panggil langsung tanpa prefix. Import module bawaan \`random\`, gunakan \`random.choice()\` untuk memilih satu nama secara acak dari sebuah list nama yang kamu buat.`,
+  },
+  {
+    category: "python",
     slug: "virtual-environment",
-    order: 1,
+    order: 8,
     title: "Virtual Environment (venv)",
-    content: `**Masalah yang diselesaikan:** kalau semua dependency Python diinstall secara global (satu Python untuk semua proyek), proyek A yang butuh \`django==4\` dan proyek B yang butuh \`django==3\` akan bertabrakan — cuma bisa ada satu versi terinstall global di satu waktu.
+    content: `Sekarang kamu bisa \`import\` module dan package pihak ketiga lewat \`pip\` (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau semua dependency Python diinstall secara global (satu Python untuk semua proyek), proyek A yang butuh \`django==4\` dan proyek B yang butuh \`django==3\` akan bertabrakan — cuma bisa ada satu versi terinstall global di satu waktu.
 
 Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
 
@@ -1167,7 +1541,7 @@ Tips:
       { label: "venv — Creation of virtual environments — Python Docs", url: "https://docs.python.org/3/library/venv.html" },
     ],
     prerequisites: [{ label: "Python sudah terinstall (cek dengan `python --version`)", url: "https://www.python.org/downloads/" }],
-    practice: `Buat dua folder proyek berbeda. Di masing-masing, buat venv terpisah (\`python -m venv .venv\`), aktifkan, lalu install versi \`requests\` yang BERBEDA di tiap proyek (mis. \`pip install requests==2.31.0\` di satu, \`pip install requests==2.28.0\` di lainnya). Jalankan \`pip freeze\` di kedua venv untuk membuktikan versinya benar-benar berbeda dan tidak saling memengaruhi satu sama lain.`,
+    practice: `Buat dua folder proyek berbeda. Di masing-masing, buat venv terpisah (\`python -m venv .venv\`), aktifkan, lalu install versi \`requests\` yang BERBEDA di tiap proyek (mis. \`pip install requests==2.31.0\` di satu, \`pip install requests==2.28.0\` di lainnya). Jalankan \`pip freeze\` di kedua venv untuk membuktikan versinya benar-benar berbeda dan tidak saling memengaruhi satu sama lain. Ini menutup roadmap Python: dari sintaks dasar sampai mengelola dependency proyek secara terisolasi.`,
   },
   {
     category: "supabase",
