@@ -9,7 +9,7 @@ export const categories = [
     slug: "git",
     description: `Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (\`script_v2_final.js\`, \`script_v2_REVISI.js\`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.
 
-Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), bercabang untuk mengerjakan fitur tanpa mengganggu kode utama (branching), sampai berkolaborasi lewat repository remote seperti GitHub. Tiga langkah, ikuti berurutan.
+Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), bercabang untuk mengerjakan fitur tanpa mengganggu kode utama (branching), berkolaborasi lewat repository remote seperti GitHub, mengabaikan file yang tidak seharusnya ikut ter-commit, sampai menyelesaikan konflik yang muncul saat menggabungkan perubahan. Lima langkah, ikuti berurutan.
 
 **Asumsi:** familiar dengan command line/terminal dasar. Prasyarat tool (Git, akun GitHub) disebutkan di catatan yang membutuhkannya.`,
   },
@@ -177,7 +177,7 @@ Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang j
     slug: "remote-dasar",
     order: 2,
     title: "Git Remote: Push, Pull, dan Fetch",
-    content: `Sekarang kamu bisa commit dan bercabang di komputer sendiri. **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana kalau kode itu perlu dibagikan ke orang lain, atau di-backup di luar komputer kamu? Riwayat commit yang cuma ada di satu komputer rentan hilang (laptop rusak/hilang) dan tidak bisa diakses tim lain.
+    content: `Sekarang kamu bisa commit dan bercabang di komputer sendiri. **Masalah yang diselesaikan sekarang:** bagaimana kalau kode itu perlu dibagikan ke orang lain, atau di-backup di luar komputer kamu? Riwayat commit yang cuma ada di satu komputer rentan hilang (laptop rusak/hilang) dan tidak bisa diakses tim lain.
 
 Repository remote adalah salinan proyek yang disimpan di server internet atau jaringan (seperti GitHub atau GitLab), memungkinkan kolaborasi tim dan backup kode.
 
@@ -224,7 +224,124 @@ Poin penting:
       { url: "https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes", label: "Git Basics - Working with Remotes — Pro Git Book" },
     ],
     prerequisites: [{ label: "Akun GitHub (atau GitLab/Bitbucket) sudah dibuat", url: "https://github.com/signup" }],
-    practice: `Buat repository baru di GitHub (kosong, tanpa README). Di project lokal dari latihan sebelumnya, jalankan \`git remote add origin <url-repo-kamu>\`, lalu \`git push origin main\` (atau \`master\`, tergantung nama branch default-nya). Refresh halaman GitHub — pastikan commit-commit kamu muncul di sana. Coba juga \`git clone <url-yang-sama>\` ke folder lain untuk simulasi "komputer lain" yang mengambil kode itu. Ini menutup roadmap Git: dari commit pertama sampai kolaborasi lewat remote.`,
+    practice: `Buat repository baru di GitHub (kosong, tanpa README). Di project lokal dari latihan sebelumnya, jalankan \`git remote add origin <url-repo-kamu>\`, lalu \`git push origin main\` (atau \`master\`, tergantung nama branch default-nya). Refresh halaman GitHub — pastikan commit-commit kamu muncul di sana. Coba juga \`git clone <url-yang-sama>\` ke folder lain untuk simulasi "komputer lain" yang mengambil kode itu.`,
+  },
+  {
+    category: "git",
+    slug: "gitignore-dasar",
+    order: 3,
+    title: "Mengabaikan File dengan .gitignore",
+    content: `Sekarang project kamu sudah bisa di-push ke remote dan dibagikan ke orang lain (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** tidak semua file di folder project seharusnya ikut dilacak Git — file dependency yang bisa di-generate ulang (\`node_modules/\`), hasil build (\`dist/\`, \`.next/\`), atau file berisi rahasia (\`.env\` yang isinya API key/password). Kalau ikut ter-\`push\` ke remote publik, itu bisa membengkakkan ukuran repo atau — lebih parah — membocorkan kredensial ke siapa saja yang bisa lihat repo-nya.
+\`.gitignore\` adalah file konfigurasi berisi daftar pola nama file/folder yang sengaja Git abaikan — tidak akan pernah muncul sebagai *untracked* di \`git status\`, dan tidak bisa ikut ke-\`git add\` secara tidak sengaja (termasuk lewat \`git add .\`).
+
+\`\`\`mermaid
+flowchart LR
+  Edit["File diubah/dibuat"] --> Check{"Cocok pola<br/>di .gitignore?"}
+  Check -->|Ya| Ignored["Diabaikan Git<br/>(tidak muncul di git status)"]
+  Check -->|Tidak| Tracked["Muncul sebagai untracked/modified<br/>bisa di-git add"]
+\`\`\`
+
+### Contoh Isi \`.gitignore\` (Project Node.js/Next.js)
+\`\`\`bash
+# Dependency — di-generate ulang dari package.json, tidak perlu di-commit
+node_modules/
+
+# Hasil build — di-generate ulang dari source code
+.next/
+dist/
+build/
+
+# File rahasia — TIDAK BOLEH pernah masuk repository
+.env
+.env.local
+
+# File/folder spesifik editor atau OS
+.vscode/
+.DS_Store
+
+# Semua file .log, di mana pun lokasinya
+*.log
+
+# Kecuali file ini — tanda seru membatalkan pola abaikan di atasnya
+!important.log
+\`\`\`
+
+Poin penting:
+
+- Bikin \`.gitignore\` **sedini mungkin**, idealnya sebelum \`git add\` pertama kali — mencegah lebih mudah daripada membersihkan riwayat commit yang sudah terlanjur berisi secret.
+- Kalau sebuah file **sudah kadung ter-commit** sebelum ditambahkan ke \`.gitignore\`, menambahkannya ke \`.gitignore\` saja tidak cukup — Git akan tetap melacaknya. Perlu \`git rm --cached <file>\` untuk berhenti melacaknya (filenya tetap ada di disk, cuma dihapus dari index Git).
+- Pola \`folder/\` (dengan garis miring di akhir) cuma cocok untuk folder, sedangkan \`*.log\` cocok untuk semua file berekstensi \`.log\` di folder mana pun.
+- GitHub menyediakan koleksi template \`.gitignore\` siap pakai per bahasa/framework (Node, Python, dll.) yang bisa jadi titik awal.`,
+    sources: [
+      { url: "https://git-scm.com/docs/gitignore", label: "Git Documentation — gitignore" },
+      { url: "https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files", label: "GitHub Docs — Ignoring Files" },
+    ],
+    practice: `Di repository latihan kamu, buat file \`rahasia.env\` berisi teks apa saja, dan buat folder \`node_modules/\` kosong (isi dengan satu file dummy). Jalankan \`git status\` — keduanya muncul sebagai *untracked*. Buat file \`.gitignore\` berisi \`rahasia.env\` dan \`node_modules/\`, jalankan \`git status\` lagi — keduanya harus HILANG dari daftar. Sekarang simulasikan kasus "sudah kadung ter-commit": hapus baris \`rahasia.env\` dari \`.gitignore\` sebentar, \`git add\` + commit filenya, lalu kembalikan baris itu ke \`.gitignore\` dan jalankan \`git rm --cached rahasia.env\` — buktikan filenya tetap ada di disk tapi sudah tidak dilacak Git lagi (\`git status\` menampilkannya sebagai untracked, bukan lagi tracked).`,
+  },
+  {
+    category: "git",
+    slug: "merge-conflict-dasar",
+    order: 4,
+    title: "Menyelesaikan Merge Conflict",
+    content: `Sekarang kamu tahu cara branching, push/pull, dan mengabaikan file yang tidak perlu (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau dua branch (atau kamu dan rekan tim) sama-sama mengubah BARIS YANG SAMA di file yang sama, Git tidak tahu versi mana yang benar saat \`merge\`/\`pull\` — proses berhenti di tengah jalan dan minta kamu memutuskan sendiri.
+
+**Merge conflict** terjadi ketika Git tidak bisa menggabungkan otomatis dua perubahan yang saling bertabrakan pada baris yang sama.
+
+\`\`\`mermaid
+gitGraph
+   commit id: "A"
+   branch fitur-a
+   checkout fitur-a
+   commit id: "ubah baris 5 jadi X"
+   checkout main
+   commit id: "ubah baris 5 jadi Y"
+\`\`\`
+
+Kedua branch sama-sama mengubah baris 5 dengan nilai berbeda (\`X\` di \`fitur-a\`, \`Y\` di \`main\`) — saat \`git merge fitur-a\` dijalankan dari \`main\`, Git tidak bisa menebak versi mana yang benar, jadi proses berhenti dan minta diselesaikan manual.
+
+### Tampilan File Saat Konflik
+Git menandai bagian yang bentrok langsung di dalam file dengan *conflict markers*:
+
+\`\`\`text
+<<<<<<< HEAD
+const sapaan = "Selamat pagi";
+=======
+const sapaan = "Halo semua";
+>>>>>>> fitur-a
+\`\`\`
+
+- Baris di atas \`=======\` adalah versi branch yang sedang aktif (\`HEAD\`).
+- Baris di bawah \`=======\` sampai \`>>>>>>>\` adalah versi dari branch yang sedang di-merge (\`fitur-a\`).
+
+### Langkah Menyelesaikan Konflik
+\`\`\`bash
+# 1. Coba merge, Git berhenti dan melaporkan file yang konflik
+git merge fitur-a
+# Auto-merging index.js
+# CONFLICT (content): Merge conflict in index.js
+
+# 2. Buka file yang konflik, edit manual: pilih salah satu versi,
+#    gabungan keduanya, atau tulis versi baru — lalu HAPUS conflict markers-nya
+#    (<<<<<<<, =======, >>>>>>>) sepenuhnya
+
+# 3. Tandai sudah diselesaikan dengan menambahkannya ke staging
+git add index.js
+
+# 4. Selesaikan proses merge dengan commit
+git commit
+\`\`\`
+
+Poin penting:
+
+- \`git status\` saat konflik menampilkan daftar file yang "*both modified*" — itulah file-file yang perlu diedit manual.
+- Conflict marker (\`<<<<<<<\`, \`=======\`, \`>>>>>>>\`) HARUS dihapus semuanya sebelum commit — kalau lupa, marker itu akan ikut ter-commit sebagai teks biasa dan merusak kode.
+- Kalau ingin membatalkan proses merge sepenuhnya dan kembali ke kondisi sebelum \`git merge\` dijalankan, pakai \`git merge --abort\`.
+- Konflik yang sama juga bisa muncul saat \`git pull\` (karena \`pull\` = \`fetch\` + \`merge\`) — cara menyelesaikannya identik.`,
+    sources: [
+      { url: "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging", label: "Git Basic Branching and Merging — Pro Git Book" },
+      { url: "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line", label: "GitHub Docs — Resolving a Merge Conflict Using the Command Line" },
+    ],
+    practice: `Di repository latihan kamu: dari \`main\`, buat branch \`fitur-a\`, ubah baris pertama \`catatan.txt\` jadi teks apa saja, commit. Pindah balik ke \`main\`, ubah baris PERTAMA yang SAMA di \`catatan.txt\` jadi teks lain, commit juga. Jalankan \`git merge fitur-a\` dari \`main\` — harus muncul CONFLICT. Buka \`catatan.txt\`, lihat conflict marker-nya, edit manual untuk memilih/menggabungkan isinya, hapus semua marker, lalu \`git add catatan.txt\` dan \`git commit\` untuk menyelesaikannya. Ini menutup roadmap Git: dari commit pertama sampai menyelesaikan konflik kolaborasi yang paling umum ditemui.`,
   },
   {
     category: "javascript",
