@@ -85,6 +85,15 @@ Roadmap ini pakai **Hermes Agent** dari Nous Research (open-source, *self-improv
 
 **Asumsi:** familiar dengan command line/terminal dasar. Tidak perlu pengalaman sebelumnya dengan agentic AI atau LLM API — roadmap ini menjelaskan dari instalasi. Prasyarat tool (Git) dan akun untuk akses model disebutkan di catatan pertama.`,
   },
+  {
+    name: "Flutter (Android)",
+    slug: "flutter",
+    description: `Membangun aplikasi mobile yang jalan di Android DAN iOS secara tradisional berarti menulis DUA codebase terpisah — Kotlin/Java untuk Android, Swift untuk iOS. Logic bisnis yang sama harus diimplementasikan dua kali, dan bug yang diperbaiki di satu platform harus diperbaiki lagi manual di platform lainnya. Flutter menyelesaikan ini dengan satu codebase (bahasa Dart) yang dikompilasi jadi kode native untuk berbagai platform sekaligus.
+
+Roadmap ini fokus ke target Android: instalasi & menjalankan aplikasi pertama, memahami widget (StatelessWidget vs StatefulWidget), menyusun layout dari beberapa widget, berpindah antar halaman, sampai mengambil data dari API lewat HTTP request. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan konsep pemrograman umum (variabel, fungsi, class) dari bahasa apa pun — roadmap ini tidak mengajarkan sintaks Dart dari nol, tapi contoh kodenya cukup sederhana untuk diikuti pemula. Prasyarat tool (Flutter SDK, Android Studio) disebutkan di catatan pertama.`,
+  },
 ];
 
 export const notes = [
@@ -4187,5 +4196,323 @@ Poin penting:
       { url: "https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp", label: "Hermes Agent Docs — MCP Integration" },
     ],
     practice: `Jalankan \`hermes mcp catalog\` untuk lihat server yang tersedia, lalu \`hermes mcp install <salah satu nama dari katalog>\` (atau tambahkan server \`filesystem\` secara manual ke \`~/.hermes/config.yaml\` seperti contoh di atas kalau mau coba tanpa akun pihak ketiga). Mulai sesi baru, minta agent melakukan sesuatu yang HANYA bisa dikerjakan lewat tool dari MCP server itu (bukan tool bawaan) — verifikasi dari responsnya bahwa dia benar-benar memanggil tool eksternal itu, bukan tool bawaan Hermes. Ini menutup roadmap Agentic AI: dari instalasi dasar sampai agent yang bisa diperluas kapabilitasnya ke sistem eksternal apa pun.`,
+  },
+  {
+    category: "flutter",
+    slug: "pengenalan-flutter-dan-instalasi",
+    order: 0,
+    title: "Pengenalan Flutter & Instalasi",
+    content: `**Masalah yang diselesaikan:** membangun aplikasi mobile yang jalan di Android DAN iOS secara tradisional berarti menulis DUA codebase terpisah dengan bahasa berbeda (Kotlin/Java untuk Android, Swift untuk iOS) — fitur yang sama harus diimplementasikan dua kali, dan bug yang diperbaiki di satu platform harus diperbaiki lagi manual di platform lainnya.
+
+**Flutter** adalah UI toolkit open-source dari Google — satu codebase Dart dikompilasi langsung jadi kode NATIVE (bukan berjalan di dalam WebView) untuk Android, iOS, web, dan desktop sekaligus.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Tradisional["Native Terpisah"]
+    K["Kotlin/Java"] --> APK1["Android App"]
+    S["Swift"] --> IPA1["iOS App"]
+  end
+  subgraph Flutter["Dengan Flutter"]
+    D["Satu Codebase Dart"] --> APK2["Android App"]
+    D --> IPA2["iOS App"]
+  end
+\`\`\`
+
+### Instalasi
+Cara paling mudah: install lewat editor (VS Code dengan ekstensi Flutter, atau Android Studio) yang otomatis mengurus SDK Flutter — atau instalasi manual lewat \`flutter doctor\`:
+
+\`\`\`bash
+# Setelah Flutter SDK ter-extract/terinstall, cek kelengkapan environment
+flutter doctor
+# Menampilkan checklist: Flutter SDK, Android toolchain, Android Studio,
+# emulator/device terhubung — tandai bagian mana yang masih perlu dilengkapi
+\`\`\`
+
+### Membuat & Menjalankan App Pertama
+\`\`\`bash
+flutter create nama_app
+cd nama_app
+flutter run
+\`\`\`
+
+\`flutter create\` menghasilkan project starter berisi *counter app* sederhana (tombol \`+\` menambah angka) — bukti bahwa environment kamu sudah siap sebelum masuk ke konsep widget di catatan berikutnya.
+
+Poin penting:
+
+- \`flutter doctor\` WAJIB dijalankan sebelum mulai — ini yang paling sering menyelesaikan masalah "kenapa app tidak bisa di-build" di awal setup.
+- Perlu minimal SATU target untuk menjalankan app: emulator Android (dibuat lewat Android Studio → Device Manager) atau device fisik dengan USB debugging aktif.
+- *Hot reload* (tekan \`r\` di terminal saat \`flutter run\` jalan, atau tombol petir di editor) menerapkan perubahan kode ke app yang sedang jalan dalam hitungan detik, TANPA restart aplikasi dari awal — ini yang bikin iterasi UI di Flutter terasa sangat cepat.`,
+    sources: [
+      { url: "https://docs.flutter.dev/get-started/install", label: "Flutter Docs — Install" },
+      { url: "https://docs.flutter.dev/platform-integration/android/setup", label: "Flutter Docs — Android Setup" },
+    ],
+    prerequisites: [
+      { label: "Android Studio terinstall (untuk Android SDK & emulator)", url: "https://developer.android.com/studio" },
+      { label: "Editor kode — VS Code dengan ekstensi Flutter direkomendasikan", url: "https://code.visualstudio.com/" },
+    ],
+    practice: `Install Flutter SDK sesuai OS kamu, jalankan \`flutter doctor\` dan selesaikan semua item yang masih bertanda silang/peringatan. Buat emulator Android lewat Android Studio (Device Manager → Create Device). Jalankan \`flutter create app_pertama\`, masuk ke foldernya, jalankan \`flutter run\` — pastikan counter app default muncul di emulator. Ubah teks \`'You have pushed the button this many times:'\` di \`lib/main.dart\` jadi kalimat lain, simpan file, dan buktikan hot reload menerapkan perubahan itu TANPA restart app.`,
+  },
+  {
+    category: "flutter",
+    slug: "widget-dasar-stateless-stateful",
+    order: 1,
+    title: "Widget Dasar: StatelessWidget vs StatefulWidget",
+    content: `Sekarang environment Flutter kamu sudah siap dan app pertama sudah jalan (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** di Flutter, HAMPIR SEMUA hal — teks, tombol, layout, bahkan padding — adalah *widget*. Ini beda dari native Android yang memisahkan layout XML (deklaratif) dari logic Kotlin/Java (imperatif); di Flutter keduanya digabung jadi satu lewat kode Dart yang deklaratif. Pertanyaan pertama yang harus dijawab: widget mana yang perlu MENGINGAT sesuatu yang bisa berubah (butuh *state*), dan mana yang tidak?
+
+\`\`\`mermaid
+flowchart TD
+  subgraph SL["StatelessWidget"]
+    SL1["build() cuma bergantung<br/>pada parameter constructor"] --> SL2["Immutable — tidak bisa<br/>berubah sendiri setelah dibuat"]
+  end
+  subgraph SF["StatefulWidget"]
+    SF1["Punya objek State terpisah"] --> SF2["setState() memicu<br/>build() ulang"]
+    SF2 --> SF3["Tampilan ter-update"]
+  end
+\`\`\`
+
+### StatelessWidget — Tidak Pernah Berubah Sendiri
+\`\`\`dart
+class SapaanWidget extends StatelessWidget {
+  final String nama;
+  const SapaanWidget({super.key, required this.nama});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Halo, $nama!');
+  }
+}
+\`\`\`
+
+### StatefulWidget — Punya State yang Bisa Berubah
+\`\`\`dart
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+
+  @override
+  State<CounterWidget> createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  int _jumlah = 0; // state — nilai yang bisa berubah antar build()
+
+  void _tambah() {
+    setState(() {
+      _jumlah++; // WAJIB di dalam setState() supaya UI ikut ter-update
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Jumlah: $_jumlah'),
+        ElevatedButton(onPressed: _tambah, child: const Text('Tambah')),
+      ],
+    );
+  }
+}
+\`\`\`
+
+| | StatelessWidget | StatefulWidget |
+| --- | --- | --- |
+| Bisa berubah tanpa dibuat ulang dari parent? | Tidak | Ya, lewat \`setState()\` |
+| Contoh pemakaian | Teks statis, icon, layout tetap | Counter, form input, toggle switch |
+| Objek \`State\` terpisah? | Tidak perlu | Ya, wajib override \`createState()\` |
+
+Poin penting:
+
+- Mengubah variabel state TANPA memanggil \`setState()\` (mis. \`_jumlah++;\` saja tanpa dibungkus) TIDAK akan mengubah tampilan — variabelnya berubah di memori, tapi Flutter tidak tahu harus \`build()\` ulang.
+- \`const\` di depan constructor widget (seperti \`const SapaanWidget(...)\`) memberi tahu Flutter widget itu tidak akan berubah — optimisasi performa supaya tidak di-build ulang tanpa perlu.
+- Keputusan Stateless vs Stateful ditentukan oleh KONTEN widget-nya, bukan aturan kaku — kalau ragu, mulai dari StatelessWidget, baru naikkan jadi StatefulWidget begitu memang butuh menyimpan state yang berubah.`,
+    sources: [
+      { url: "https://docs.flutter.dev/ui/widgets-intro", label: "Flutter Docs — Introduction to Widgets" },
+    ],
+    practice: `Ganti isi \`lib/main.dart\` dengan \`CounterWidget\` di atas (bungkus dalam \`MaterialApp\` + \`Scaffold\`). Jalankan, tekan tombol "Tambah" beberapa kali — pastikan angkanya bertambah di layar. SENGAJA hapus \`setState()\`-nya (langsung \`_jumlah++;\` tanpa dibungkus), jalankan lagi — buktikan angkanya BERTAMBAH di data (bisa dicek lewat \`print()\`) tapi tampilan di layar TIDAK berubah, membuktikan pentingnya \`setState()\`.`,
+  },
+  {
+    category: "flutter",
+    slug: "layout-dasar-row-column-container",
+    order: 2,
+    title: "Layout Dasar: Row, Column, Container",
+    content: `Sekarang kamu paham widget Stateless dan Stateful (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** satu widget saja tidak cukup untuk membangun tampilan nyata — kamu perlu cara MENYUSUN banyak widget jadi satu layout utuh: horizontal, vertikal, dengan jarak/padding yang rapi.
+
+Flutter menyusun UI dengan cara MENUMPUK widget layout di dalam widget layout lain (*composition*) — tidak ada bahasa markup terpisah seperti XML.
+
+\`\`\`mermaid
+flowchart TD
+  Container["Container (padding, warna background)"] --> Column["Column (susun vertikal)"]
+  Column --> Row["Row (susun horizontal)"]
+  Row --> Icon["Icon"]
+  Row --> Text1["Text (nama)"]
+  Column --> Text2["Text (deskripsi)"]
+\`\`\`
+
+\`\`\`dart
+Container(
+  padding: const EdgeInsets.all(16),
+  color: Colors.blue.shade50,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        children: [
+          const Icon(Icons.person),
+          const SizedBox(width: 8), // jarak antar widget
+          const Text('Budi Santoso', style: TextStyle(fontWeight: FontWeight.bold)),
+        ],
+      ),
+      const Text('Flutter Developer'),
+    ],
+  ),
+)
+\`\`\`
+
+| Widget | Fungsi |
+| --- | --- |
+| \`Row\` | Menyusun children secara HORIZONTAL |
+| \`Column\` | Menyusun children secara VERTIKAL |
+| \`Container\` | Membungkus satu child dengan padding, margin, warna, atau border |
+| \`Center\` | Memusatkan satu child secara horizontal & vertikal |
+| \`SizedBox\` | Kotak kosong berukuran tetap — sering dipakai untuk memberi JARAK antar widget |
+| \`Expanded\` | Membuat child mengisi ruang tersisa di dalam \`Row\`/\`Column\` |
+
+Poin penting:
+
+- \`Row\` dan \`Column\` masing-masing WAJIB diisi parameter \`children: [...]\` berisi list widget — kalau isinya melebihi ruang tersedia (misal terlalu banyak widget di \`Row\` sempit) akan muncul error "overflow" berwarna kuning-hitam khas Flutter.
+- \`mainAxisAlignment\` mengatur perataan SEPANJANG arah utama (horizontal untuk \`Row\`, vertikal untuk \`Column\`), \`crossAxisAlignment\` mengatur perataan TEGAK LURUS arah utama.
+- \`Container\` cuma boleh punya SATU child langsung — kalau butuh lebih dari satu widget di dalamnya, bungkus dulu dengan \`Row\`/\`Column\` seperti contoh di atas.`,
+    sources: [
+      { url: "https://docs.flutter.dev/ui/layout", label: "Flutter Docs — Layout" },
+    ],
+    practice: `Buat widget "kartu profil" persis seperti contoh di atas (icon + nama dalam \`Row\`, deskripsi di bawahnya dalam \`Column\`, dibungkus \`Container\` dengan padding dan warna latar). Tambahkan \`Expanded\` di dalam \`Row\` supaya teks nama mengambil sisa ruang yang ada, cek apa bedanya visualnya dibanding tanpa \`Expanded\`. Coba ganti \`crossAxisAlignment\` dari \`start\` ke \`center\`, amati bagaimana posisi konten berubah.`,
+  },
+  {
+    category: "flutter",
+    slug: "navigasi-dasar",
+    order: 3,
+    title: "Navigasi Antar Halaman",
+    content: `Sekarang kamu bisa menyusun layout satu halaman penuh (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** aplikasi nyata hampir selalu punya LEBIH dari satu halaman — bagaimana caranya berpindah ke halaman lain, dan (kalau perlu) mengirim data ke halaman itu atau menerima data balik darinya?
+
+**Navigator** di Flutter mengelola halaman sebagai STACK (tumpukan) — \`push\` menambah halaman baru di atas, \`pop\` membuang halaman teratas dan kembali ke sebelumnya.
+
+\`\`\`mermaid
+flowchart LR
+  A["HalamanUtama"] -->|"Navigator.push()"| B["HalamanDetail"]
+  B -->|"Navigator.pop()"| A
+\`\`\`
+
+### Berpindah Halaman & Mengirim Data
+\`\`\`dart
+// Dari HalamanUtama, kirim data "nama" ke HalamanDetail
+Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (context) => HalamanDetail(nama: 'Budi'),
+  ),
+);
+
+class HalamanDetail extends StatelessWidget {
+  final String nama;
+  const HalamanDetail({super.key, required this.nama});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Detail')),
+      body: Center(child: Text('Halo, $nama')),
+    );
+  }
+}
+\`\`\`
+
+### Kembali Sambil Membawa Data
+\`\`\`dart
+// Di HalamanDetail — kembali sambil kirim hasil
+ElevatedButton(
+  onPressed: () => Navigator.of(context).pop('Data dari detail'),
+  child: const Text('Kembali'),
+)
+
+// Di HalamanUtama — menerima hasil dari push (harus pakai await)
+final hasil = await Navigator.of(context).push(
+  MaterialPageRoute(builder: (context) => const HalamanDetail(nama: 'Budi')),
+);
+print(hasil); // "Data dari detail"
+\`\`\`
+
+Poin penting:
+
+- \`Navigator.push()\` mengembalikan sebuah \`Future\` — pakai \`await\` kalau butuh menunggu dan menangkap data yang dikirim balik lewat \`Navigator.pop(data)\`.
+- Tombol "back" bawaan Android/iOS otomatis memanggil \`pop()\` kalau ada \`AppBar\` dengan tombol back — kamu tidak perlu menangani ini manual di kasus umum.
+- Untuk aplikasi dengan navigasi kompleks (deep linking, banyak tab), package seperti \`go_router\` lebih direkomendasikan daripada \`Navigator\` manual — tapi memahami \`push\`/\`pop\` tetap fondasi yang perlu dikuasai lebih dulu.`,
+    sources: [
+      { url: "https://docs.flutter.dev/ui/navigation", label: "Flutter Docs — Navigation and Routing" },
+    ],
+    practice: `Buat dua halaman: \`HalamanUtama\` dengan tombol yang meng-\`Navigator.push()\` ke \`HalamanDetail\`, kirim sebuah String lewat constructor. Di \`HalamanDetail\`, tampilkan data itu, dan buat tombol yang \`Navigator.pop()\` sambil membawa data BARU (String lain). Di \`HalamanUtama\`, tangkap data balik itu pakai \`await\` pada \`Navigator.push()\`, tampilkan lewat \`SnackBar\` atau \`print()\` begitu pengguna kembali dari \`HalamanDetail\`.`,
+  },
+  {
+    category: "flutter",
+    slug: "http-request-dasar",
+    order: 4,
+    title: "Mengambil Data dari API (HTTP Request)",
+    content: `Sekarang kamu bisa membangun UI multi-halaman (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** semua data yang dipakai sejauh ini di-hardcode langsung di kode. Aplikasi nyata butuh data dari SERVER — dan karena request jaringan itu ASINKRON (butuh waktu, bisa gagal), UI harus bisa menampilkan status loading, data, atau error dengan tepat.
+
+### Package \`http\`
+\`\`\`bash
+flutter pub add http
+\`\`\`
+
+\`\`\`dart
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<List<String>> ambilDaftarPost() async {
+  final response = await http.get(
+    Uri.parse('https://jsonplaceholder.typicode.com/posts?_limit=5'),
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body) as List;
+    return data.map((item) => item['title'] as String).toList();
+  } else {
+    throw Exception('Gagal mengambil data (status: \${response.statusCode})');
+  }
+}
+\`\`\`
+
+### Menampilkan dengan \`FutureBuilder\`
+\`\`\`mermaid
+flowchart TD
+  FB["FutureBuilder"] --> Loading["Belum selesai:<br/>CircularProgressIndicator"]
+  FB --> Error["Gagal (hasError):<br/>Tampilkan pesan error"]
+  FB --> Data["Berhasil (hasData):<br/>Tampilkan datanya"]
+\`\`\`
+
+\`\`\`dart
+FutureBuilder<List<String>>(
+  future: ambilDaftarPost(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const CircularProgressIndicator();
+    } else if (snapshot.hasError) {
+      return Text('Error: \${snapshot.error}');
+    } else if (snapshot.hasData) {
+      return Column(
+        children: snapshot.data!.map((judul) => Text(judul)).toList(),
+      );
+    }
+    return const Text('Tidak ada data');
+  },
+)
+\`\`\`
+
+Poin penting:
+
+- \`FutureBuilder\` otomatis rebuild widget-nya sesuai state \`Future\`: \`waiting\` (masih loading), \`hasError\` (gagal), atau \`hasData\` (berhasil) — kamu tidak perlu mengelola \`setState()\` manual untuk loading spinner.
+- Panggil fungsi \`Future\` (seperti \`ambilDaftarPost()\`) di \`initState()\` dan simpan hasilnya ke variabel, JANGAN dipanggil langsung di \`build()\` — kalau dipanggil di \`build()\`, request akan terkirim ULANG setiap kali widget di-*rebuild*.
+- Selalu cek \`response.statusCode\` sebelum memproses \`response.body\` — status selain 200 (seperti 404 atau 500) berarti request-nya gagal meski tidak melempar exception Dart secara otomatis.`,
+    sources: [
+      { url: "https://docs.flutter.dev/cookbook/networking/fetch-data", label: "Flutter Cookbook — Fetch Data from the Internet" },
+    ],
+    practice: `Tambahkan package \`http\` (\`flutter pub add http\`). Buat fungsi \`ambilDaftarPost()\` seperti contoh di atas, tampilkan hasilnya lewat \`FutureBuilder\` di sebuah halaman baru. Pastikan tampilan menunjukkan \`CircularProgressIndicator\` sesaat sebelum data muncul. SENGAJA salahkan URL-nya (mis. ganti jadi domain yang tidak ada) untuk memicu \`hasError\`, buktikan pesan error-nya tertampil alih-alih app crash. Ini menutup roadmap Flutter: dari instalasi sampai aplikasi yang menampilkan data sungguhan dari API.`,
   },
 ];
