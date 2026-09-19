@@ -85,6 +85,15 @@ Roadmap ini pakai **Hermes Agent** dari Nous Research (open-source, *self-improv
 
 **Asumsi:** familiar dengan command line/terminal dasar. Tidak perlu pengalaman sebelumnya dengan agentic AI atau LLM API — roadmap ini menjelaskan dari instalasi. Prasyarat tool (Git) dan akun untuk akses model disebutkan di catatan pertama.`,
   },
+  {
+    name: "Java (Spring Boot)",
+    slug: "java-spring-boot",
+    description: `Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual dan setup server terpisah (Tomcat, web.xml) sebelum sempat menulis baris kode business logic pertama. Spring Boot menyelesaikan ini dengan auto-configuration, server tertanam (*embedded*), dan bundel dependency siap pakai (*starter*) — aplikasi web bisa jalan dari satu perintah.
+
+Roadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency Injection yang jadi tulang punggung Spring, membangun REST API, menyimpan data ke database lewat Spring Data JPA, sampai validasi request & penanganan error terpusat. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan dasar bahasa Java (class, interface, method) dan konsep OOP — roadmap ini fokus ke Spring Boot itu sendiri, bukan mengajari sintaks Java dari nol. Prasyarat tool (JDK, Maven) disebutkan di catatan pertama.`,
+  },
 ];
 
 export const notes = [
@@ -3248,5 +3257,376 @@ Poin penting:
       { url: "https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp", label: "Hermes Agent Docs — MCP Integration" },
     ],
     practice: `Jalankan \`hermes mcp catalog\` untuk lihat server yang tersedia, lalu \`hermes mcp install <salah satu nama dari katalog>\` (atau tambahkan server \`filesystem\` secara manual ke \`~/.hermes/config.yaml\` seperti contoh di atas kalau mau coba tanpa akun pihak ketiga). Mulai sesi baru, minta agent melakukan sesuatu yang HANYA bisa dikerjakan lewat tool dari MCP server itu (bukan tool bawaan) — verifikasi dari responsnya bahwa dia benar-benar memanggil tool eksternal itu, bukan tool bawaan Hermes. Ini menutup roadmap Agentic AI: dari instalasi dasar sampai agent yang bisa diperluas kapabilitasnya ke sistem eksternal apa pun.`,
+  },
+  {
+    category: "java-spring-boot",
+    slug: "pengenalan-spring-boot-dan-instalasi",
+    order: 0,
+    title: "Pengenalan Spring Boot & Instalasi",
+    content: `**Masalah yang diselesaikan:** Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual yang panjang dan server aplikasi (Tomcat) yang harus di-setup terpisah — banyak boilerplate sebelum sempat menulis satu baris pun kode business logic.
+
+**Spring Boot** menyelesaikan ini lewat tiga hal: *auto-configuration* (Spring menebak konfigurasi yang masuk akal berdasarkan dependency yang ada), server *embedded* (Tomcat sudah termasuk di dalam aplikasi, tidak perlu instalasi terpisah), dan *starter dependency* (bundel dependency siap pakai per kebutuhan, misalnya \`spring-boot-starter-web\` untuk aplikasi web).
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Tradisional["Spring Tradisional"]
+    X["Konfigurasi XML manual"] --> T["Install & config Tomcat terpisah"] --> Deploy["Deploy .war ke server"]
+  end
+  subgraph Boot["Spring Boot"]
+    Auto["Auto-configuration dari starter dependency"] --> Embed["Tomcat SUDAH ada di dalam aplikasi"] --> Run["java -jar app.jar — langsung jalan"]
+  end
+\`\`\`
+
+### Membuat Project Lewat Spring Initializr
+Cara paling mudah: buka [start.spring.io](https://start.spring.io), pilih Maven, Java, versi Spring Boot terbaru, tambahkan dependency **Spring Web**, lalu generate & download project-nya.
+
+\`\`\`bash
+# Setelah project di-extract, jalankan lewat Maven wrapper (tidak perlu install Maven manual)
+./mvnw spring-boot:run
+
+# Windows
+mvnw.cmd spring-boot:run
+\`\`\`
+
+Buka \`http://localhost:8080\` — Spring Boot otomatis menjalankan server web di port itu, tanpa konfigurasi tambahan apa pun.
+
+### Anatomi Aplikasi Minimal
+\`\`\`java
+// src/main/java/com/contoh/demo/DemoApplication.java
+package com.contoh.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication // gabungan @Configuration + @EnableAutoConfiguration + @ComponentScan
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- \`@SpringBootApplication\` adalah SATU annotation yang menggabungkan tiga hal: menandai class ini sebagai sumber konfigurasi, mengaktifkan auto-configuration, dan memindai (*scan*) package ini serta sub-package-nya untuk menemukan component Spring lain secara otomatis.
+- \`./mvnw\` (Maven Wrapper) memastikan semua orang yang menjalankan project memakai versi Maven yang SAMA persis, tanpa perlu install Maven manual di komputernya masing-masing.
+- \`src/main/resources/application.properties\` (atau \`.yml\`) adalah tempat konfigurasi aplikasi (port, koneksi database, dst) — dibahas lebih lanjut di catatan-catatan berikutnya.`,
+    sources: [
+      { url: "https://spring.io/quickstart", label: "Spring — Quickstart Guide" },
+      { url: "https://spring.io/guides/gs/spring-boot", label: "Spring Guides — Building an Application with Spring Boot" },
+    ],
+    prerequisites: [
+      { label: "JDK (Java Development Kit) versi 17 atau lebih baru sudah terinstall", url: "https://adoptium.net/" },
+      { label: "IDE Java — IntelliJ IDEA atau VS Code dengan Java Extension Pack", url: "https://code.visualstudio.com/docs/languages/java" },
+    ],
+    practice: `Buka [start.spring.io](https://start.spring.io), generate project baru dengan dependency "Spring Web", download dan extract. Jalankan \`./mvnw spring-boot:run\` (atau \`mvnw.cmd spring-boot:run\` di Windows) dari terminal di folder project itu. Buka \`http://localhost:8080\` di browser — akan muncul halaman error "Whitelabel Error Page" (ini NORMAL, karena belum ada endpoint yang didefinisikan). Buktikan servernya benar-benar jalan dengan melihat log \`Tomcat started on port 8080\` di terminal.`,
+  },
+  {
+    category: "java-spring-boot",
+    slug: "dependency-injection-dasar-spring",
+    order: 1,
+    title: "Dependency Injection (DI) Dasar di Spring",
+    content: `Sekarang aplikasi Spring Boot kamu sudah bisa jalan (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau satu class butuh instance dari class lain (misalnya \`NotifikasiService\` butuh \`EmailService\` untuk mengirim email), cara paling naif adalah \`new EmailService()\` langsung di dalam \`NotifikasiService\`. Ini membuat kedua class *tightly coupled* — susah dites (tidak bisa diganti versi palsu/mock saat testing) dan susah diganti implementasinya.
+
+**Dependency Injection (DI)** adalah pola di mana Spring (lewat *IoC Container*-nya) yang menyediakan instance yang dibutuhkan suatu class, bukan class itu yang membuat sendiri lewat \`new\`.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Container["Spring IoC Container"]
+    Scan["@ComponentScan menemukan<br/>semua class ber-@Component/@Service"]
+  end
+  Container -.->|"Menyediakan instance lewat constructor"| Consumer["NotifikasiService(EmailService email)"]
+\`\`\`
+
+### Mendaftarkan & Menyuntikkan Dependency
+\`\`\`java
+// 1. Interface kontrak
+public interface EmailService {
+    void kirim(String tujuan, String pesan);
+}
+
+// 2. Implementasi — @Service menandai ini sebagai Spring bean
+@Service
+public class SmtpEmailService implements EmailService {
+    @Override
+    public void kirim(String tujuan, String pesan) {
+        System.out.println("Mengirim email ke " + tujuan + ": " + pesan);
+    }
+}
+
+// 3. Consumer — menerima EmailService lewat CONSTRUCTOR injection
+@Service
+public class NotifikasiService {
+    private final EmailService emailService;
+
+    // Constructor injection — Spring otomatis menyuntikkan EmailService di sini
+    public NotifikasiService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
+    public void beritahuUser(String email) {
+        emailService.kirim(email, "Selamat datang di sistem!");
+    }
+}
+\`\`\`
+
+| Annotation | Fungsi |
+| --- | --- |
+| \`@Component\` | Menandai class generik sebagai Spring bean (dikelola container) |
+| \`@Service\` | Sama seperti \`@Component\`, tapi menandai secara spesifik ini adalah *service layer* (business logic) |
+| \`@Repository\` | Sama seperti \`@Component\`, khusus *data access layer* — dibahas di catatan Spring Data JPA |
+| \`@Autowired\` | Memberi tahu Spring untuk menyuntikkan dependency (opsional di constructor kalau cuma ada SATU constructor) |
+
+Poin penting:
+
+- **Constructor injection** (seperti contoh di atas) lebih direkomendasikan dibanding *field injection* (\`@Autowired private EmailService emailService;\`) — dependency jadi eksplisit terlihat di constructor, dan class tidak bisa dibuat dalam keadaan setengah lengkap (tanpa dependency wajibnya).
+- Kalau class cuma punya SATU constructor, \`@Autowired\` di atasnya opsional — Spring otomatis pakai constructor itu untuk injection.
+- Semua class ber-\`@Component\`/\`@Service\`/\`@Repository\` otomatis ditemukan lewat \`@ComponentScan\` (bagian dari \`@SpringBootApplication\`) — tidak perlu didaftarkan manual satu-satu di tempat lain.`,
+    sources: [
+      { url: "https://docs.spring.io/spring-framework/reference/core/beans/dependency-injection.html", label: "Spring Framework Docs — Dependency Injection" },
+    ],
+    practice: `Buat interface \`EmailService\` dan implementasinya \`SmtpEmailService\` (\`@Service\`) seperti contoh di atas. Buat \`NotifikasiService\` yang menerima \`EmailService\` lewat constructor. Buat class \`CommandLineRunner\` (atau endpoint REST sederhana) yang menerima \`NotifikasiService\` lewat constructor juga, panggil \`beritahuUser(...)\`-nya, jalankan aplikasi dan pastikan pesannya tercetak. Setelah berhasil, buat implementasi KEDUA dari \`EmailService\` (mis. \`ConsoleLogEmailService\`), tandai yang lama dengan \`@Primary\` atau matikan salah satu — amati bagaimana Spring menentukan implementasi mana yang disuntikkan kalau ada lebih dari satu.`,
+  },
+  {
+    category: "java-spring-boot",
+    slug: "rest-controller-dasar",
+    order: 2,
+    title: "REST Controller Dasar",
+    content: `Sekarang kamu paham Dependency Injection, yang jadi fondasi arsitektur Spring (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana mengekspos business logic yang sudah dibangun jadi HTTP endpoint yang bisa diakses aplikasi lain (mobile app, frontend web)?
+
+\`@RestController\` menandai class sebagai penerima HTTP request, dengan return value method-nya otomatis dikonversi jadi JSON (lewat library Jackson, sudah termasuk di \`spring-boot-starter-web\`).
+
+\`\`\`mermaid
+flowchart LR
+  Client["Client / Frontend"] -->|"GET /api/todos"| Get["@GetMapping"]
+  Client -->|"POST /api/todos"| Post["@PostMapping"]
+  Get --> JSON["Return List<Todo> -> otomatis jadi JSON"]
+  Post --> Created["Return Todo yang baru dibuat"]
+\`\`\`
+
+### Contoh CRUD Sederhana (In-Memory)
+\`\`\`java
+public record Todo(int id, String judul, boolean selesai) {}
+
+@RestController
+@RequestMapping("/api/todos")
+public class TodoController {
+    private final List<Todo> todos = new ArrayList<>(List.of(
+        new Todo(1, "Belajar Spring Boot", true),
+        new Todo(2, "Membangun REST API", false)
+    ));
+
+    @GetMapping
+    public List<Todo> semua() {
+        return todos;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Todo> satuById(@PathVariable int id) {
+        return todos.stream()
+            .filter(t -> t.id() == id)
+            .findFirst()
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Todo> tambah(@RequestBody Todo todoBaru) {
+        todos.add(todoBaru);
+        return ResponseEntity.status(HttpStatus.CREATED).body(todoBaru);
+    }
+}
+\`\`\`
+
+| Annotation | Fungsi |
+| --- | --- |
+| \`@RestController\` | Gabungan \`@Controller\` + \`@ResponseBody\` — return value otomatis jadi response body (JSON) |
+| \`@RequestMapping("/api/todos")\` | Prefix path untuk SEMUA endpoint di controller ini |
+| \`@GetMapping\` / \`@PostMapping\` | Menangani HTTP method GET / POST di path tertentu |
+| \`@PathVariable\` | Mengambil nilai dari bagian path URL, mis. \`{id}\` |
+| \`@RequestBody\` | Mengonversi JSON body request jadi object Java otomatis |
+
+Poin penting:
+
+- \`ResponseEntity<T>\` memberi kontrol penuh atas HTTP status code (200, 201, 404, dst) — kalau method langsung \`return\` object biasa (tanpa \`ResponseEntity\`), Spring otomatis pakai status 200.
+- \`record\` (fitur Java modern) cocok untuk data transfer object seperti \`Todo\` di atas — otomatis immutable dan sudah punya constructor, getter (\`.judul()\`, bukan \`.getJudul()\`), \`equals()\`, dan \`toString()\`.
+- Data di atas masih \`List\` in-memory — hilang tiap aplikasi di-restart. Ini yang diselesaikan catatan berikutnya lewat Spring Data JPA.`,
+    sources: [
+      { url: "https://spring.io/guides/gs/rest-service", label: "Spring Guides — Building a RESTful Web Service" },
+    ],
+    practice: `Buat \`TodoController\` persis seperti contoh di atas. Jalankan aplikasinya, tes lewat browser untuk \`GET /api/todos\` dan \`GET /api/todos/1\`. Pakai curl atau Postman untuk \`POST /api/todos\` dengan body JSON \`{"id": 3, "judul": "Baru", "selesai": false}\`, verifikasi lewat \`GET /api/todos\` lagi bahwa data barunya muncul. Coba \`GET /api/todos/999\` (id yang tidak ada) — pastikan responnya status 404, bukan error 500.`,
+  },
+  {
+    category: "java-spring-boot",
+    slug: "spring-data-jpa-dasar",
+    order: 3,
+    title: "Spring Data JPA Dasar: Akses Database",
+    content: `REST Controller dari catatan sebelumnya sudah bisa menerima request dan balas response, tapi datanya cuma \`List<Todo>\` di memori — hilang total tiap aplikasi di-restart. **Masalah yang diselesaikan sekarang:** bagaimana menyimpan data ke database beneran yang bertahan lintas restart, tanpa menulis query SQL manual untuk tiap operasi CRUD?
+
+**Spring Data JPA** adalah lapisan abstraksi di atas JPA/Hibernate — cukup definisikan *entity* dan *interface repository*, Spring OTOMATIS meng-generate implementasi CRUD-nya saat aplikasi jalan, tanpa kamu menulis satu baris SQL pun.
+
+\`\`\`mermaid
+flowchart TD
+  Entity["Class Java + @Entity<br/>public class Todo { ... }"] --> Repo["interface TodoRepository<br/>extends JpaRepository&lt;Todo, Integer&gt;"]
+  Repo -->|"Spring generate otomatis saat runtime"| Impl["Implementasi CRUD lengkap<br/>(save, findById, findAll, delete, dst)"]
+  Impl --> DB[("Database")]
+\`\`\`
+
+### 1. Dependency & Konfigurasi
+\`\`\`bash
+# Tambahkan di pom.xml (atau pilih saat generate di start.spring.io):
+# - spring-boot-starter-data-jpa
+# - com.h2database:h2 (database file-based, ringan untuk belajar)
+\`\`\`
+
+\`\`\`properties
+# src/main/resources/application.properties
+spring.datasource.url=jdbc:h2:file:./data/todos
+spring.jpa.hibernate.ddl-auto=update
+\`\`\`
+
+### 2. Entity & Repository
+\`\`\`java
+@Entity
+public class Todo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String judul;
+    private boolean selesai;
+
+    // getter & setter (atau pakai Lombok @Data untuk generate otomatis)
+}
+
+// Cukup EXTENDS JpaRepository — TIDAK perlu menulis implementasi sama sekali
+public interface TodoRepository extends JpaRepository<Todo, Integer> {
+}
+\`\`\`
+
+### 3. Pakai di Controller (Ganti List In-Memory)
+\`\`\`java
+@RestController
+@RequestMapping("/api/todos")
+public class TodoController {
+    private final TodoRepository repository;
+
+    public TodoController(TodoRepository repository) { // DI dari catatan sebelumnya
+        this.repository = repository;
+    }
+
+    @GetMapping
+    public List<Todo> semua() {
+        return repository.findAll();
+    }
+
+    @PostMapping
+    public Todo tambah(@RequestBody Todo todoBaru) {
+        return repository.save(todoBaru); // INSERT kalau id null, UPDATE kalau id sudah ada
+    }
+
+    @DeleteMapping("/{id}")
+    public void hapus(@PathVariable Integer id) {
+        repository.deleteById(id);
+    }
+}
+\`\`\`
+
+| Method \`JpaRepository\` | Fungsi |
+| --- | --- |
+| \`findAll()\` | Ambil semua baris |
+| \`findById(id)\` | Ambil satu baris, mengembalikan \`Optional<T>\` |
+| \`save(entity)\` | INSERT (kalau \`id\` null) atau UPDATE (kalau \`id\` sudah ada) |
+| \`deleteById(id)\` | Hapus satu baris berdasarkan primary key |
+
+Poin penting:
+
+- \`extends JpaRepository<Todo, Integer>\` saja SUDAH CUKUP — Spring meng-generate implementasi lengkapnya secara otomatis saat aplikasi start, tanpa kamu menulis class implementasi manual.
+- H2 dipakai di sini karena paling sederhana untuk belajar (file database lokal, tanpa install server terpisah) — provider lain (PostgreSQL, MySQL) dipakai dengan pola KODE yang sama persis, cuma beda \`spring.datasource.url\` dan driver dependency-nya.
+- \`spring.jpa.hibernate.ddl-auto=update\` membuat Hibernate otomatis membuat/menyesuaikan struktur tabel dari class \`@Entity\` — praktis untuk belajar, tapi di production biasanya dipakai tool migration terpisah (Flyway/Liquibase) untuk kontrol lebih ketat.`,
+    sources: [
+      { url: "https://docs.spring.io/spring-data/jpa/reference/jpa.html", label: "Spring Data JPA — Reference Documentation" },
+      { url: "https://spring.io/guides/gs/accessing-data-jpa", label: "Spring Guides — Accessing Data with JPA" },
+    ],
+    practice: `Tambahkan dependency \`spring-boot-starter-data-jpa\` dan \`h2\` ke project dari catatan sebelumnya. Buat entity \`Todo\` dan interface \`TodoRepository\` seperti contoh di atas, ganti \`TodoController\` supaya pakai \`TodoRepository\` (bukan \`List\` in-memory lagi). Jalankan aplikasi, tambah beberapa todo lewat POST, lalu STOP aplikasinya (Ctrl+C) dan jalankan ulang — panggil \`GET /api/todos\` lagi dan buktikan data yang kamu tambahkan sebelumnya masih ada (karena \`jdbc:h2:file:\` menyimpan ke file, bukan cuma di memori).`,
+  },
+  {
+    category: "java-spring-boot",
+    slug: "validation-dan-exception-handling",
+    order: 4,
+    title: "Request Validation & Exception Handling",
+    content: `Sekarang data kamu tersimpan permanen ke database (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau client mengirim data yang tidak valid (judul kosong, misalnya) ke endpoint \`POST\`, tanpa validasi data buruk itu akan tersimpan begitu saja ke database — atau kalau ada error tak terduga lain, client menerima stack trace mentah Java yang membingungkan alih-alih pesan error yang jelas.
+
+### 1. Validasi Lewat Bean Validation
+\`\`\`bash
+# Tambahkan dependency: spring-boot-starter-validation
+\`\`\`
+
+\`\`\`java
+@Entity
+public class Todo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NotBlank(message = "Judul tidak boleh kosong")
+    @Size(max = 100, message = "Judul maksimal 100 karakter")
+    private String judul;
+
+    private boolean selesai;
+    // getter & setter
+}
+\`\`\`
+
+\`\`\`java
+@PostMapping
+public Todo tambah(@Valid @RequestBody Todo todoBaru) { // @Valid memicu pengecekan
+    return repository.save(todoBaru);
+}
+\`\`\`
+
+Tanpa penanganan lebih lanjut, request yang gagal validasi otomatis mengembalikan status \`400 Bad Request\` — tapi body response-nya masih berupa JSON error default Spring yang cukup verbose.
+
+\`\`\`mermaid
+flowchart TD
+  Req["POST /api/todos<br/>judul: ''"] --> Valid{"@Valid: judul kosong?"}
+  Valid -->|Gagal| MANV["MethodArgumentNotValidException dilempar"]
+  MANV --> Advice["@RestControllerAdvice menangkapnya"]
+  Advice --> Response["Response JSON rapi, status 400"]
+  Valid -->|Lolos| Save["repository.save() dijalankan"]
+\`\`\`
+
+### 2. Exception Handling Terpusat Lewat \`@RestControllerAdvice\`
+\`\`\`java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    // Menangkap error validasi @Valid secara khusus, format response jadi rapi
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidasi(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(
+            error -> errors.put(error.getField(), error.getDefaultMessage())
+        );
+        return ResponseEntity.badRequest().body(errors);
+    }
+
+    // Menangkap exception lain yang tidak terduga
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleUmum(Exception ex) {
+        return ResponseEntity.internalServerError().body("Terjadi kesalahan: " + ex.getMessage());
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- \`@RestControllerAdvice\` (gabungan \`@ControllerAdvice\` + \`@ResponseBody\`) menangkap exception dari SEMUA controller di aplikasi secara terpusat — tidak perlu menulis \`try/catch\` berulang di tiap method controller.
+- \`@ExceptionHandler(TipeException.class)\` yang lebih SPESIFIK (seperti \`MethodArgumentNotValidException\`) didahulukan Spring dibanding yang generik (\`Exception.class\`) — urutan deklarasi di file tidak berpengaruh, yang penting kecocokan tipe exception-nya.
+- Anotasi Bean Validation umum lainnya: \`@NotNull\` (tidak boleh null), \`@Min\`/\`@Max\` (rentang angka), \`@Email\` (format email valid) — semuanya dari package \`jakarta.validation.constraints\`.`,
+    sources: [
+      { url: "https://docs.spring.io/spring-boot/reference/io/validation.html", label: "Spring Boot Docs — Validation" },
+      { url: "https://docs.spring.io/spring-boot/reference/web/servlet.html", label: "Spring Boot Docs — Servlet Web Applications (Error Handling)" },
+    ],
+    practice: `Tambahkan \`@NotBlank\` dan \`@Size\` ke field \`judul\` di entity \`Todo\`, tambahkan \`@Valid\` di parameter \`@RequestBody\` pada method \`tambah()\`. Coba \`POST /api/todos\` dengan \`judul\` kosong — pastikan responnya status 400. Buat \`GlobalExceptionHandler\` seperti contoh di atas, ulangi request yang sama — bandingkan response JSON-nya SEBELUM dan SESUDAH ada \`@RestControllerAdvice\` (harus jadi lebih rapi dan jelas field mana yang error). Ini menutup roadmap Java (Spring Boot): dari instalasi dasar sampai REST API yang datanya tersimpan permanen dan tervalidasi dengan aman.`,
   },
 ];
