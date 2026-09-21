@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AskAiPanel from "@/components/AskAiPanel";
 import MarkdownContent from "@/components/MarkdownContent";
 import QuizSection from "@/components/QuizSection";
-import { getCategoryBySlug, getCurrentProfile, getNoteProgressMap, getQuizAttempt, getQuizQuestions } from "@/lib/queries";
+import {
+  getAiChatMessages,
+  getCategoryBySlug,
+  getCurrentProfile,
+  getNoteProgressMap,
+  getQuizAttempt,
+  getQuizQuestions,
+} from "@/lib/queries";
 
 export async function generateMetadata({
   params,
@@ -35,6 +43,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
   const quizQuestions = await getQuizQuestions({ categoryId: category.id });
   const quizAttempt = user ? await getQuizAttempt(user.id, { categoryId: category.id }) : null;
+  const aiChatMessages = user ? await getAiChatMessages(user.id, { categoryId: category.id }) : [];
 
   return (
     <div>
@@ -102,6 +111,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         currentUser={user}
         initialAttempt={quizAttempt}
       />
+
+      <AskAiPanel scope={{ categoryId: category.id }} currentUser={user} initialMessages={aiChatMessages} />
     </div>
   );
 }

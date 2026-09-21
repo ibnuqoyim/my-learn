@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AskAiPanel from "@/components/AskAiPanel";
 import CommentSection from "@/components/CommentSection";
 import MarkdownContent from "@/components/MarkdownContent";
 import ProgressControl from "@/components/ProgressControl";
 import QuizSection from "@/components/QuizSection";
 import {
   getAdjacentNotes,
+  getAiChatMessages,
   getComments,
   getCurrentProfile,
   getNoteBySlug,
@@ -36,6 +38,7 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
     getQuizQuestions({ noteId: note.id }),
   ]);
   const quizAttempt = currentUser ? await getQuizAttempt(currentUser.id, { noteId: note.id }) : null;
+  const aiChatMessages = currentUser ? await getAiChatMessages(currentUser.id, { noteId: note.id }) : [];
 
   const updated = new Date(note.updated_at).toLocaleDateString("id-ID", {
     day: "numeric",
@@ -111,6 +114,8 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
         currentUser={currentUser}
         initialAttempt={quizAttempt}
       />
+
+      <AskAiPanel scope={{ noteId: note.id }} currentUser={currentUser} initialMessages={aiChatMessages} />
 
       <nav className="mt-10 flex flex-wrap justify-between gap-4 border-t border-border pt-4 text-sm">
         {adjacent.prev ? (
