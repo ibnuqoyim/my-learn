@@ -3,18 +3,11 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createCategoryAction, deleteCategoryAction, updateCategoryAction } from "@/app/admin/categories/actions";
+import { slugify } from "@/lib/slugify";
 import type { Category } from "@/lib/types";
 
 const inputClass = "rounded-md border border-border bg-code-bg px-3 py-2 text-text";
 const labelClass = "flex flex-col gap-1 text-sm";
-
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
 
 export function CategoryCreateForm() {
   const router = useRouter();

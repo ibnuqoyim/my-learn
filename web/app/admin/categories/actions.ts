@@ -2,25 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/admin-guard";
+import { validateCategoryInput, type CategoryInput } from "@/lib/validateCategory";
 
 type ActionResult = { success: true } | { success: false; error: string };
-
-const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-
-type CategoryInput = { name: string; slug: string; description: string };
-
-function validate(input: CategoryInput): string | null {
-  if (!input.name.trim()) return "Nama wajib diisi";
-  if (!input.slug.trim() || !SLUG_RE.test(input.slug.trim())) {
-    return "Slug wajib diisi, format kebab-case (huruf kecil, angka, strip)";
-  }
-  return null;
-}
 
 export async function createCategoryAction(input: CategoryInput): Promise<ActionResult> {
   try {
     const { supabase } = await requireAdmin();
-    const validationError = validate(input);
+    const validationError = validateCategoryInput(input);
     if (validationError) return { success: false, error: validationError };
 
     const { error } = await supabase.from("categories").insert({
@@ -42,7 +31,7 @@ export async function createCategoryAction(input: CategoryInput): Promise<Action
 export async function updateCategoryAction(id: string, input: CategoryInput): Promise<ActionResult> {
   try {
     const { supabase } = await requireAdmin();
-    const validationError = validate(input);
+    const validationError = validateCategoryInput(input);
     if (validationError) return { success: false, error: validationError };
 
     const { error } = await supabase

@@ -3,6 +3,7 @@
 
 web/node_modules/
 web/.next/
+web/coverage/
 web/package-lock.json
 *.log
 *.min.js

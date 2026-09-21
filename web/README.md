@@ -29,7 +29,8 @@ search.
    ```
    Buka http://localhost:3000
 6. Sebelum bikin PR, jalankan `npm run verify` (lint strict + typecheck +
-   build) — lihat `AGENTS.md` bagian "Command Matrix".
+   test+coverage + build) — lihat `AGENTS.md` bagian "Command Matrix".
+   `npm run test:watch` untuk mode watch waktu nulis test baru.
 
 ## Status fitur
 
@@ -93,6 +94,15 @@ update public.profiles set role = 'admin'
 where id = (select id from auth.users where email = 'user@contoh.com');
 ```
 
+## Testing
+
+Unit test (Vitest) di `__tests__/` — `npm run test` / `npm run
+test:coverage`. Scope-nya baru modul logika murni di `lib/` (slug
+generator, validasi form admin, normalisasi data Supabase); server
+actions, query Supabase, dan komponen React belum ada test-nya (butuh
+strategi mocking Supabase, lihat `AGENTS.md` checklist). Belum ada E2E
+(Playwright).
+
 ## Belum dikerjakan
 
 - Manajemen role dari dalam dashboard (sekarang promote admin baru cuma
@@ -100,6 +110,8 @@ where id = (select id from auth.users where email = 'user@contoh.com');
 - Preview draft di halaman publik untuk admin (sekarang draft cuma bisa
   dilihat isinya lewat form edit di `/admin/notes`, bukan di URL
   publiknya — semua query publik tetap filter `status = 'published'`).
+- Unit test untuk server actions/query Supabase, dan E2E Playwright —
+  lihat bagian "Testing" di atas & checklist di `AGENTS.md`.
 
 ## Struktur
 
@@ -110,7 +122,12 @@ components/               Komponen React (shell navigasi, Markdown, Mermaid,
 lib/supabase/              Supabase client (browser & server)
 lib/queries.ts              Helper query data (kategori, catatan, komentar,
                             progress, search, profil user)
+lib/slugify.ts, lib/validateNote.ts,
+lib/validateCategory.ts, lib/normalizeNoteSummary.ts
+                              Modul logika murni (dites — lihat __tests__/)
+__tests__/lib/                Unit test (Vitest) untuk modul di atas
 supabase/schema.sql          Skema database + RLS
+supabase/migrations/          Riwayat migrasi incremental (lihat AGENTS.md bagian 5)
 scripts/seed.mjs              Migrasi awal lewat supabase-js (perlu secret key)
 scripts/seed-via-sql.mjs       Migrasi awal lewat Management API (perlu PAT)
 scripts/seed-data.mjs           Data semua catatan & kategori, sumber kebenaran tunggal

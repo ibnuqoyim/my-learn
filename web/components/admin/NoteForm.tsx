@@ -3,20 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createNoteAction, updateNoteAction } from "@/app/admin/notes/actions";
+import { slugify } from "@/lib/slugify";
 import type { Category, NoteFormInput, NoteForAdmin, NoteSource, Prerequisite } from "@/lib/types";
 
 type Props = {
   categories: Category[];
   initial?: NoteForAdmin;
 };
-
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
 
 const inputClass = "rounded-md border border-border bg-code-bg px-3 py-2 text-text";
 const labelClass = "flex flex-col gap-1 text-sm";

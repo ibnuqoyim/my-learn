@@ -1,7 +1,7 @@
 # Wrapper deterministik ke command di web/ — lihat AGENTS.md bagian
 # "Command Matrix". Semua target ini idempotent & aman dijalankan berkali-kali.
 
-.PHONY: install dev build lint typecheck verify
+.PHONY: install dev build lint typecheck test verify
 
 install:
 	cd web && npm ci
@@ -17,6 +17,9 @@ lint:
 
 typecheck:
 	cd web && npm run typecheck
+
+test:
+	cd web && npm run test:coverage
 
 verify:
 	cd web && npm run verify

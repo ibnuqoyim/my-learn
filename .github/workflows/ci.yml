@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Endpoint dummy — build tidak butuh koneksi Supabase asli (lib/queries.ts
-      # & middleware.ts sudah no-op kalau env ini tidak diisi/tidak valid),
+      # & proxy.ts sudah no-op kalau env ini tidak diisi/tidak valid),
       # jadi CI tetap hermetic (tidak bocor kredensial produksi, tidak
       # bergantung layanan eksternal).
       NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:54321"
@@ -45,6 +45,13 @@ jobs:
 
       - name: Typecheck
         run: npm run typecheck
+
+      # Coverage gate ini scoped ke modul murni yang sudah dites (lihat
+      # vitest.config.mts) — jujur/enforceable untuk scope-nya, bukan
+      # klaim seluruh codebase 80% tercover. Perluas scope seiring makin
+      # banyak modul dapat test baru.
+      - name: Unit tests + coverage gate
+        run: npm run test:coverage
 
       - name: Build
         run: npm run build

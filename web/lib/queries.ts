@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { normalizeNoteSummary } from "@/lib/normalizeNoteSummary";
 import type {
   AdjacentNotes,
   Category,
@@ -20,22 +21,6 @@ const NOTE_SUMMARY_SELECT = "id, title, slug, updated_at, order_index, category:
 const supabaseConfigured = Boolean(
   process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 );
-
-// Supabase mengembalikan relasi belongsTo sebagai array kalau tipe hasil
-// generic-nya tidak dispesifikasikan lewat codegen; kita tahu tiap note
-// selalu punya tepat satu category (foreign key not-null), jadi ratakan di
-// sini supaya pemanggil tidak perlu mikirin bentuk mentah dari Supabase.
-function normalizeNoteSummary(row: any): NoteSummary {
-  const category = Array.isArray(row.category) ? row.category[0] : row.category;
-  return {
-    id: row.id,
-    title: row.title,
-    slug: row.slug,
-    updated_at: row.updated_at,
-    orderIndex: row.order_index ?? 0,
-    category,
-  };
-}
 
 export async function getRecentNotes(limit = 8): Promise<NoteSummary[]> {
   if (!supabaseConfigured) return [];

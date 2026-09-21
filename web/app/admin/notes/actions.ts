@@ -2,33 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/admin-guard";
+import { validateNoteInput } from "@/lib/validateNote";
 import type { NoteFormInput } from "@/lib/types";
 
 type ActionResult = { success: true; id: string } | { success: false; error: string };
 
-const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-
-function validate(input: NoteFormInput): string | null {
-  if (!input.title.trim()) return "Judul wajib diisi";
-  if (!input.slug.trim() || !SLUG_RE.test(input.slug.trim())) {
-    return "Slug wajib diisi, format kebab-case (huruf kecil, angka, strip)";
-  }
-  if (!input.categoryId) return "Kategori wajib dipilih";
-  if (!input.content.trim()) return "Konten wajib diisi";
-  if (input.sources.length === 0) return "Minimal 1 sumber wajib diisi (standar isi materi di CLAUDE.md)";
-  for (const source of input.sources) {
-    if (!source.label.trim() || !source.url.trim()) return "Setiap sumber wajib punya label dan url";
-  }
-  for (const prerequisite of input.prerequisites) {
-    if (!prerequisite.label.trim()) return "Setiap prasyarat wajib punya label";
-  }
-  return null;
-}
-
 export async function createNoteAction(input: NoteFormInput): Promise<ActionResult> {
   try {
     const { supabase } = await requireAdmin();
-    const validationError = validate(input);
+    const validationError = validateNoteInput(input);
     if (validationError) return { success: false, error: validationError };
 
     const { data, error } = await supabase
@@ -60,7 +42,7 @@ export async function createNoteAction(input: NoteFormInput): Promise<ActionResu
 export async function updateNoteAction(id: string, input: NoteFormInput): Promise<ActionResult> {
   try {
     const { supabase } = await requireAdmin();
-    const validationError = validate(input);
+    const validationError = validateNoteInput(input);
     if (validationError) return { success: false, error: validationError };
 
     // Ambil slug + slug kategori versi lama dulu, supaya kalau judul/slug

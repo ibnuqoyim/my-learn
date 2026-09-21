@@ -34,16 +34,25 @@ dari root, yang cuma wrapper `cd web && npm run <target>`):
 - **Build:** `npm run build`
 - **Lint (strict, 0 warning):** `npm run lint -- --max-warnings 0`
 - **Typecheck:** `npm run typecheck`
+- **Unit test (Vitest):** `npm run test` (sekali jalan) / `npm run test:watch` (mode watch)
+- **Unit test + coverage gate:** `npm run test:coverage`
 - **Full verification (WAJIB sebelum bikin PR / sebelum lapor kerja selesai):**
-  `npm run verify` — menjalankan lint + typecheck + build berurutan, harus
-  semuanya lolos.
+  `npm run verify` — menjalankan lint + typecheck + test:coverage + build
+  berurutan, harus semuanya lolos.
 - **Jalankan migrasi baru ke Supabase:** lewat Supabase MCP
   (`apply_migration`) atau `node scripts/run-sql.mjs <file.sql>` — lihat
   bagian 5.
 
-Belum ada test runner otomatis di repo ini (lihat bagian 6 & checklist di
-akhir file) — jangan klaim "semua test lolos" kalau memang belum ada test
-yang jalan.
+Unit test (Vitest) sudah ada tapi **scope-nya sengaja terbatas** ke
+modul logika murni di `web/lib/` (`slugify.ts`, `validateNote.ts`,
+`validateCategory.ts`, `normalizeNoteSummary.ts`) — lihat
+`web/vitest.config.mts` untuk daftar file yang di-cover dan kenapa
+coverage gate 80% cuma berlaku untuk scope itu, bukan seluruh
+`lib`/`app`. Kalau menambah modul logika murni baru (tidak butuh
+Supabase/Next request context), tambahkan test-nya juga dan masukkan ke
+`coverage.include` di `vitest.config.mts`. Jangan naikkan/turunkan angka
+threshold cuma supaya gate lolos — perbaiki testnya atau kecilkan scope
+`include`-nya secara jujur.
 
 ## ⛔ Larangan Tegas (Strictly Forbidden Actions)
 
@@ -304,25 +313,35 @@ kategori baru, baru tambahkan catatannya.
 
 - `.github/workflows/ci.yml` — quality gate wajib lolos sebelum merge:
   `npm audit --audit-level=high`, lint (`--max-warnings 0`), typecheck
-  (`tsc --noEmit`), build (`next build`), dan scan secret (`gitleaks`).
-  Jalan di tiap push/PR ke `main` dan `draft`. **Dilarang menambahkan
-  `|| true` atau flag permissive lain** ke langkah lint/typecheck/test di
-  workflow ini — kalau suatu step gagal, itu harus tetap menggagalkan CI,
-  bukan diloloskan paksa.
+  (`tsc --noEmit`), unit test + coverage gate (`vitest`, scope terbatas —
+  lihat bagian Command Matrix), build (`next build`), dan scan secret
+  (`gitleaks`). Jalan di tiap push/PR ke `main` dan `draft`. **Dilarang
+  menambahkan `|| true` atau flag permissive lain** ke langkah
+  lint/typecheck/test di workflow ini — kalau suatu step gagal, itu
+  harus tetap menggagalkan CI, bukan diloloskan paksa.
 - `.github/workflows/ai-review.yml` — AI code reviewer otomatis di tiap
   PR (custom script `scripts/ai_pr_review.py`, bukan `pr-agent`/litellm —
   lihat komentar di file itu soal kenapa). Butuh secret `OPENAI_API_KEY`
   (+ `OPENAI_BASE_URL`, `OPENAI_MODEL` opsional) di GitHub repo settings
   supaya aktif penuh; tanpa secret itu dia cuma posting komentar fallback
   dan tidak memblokir PR.
-- **Belum ada test runner** (Vitest/Playwright) di repo ini — ini gap
+- **Unit test (Vitest) ada tapi cuma cover modul logika murni** di
+  `web/lib/` — query Supabase, server actions (I/O-nya), komponen React,
+  dan **E2E (Playwright)** masih belum ada test-nya sama sekali. Ini gap
   yang disengaja didokumentasikan, bukan disembunyikan. Lihat checklist
   di akhir file.
+- **Socket.dev** — GitHub App terpisah (instal lewat GitHub Marketplace,
+  bukan file di repo) yang scan paket npm untuk perilaku berbahaya
+  (typosquatting, install script mencurigakan, kode ter-obfuscate) —
+  beda dari `npm audit`/Dependabot yang cuma cocokkan CVE yang sudah
+  publik diketahui. **Belum diinstal** — manual oleh pemilik repo.
 - Branch protection (`main` & `draft`: wajib status check `quality-gate`
   lolos, restrict direct push) **belum diaktifkan** — ini pengaturan
   GitHub repo Settings, bukan file di repo, jadi harus diaktifkan manual
-  oleh pemilik repo. Begitu juga GitHub Dependabot security alerts dan
-  Socket.dev GitHub App (deteksi typosquatting/supply-chain attack) —
+  oleh pemilik repo. Begitu juga **GitHub Dependabot security alerts**
+  (beda dari `.github/dependabot.yml` yang sudah aktif untuk PR update
+  versi — "security alerts" ini toggle terpisah di Settings → Security →
+  Code security and analysis) dan Socket.dev GitHub App di atas —
   keduanya instalasi lewat GitHub UI/Marketplace, bukan lewat commit.
 
 ## 7. Serah terima antar-agent
@@ -347,16 +366,22 @@ riwayat commit.
   snapshot (`web/supabase/schema.sql`)
 - [x] Security audit dependency (`npm audit`) & secret scan (`gitleaks`)
   di CI
-- [x] Pipeline CI/CD (`ci.yml`) — lint/typecheck/build/audit/gitleaks
+- [x] Pipeline CI/CD (`ci.yml`) — lint/typecheck/test+coverage/build/audit/gitleaks
   sebagai gate
 - [x] AI PR Reviewer (`ai-review.yml`) — aktif penuh begitu secret
   `OPENAI_API_KEY` diisi di GitHub Settings
 - [x] `AGENT_LOG.md` untuk serah terima antar-agent
-- [ ] **Belum**: unit test runner (Vitest) + coverage gate — repo ini
-  belum punya test sama sekali, jadi belum ada yang bisa di-gate
+- [x] **Sebagian**: unit test runner (Vitest) + coverage gate — aktif
+  dan strict (80%), tapi scope-nya baru modul logika murni di `web/lib/`
+  (`slugify`, `validateNote`, `validateCategory`, `normalizeNoteSummary`
+  — 29 test, 100% coverage untuk scope itu). Query Supabase, server
+  actions (bagian I/O-nya), dan komponen React **belum** dites — butuh
+  strategi mocking Supabase yang belum diputuskan.
 - [ ] **Belum**: E2E smoke test (Playwright) — butuh mock service
   Supabase lokal dulu supaya hermetic (tidak bergantung project Supabase
   asli di CI)
-- [ ] **Belum diaktifkan (manual, GitHub Settings)**: branch protection
-  rule di `main`/`draft`, GitHub Dependabot security alerts, Socket.dev
-  GitHub App
+- [ ] **Belum diaktifkan (manual, GitHub Settings/Marketplace)**: branch
+  protection rule di `main`/`draft`, GitHub Dependabot security alerts
+  (Settings → Security → Code security and analysis — beda dari
+  `dependabot.yml` yang sudah aktif), Socket.dev GitHub App (scan
+  supply-chain/typosquatting npm, lihat bagian 6)
