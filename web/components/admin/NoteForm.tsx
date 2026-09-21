@@ -156,7 +156,7 @@ export default function NoteForm({ categories, initial }: Props) {
       </label>
 
       <label className={labelClass}>
-        Latihan hands-on / "Coba Sendiri" (opsional, Markdown)
+        Latihan hands-on / &ldquo;Coba Sendiri&rdquo; (opsional, Markdown)
         <textarea
           value={practice}
           onChange={(e) => setPractice(e.target.value)}

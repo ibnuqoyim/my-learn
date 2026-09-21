@@ -1,0 +1,5 @@
+# Bridge ke AGENTS.md (Single Source of Truth aturan repo ini) — lihat
+# file itu di root repo untuk alur Git, standar konten, migrasi database,
+# CI/CD, dan larangan tegas. Jangan duplikasi aturan di sini.
+read:
+  - AGENTS.md

@@ -1,0 +1,62 @@
+name: CI Quality Gatekeeper
+
+on:
+  push:
+    branches: [main, draft]
+  pull_request:
+    branches: [main, draft]
+
+defaults:
+  run:
+    working-directory: web
+
+jobs:
+  quality-gate:
+    name: Verify, Test & Build
+    runs-on: ubuntu-latest
+    env:
+      # Endpoint dummy — build tidak butuh koneksi Supabase asli (lib/queries.ts
+      # & middleware.ts sudah no-op kalau env ini tidak diisi/tidak valid),
+      # jadi CI tetap hermetic (tidak bocor kredensial produksi, tidak
+      # bergantung layanan eksternal).
+      NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:54321"
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "test-anon-key"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Security dependency audit
+        run: npm audit --audit-level=high
+
+      # Strict quality gate: DILARANG pakai `|| true` yang meloloskan
+      # error di sini (lihat AGENTS.md bagian 6).
+      - name: Lint (strict, 0 warnings)
+        run: npm run lint -- --max-warnings 0
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+  secret-scan:
+    name: Secret Leak Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

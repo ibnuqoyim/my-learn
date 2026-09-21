@@ -6,7 +6,7 @@ search.
 
 > Live di Vercel (root directory `web`), tersambung ke project Supabase
 > asli. Blog statis Eleventy yang dulu ada di root repo sudah dihapus
-> sepenuhnya (cutover selesai) — lihat `CLAUDE.md` di root untuk aturan
+> sepenuhnya (cutover selesai) — lihat `AGENTS.md` di root untuk aturan
 > alur kerja repo ini sekarang, termasuk bagian 3 & 4 soal standar konten
 > roadmap (framing masalah, latihan hands-on, narasi per kategori).
 
@@ -28,6 +28,8 @@ search.
    npm run dev
    ```
    Buka http://localhost:3000
+6. Sebelum bikin PR, jalankan `npm run verify` (lint strict + typecheck +
+   build) — lihat `AGENTS.md` bagian "Command Matrix".
 
 ## Status fitur
 
@@ -47,13 +49,13 @@ search.
   besar apa yang diselesaikan teknologinya & bisa bikin apa di akhir,
   ditampilkan di atas daftar catatan
 - [x] Framing "masalah yang diselesaikan" + kesinambungan antar-catatan di
-  paragraf pembuka (lihat CLAUDE.md bagian 3 poin 2)
+  paragraf pembuka (lihat AGENTS.md bagian 3 poin 2)
 - [x] Latihan hands-on per catatan (`notes.practice`) — kotak
   "🎯 Coba Sendiri" di halaman catatan, dikerjakan di project sendiri
 - [x] Prasyarat eksplisit per catatan (`notes.prerequisites`) — tool/versi
   yang harus terinstall, akun eksternal, atau pengetahuan di luar roadmap
   ini, ditampilkan sebagai kotak "📋 Prasyarat"
-- [x] Standar penulisan materi terformalisasi di `CLAUDE.md` (termasuk
+- [x] Standar penulisan materi terformalisasi di `AGENTS.md` (termasuk
   template objek JS persis) supaya AI agent mana pun yang menambah
   catatan menghasilkan bentuk yang konsisten
 - [x] RBAC + dashboard admin (`/admin`) — role `admin` di `profiles.role`
@@ -80,7 +82,7 @@ mengunci kolom `role` supaya user biasa tidak bisa self-promote jadi admin
 lewat update ke profilnya sendiri.
 
 **Tidak ada jalur self-service untuk jadi admin** (disengaja, konsisten
-dengan semangat "tidak ada yang tayang tanpa izin" di `CLAUDE.md`).
+dengan semangat "tidak ada yang tayang tanpa izin" di `AGENTS.md`).
 Promosikan user jadi admin lewat SQL Editor di dashboard Supabase (atau
 `scripts/run-sql.mjs`):
 
@@ -112,6 +114,6 @@ supabase/schema.sql          Skema database + RLS
 scripts/seed.mjs              Migrasi awal lewat supabase-js (perlu secret key)
 scripts/seed-via-sql.mjs       Migrasi awal lewat Management API (perlu PAT)
 scripts/seed-data.mjs           Data semua catatan & kategori, sumber kebenaran tunggal
-                                (lihat CLAUDE.md untuk template & standar isinya)
+                                (lihat AGENTS.md untuk template & standar isinya)
 scripts/run-sql.mjs             Jalankan file .sql apa pun ke project lewat Management API
 ```

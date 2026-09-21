@@ -35,7 +35,7 @@ export default async function SearchPage({
         </button>
       </form>
 
-      {!query && <p className="text-sm text-muted">Ketik kata kunci lalu tekan "Cari".</p>}
+      {!query && <p className="text-sm text-muted">Ketik kata kunci lalu tekan &ldquo;Cari&rdquo;.</p>}
 
       {query && results.length === 0 && (
         <p className="text-sm text-muted">Tidak ada catatan yang cocok dengan &ldquo;{query}&rdquo;.</p>

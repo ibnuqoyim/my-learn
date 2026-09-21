@@ -1,0 +1,13 @@
+# File/folder yang tidak perlu diindeks/dibaca AI agent — hemat token &
+# konteks. Bukan pengganti .gitignore (yang menentukan apa yang di-commit).
+
+web/node_modules/
+web/.next/
+web/package-lock.json
+*.log
+*.min.js
+*.sqlite
+*.csv
+web/.env
+web/.env.local
+web/.env*.local

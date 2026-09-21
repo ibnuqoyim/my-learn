@@ -1,0 +1,4 @@
+See AGENTS.md at the repo root — that is the single source of truth for
+all rules in this project (Git workflow, content standards, database
+migrations, CI/CD, forbidden actions). This file is only a bridge; do
+not duplicate rules here.

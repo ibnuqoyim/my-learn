@@ -1,11 +1,14 @@
+-- BASELINE snapshot (2026-09-21) — riwayat migrasi file-per-file baru
+-- mulai dilacak dari sini (lihat AGENTS.md bagian 5); perubahan skema
+-- sebelum tanggal ini diterapkan langsung lewat SQL Editor/MCP tanpa
+-- file migrasi terpisah, jadi baris ini merangkum seluruh state final-nya
+-- sampai titik tersebut, bukan riwayat incremental asli. Perubahan
+-- selanjutnya wajib jadi file baru (0002_*, 0003_*, dst), bukan mengedit
+-- file ini.
+--
 -- Skema database Catatan Belajar (Supabase / Postgres).
 -- Jalankan file ini sekali lewat SQL Editor di dashboard Supabase project
 -- kamu (atau lewat Supabase CLI), sebelum menjalankan `npm run seed`.
---
--- Ini SNAPSHOT (bentuk akhir skema saat ini). Riwayat perubahan
--- incremental-nya ada di `migrations/` (lihat AGENTS.md bagian 5) — kalau
--- mengubah skema, tulis migrasi baru di sana dulu, baru refleksikan
--- perubahannya di file ini.
 
 -- ============================================================
 -- Tabel
@@ -97,11 +100,6 @@ alter table notes add column if not exists order_index integer not null default 
 alter table notes add column if not exists practice text;
 alter table notes add column if not exists prerequisites jsonb not null default '[]'::jsonb;
 alter table categories add column if not exists description text;
--- RBAC: role user biasa vs admin (admin bisa CRUD notes/categories lewat
--- dashboard /admin, lihat bagian "Fungsi bantu RBAC" & kebijakan di bawah).
--- Tidak ada jalur self-service untuk jadi admin — role admin cuma bisa
--- diberikan lewat SQL langsung (lihat web/README.md).
-alter table profiles add column if not exists role text not null default 'user' check (role in ('user', 'admin'));
 
 create index if not exists notes_search_vector_idx on notes using gin (search_vector);
 create index if not exists notes_status_idx on notes (status);
@@ -117,48 +115,19 @@ alter table notes enable row level security;
 alter table comments enable row level security;
 alter table note_progress enable row level security;
 
--- Fungsi bantu RBAC: cek apakah user yang sedang login (auth.uid()) punya
--- role admin. `security definer` supaya bisa baca tabel `profiles` walau
--- dipanggil dari policy RLS tabel lain (categories/notes) tanpa kena RLS
--- profiles itu sendiri; `stable` supaya boleh dipakai berkali-kali dalam
--- satu query tanpa dievaluasi ulang.
-create or replace function public.is_admin()
-returns boolean
-language sql
-stable
-security definer
-set search_path = public
-as $$
-  select exists (
-    select 1 from public.profiles
-    where id = auth.uid() and role = 'admin'
-  );
-$$;
-
 -- Semua CREATE POLICY didahului DROP POLICY IF EXISTS supaya file ini aman
 -- dijalankan ulang kapan saja (Postgres tidak punya
 -- `create policy if not exists`).
 
--- categories: semua orang boleh baca; admin (role di profiles) boleh CRUD
--- penuh lewat dashboard /admin, selain itu tulis hanya lewat service role.
+-- categories: semua orang boleh baca, tulis hanya lewat service role (admin)
 drop policy if exists "categories_public_read" on categories;
 create policy "categories_public_read" on categories
   for select using (true);
 
-drop policy if exists "categories_admin_write" on categories;
-create policy "categories_admin_write" on categories
-  for all using (public.is_admin()) with check (public.is_admin());
-
--- notes: publik hanya lihat yang published; admin lihat & CRUD semua
--- (termasuk draft) lewat dashboard /admin, selain itu tulis hanya lewat
--- service role.
+-- notes: publik hanya lihat yang published; tulis hanya lewat service role
 drop policy if exists "notes_public_read_published" on notes;
 create policy "notes_public_read_published" on notes
   for select using (status = 'published');
-
-drop policy if exists "notes_admin_all" on notes;
-create policy "notes_admin_all" on notes
-  for all using (public.is_admin()) with check (public.is_admin());
 
 -- profiles: pemilik boleh baca/ubah profil sendiri; publik boleh lihat nama
 -- tampilan (dipakai untuk menampilkan nama penulis komentar)
@@ -173,37 +142,6 @@ create policy "profiles_owner_update" on profiles
 drop policy if exists "profiles_owner_insert" on profiles;
 create policy "profiles_owner_insert" on profiles
   for insert with check (auth.uid() = id);
-
--- "profiles_owner_update" di atas cuma mengecek KEPEMILIKAN baris (auth.uid()
--- = id), bukan kolom mana yang diubah — tanpa trigger ini, user biasa bisa
--- self-promote jadi admin dengan update role di baris profilnya sendiri
--- (mis. lewat request langsung ke Supabase, bukan cuma lewat UI aplikasi).
--- Trigger ini mengunci kolom `role` supaya cuma admin yang sudah ada, atau
--- akses tanpa konteks JWT sama sekali (SQL Editor dashboard/Management
--- API/migrasi — auth.uid() NULL di situ, beda dari user yang login lewat
--- app biasa) yang bisa mengubahnya. auth.role() = 'service_role' dicek
--- juga untuk request lewat PostgREST pakai service_role key.
-create or replace function public.prevent_role_self_escalation()
-returns trigger
-language plpgsql
-security definer
-set search_path = public
-as $$
-begin
-  if auth.uid() is null or auth.role() = 'service_role' then
-    return new;
-  end if;
-  if new.role is distinct from old.role and not public.is_admin() then
-    new.role := old.role;
-  end if;
-  return new;
-end;
-$$;
-
-drop trigger if exists prevent_role_self_escalation on profiles;
-create trigger prevent_role_self_escalation
-  before update on profiles
-  for each row execute procedure public.prevent_role_self_escalation();
 
 -- comments: publik boleh baca; hanya user login yang boleh menulis
 -- komentar atas namanya sendiri, dan hanya boleh hapus komentar sendiri

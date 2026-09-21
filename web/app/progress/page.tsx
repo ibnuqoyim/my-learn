@@ -28,8 +28,8 @@ export default async function ProgressPage() {
       </p>
       <h1 className="mb-2 text-3xl font-bold">Progress Saya</h1>
       <p className="mb-8 leading-7">
-        Catatan yang sudah kamu tandai progress-nya. Tandai lewat tombol "Progress belajar" di halaman
-        tiap catatan.
+        Catatan yang sudah kamu tandai progress-nya. Tandai lewat tombol &ldquo;Progress belajar&rdquo; di
+        halaman tiap catatan.
       </p>
 
       {entries.length === 0 ? (

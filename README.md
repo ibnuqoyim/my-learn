@@ -14,5 +14,15 @@ daftar fitur.
 
 ## Aturan repo
 
-Lihat [`CLAUDE.md`](./CLAUDE.md) untuk alur kerja Git dan standar konten
-sebelum menambah/mengubah apa pun di repo ini.
+Lihat [`AGENTS.md`](./AGENTS.md) — Single Source of Truth untuk alur
+kerja Git, standar konten, migrasi database, dan CI/CD — sebelum
+menambah/mengubah apa pun di repo ini. (`CLAUDE.md` dan file serupa
+lainnya cuma bridge ke situ.)
+
+## Verifikasi sebelum PR
+
+```bash
+make verify   # atau: cd web && npm run verify
+```
+Menjalankan lint (strict), typecheck, dan build. Harus lolos sebelum PR
+dibuat — lihat `AGENTS.md` bagian 6 untuk detail CI/CD.
