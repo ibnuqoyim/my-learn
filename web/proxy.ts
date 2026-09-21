@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 // Refresh session Supabase di tiap request supaya token auth tidak
 // kedaluwarsa saat user aktif menjelajah situs (pola standar @supabase/ssr).
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   // Supabase project belum terhubung — lewati refresh session daripada

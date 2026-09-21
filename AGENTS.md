@@ -6,6 +6,14 @@ File aturan spesifik-agent (`CLAUDE.md`, `.cursorrules`, `.windsurfrules`,
 `.aider.conf.yml`) cuma bridge ke file ini — jangan duplikasi aturan di
 sana, edit di sini.
 
+> **Catatan:** `web/AGENTS.md` dan `web/CLAUDE.md` itu file **berbeda**,
+> bukan duplikat SSOT ini — keduanya di-generate & di-maintain otomatis
+> oleh `next dev`/`next build` sendiri (Next.js 16+), isinya cuma
+> peringatan kalau versi Next.js yang dipakai mungkin beda dari training
+> data agent (breaking changes API/convention). Biarkan apa adanya,
+> jangan dihapus manual — akan otomatis ditulis ulang tiap `next dev`
+> jalan. Aturan project tetap di sini (root `AGENTS.md`), bukan di sana.
+
 ## 📋 Project Context & Purpose
 
 Blog Catatan Belajar — kumpulan catatan pelajaran (roadmap per teknologi:

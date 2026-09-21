@@ -17,6 +17,30 @@ Format:
 
 ---
 
+## [2026-09-21] Task: Upgrade Next.js 15 → 16 (fix CI audit gate)
+
+- **Agent:** Claude Code (Claude Sonnet 5)
+- **Status:** Completed
+- **Changes:** CI `npm audit --audit-level=high` (baru ditambahkan task
+  sebelumnya) menemukan kerentanan high-severity di `postcss` bawaan
+  `next@15.5.25`; satu-satunya fix adalah upgrade major ke `next@16.3.5`
+  — dilakukan atas persetujuan eksplisit user (bukan otomatis, sesuai
+  Forbidden Action #1 di `AGENTS.md`). Next 16 menghapus total `next
+  lint` (sebelumnya cuma deprecated) — migrasi ke `eslint .` langsung.
+  `middleware.ts` juga deprecated diganti konvensi `proxy.ts` — dimigrasi
+  pakai codemod resmi (`npx @next/codemod middleware-to-proxy`,
+  fungsi `middleware` jadi `proxy`, isi logic tidak berubah).
+  `tsconfig.json` diupdate otomatis oleh tooling Next 16 (`jsx:
+  react-jsx`, include `.next/dev/types`). Next 16 juga memperkenalkan
+  `web/AGENTS.md`/`web/CLAUDE.md` auto-generated (peringatan
+  version-specific breaking changes) — dibiarkan, bukan konflik dengan
+  SSOT root (lihat catatan di root `AGENTS.md`).
+- **Verification:** `npm audit --audit-level=high` → 0 vulnerabilities.
+  `npm run verify` (lint+typecheck+build) lolos bersih. Dev server
+  dites jalan (halaman render, tidak crash) — data Supabase tidak bisa
+  divalidasi live dari sandbox ini (network egress diblokir), sama
+  seperti keterbatasan sepanjang sesi ini.
+
 ## [2026-09-21] Task: Standarisasi repo untuk AI agent (agent-agnostic)
 
 - **Agent:** Claude Code (Claude Sonnet 5)
