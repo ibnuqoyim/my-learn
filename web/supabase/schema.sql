@@ -173,8 +173,11 @@ create policy "profiles_owner_insert" on profiles
 -- = id), bukan kolom mana yang diubah — tanpa trigger ini, user biasa bisa
 -- self-promote jadi admin dengan update role di baris profilnya sendiri
 -- (mis. lewat request langsung ke Supabase, bukan cuma lewat UI aplikasi).
--- Trigger ini mengunci kolom `role` supaya cuma admin yang sudah ada atau
--- service role (mis. script SQL manual) yang bisa mengubahnya.
+-- Trigger ini mengunci kolom `role` supaya cuma admin yang sudah ada, atau
+-- akses tanpa konteks JWT sama sekali (SQL Editor dashboard/Management
+-- API/migrasi — auth.uid() NULL di situ, beda dari user yang login lewat
+-- app biasa) yang bisa mengubahnya. auth.role() = 'service_role' dicek
+-- juga untuk request lewat PostgREST pakai service_role key.
 create or replace function public.prevent_role_self_escalation()
 returns trigger
 language plpgsql
@@ -182,7 +185,7 @@ security definer
 set search_path = public
 as $$
 begin
-  if auth.role() = 'service_role' then
+  if auth.uid() is null or auth.role() = 'service_role' then
     return new;
   end if;
   if new.role is distinct from old.role and not public.is_admin() then
