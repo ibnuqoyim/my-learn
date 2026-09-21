@@ -132,3 +132,15 @@ export type QuizQuestionFormInput = {
 export type QuizQuestionForAdmin = QuizQuestionFormInput & {
   id: string;
 };
+
+// Tanya AI di akhir catatan/kategori — scope-nya sama persis dengan
+// QuizScope (lihat komentar di sana), menentukan tabel note_ai_chat_messages
+// vs category_ai_chat_messages di lib/queries.ts.
+export type AiChatScope = { noteId: string } | { categoryId: string };
+
+export type AiChatMessage = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  createdAt: string;
+};
