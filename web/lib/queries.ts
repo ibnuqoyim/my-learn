@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { normalizeNoteSummary } from "@/lib/normalizeNoteSummary";
 import type {
   AdjacentNotes,
+  AiChatMessage,
+  AiChatScope,
   Category,
   CategoryWithNotes,
   Comment,
@@ -377,4 +379,86 @@ export async function getQuizAttempt(userId: string, scope: QuizScope): Promise<
   if (error) throw error;
   if (!data) return null;
   return { score: data.score, total: data.total, answers: data.answers ?? [], updatedAt: data.updated_at };
+}
+
+// ============================================================
+// Tanya AI (di akhir catatan & di akhir kategori) — lihat AiChatScope di
+// lib/types.ts dan app/api/ask-ai/route.ts. Beda dari kuis, ini bukan
+// konten yang dikelola admin: riwayat chat strictly milik user sendiri
+// (RLS "owner_all" di supabase/schema.sql), jadi query di sini juga selalu
+// butuh userId, tidak ada versi "publik".
+// ============================================================
+
+function aiChatMessagesTable(scope: AiChatScope) {
+  return "noteId" in scope ? "note_ai_chat_messages" : "category_ai_chat_messages";
+}
+
+function aiChatScopeColumn(scope: AiChatScope): [string, string] {
+  return "noteId" in scope ? ["note_id", scope.noteId] : ["category_id", scope.categoryId];
+}
+
+export async function getAiChatMessages(userId: string, scope: AiChatScope): Promise<AiChatMessage[]> {
+  if (!supabaseConfigured) return [];
+  const supabase = await createClient();
+  const [column, value] = aiChatScopeColumn(scope);
+  const { data, error } = await supabase
+    .from(aiChatMessagesTable(scope))
+    .select("id, role, content, created_at")
+    .eq("user_id", userId)
+    .eq(column, value)
+    .order("created_at", { ascending: true });
+
+  if (error) throw error;
+  return (data ?? []).map((row: any) => ({
+    id: row.id,
+    role: row.role,
+    content: row.content,
+    createdAt: row.created_at,
+  }));
+}
+
+// Konteks materi yang dikirim ke system prompt AI — dipanggil dari
+// app/api/ask-ai/route.ts, bukan dari Server/Client Component, makanya baru
+// di sini (bukan getNoteBySlug/getCategoryBySlug yang butuh slug, bukan id,
+// dan getNoteForAdmin yang tidak filter status published).
+export async function getNoteAiContext(noteId: string): Promise<{ title: string; content: string; categoryName: string } | null> {
+  if (!supabaseConfigured) return null;
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("notes")
+    .select("title, content, category:categories!inner(name)")
+    .eq("id", noteId)
+    .eq("status", "published")
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data) return null;
+  const category = Array.isArray(data.category) ? data.category[0] : data.category;
+  return { title: data.title, content: data.content, categoryName: category?.name ?? "" };
+}
+
+export async function getCategoryAiContext(
+  categoryId: string
+): Promise<{ name: string; description: string | null; noteTitles: string[] } | null> {
+  if (!supabaseConfigured) return null;
+  const supabase = await createClient();
+  const { data: category, error: categoryError } = await supabase
+    .from("categories")
+    .select("name, description")
+    .eq("id", categoryId)
+    .maybeSingle();
+
+  if (categoryError) throw categoryError;
+  if (!category) return null;
+
+  const { data: notes, error: notesError } = await supabase
+    .from("notes")
+    .select("title")
+    .eq("category_id", categoryId)
+    .eq("status", "published")
+    .order("order_index", { ascending: true });
+
+  if (notesError) throw notesError;
+
+  return { name: category.name, description: category.description, noteTitles: (notes ?? []).map((n) => n.title) };
 }

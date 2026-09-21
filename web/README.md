@@ -17,7 +17,9 @@ search.
    dashboard, atau lewat `scripts/run-sql.mjs` (butuh personal access token
    Supabase, lihat komentar di file itu).
 3. Salin `.env.local.example` jadi `.env.local` (atau `.env`), isi dengan
-   URL & key dari **Project Settings → API Keys**.
+   URL & key dari **Project Settings → API Keys**. Variabel `AI_BASE_URL`/
+   `AI_API_KEY`/`AI_MODEL` opsional — isi kalau mau mengaktifkan fitur
+   "Tanya AI" (lihat "Status fitur" di bawah), boleh dikosongkan dulu.
 4. Migrasikan catatan awal (`scripts/seed-data.mjs`) — dua jalur, pilih salah satu:
    - Ada `SUPABASE_SECRET_KEY`: `npm run seed` (lewat supabase-js).
    - Cuma ada personal access token (PAT): `node scripts/seed-via-sql.mjs <project-ref>`
@@ -69,6 +71,15 @@ search.
   Lagi" kapan saja. Admin kelola soal lewat `/admin/quiz/note/<id>` &
   `/admin/quiz/category/<id>` (link "Kuis" di `/admin/notes` &
   `/admin/categories`).
+- [x] Tanya AI di akhir tiap catatan & di akhir tiap kategori, login-gated
+  sama seperti kuis. Konteks AI dibatasi ke materi catatan/roadmap
+  kategori yang sedang dibuka (system prompt dibangun dari `content`
+  catatan atau `description` + daftar catatan kategori) — pertanyaan di
+  luar topik itu ditolak oleh AI-nya sendiri. Riwayat chat tersimpan per
+  user (bisa dihapus manual lewat tombol "Hapus riwayat"). Butuh endpoint
+  OpenAI-compatible — lihat env var `AI_BASE_URL`/`AI_API_KEY`/`AI_MODEL`
+  di bawah; tanpa itu, fitur menampilkan pesan error saat dipakai (bukan
+  hilang dari UI).
 
 Kategori `nextjs` (9 catatan, urutan lengkap dari instalasi sampai
 metadata/SEO) jadi contoh acuan pola roadmap ini diterapkan penuh — lihat
