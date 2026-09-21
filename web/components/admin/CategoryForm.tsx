@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createCategoryAction, deleteCategoryAction, updateCategoryAction } from "@/app/admin/categories/actions";
@@ -156,6 +157,9 @@ export function CategoryRow({ category, noteCount }: { category: Category; noteC
         <button type="button" onClick={() => setEditing(true)} className="text-accent underline underline-offset-2">
           Edit
         </button>
+        <Link href={`/admin/quiz/category/${category.id}`} className="text-accent underline underline-offset-2">
+          Kuis
+        </Link>
         <button type="button" onClick={handleDelete} className="text-red-500 underline underline-offset-2">
           Hapus
         </button>

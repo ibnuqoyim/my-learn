@@ -63,6 +63,12 @@ search.
   bisa CRUD catatan & kategori lewat UI (bukan cuma SQL/script seed lagi).
   Lihat bagian "Role admin" di bawah untuk cara mempromosikan user jadi
   admin.
+- [x] Kuis pilihan ganda di akhir tiap catatan & di akhir tiap kategori,
+  cuma tampil untuk user yang login (nonlogin lihat ajakan masuk). Skor
+  tersimpan per user (attempt terakhir menimpa yang lama), bisa "Coba
+  Lagi" kapan saja. Admin kelola soal lewat `/admin/quiz/note/<id>` &
+  `/admin/quiz/category/<id>` (link "Kuis" di `/admin/notes` &
+  `/admin/categories`).
 
 Kategori `nextjs` (9 catatan, urutan lengkap dari instalasi sampai
 metadata/SEO) jadi contoh acuan pola roadmap ini diterapkan penuh — lihat
@@ -122,10 +128,15 @@ components/               Komponen React (shell navigasi, Markdown, Mermaid,
 lib/supabase/              Supabase client (browser & server)
 lib/queries.ts              Helper query data (kategori, catatan, komentar,
                             progress, search, profil user)
-lib/slugify.ts, lib/validateNote.ts,
-lib/validateCategory.ts, lib/normalizeNoteSummary.ts
+lib/slugify.ts, lib/validateNote.ts, lib/validateCategory.ts,
+lib/normalizeNoteSummary.ts, lib/validateQuizQuestion.ts
                               Modul logika murni (dites — lihat __tests__/)
 __tests__/lib/                Unit test (Vitest) untuk modul di atas
+components/QuizSection.tsx    Komponen kuis publik (catatan & kategori)
+components/admin/QuizManager.tsx
+                              Form admin create/edit/hapus soal kuis
+app/admin/quiz/note/[id]/, app/admin/quiz/category/[id]/
+                              Halaman admin kelola soal kuis per catatan/kategori
 supabase/schema.sql          Skema database + RLS
 supabase/migrations/          Riwayat migrasi incremental (lihat AGENTS.md bagian 5)
 scripts/seed.mjs              Migrasi awal lewat supabase-js (perlu secret key)

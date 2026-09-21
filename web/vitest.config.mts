@@ -25,7 +25,13 @@ export default defineConfig({
       // TIDAK jujur untuk di-gate 80% kalau scope-nya diperlebar tanpa
       // test barunya. Perlebar `include` di bawah seiring makin banyak
       // modul yang dites, jangan cuma naikkan angka thresholds-nya.
-      include: ["lib/slugify.ts", "lib/validateNote.ts", "lib/validateCategory.ts", "lib/normalizeNoteSummary.ts"],
+      include: [
+        "lib/slugify.ts",
+        "lib/validateNote.ts",
+        "lib/validateCategory.ts",
+        "lib/normalizeNoteSummary.ts",
+        "lib/validateQuizQuestion.ts",
+      ],
       thresholds: {
         lines: 80,
         functions: 80,

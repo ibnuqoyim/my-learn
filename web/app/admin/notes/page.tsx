@@ -47,6 +47,9 @@ export default async function AdminNotesPage() {
               <Link href={`/admin/notes/${note.id}/edit`} className="text-accent underline underline-offset-2">
                 Edit
               </Link>
+              <Link href={`/admin/quiz/note/${note.id}`} className="text-accent underline underline-offset-2">
+                Kuis
+              </Link>
               <DeleteNoteButton id={note.id} title={note.title} />
             </div>
           </li>

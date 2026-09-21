@@ -4,7 +4,15 @@ import { notFound } from "next/navigation";
 import CommentSection from "@/components/CommentSection";
 import MarkdownContent from "@/components/MarkdownContent";
 import ProgressControl from "@/components/ProgressControl";
-import { getAdjacentNotes, getComments, getCurrentProfile, getNoteBySlug } from "@/lib/queries";
+import QuizSection from "@/components/QuizSection";
+import {
+  getAdjacentNotes,
+  getComments,
+  getCurrentProfile,
+  getNoteBySlug,
+  getQuizAttempt,
+  getQuizQuestions,
+} from "@/lib/queries";
 
 type Params = { category: string; slug: string };
 
@@ -21,11 +29,13 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
 
   if (!note) notFound();
 
-  const [comments, currentUser, adjacent] = await Promise.all([
+  const [comments, currentUser, adjacent, quizQuestions] = await Promise.all([
     getComments(note.id),
     getCurrentProfile(),
     getAdjacentNotes(note.category.id, note.id),
+    getQuizQuestions({ noteId: note.id }),
   ]);
+  const quizAttempt = currentUser ? await getQuizAttempt(currentUser.id, { noteId: note.id }) : null;
 
   const updated = new Date(note.updated_at).toLocaleDateString("id-ID", {
     day: "numeric",
@@ -93,6 +103,14 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
           </ul>
         </>
       )}
+
+      <QuizSection
+        scope={{ noteId: note.id }}
+        title="Kuis Catatan Ini"
+        questions={quizQuestions}
+        currentUser={currentUser}
+        initialAttempt={quizAttempt}
+      />
 
       <nav className="mt-10 flex flex-wrap justify-between gap-4 border-t border-border pt-4 text-sm">
         {adjacent.prev ? (

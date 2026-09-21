@@ -17,6 +17,30 @@ Format:
 
 ---
 
+## [2026-09-21] Task: Fitur kuis (akhir catatan & akhir kategori, login-gated)
+
+- **Agent:** Claude Code (Claude Sonnet 5)
+- **Status:** Completed
+- **Changes:** 4 tabel baru (`note_quiz_questions`, `category_quiz_questions`,
+  `note_quiz_attempts`, `category_quiz_attempts` — dipisah per scope,
+  bukan FK nullable ganda, supaya PK bisa jadi target ON CONFLICT
+  langsung; check constraint jaga `score <= total`). RLS: soal publik
+  dibaca, attempt strictly per-user. `QuizSection.tsx` (publik, tampil
+  di `/notes/[category]/[slug]` & `/kategori/[slug]`, login-gated,
+  submit lewat Supabase client langsung — pola sama dengan
+  ProgressControl/CommentSection yang sudah ada, bukan server action).
+  `QuizManager.tsx` + `/admin/quiz/note/[id]` + `/admin/quiz/category/[id]`
+  untuk CRUD soal (server actions, `requireAdmin()`). Validator murni
+  `lib/validateQuizQuestion.ts` + 9 unit test baru. 9 soal contoh diisi
+  (catatan Closure, TypeScript Tipe Dasar, kategori JavaScript) untuk
+  demonstrasi — belum semua catatan/kategori punya kuis, lihat AGENTS.md
+  bagian 3 poin 8 & checklist.
+- **Verification:** `npm run verify` (lint + typecheck + 38 test + build)
+  lolos bersih. Migrasi diterapkan & diverifikasi lewat Supabase MCP
+  (query count soal per scope). Tidak bisa smoke-test visual di browser
+  dari sandbox ini — host Supabase diblokir jaringan sandbox, limitasi
+  yang sama sepanjang sesi ini.
+
 ## [2026-09-21] Task: Upgrade Next.js 15 → 16 (fix CI audit gate)
 
 - **Agent:** Claude Code (Claude Sonnet 5)

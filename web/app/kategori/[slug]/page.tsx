@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import MarkdownContent from "@/components/MarkdownContent";
-import { getCategoryBySlug, getCurrentProfile, getNoteProgressMap } from "@/lib/queries";
+import QuizSection from "@/components/QuizSection";
+import { getCategoryBySlug, getCurrentProfile, getNoteProgressMap, getQuizAttempt, getQuizQuestions } from "@/lib/queries";
 
 export async function generateMetadata({
   params,
@@ -31,6 +32,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const progressMap = user ? await getNoteProgressMap(user.id, notes.map((n) => n.id)) : {};
   const selesaiCount = notes.filter((n) => progressMap[n.id] === "selesai").length;
   const progressPercent = notes.length > 0 ? Math.round((selesaiCount / notes.length) * 100) : 0;
+
+  const quizQuestions = await getQuizQuestions({ categoryId: category.id });
+  const quizAttempt = user ? await getQuizAttempt(user.id, { categoryId: category.id }) : null;
 
   return (
     <div>
@@ -90,6 +94,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           );
         })}
       </ol>
+
+      <QuizSection
+        scope={{ categoryId: category.id }}
+        title="Kuis Akhir Kategori"
+        questions={quizQuestions}
+        currentUser={user}
+        initialAttempt={quizAttempt}
+      />
     </div>
   );
 }

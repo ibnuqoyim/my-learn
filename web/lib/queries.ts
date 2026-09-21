@@ -10,6 +10,10 @@ import type {
   NoteSummary,
   Profile,
   ProgressEntry,
+  QuizAttempt,
+  QuizQuestion,
+  QuizQuestionForAdmin,
+  QuizScope,
 } from "@/lib/types";
 
 const NOTE_SUMMARY_SELECT = "id, title, slug, updated_at, order_index, category:categories(id, name, slug)";
@@ -251,6 +255,18 @@ export async function getAllCategoriesSimple(): Promise<Category[]> {
   return data ?? [];
 }
 
+export async function getCategoryById(id: string): Promise<Category | null> {
+  if (!supabaseConfigured) return null;
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("categories")
+    .select("id, name, slug, description")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
 export async function getAllNotesForAdmin(): Promise<(NoteSummary & { status: "draft" | "published" })[]> {
   if (!supabaseConfigured) return [];
   const supabase = await createClient();
@@ -297,4 +313,68 @@ export async function getNoteForAdmin(id: string): Promise<NoteForAdmin | null> 
 export async function isCurrentUserAdmin(): Promise<boolean> {
   const profile = await getCurrentProfile();
   return profile?.role === "admin";
+}
+
+// ============================================================
+// Kuis (di akhir catatan & di akhir kategori) — lihat QuizScope di
+// lib/types.ts. Soal boleh dibaca publik (RLS di supabase/schema.sql),
+// yang membatasi tampil/tidaknya di halaman adalah status login,
+// dicek di komponen pemanggil, bukan di sini.
+// ============================================================
+
+function quizQuestionsTable(scope: QuizScope) {
+  return "noteId" in scope ? "note_quiz_questions" : "category_quiz_questions";
+}
+
+function quizAttemptsTable(scope: QuizScope) {
+  return "noteId" in scope ? "note_quiz_attempts" : "category_quiz_attempts";
+}
+
+function quizScopeColumn(scope: QuizScope): [string, string] {
+  return "noteId" in scope ? ["note_id", scope.noteId] : ["category_id", scope.categoryId];
+}
+
+export async function getQuizQuestions(scope: QuizScope): Promise<QuizQuestion[]> {
+  if (!supabaseConfigured) return [];
+  const supabase = await createClient();
+  const [column, value] = quizScopeColumn(scope);
+  const { data, error } = await supabase
+    .from(quizQuestionsTable(scope))
+    .select("id, question, options, correct_index, explanation, order_index")
+    .eq(column, value)
+    .order("order_index", { ascending: true });
+
+  if (error) throw error;
+  return (data ?? []).map((row: any) => ({
+    id: row.id,
+    question: row.question,
+    options: row.options ?? [],
+    correctIndex: row.correct_index,
+    explanation: row.explanation,
+    orderIndex: row.order_index ?? 0,
+  }));
+}
+
+// Dipakai halaman admin quiz — bentuknya sama dengan getQuizQuestions,
+// cuma explanation di-default-kan ke string kosong (form input, bukan
+// nullable) supaya langsung cocok sebagai initial value <textarea>.
+export async function getQuizQuestionsForAdmin(scope: QuizScope): Promise<QuizQuestionForAdmin[]> {
+  const questions = await getQuizQuestions(scope);
+  return questions.map((q) => ({ ...q, explanation: q.explanation ?? "" }));
+}
+
+export async function getQuizAttempt(userId: string, scope: QuizScope): Promise<QuizAttempt | null> {
+  if (!supabaseConfigured) return null;
+  const supabase = await createClient();
+  const [column, value] = quizScopeColumn(scope);
+  const { data, error } = await supabase
+    .from(quizAttemptsTable(scope))
+    .select("score, total, answers, updated_at")
+    .eq("user_id", userId)
+    .eq(column, value)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data) return null;
+  return { score: data.score, total: data.total, answers: data.answers ?? [], updatedAt: data.updated_at };
 }

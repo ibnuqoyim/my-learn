@@ -98,3 +98,37 @@ export type AdjacentNotes = {
   prev: NoteSummary | null;
   next: NoteSummary | null;
 };
+
+// Kuis di akhir catatan atau akhir kategori — scope-nya menentukan tabel
+// mana yang dipakai di lib/queries.ts (note_quiz_* vs category_quiz_*),
+// jadi selalu tepat salah satu dari dua field ini yang diisi.
+export type QuizScope = { noteId: string } | { categoryId: string };
+
+export type QuizQuestion = {
+  id: string;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string | null;
+  orderIndex: number;
+};
+
+export type QuizAttempt = {
+  score: number;
+  total: number;
+  answers: number[];
+  updatedAt: string;
+};
+
+// Bentuk data form admin (create/edit soal) — mirip pola NoteFormInput.
+export type QuizQuestionFormInput = {
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+  orderIndex: number;
+};
+
+export type QuizQuestionForAdmin = QuizQuestionFormInput & {
+  id: string;
+};

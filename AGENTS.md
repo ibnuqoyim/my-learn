@@ -202,6 +202,19 @@ siapa yang menulis.
    kode di atas". Nullable — topik yang murni konseptual atau konfigurasi
    boleh tidak punya latihan. Ditampilkan otomatis sebagai kotak
    "🎯 Coba Sendiri" di halaman catatan.
+8. **Kuis kalau ada waktu (opsional, direkomendasikan)** — tiap catatan
+   dan tiap kategori bisa punya kuis pilihan ganda, ditampilkan di
+   paling bawah halaman (setelah "Sumber" untuk catatan, setelah daftar
+   catatan untuk kategori), **cuma tampil untuk user yang login**. Beda
+   dari kolom-kolom di atas, kuis **tidak** disimpan di
+   `seed-data.mjs`/tabel `notes` — dikelola terpisah lewat dashboard
+   admin (`/admin/quiz/note/<id>` atau `/admin/quiz/category/<id>`, link
+   "Kuis" ada di `/admin/notes` & `/admin/categories`), tabel
+   `note_quiz_questions`/`category_quiz_questions`. Minimal 2 opsi per
+   soal, tandai satu sebagai jawaban benar, penjelasan opsional
+   (ditampilkan ke user setelah submit). Nullable — banyak catatan boleh
+   belum punya kuis sama sekali, tambahkan bertahap lewat dashboard,
+   bukan wajib ada sejak catatan dibuat.
 
 ### Template objek catatan (WAJIB diikuti bentuknya)
 
@@ -373,10 +386,15 @@ riwayat commit.
 - [x] `AGENT_LOG.md` untuk serah terima antar-agent
 - [x] **Sebagian**: unit test runner (Vitest) + coverage gate — aktif
   dan strict (80%), tapi scope-nya baru modul logika murni di `web/lib/`
-  (`slugify`, `validateNote`, `validateCategory`, `normalizeNoteSummary`
-  — 29 test, 100% coverage untuk scope itu). Query Supabase, server
-  actions (bagian I/O-nya), dan komponen React **belum** dites — butuh
-  strategi mocking Supabase yang belum diputuskan.
+  (`slugify`, `validateNote`, `validateCategory`, `normalizeNoteSummary`,
+  `validateQuizQuestion` — 38 test, 100% coverage untuk scope itu). Query
+  Supabase, server actions (bagian I/O-nya), dan komponen React **belum**
+  dites — butuh strategi mocking Supabase yang belum diputuskan.
+- [x] Fitur kuis (bagian 3 poin 8) — di akhir catatan & akhir kategori,
+  login-gated, dikelola lewat `/admin/quiz/*`. 9 soal contoh sudah diisi
+  (2 catatan + 1 kategori) untuk demonstrasi; sisanya (~84 catatan, ~10
+  kategori) **belum ada kuisnya** — tambahkan bertahap lewat dashboard
+  admin, bukan wajib sekaligus.
 - [ ] **Belum**: E2E smoke test (Playwright) — butuh mock service
   Supabase lokal dulu supaya hermetic (tidak bergantung project Supabase
   asli di CI)
