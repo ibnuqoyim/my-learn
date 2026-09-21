@@ -56,6 +56,10 @@ search.
 - [x] Standar penulisan materi terformalisasi di `CLAUDE.md` (termasuk
   template objek JS persis) supaya AI agent mana pun yang menambah
   catatan menghasilkan bentuk yang konsisten
+- [x] RBAC + dashboard admin (`/admin`) — role `admin` di `profiles.role`
+  bisa CRUD catatan & kategori lewat UI (bukan cuma SQL/script seed lagi).
+  Lihat bagian "Role admin" di bawah untuk cara mempromosikan user jadi
+  admin.
 
 Kategori `nextjs` (9 catatan, urutan lengkap dari instalasi sampai
 metadata/SEO) jadi contoh acuan pola roadmap ini diterapkan penuh — lihat
@@ -65,11 +69,35 @@ Semua fitur di atas sudah dites end-to-end dengan project Supabase asli
 (signup, konfirmasi email, login, komentar, progress, search, navigasi
 roadmap 9 langkah) — bukan cuma lolos build.
 
+## Role admin
+
+`profiles.role` (`'user'` default, atau `'admin'`) menentukan siapa yang
+bisa akses `/admin` dan CRUD `notes`/`categories` — dijaga dobel: RLS di
+database (`categories_admin_write`, `notes_admin_all`, fungsi
+`is_admin()` di `supabase/schema.sql`) dan cek role di
+`middleware.ts`/`app/admin/layout.tsx`. Trigger `prevent_role_self_escalation`
+mengunci kolom `role` supaya user biasa tidak bisa self-promote jadi admin
+lewat update ke profilnya sendiri.
+
+**Tidak ada jalur self-service untuk jadi admin** (disengaja, konsisten
+dengan semangat "tidak ada yang tayang tanpa izin" di `CLAUDE.md`).
+Promosikan user jadi admin lewat SQL Editor di dashboard Supabase (atau
+`scripts/run-sql.mjs`):
+
+```sql
+update public.profiles set role = 'admin' where id = '<uuid user>';
+-- atau, kalau cuma tahu emailnya:
+update public.profiles set role = 'admin'
+where id = (select id from auth.users where email = 'user@contoh.com');
+```
+
 ## Belum dikerjakan
 
-- Halaman admin untuk menulis/mengedit catatan lewat UI (sekarang lewat
-  script seed atau SQL langsung; lihat `CLAUDE.md` soal kolom
-  `status` draft/published).
+- Manajemen role dari dalam dashboard (sekarang promote admin baru cuma
+  lewat SQL langsung, lihat bagian "Role admin" di atas).
+- Preview draft di halaman publik untuk admin (sekarang draft cuma bisa
+  dilihat isinya lewat form edit di `/admin/notes`, bukan di URL
+  publiknya — semua query publik tetap filter `status = 'published'`).
 
 ## Struktur
 

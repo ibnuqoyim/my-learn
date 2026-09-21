@@ -39,10 +39,13 @@ draft/publish-nya dilakukan lewat kolom, bukan branch:
 - Publish (`status` diubah jadi `'published'`) **hanya atas perintah
   eksplisit** user, sama seperti semangat aturan `draft`→`main` di Git:
   tidak ada yang tayang ke publik tanpa izin.
-- Menulis/mengubah catatan sekarang lewat SQL langsung
-  (`web/scripts/run-sql.mjs`) atau lewat data di
-  `web/scripts/seed-data.mjs` + `npm run seed` /
-  `node scripts/seed-via-sql.mjs`. Belum ada UI admin untuk ini.
+- Menulis/mengubah catatan bisa lewat dashboard `/admin` (perlu login
+  dengan akun ber-role `admin` di `profiles.role`) atau tetap lewat SQL
+  langsung (`web/scripts/run-sql.mjs`) / data di `web/scripts/seed-data.mjs`
+  + `npm run seed` / `node scripts/seed-via-sql.mjs`. Keduanya sah — SQL
+  masih dipakai untuk migrasi/seed massal, dashboard untuk perubahan
+  satuan sehari-hari. Lihat `web/README.md` bagian "Role admin" untuk cara
+  mempromosikan user jadi admin (sengaja tidak ada jalur self-service).
 - Setiap kali isi catatan diverifikasi ulang (mis. lewat riset internet)
   dan dipastikan masih akurat, update kolom `updated_at` catatan itu ke
   waktu verifikasi.

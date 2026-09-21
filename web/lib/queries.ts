@@ -5,6 +5,7 @@ import type {
   CategoryWithNotes,
   Comment,
   Note,
+  NoteForAdmin,
   NoteSummary,
   Profile,
   ProgressEntry,
@@ -144,11 +145,16 @@ export async function getCurrentProfile(): Promise<Profile | null> {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("display_name")
+    .select("display_name, role")
     .eq("id", user.id)
     .maybeSingle();
 
-  return { id: user.id, email: user.email ?? undefined, displayName: profile?.display_name ?? null };
+  return {
+    id: user.id,
+    email: user.email ?? undefined,
+    displayName: profile?.display_name ?? null,
+    role: (profile?.role as Profile["role"]) ?? "user",
+  };
 }
 
 export async function getComments(noteId: string): Promise<Comment[]> {
@@ -243,4 +249,67 @@ export async function searchNotes(query: string): Promise<NoteSummary[]> {
 
   if (error) throw error;
   return (data ?? []).map(normalizeNoteSummary);
+}
+
+// ============================================================
+// Dashboard admin (/admin) — perlu role admin, dijaga RLS "notes_admin_all"
+// & "categories_admin_write" (lihat supabase/schema.sql), bukan cuma
+// filter di sini. Query di bawah sengaja tidak filter status supaya admin
+// bisa lihat & kelola draft juga.
+// ============================================================
+
+export async function getAllCategoriesSimple(): Promise<Category[]> {
+  if (!supabaseConfigured) return [];
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("categories").select("id, name, slug, description").order("name");
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getAllNotesForAdmin(): Promise<(NoteSummary & { status: "draft" | "published" })[]> {
+  if (!supabaseConfigured) return [];
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("notes")
+    .select(`${NOTE_SUMMARY_SELECT}, status`)
+    .order("updated_at", { ascending: false });
+
+  if (error) throw error;
+  return (data ?? []).map((row: any) => ({ ...normalizeNoteSummary(row), status: row.status }));
+}
+
+export async function getNoteForAdmin(id: string): Promise<NoteForAdmin | null> {
+  if (!supabaseConfigured) return null;
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("notes")
+    .select(
+      "id, title, slug, content, sources, prerequisites, practice, status, order_index, updated_at, category:categories!inner(id, slug)"
+    )
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data) return null;
+
+  const category = Array.isArray(data.category) ? data.category[0] : data.category;
+  return {
+    id: data.id,
+    title: data.title,
+    slug: data.slug,
+    content: data.content,
+    sources: data.sources ?? [],
+    prerequisites: data.prerequisites ?? [],
+    practice: data.practice ?? "",
+    status: data.status,
+    orderIndex: data.order_index ?? 0,
+    categoryId: category.id,
+    categorySlug: category.slug,
+    updatedAt: data.updated_at,
+  };
+}
+
+export async function isCurrentUserAdmin(): Promise<boolean> {
+  const profile = await getCurrentProfile();
+  return profile?.role === "admin";
 }

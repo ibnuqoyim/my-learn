@@ -32,7 +32,26 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Dashboard admin: cek role di sini juga (bukan cuma di layout /admin)
+  // supaya non-admin di-redirect sebelum halaman sempat dirender sama
+  // sekali. Query profiles cuma dijalankan untuk path /admin, tidak di
+  // tiap request, supaya tidak nambah roundtrip DB ke semua halaman.
+  if (request.nextUrl.pathname.startsWith("/admin")) {
+    if (!user) {
+      const loginUrl = new URL("/login", request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
+
+    if (profile?.role !== "admin") {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
 
   return response;
 }

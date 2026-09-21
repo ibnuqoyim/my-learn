@@ -41,10 +41,35 @@ export type CategoryWithNotes = Category & {
   notes: NoteSummary[];
 };
 
+export type Role = "user" | "admin";
+
 export type Profile = {
   id: string;
   email?: string;
   displayName: string | null;
+  role: Role;
+};
+
+// Bentuk data yang dikirim form admin (create/edit catatan) — dipisah dari
+// `Note` karena form kerja dengan string mentah (categoryId dropdown,
+// sources/prerequisites yang di-JSON.stringify ke hidden input) sebelum
+// divalidasi & dikonversi di server action.
+export type NoteFormInput = {
+  categoryId: string;
+  title: string;
+  slug: string;
+  content: string;
+  sources: NoteSource[];
+  prerequisites: Prerequisite[];
+  practice: string;
+  status: "draft" | "published";
+  orderIndex: number;
+};
+
+export type NoteForAdmin = NoteFormInput & {
+  id: string;
+  categorySlug: string;
+  updatedAt: string;
 };
 
 export type Comment = {

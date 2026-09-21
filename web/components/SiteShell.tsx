@@ -113,10 +113,15 @@ export default function SiteShell({ recentNotes, categories, user, children }: P
                   <p>
                     Halo, <strong>{user.displayName || user.email}</strong>
                   </p>
-                  <div className="flex gap-3">
+                  <div className="flex flex-wrap gap-3">
                     <Link href="/progress" className="text-accent underline underline-offset-2">
                       Progress saya
                     </Link>
+                    {user.role === "admin" && (
+                      <Link href="/admin/notes" className="text-accent underline underline-offset-2">
+                        Dashboard Admin
+                      </Link>
+                    )}
                     <button
                       type="button"
                       onClick={handleLogout}
