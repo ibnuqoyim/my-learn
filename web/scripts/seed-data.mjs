@@ -18,7 +18,7 @@ Roadmap ini membawamu dari instalasi project dengan Vite, menulis UI dengan JSX,
     slug: "git",
     description: `Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (\`script_v2_final.js\`, \`script_v2_REVISI.js\`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.
 
-Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), membatalkan perubahan yang salah, bercabang untuk mengerjakan fitur tanpa mengganggu kode utama (branching), menyimpan perubahan sementara lewat stash, berkolaborasi lewat repository remote seperti GitHub, mengabaikan file yang tidak seharusnya ikut ter-commit, sampai menyelesaikan konflik yang muncul saat menggabungkan perubahan. Tujuh langkah, ikuti berurutan.
+Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), mengabaikan file yang tidak boleh ter-commit lewat .gitignore, berkolaborasi lewat repository remote (GitHub), bercabang untuk mengerjakan fitur terisolasi (branching), menyimpan perubahan sementara lewat stash, menyelesaikan merge conflict saat menggabungkan kode, sampai teknik membatalkan perubahan yang salah (restore, reset, revert). Tujuh langkah, ikuti berurutan.
 
 **Asumsi:** familiar dengan command line/terminal dasar. Prasyarat tool (Git, akun GitHub) disebutkan di catatan yang membutuhkannya.`,
   },
@@ -967,7 +967,7 @@ Poin penting:
   {
     category: "git",
     slug: "membatalkan-perubahan-dasar",
-    order: 1,
+    order: 6,
     title: "Membatalkan Perubahan: restore, reset, dan revert",
     content: `Sekarang kamu paham tiga area Git — Working Directory, Staging Area, dan Local Repository (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kadang perubahan yang kamu buat ternyata salah atau tidak jadi dipakai — tapi cara membatalkannya BEDA-BEDA tergantung perubahan itu sudah sejauh mana: baru diedit, sudah di-\`add\`, atau sudah di-\`commit\`. Pakai command yang salah bisa kehilangan pekerjaan yang sebenarnya masih ingin disimpan.
 
@@ -1035,7 +1035,7 @@ Poin penting:
   {
     category: "git",
     slug: "branching",
-    order: 2,
+    order: 3,
     title: "Dasar Branching di Git",
     content: `Sekarang kamu bisa commit perubahan secara berurutan di satu garis riwayat (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau coba-coba fitur baru atau perbaikan, tapi tidak mau kode \`main\` yang sudah stabil ikut berubah/rusak selama proses coba-coba itu?
 
@@ -1085,7 +1085,7 @@ Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang j
   {
     category: "git",
     slug: "git-stash-dasar",
-    order: 3,
+    order: 4,
     title: "git stash: Menyimpan Perubahan Sementara",
     content: `Sekarang kamu bisa bercabang lewat branch (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kamu sedang di tengah mengerjakan sesuatu (file sudah diedit, belum siap di-commit), tapi tiba-tiba HARUS pindah branch cepat — misalnya ada bug mendesak di branch lain. Git menolak pindah branch kalau perubahan yang belum di-commit itu berisiko tertimpa. Commit "setengah jadi" cuma supaya bisa pindah branch juga bukan solusi bagus — riwayat jadi kotor berisi commit "WIP" yang tidak berarti.
 
@@ -1136,7 +1136,7 @@ Poin penting:
   {
     category: "git",
     slug: "remote-dasar",
-    order: 4,
+    order: 2,
     title: "Git Remote: Push, Pull, dan Fetch",
     content: `Sekarang kamu bisa commit dan bercabang di komputer sendiri. **Masalah yang diselesaikan sekarang:** bagaimana kalau kode itu perlu dibagikan ke orang lain, atau di-backup di luar komputer kamu? Riwayat commit yang cuma ada di satu komputer rentan hilang (laptop rusak/hilang) dan tidak bisa diakses tim lain.
 
@@ -1190,7 +1190,7 @@ Poin penting:
   {
     category: "git",
     slug: "gitignore-dasar",
-    order: 5,
+    order: 1,
     title: "Mengabaikan File dengan .gitignore",
     content: `Sekarang project kamu sudah bisa di-push ke remote dan dibagikan ke orang lain (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** tidak semua file di folder project seharusnya ikut dilacak Git — file dependency yang bisa di-generate ulang (\`node_modules/\`), hasil build (\`dist/\`, \`.next/\`), atau file berisi rahasia (\`.env\` yang isinya API key/password). Kalau ikut ter-\`push\` ke remote publik, itu bisa membengkakkan ukuran repo atau — lebih parah — membocorkan kredensial ke siapa saja yang bisa lihat repo-nya.
 \`.gitignore\` adalah file konfigurasi berisi daftar pola nama file/folder yang sengaja Git abaikan — tidak akan pernah muncul sebagai *untracked* di \`git status\`, dan tidak bisa ikut ke-\`git add\` secara tidak sengaja (termasuk lewat \`git add .\`).
@@ -1242,7 +1242,7 @@ Poin penting:
   {
     category: "git",
     slug: "merge-conflict-dasar",
-    order: 6,
+    order: 5,
     title: "Menyelesaikan Merge Conflict",
     content: `Sekarang kamu tahu cara branching, push/pull, dan mengabaikan file yang tidak perlu (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau dua branch (atau kamu dan rekan tim) sama-sama mengubah BARIS YANG SAMA di file yang sama, Git tidak tahu versi mana yang benar saat \`merge\`/\`pull\` — proses berhenti di tengah jalan dan minta kamu memutuskan sendiri.
 
@@ -1443,6 +1443,17 @@ Poin penting:
     content: `Sekarang kamu bisa mendefinisikan fungsi, termasuk arrow function (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** mengambil beberapa nilai dari object atau array biasanya berarti menulis \`obj.properti\` berulang kali baris demi baris — repetitif, apalagi kalau properti itu langsung mau dipakai sebagai variabel terpisah.
 
 **Destructuring** membongkar object/array langsung jadi variabel-variabel terpisah dalam satu baris.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Obj["Objek Asal"]
+    O["user = { nama: 'Budi', umur: 25 }"]
+  end
+  subgraph Unpack["Pola Destructuring: const { nama, umur } = user"]
+    O -->|Ekstrak properti nama| V1["Variabel nama = 'Budi'"]
+    O -->|Ekstrak properti umur| V2["Variabel umur = 25"]
+  end
+\`\`\`
 
 \`\`\`js
 // SEBELUM destructuring — repetitif
@@ -2565,6 +2576,15 @@ export default function NoteDetailPage({ params }: Props) {
     title: "Sintaks & Tipe Data Dasar",
     content: `**Masalah yang diselesaikan:** bahasa seperti Java/C# mewajibkan kamu mendeklarasikan tipe tiap variabel secara eksplisit (\`int umur = 25;\`) sebelum bisa dipakai — boilerplate ini menambah baris kode untuk hal yang sering kali sudah jelas dari nilainya sendiri. Python memakai *dynamic typing*: tipe ditentukan otomatis dari nilai yang diisikan, dan bisa berubah kapan saja variabelnya diisi ulang dengan nilai bertipe lain.
 
+\`\`\`mermaid
+flowchart TD
+  Val["Nilai Literal"] --> Type["Dynamic Typing Python (Otomatis Ditebak)"]
+  Type --> T1["25 ➔ int (bilangan bulat)"]
+  Type --> T2["1.75 ➔ float (desimal)"]
+  Type --> T3["'Budi' ➔ str (teks)"]
+  Type --> T4["True / False ➔ bool (boolean)"]
+\`\`\`
+
 \`\`\`python
 umur = 25        # int — otomatis dikenali sebagai angka bulat
 tinggi = 1.75     # float — angka desimal
@@ -3088,6 +3108,14 @@ Poin penting:
     content: `Client Supabase dari catatan sebelumnya sudah siap. **Masalah yang diselesaikan sekarang:** bagaimana benar-benar membaca dan mengubah data di database dari kode aplikasi, tanpa menulis query SQL manual satu per satu?
 
 Setelah client Supabase siap, operasi dasar ke database (CRUD) dipanggil lewat method di atas nama tabel.
+
+\`\`\`mermaid
+flowchart LR
+  App["Aplikasi Web<br/>supabase.from('produk').select('*')"] --> PostgREST["Supabase PostgREST API"]
+  PostgREST --> DB["PostgreSQL Database<br/>SELECT * FROM produk;"]
+  DB --> PostgREST
+  PostgREST --> Res["Mengembalikan Objek JS<br/>{ data, error }"]
+\`\`\`
 
 \`\`\`ts
 import { supabase } from "./lib/supabase";
@@ -4873,6 +4901,20 @@ Poin penting:
     order: 1,
     title: "Menjalankan Task Pertama & CLI Dasar",
     content: `Hermes Agent sekarang sudah terinstall dan terautentikasi (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana caranya kasih task ke agent dan memastikan dia BENAR-BENAR mengeksekusi tool (bukan cuma menjawab teks tebakan tanpa verifikasi)?
+
+\`\`\`mermaid
+sequenceDiagram
+  autonumber
+  participant U as User (Prompt)
+  participant H as Hermes Agent (LLM)
+  participant T as Environment Tools (Terminal / Files)
+  U->>H: "Cek isi direktori saat ini"
+  Note over H: Reasoning: butuh eksekusi tool terminal
+  H->>T: Jalankan perintah terminal (ls -la)
+  T-->>H: Output daftar file dari OS
+  Note over H: Analisis output nyata
+  H-->>U: Jawaban terverifikasi berdasarkan hasil eksekusi tool
+\`\`\`
 
 \`\`\`bash
 # Interface modern (disarankan)
