@@ -45,7 +45,7 @@ Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router
     slug: "python",
     description: `Python dikenal sebagai bahasa yang mudah dibaca dan cepat dipelajari, dipakai luas mulai dari scripting, web backend, sampai data science. Roadmap ini membangun fondasinya secara bertahap dari nol.
 
-Roadmap ini membawamu dari sintaks & tipe data dasar, struktur kontrol (percabangan & perulangan), struktur data (list/tuple/dict/set), menulis fungsi sendiri, list comprehension untuk kode yang lebih ringkas, menangani error runtime, membaca/menulis file, memakai module & library, sampai mengisolasi dependency tiap proyek lewat virtual environment. Sembilan langkah, ikuti berurutan.
+Roadmap ini membawamu dari sintaks & tipe data dasar, struktur kontrol (percabangan & perulangan), struktur data (list/tuple/dict/set), menulis fungsi sendiri, list comprehension untuk kode yang lebih ringkas, menangani error runtime, membaca/menulis file, memakai module bawaan, mengisolasi dependency tiap proyek lewat virtual environment, sampai menginstal library pihak ketiga dengan pip dan mengambil data API dengan Requests. Sepuluh langkah, ikuti berurutan.
 
 **Asumsi:** belum pernah menulis Python sama sekali juga tidak masalah — roadmap ini menjelaskan dari sintaks dasar. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.`,
   },
@@ -72,7 +72,7 @@ Roadmap ini membawamu dari tipe dasar sampai bisa membaca dan menulis konfiguras
     slug: "dotnet",
     description: `Sebelum .NET Core (2016 ke atas), .NET Framework hanya berjalan di Windows — sulit dipakai untuk deployment modern yang mengandalkan server Linux dan container. .NET sekarang adalah platform open-source dan cross-platform dari Microsoft: satu SDK yang jalan di Windows, Linux, maupun macOS, untuk membangun aplikasi web, cloud, hingga desktop.
 
-Roadmap ini membawamu dari pengenalan ekosistem & CLI \`dotnet\`, dasar bahasa C# (tipe data, class, record), pola Dependency Injection yang jadi tulang punggung aplikasi .NET modern, membangun REST API sungguhan lewat ASP.NET Core Minimal API, sampai menyimpan datanya secara permanen ke database lewat Entity Framework Core. Enam langkah, ikuti berurutan.
+Roadmap ini membawamu dari pengenalan ekosistem & CLI \`dotnet\`, dasar bahasa C# (tipe data, class, record), pola Dependency Injection yang jadi tulang punggung aplikasi .NET modern, membangun REST API sungguhan lewat ASP.NET Core Minimal API, menyimpan datanya ke database lewat Entity Framework Core, sampai proteksi data dengan DTO dan konfigurasi CORS untuk integrasi frontend. Tujuh langkah, ikuti berurutan.
 
 **Asumsi:** roadmap ini menjelaskan dari dasar, tapi familiar dengan konsep OOP (object, class) dari bahasa lain akan membantu mempercepat pemahaman. Prasyarat tool (.NET SDK) disebutkan di catatan pertama.`,
   },
@@ -99,7 +99,7 @@ Roadmap ini pakai **Hermes Agent** dari Nous Research (open-source, *self-improv
     slug: "flutter",
     description: `Membangun aplikasi mobile yang jalan di Android DAN iOS secara tradisional berarti menulis DUA codebase terpisah — Kotlin/Java untuk Android, Swift untuk iOS. Logic bisnis yang sama harus diimplementasikan dua kali, dan bug yang diperbaiki di satu platform harus diperbaiki lagi manual di platform lainnya. Flutter menyelesaikan ini dengan satu codebase (bahasa Dart) yang dikompilasi jadi kode native untuk berbagai platform sekaligus.
 
-Roadmap ini fokus ke target Android: instalasi & menjalankan aplikasi pertama, memahami widget (StatelessWidget vs StatefulWidget), menyusun layout dari beberapa widget, berpindah antar halaman, sampai mengambil data dari API lewat HTTP request. Lima langkah, ikuti berurutan.
+Roadmap ini fokus ke target Android: instalasi & menjalankan aplikasi pertama, memahami widget (StatelessWidget vs StatefulWidget), menyusun layout dari beberapa widget, berpindah antar halaman, mengambil data dari API lewat HTTP request, sampai berbagi state reaktif antar-halaman secara ringan lewat ValueNotifier. Enam langkah, ikuti berurutan.
 
 **Asumsi:** familiar dengan konsep pemrograman umum (variabel, fungsi, class) dari bahasa apa pun — roadmap ini tidak mengajarkan sintaks Dart dari nol, tapi contoh kodenya cukup sederhana untuk diikuti pemula. Prasyarat tool (Flutter SDK, Android Studio) disebutkan di catatan pertama.`,
   },
@@ -108,7 +108,7 @@ Roadmap ini fokus ke target Android: instalasi & menjalankan aplikasi pertama, m
     slug: "java-spring-boot",
     description: `Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual dan setup server terpisah (Tomcat, web.xml) sebelum sempat menulis baris kode business logic pertama. Spring Boot menyelesaikan ini dengan auto-configuration, server tertanam (*embedded*), dan bundel dependency siap pakai (*starter*) — aplikasi web bisa jalan dari satu perintah.
 
-Roadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency Injection yang jadi tulang punggung Spring, membangun REST API, menyimpan data ke database lewat Spring Data JPA, sampai validasi request & penanganan error terpusat. Lima langkah, ikuti berurutan.
+Roadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency Injection yang jadi tulang punggung Spring, membangun REST API, menyimpan data ke database lewat Spring Data JPA, validasi request & penanganan error terpusat, sampai arsitektur DTO yang aman dan konfigurasi CORS agar API bisa diakses oleh aplikasi frontend. Enam langkah, ikuti berurutan.
 
 **Asumsi:** familiar dengan dasar bahasa Java (class, interface, method) dan konsep OOP — roadmap ini fokus ke Spring Boot itu sendiri, bukan mengajari sintaks Java dari nol. Prasyarat tool (JDK, Maven) disebutkan di catatan pertama.`,
   },
@@ -3195,6 +3195,99 @@ Tips:
     practice: `Buat dua folder proyek berbeda. Di masing-masing, buat venv terpisah (\`python -m venv .venv\`), aktifkan, lalu install versi \`requests\` yang BERBEDA di tiap proyek (mis. \`pip install requests==2.31.0\` di satu, \`pip install requests==2.28.0\` di lainnya). Jalankan \`pip freeze\` di kedua venv untuk membuktikan versinya benar-benar berbeda dan tidak saling memengaruhi satu sama lain. Ini menutup roadmap Python: dari sintaks dasar sampai mengelola dependency proyek secara terisolasi.`,
   },
   {
+    category: "python",
+    slug: "pip-dan-requests-dasar",
+    order: 9,
+    title: "Package Manager pip & Konsumsi API dengan Requests",
+    content: `Catatan sebelumnya membahas cara mengisolasi lingkungan proyek lewat virtual environment (\`.venv\`). **Masalah yang diselesaikan sekarang:** pustaka standar Python (\`math\`, \`os\`, \`json\`) sangat berguna, tetapi kekuatan terbesar Python ada pada ekosistem ribuan library pihak ketiga di **PyPI (Python Package Index)**. Bagaimana cara menginstal library eksternal dan memakainya untuk mengambil data dari REST API di internet?
+
+Python menyertakan package manager bawaan bernama **\`pip\`**. Salah satu library paling populer di dunia Python adalah **\`requests\`**, yang dirancang agar pengiriman HTTP request terasa sederhana dan manusiawi (*HTTP for Humans*).
+
+\`\`\`mermaid
+flowchart LR
+  subgraph PyPI["PyPI (Python Package Index)"]
+    Lib["requests library"]
+  end
+  subgraph LocalEnv["Proyek Lokal (.venv aktif)"]
+    Pip["pip install requests"] --> Venv[".venv/lib/..."]
+    Venv --> App["app.py (import requests)"]
+  end
+  subgraph WebAPI["Server Internet / REST API"]
+    API["https://api.example.com"]
+  end
+  Lib -->|Diunduh oleh| Pip
+  App -->|HTTP GET| API
+  API -->|JSON Response| App
+\`\`\`
+
+Perintah instalasi dan contoh kode mengambil data JSON:
+
+\`\`\`bash
+# 1. Pastikan venv sudah aktif (muncul tanda (.venv) di terminal)
+pip install requests
+
+# 2. Simpan daftar library yang terinstall ke requirements.txt
+pip freeze > requirements.txt
+\`\`\`
+
+\`\`\`python
+# app.py
+import requests
+
+def ambil_data_pengguna():
+    url = "https://jsonplaceholder.typicode.com/users/1"
+    
+    try:
+        # Kirim request HTTP GET dengan timeout agar tidak menggantung jika server lambat
+        response = requests.get(url, timeout=5)
+        
+        # raise_for_status() otomatis melempar exception jika status code 4xx atau 5xx
+        response.raise_for_status()
+        
+        # Konversi body JSON ke dictionary Python
+        user = response.json()
+        
+        print(f"Nama : {user['name']}")
+        print(f"Email: {user['email']}")
+        print(f"Kota : {user['address']['city']}")
+        
+    except requests.exceptions.RequestException as err:
+        print(f"Gagal mengambil data dari server: {err}")
+
+if __name__ == "__main__":
+    ambil_data_pengguna()
+\`\`\`
+
+Poin penting:
+
+- Selalu pastikan virtual environment sedang aktif sebelum menjalankan \`pip install\`, agar library tidak terpasang secara global di sistem operasi.
+- Berkas \`requirements.txt\` adalah standar berbagi dependensi di proyek Python — orang lain (atau server produksi) cukup menjalankan \`pip install -r requirements.txt\`.
+- Selalu tentukan parameter \`timeout\` pada \`requests.get()\` untuk mencegah aplikasi membeku tanpa batas saat jaringan bermasalah.
+- Method \`response.json()\` langsung mengonversi format JSON menjadi tipe data bawaan Python (\`dict\` atau \`list\`).`,
+    sources: [
+      {
+        label: "Requests: HTTP for Humans — Official Documentation",
+        url: "https://requests.readthedocs.io/en/latest/"
+      },
+      {
+        label: "Python Docs — Installing Python Modules",
+        url: "https://docs.python.org/3/installing/index.html"
+      }
+    ],
+    prerequisites: [
+      {
+        label: "Python 3.8+ dan virtual environment yang sudah aktif",
+        url: "/notes/python/virtual-environment"
+      }
+    ],
+    practice: `Di dalam folder proyek dengan virtual environment aktif:
+1. Jalankan \`pip install requests\`.
+2. Buat file \`cek_cuaca.py\`.
+3. Gunakan \`requests.get("https://api.github.com/zen")\` untuk mengambil kutipan filosofi acak dari GitHub API.
+4. Cetak teks kutipannya menggunakan \`response.text\` dan periksa \`response.status_code\`.
+5. Jalankan \`pip freeze > requirements.txt\` dan buka file yang dihasilkan untuk melihat versi library yang tercatat.`,
+  },
+  {
     category: "supabase",
     slug: "setup-client",
     order: 0,
@@ -4633,6 +4726,101 @@ Poin penting:
     practice: `Lanjutkan project \`TodoApi\` dari catatan sebelumnya. Ganti \`List<TodoItem>\` in-memory dengan \`AppDbContext\` + SQLite seperti contoh di atas (termasuk jalankan migration-nya). Jalankan API, tambah beberapa todo lewat POST, lalu STOP aplikasinya (Ctrl+C) dan jalankan ulang (\`dotnet run\`) — panggil GET /api/todos lagi dan buktikan data yang kamu tambahkan sebelumnya masih ada (tidak hilang seperti versi in-memory yang direset tiap restart). Ini menutup roadmap .NET: dari CLI dasar sampai REST API yang datanya beneran tersimpan permanen.`,
   },
   {
+    category: "dotnet",
+    slug: "dto-dan-cors-dotnet",
+    order: 6,
+    title: "Pola DTO & Konfigurasi CORS di ASP.NET Core",
+    content: `Catatan sebelumnya membahas cara mengakses database menggunakan Entity Framework Core. **Masalah yang diselesaikan sekarang:** saat API ASP.NET Core dipanggil oleh aplikasi frontend (seperti React, Vue, atau mobile app), browser memblokir request karena kebijakan keamanan **CORS**. Selain itu, mengembalikan class model EF Core langsung ke JSON rentan terhadap *over-posting attack* (user memasukkan field yang tidak seharusnya) dan dapat memicu crash *cyclic references*.
+
+Penyelesaiannya adalah menerapkan pola **DTO (Data Transfer Object)** menggunakan C# \`record\` serta mengaktifkan middleware **CORS** bawaan ASP.NET Core.
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Frontend["Frontend Browser (Port 3000)"]
+    FE["Aplikasi Frontend"]
+  end
+  subgraph ASPNET["ASP.NET Core Backend (Port 5000)"]
+    CorsMiddleware["app.UseCors('FrontendPolicy')"]
+    Endpoint["app.MapGet('/api/produk', ...)"]
+    DTO["ProdukDto (C# record)<br/>id, nama, harga"]
+    DBModel["Model EF Core Produk<br/>(id, nama, harga, biayaRahasia, user_id)"]
+  end
+  FE -->|CORS Preflight / Request| CorsMiddleware
+  CorsMiddleware --> Endpoint
+  Endpoint --> DBModel
+  DBModel -->|Select projection| DTO
+  DTO -->|Kirim JSON Bersih| FE
+\`\`\`
+
+Contoh implementasi DTO dan Middleware CORS di \`Program.cs\`:
+
+\`\`\`csharp
+// 1. DTO Didefinisikan sebagai C# record yang ringkas dan immutable
+public record ProdukDto(int Id, string Nama, decimal Harga);
+public record BuatProdukDto(string Nama, decimal Harga);
+
+// 2. Konfigurasi di Program.cs
+var builder = WebApplication.CreateBuilder(args);
+
+// Daftarkan service CORS
+var corsPolicy = "IzinkanFrontend";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsPolicy, policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+var app = builder.Build();
+
+// Aktifkan middleware CORS (wajib ditaruh sebelum endpoint mapping)
+app.UseCors(corsPolicy);
+
+// Endpoint menggunakan DTO untuk input dan output
+app.MapGet("/api/produk", async (AppDbContext db) =>
+    await db.Produk
+            .Select(p => new ProdukDto(p.Id, p.Nama, p.Harga))
+            .ToListAsync());
+
+app.MapPost("/api/produk", async (BuatProdukDto input, AppDbContext db) =>
+{
+    var produkBaru = new Produk { Nama = input.Nama, Harga = input.Harga };
+    db.Produk.Add(produkBaru);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/api/produk/{produkBaru.Id}", new ProdukDto(produkBaru.Id, produkBaru.Nama, produkBaru.Harga));
+});
+
+app.Run();
+\`\`\`
+
+Poin penting:
+
+- Penggunaan \`.Select(p => new ProdukDto(...))\` pada query LINQ EF Core melakukan *projection* langsung di query SQL (\`SELECT Id, Nama, Harga FROM Produk\`), bukan mengambil semua kolom baru difilter di memori.
+- \`record\` di C# secara bawaan memiliki *value equality* dan sintaks yang sangat ringkas, menjadikannya standar baku untuk DTO di .NET modern.
+- Selalu pastikan pemanggilan \`app.UseCors()\` diletakkan pada posisi pipeline middleware yang tepat (sebelum definisi routing endpoint).`,
+    sources: [
+      {
+        label: "Microsoft Learn — Enable Cross-Origin Requests (CORS) in ASP.NET Core",
+        url: "https://learn.microsoft.com/en-us/aspnet/core/security/cors"
+      },
+      {
+        label: "Microsoft Learn — Create Data Transfer Objects (DTOs)",
+        url: "https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5"
+      }
+    ],
+    prerequisites: [],
+    practice: `Di project ASP.NET Core Minimal API kamu:
+1. Buat record \`UserDto(int Id, string Username, string Email)\`.
+2. Di \`Program.cs\`, tambahkan service \`builder.Services.AddCors(...)\` untuk mengizinkan \`http://localhost:3000\`.
+3. Pasang \`app.UseCors(...)\` sebelum endpoint.
+4. Ubah endpoint \`GET /api/users\` agar mengembalikan \`UserDto\` menggunakan proyeksi LINQ \`.Select()\`.
+5. Jalankan aplikasi (\`dotnet run\`) dan verifikasi melalui tab Network browser bahwa header respons \`Access-Control-Allow-Origin: http://localhost:3000\` berhasil disertakan.`,
+  },
+  {
     category: "typescript",
     slug: "type-assertion-dasar",
     order: 4,
@@ -5719,9 +5907,116 @@ Poin penting:
 - Panggil fungsi \`Future\` (seperti \`ambilDaftarPost()\`) di \`initState()\` dan simpan hasilnya ke variabel, JANGAN dipanggil langsung di \`build()\` — kalau dipanggil di \`build()\`, request akan terkirim ULANG setiap kali widget di-*rebuild*.
 - Selalu cek \`response.statusCode\` sebelum memproses \`response.body\` — status selain 200 (seperti 404 atau 500) berarti request-nya gagal meski tidak melempar exception Dart secara otomatis.`,
     sources: [
-      { url: "https://docs.flutter.dev/cookbook/networking/fetch-data", label: "Flutter Cookbook — Fetch Data from the Internet" },
-    ],
+      {
+            "url": "https://docs.flutter.dev/cookbook/networking/fetch-data",
+            "label": "Flutter Cookbook — Fetch Data from the Internet"
+      }
+],
+    prerequisites: [],
     practice: `Tambahkan package \`http\` (\`flutter pub add http\`). Buat fungsi \`ambilDaftarPost()\` seperti contoh di atas, tampilkan hasilnya lewat \`FutureBuilder\` di sebuah halaman baru. Pastikan tampilan menunjukkan \`CircularProgressIndicator\` sesaat sebelum data muncul. SENGAJA salahkan URL-nya (mis. ganti jadi domain yang tidak ada) untuk memicu \`hasError\`, buktikan pesan error-nya tertampil alih-alih app crash. Ini menutup roadmap Flutter: dari instalasi sampai aplikasi yang menampilkan data sungguhan dari API.`,
+  },
+  {
+    category: "flutter",
+    slug: "state-management-valuenotifier",
+    order: 5,
+    title: "State Management Sederhana dengan ValueNotifier",
+    content: `Catatan sebelumnya membahas cara mengambil data dari REST API menggunakan HTTP request. **Masalah yang diselesaikan sekarang:** setelah data diambil di Halaman A, bagaimana cara menampilkan data itu di Halaman B atau memperbarui widget di sudut lain layar tanpa harus melempar variabel lewat parameter konstruktor secara berantai (*prop drilling*)?
+
+Di ekosistem Flutter ada banyak pustaka state management pihak ketiga (seperti Provider, Bloc, atau Riverpod). Namun, untuk pemula dan aplikasi skala kecil-menengah, Flutter sudah memiliki solusi bawaan yang sangat ringan dan tanpa dependensi tambahan: **\`ValueNotifier\`** dan **\`ValueListenableBuilder\`**.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Model["State Global / Service"]
+    VN["ValueNotifier<int> counter = ValueNotifier(0);"]
+  end
+  subgraph ScreenA["Halaman 1: Tombol Tambah"]
+    Btn["ElevatedButton(onPressed: () => counter.value++)"]
+  end
+  subgraph ScreenB["Halaman 2: Layar Pratinjau"]
+    VLB["ValueListenableBuilder<int>(<br/>  valueListenable: counter,<br/>  builder: (context, value, child) => Text('$value')<br/>)"]
+  end
+  Btn -->|Ubah nilai .value| VN
+  VN -.->|Notifikasi otomatis hanya ke listener| VLB
+\`\`\`
+
+Contoh implementasi berbagi state keranjang belanja sederhana:
+
+\`\`\`dart
+import 'package:flutter/material.dart';
+
+// 1. Definisikan state yang dapat didengarkan di level global/service
+class KeranjangService {
+  static final ValueNotifier<int> totalItem = ValueNotifier<int>(0);
+
+  static void tambahItem() {
+    totalItem.value++;
+  }
+
+  static void reset() {
+    totalItem.value = 0;
+  }
+}
+
+// 2. Widget yang mendengarkan perubahan nilai (hanya bagian ini yang re-build!)
+class BadgeKeranjang extends StatelessWidget {
+  const BadgeKeranjang({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<int>(
+      valueListenable: KeranjangService.totalItem,
+      builder: (context, total, child) {
+        return Row(
+          children: [
+            const Icon(Icons.shopping_cart),
+            const SizedBox(width: 4),
+            Text(
+              '$total item',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+// 3. Tombol aksi yang mengubah nilai di widget terpisah
+class TombolBeli extends StatelessWidget {
+  const TombolBeli({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: KeranjangService.tambahItem,
+      child: const Text('Tambah ke Keranjang'),
+    );
+  }
+}
+\`\`\`
+
+Poin penting:
+
+- \`ValueNotifier<T>\` menyimpan satu nilai dan otomatis memberitahu widget pendengar setiap kali properti \`.value\` diganti.
+- \`ValueListenableBuilder\` hanya membangun ulang (*re-render*) widget di dalam callback \`builder\`-nya saat nilai berubah — seluruh halaman di luarnya tidak ikut re-build, membuat performa sangat efisien.
+- Pola ini bawaan dari Flutter SDK (paket \`flutter/foundation.dart\` & \`flutter/widgets.dart\`), sehingga tidak memerlukan dependensi eksternal di \`pubspec.yaml\`.
+- Pahami pola reaktif ini sebelum melangkah ke state management kompleks seperti Bloc atau Riverpod.`,
+    sources: [
+      {
+            "label": "Flutter API Reference — ValueNotifier<T> class",
+            "url": "https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html"
+      },
+      {
+            "label": "Flutter API Reference — ValueListenableBuilder<T> class",
+            "url": "https://api.flutter.dev/flutter/widgets/ValueListenableBuilder-class.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Flutter latihan kamu:
+1. Buat file \`lib/state_counter.dart\` dan buat objek \`final ValueNotifier<int> skorApp = ValueNotifier<int>(0);\`.
+2. Di halaman utama, tampilkan nilai skor menggunakan widget \`ValueListenableBuilder<int>\`.
+3. Di halaman kedua (buka lewat \`Navigator.push\`), buat tombol "Tambah Skor" yang menjalankan \`skorApp.value += 10\`.
+4. Tekan tombol di halaman kedua, lalu kembali ke halaman utama (\`Navigator.pop\`), dan buktikan bahwa nilai skor langsung tersinkronisasi secara otomatis tanpa passing argumen balik.`,
   },
   {
     category: "java-spring-boot",
@@ -6093,5 +6388,95 @@ Poin penting:
       { url: "https://docs.spring.io/spring-boot/reference/web/servlet.html", label: "Spring Boot Docs — Servlet Web Applications (Error Handling)" },
     ],
     practice: `Tambahkan \`@NotBlank\` dan \`@Size\` ke field \`judul\` di entity \`Todo\`, tambahkan \`@Valid\` di parameter \`@RequestBody\` pada method \`tambah()\`. Coba \`POST /api/todos\` dengan \`judul\` kosong — pastikan responnya status 400. Buat \`GlobalExceptionHandler\` seperti contoh di atas, ulangi request yang sama — bandingkan response JSON-nya SEBELUM dan SESUDAH ada \`@RestControllerAdvice\` (harus jadi lebih rapi dan jelas field mana yang error). Ini menutup roadmap Java (Spring Boot): dari instalasi dasar sampai REST API yang datanya tersimpan permanen dan tervalidasi dengan aman.`,
+  },
+  {
+    category: "java-spring-boot",
+    slug: "dto-dan-cors-spring-boot",
+    order: 5,
+    title: "Pola DTO & Konfigurasi CORS di Spring Boot",
+    content: `Catatan sebelumnya membahas validasi data request dan penanganan error terpusat. **Masalah yang diselesaikan sekarang:** saat aplikasi frontend (seperti React, Next.js, atau Flutter) memanggil API Spring Boot di browser, browser memblokir request tersebut dengan pesan error **CORS (Cross-Origin Resource Sharing)**. Masalah kedua: mengembalikan langsung class \`@Entity\` database ke client bisa membocorkan data sensitif (seperti password hash) dan memicu error perulangan tak terbatas (*circular reference*).
+
+Solusinya terdiri dari dua best practice industri:
+1. **DTO (Data Transfer Object):** Menggunakan Java \`record\` atau class terpisah untuk mendefinisikan secara presisi data apa saja yang boleh diterima (*Request DTO*) dan dikirim ke luar (*Response DTO*).
+2. **Konfigurasi CORS:** Mengizinkan domain frontend mengakses resource backend Spring Boot.
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Frontend["Frontend (http://localhost:3000)"]
+    FE["React / Next.js / Flutter"]
+  end
+  subgraph SpringBoot["Backend Spring Boot (http://localhost:8080)"]
+    CORS["@CrossOrigin / WebMvcConfigurer<br/>(Loloskan Origin Frontend)"]
+    DTO["ProdukResponseDTO (record)<br/>Hanya id, nama, harga"]
+    Ctrl["REST Controller"]
+    Entity["@Entity Produk<br/>(id, nama, harga, stok, secretCost)"]
+  end
+  FE -->|HTTP Request| CORS
+  CORS --> Ctrl
+  Ctrl --> Entity
+  Entity -->|Petakan hanya field publik| DTO
+  DTO -->|Kirim JSON Aman| FE
+\`\`\`
+
+Contoh implementasi DTO (Java Record) dan Konfigurasi CORS:
+
+\`\`\`java
+// 1. DTO Respons: Ringkas, immutable, dan hanya memuat data publik
+public record ProdukResponseDTO(
+    Long id,
+    String nama,
+    Double harga
+) {
+    // Factory method untuk memetakan dari Entity ke DTO
+    public static ProdukResponseDTO fromEntity(Produk produk) {
+        return new ProdukResponseDTO(produk.getId(), produk.getNama(), produk.getHarga());
+    }
+}
+\`\`\`
+
+\`\`\`java
+// 2. Konfigurasi Global CORS (WebMvcConfigurer)
+package com.example.demo.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class CorsConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins("http://localhost:3000", "https://aplikasiku.com")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Jangan pernah mengembalikan class \`@Entity\` JPA langsung sebagai response JSON di API produksi. DTO memutus keterikatan antara skema database dan format kontrak API.
+- Sejak Java 14+, \`record\` adalah pilihan paling bersih untuk DTO karena otomatis menyediakan constructor, getter, \`equals()\`, dan \`hashCode()\` tanpa boilerplate.
+- Anotasi \`@CrossOrigin(origins = "http://localhost:3000")\` bisa dipasang per-controller, tetapi konfigurasi terpusat lewat \`WebMvcConfigurer\` jauh lebih mudah dipelihara.
+- Kebijakan CORS ditegakkan oleh *browser*, bukan server — request dari curl atau mobile app tidak terpengaruh CORS.`,
+    sources: [
+      {
+        label: "Spring Docs — Enabling Cross Origin Requests for a RESTful Web Service",
+        url: "https://spring.io/guides/gs/rest-service-cors"
+      },
+      {
+        label: "Baeldung — The DTO Pattern (Data Transfer Object)",
+        url: "https://www.baeldung.com/java-dto-pattern"
+      }
+    ],
+    prerequisites: [],
+    practice: `Di project Spring Boot kamu:
+1. Buat record baru \`UserResponseDTO(Long id, String username, String email)\`.
+2. Di controller \`@GetMapping("/api/users")\`, ubah return type dari \`List<User>\` menjadi \`List<UserResponseDTO>\`.
+3. Buat file konfigurasi \`CorsConfig.java\` seperti contoh di atas untuk mengizinkan \`http://localhost:3000\`.
+4. Jalankan aplikasi dan coba panggil endpoint lewat browser atau fetch JavaScript dari domain yang berbeda untuk memverifikasi bahwa header \`Access-Control-Allow-Origin\` terkirim dengan benar.`,
   },
 ];
