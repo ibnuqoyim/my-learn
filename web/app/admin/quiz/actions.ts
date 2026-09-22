@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { requireAdmin } from "@/lib/admin-guard";
 import { validateQuizQuestionInput } from "@/lib/validateQuizQuestion";
 import type { QuizQuestionFormInput, QuizScope } from "@/lib/types";
@@ -26,6 +26,7 @@ function revalidateQuizScope(scope: QuizScope) {
     revalidatePath("/kategori/[slug]", "page");
     revalidatePath(`/admin/quiz/category/${scope.categoryId}`);
   }
+  revalidateTag("quiz-questions", { expire: 0 });
 }
 
 export async function createQuizQuestionAction(scope: QuizScope, input: QuizQuestionFormInput): Promise<ActionResult> {

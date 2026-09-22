@@ -1,4 +1,7 @@
+import { unstable_cache } from "next/cache";
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { normalizeNoteSummary } from "@/lib/normalizeNoteSummary";
 import type {
   AdjacentNotes,
@@ -28,105 +31,150 @@ const supabaseConfigured = Boolean(
   process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 );
 
+// Cache untuk query PUBLIK yang tidak bergantung ke sesi user mana pun
+// (konten catatan/kategori/kuis published) -- lihat lib/supabase/public.ts.
+// 5 menit sebagai jaring pengaman kalau ada yang lolos, tapi edit lewat
+// dashboard admin (app/admin/*/actions.ts) langsung invalidate lebih cepat
+// lewat revalidateTag, sama pola-nya dengan revalidatePath yang sudah ada
+// di situ untuk Router Cache halaman admin.
+const PUBLIC_DATA_REVALIDATE_SECONDS = 300;
+
 export async function getRecentNotes(limit = 8): Promise<NoteSummary[]> {
   if (!supabaseConfigured) return [];
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("notes")
-    .select(NOTE_SUMMARY_SELECT)
-    .eq("status", "published")
-    .order("updated_at", { ascending: false })
-    .limit(limit);
-
-  if (error) throw error;
-  return (data ?? []).map(normalizeNoteSummary);
+  return getCachedRecentNotes(limit);
 }
+
+const getCachedRecentNotes = unstable_cache(
+  async (limit: number): Promise<NoteSummary[]> => {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+      .from("notes")
+      .select(NOTE_SUMMARY_SELECT)
+      .eq("status", "published")
+      .order("updated_at", { ascending: false })
+      .limit(limit);
+
+    if (error) throw error;
+    return (data ?? []).map(normalizeNoteSummary);
+  },
+  ["recent-notes"],
+  { tags: ["notes"], revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
 
 export async function getCategoriesWithNotes(): Promise<CategoryWithNotes[]> {
   if (!supabaseConfigured) return [];
-  const supabase = await createClient();
-  const { data: categories, error: categoriesError } = await supabase
-    .from("categories")
-    .select("id, name, slug")
-    .order("name", { ascending: true });
-
-  if (categoriesError) throw categoriesError;
-
-  const { data: notes, error: notesError } = await supabase
-    .from("notes")
-    .select(NOTE_SUMMARY_SELECT)
-    .eq("status", "published")
-    .order("updated_at", { ascending: false });
-
-  if (notesError) throw notesError;
-
-  const summaries = (notes ?? []).map(normalizeNoteSummary);
-
-  return (categories ?? []).map((category) => ({
-    ...category,
-    notes: summaries.filter((note) => note.category.id === category.id),
-  }));
+  return getCachedCategoriesWithNotes();
 }
+
+const getCachedCategoriesWithNotes = unstable_cache(
+  async (): Promise<CategoryWithNotes[]> => {
+    const supabase = createPublicClient();
+    const { data: categories, error: categoriesError } = await supabase
+      .from("categories")
+      .select("id, name, slug")
+      .order("name", { ascending: true });
+
+    if (categoriesError) throw categoriesError;
+
+    const { data: notes, error: notesError } = await supabase
+      .from("notes")
+      .select(NOTE_SUMMARY_SELECT)
+      .eq("status", "published")
+      .order("updated_at", { ascending: false });
+
+    if (notesError) throw notesError;
+
+    const summaries = (notes ?? []).map(normalizeNoteSummary);
+
+    return (categories ?? []).map((category) => ({
+      ...category,
+      notes: summaries.filter((note) => note.category.id === category.id),
+    }));
+  },
+  ["categories-with-notes"],
+  { tags: ["notes", "categories"], revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
 
 export async function getCategoryBySlug(
   slug: string
 ): Promise<{ category: Category; notes: NoteSummary[] } | null> {
   if (!supabaseConfigured) return null;
-  const supabase = await createClient();
-  const { data: category, error: categoryError } = await supabase
-    .from("categories")
-    .select("id, name, slug, description")
-    .eq("slug", slug)
-    .maybeSingle();
-
-  if (categoryError) throw categoryError;
-  if (!category) return null;
-
-  const { data: notes, error: notesError } = await supabase
-    .from("notes")
-    .select(NOTE_SUMMARY_SELECT)
-    .eq("category_id", category.id)
-    .eq("status", "published")
-    .order("order_index", { ascending: true });
-
-  if (notesError) throw notesError;
-
-  return { category, notes: (notes ?? []).map(normalizeNoteSummary) };
+  return getCachedCategoryBySlug(slug);
 }
+
+const getCachedCategoryBySlug = unstable_cache(
+  async (slug: string): Promise<{ category: Category; notes: NoteSummary[] } | null> => {
+    const supabase = createPublicClient();
+    const { data: category, error: categoryError } = await supabase
+      .from("categories")
+      .select("id, name, slug, description")
+      .eq("slug", slug)
+      .maybeSingle();
+
+    if (categoryError) throw categoryError;
+    if (!category) return null;
+
+    const { data: notes, error: notesError } = await supabase
+      .from("notes")
+      .select(NOTE_SUMMARY_SELECT)
+      .eq("category_id", category.id)
+      .eq("status", "published")
+      .order("order_index", { ascending: true });
+
+    if (notesError) throw notesError;
+
+    return { category, notes: (notes ?? []).map(normalizeNoteSummary) };
+  },
+  ["category-by-slug"],
+  { tags: ["notes", "categories"], revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
 
 export async function getNoteBySlug(categorySlug: string, noteSlug: string): Promise<Note | null> {
   if (!supabaseConfigured) return null;
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("notes")
-    .select(
-      "id, title, slug, content, sources, prerequisites, practice, order_index, created_at, updated_at, category:categories!inner(id, name, slug)"
-    )
-    .eq("slug", noteSlug)
-    .eq("status", "published")
-    .eq("categories.slug", categorySlug)
-    .maybeSingle();
-
-  if (error) throw error;
-  if (!data) return null;
-
-  const category = Array.isArray(data.category) ? data.category[0] : data.category;
-  return {
-    id: data.id,
-    title: data.title,
-    slug: data.slug,
-    content: data.content,
-    sources: data.sources ?? [],
-    prerequisites: data.prerequisites ?? [],
-    practice: data.practice ?? null,
-    orderIndex: data.order_index ?? 0,
-    created_at: data.created_at,
-    updated_at: data.updated_at,
-    category,
-  };
+  return getCachedNoteBySlug(categorySlug, noteSlug);
 }
 
-export async function getCurrentProfile(): Promise<Profile | null> {
+const getCachedNoteBySlug = unstable_cache(
+  async (categorySlug: string, noteSlug: string): Promise<Note | null> => {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+      .from("notes")
+      .select(
+        "id, title, slug, content, sources, prerequisites, practice, order_index, created_at, updated_at, category:categories!inner(id, name, slug)"
+      )
+      .eq("slug", noteSlug)
+      .eq("status", "published")
+      .eq("categories.slug", categorySlug)
+      .maybeSingle();
+
+    if (error) throw error;
+    if (!data) return null;
+
+    const category = Array.isArray(data.category) ? data.category[0] : data.category;
+    return {
+      id: data.id,
+      title: data.title,
+      slug: data.slug,
+      content: data.content,
+      sources: data.sources ?? [],
+      prerequisites: data.prerequisites ?? [],
+      practice: data.practice ?? null,
+      orderIndex: data.order_index ?? 0,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+      category,
+    };
+  },
+  ["note-by-slug"],
+  { tags: ["notes"], revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
+
+// React.cache (bukan unstable_cache) -- dedupe per-request, bukan lintas
+// user/request seperti query publik di atas. layout.tsx (navbar) dan tiap
+// halaman catatan/kategori sama-sama memanggil ini; tanpa dedupe ini jadi
+// dua request auth.getUser() terpisah ke Supabase per satu kunjungan
+// halaman, padahal hasilnya pasti sama dalam satu request yang sama.
+export const getCurrentProfile = cache(async (): Promise<Profile | null> => {
   if (!supabaseConfigured) return null;
   const supabase = await createClient();
   const {
@@ -146,7 +194,7 @@ export async function getCurrentProfile(): Promise<Profile | null> {
     displayName: profile?.display_name ?? null,
     role: (profile?.role as Profile["role"]) ?? "user",
   };
-}
+});
 
 export async function getComments(noteId: string): Promise<Comment[]> {
   if (!supabaseConfigured) return [];
@@ -211,22 +259,30 @@ export async function getNoteProgressMap(userId: string, noteIds: string[]): Pro
 
 export async function getAdjacentNotes(categoryId: string, currentNoteId: string): Promise<AdjacentNotes> {
   if (!supabaseConfigured) return { prev: null, next: null };
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("notes")
-    .select(NOTE_SUMMARY_SELECT)
-    .eq("category_id", categoryId)
-    .eq("status", "published")
-    .order("order_index", { ascending: true });
+  const ordered = await getCachedOrderedNoteSummaries(categoryId);
 
-  if (error) throw error;
-
-  const ordered = (data ?? []).map(normalizeNoteSummary);
   const index = ordered.findIndex((note) => note.id === currentNoteId);
   if (index === -1) return { prev: null, next: null };
 
   return { prev: ordered[index - 1] ?? null, next: ordered[index + 1] ?? null };
 }
+
+const getCachedOrderedNoteSummaries = unstable_cache(
+  async (categoryId: string): Promise<NoteSummary[]> => {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+      .from("notes")
+      .select(NOTE_SUMMARY_SELECT)
+      .eq("category_id", categoryId)
+      .eq("status", "published")
+      .order("order_index", { ascending: true });
+
+    if (error) throw error;
+    return (data ?? []).map(normalizeNoteSummary);
+  },
+  ["ordered-note-summaries"],
+  { tags: ["notes"], revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
 
 export async function searchNotes(query: string): Promise<NoteSummary[]> {
   if (!supabaseConfigured || !query.trim()) return [];
@@ -338,24 +394,32 @@ function quizScopeColumn(scope: QuizScope): [string, string] {
 
 export async function getQuizQuestions(scope: QuizScope): Promise<QuizQuestion[]> {
   if (!supabaseConfigured) return [];
-  const supabase = await createClient();
-  const [column, value] = quizScopeColumn(scope);
-  const { data, error } = await supabase
-    .from(quizQuestionsTable(scope))
-    .select("id, question, options, correct_index, explanation, order_index")
-    .eq(column, value)
-    .order("order_index", { ascending: true });
-
-  if (error) throw error;
-  return (data ?? []).map((row: any) => ({
-    id: row.id,
-    question: row.question,
-    options: row.options ?? [],
-    correctIndex: row.correct_index,
-    explanation: row.explanation,
-    orderIndex: row.order_index ?? 0,
-  }));
+  const [table, column, value] = ["noteId" in scope ? "note_quiz_questions" : "category_quiz_questions", ...quizScopeColumn(scope)];
+  return getCachedQuizQuestions(table, column, value);
 }
+
+const getCachedQuizQuestions = unstable_cache(
+  async (table: string, column: string, value: string): Promise<QuizQuestion[]> => {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+      .from(table)
+      .select("id, question, options, correct_index, explanation, order_index")
+      .eq(column, value)
+      .order("order_index", { ascending: true });
+
+    if (error) throw error;
+    return (data ?? []).map((row: any) => ({
+      id: row.id,
+      question: row.question,
+      options: row.options ?? [],
+      correctIndex: row.correct_index,
+      explanation: row.explanation,
+      orderIndex: row.order_index ?? 0,
+    }));
+  },
+  ["quiz-questions"],
+  { tags: ["quiz-questions"], revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
 
 // Dipakai halaman admin quiz — bentuknya sama dengan getQuizQuestions,
 // cuma explanation di-default-kan ke string kosong (form input, bukan
@@ -423,42 +487,58 @@ export async function getAiChatMessages(userId: string, scope: AiChatScope): Pro
 // dan getNoteForAdmin yang tidak filter status published).
 export async function getNoteAiContext(noteId: string): Promise<{ title: string; content: string; categoryName: string } | null> {
   if (!supabaseConfigured) return null;
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("notes")
-    .select("title, content, category:categories!inner(name)")
-    .eq("id", noteId)
-    .eq("status", "published")
-    .maybeSingle();
-
-  if (error) throw error;
-  if (!data) return null;
-  const category = Array.isArray(data.category) ? data.category[0] : data.category;
-  return { title: data.title, content: data.content, categoryName: category?.name ?? "" };
+  return getCachedNoteAiContext(noteId);
 }
+
+const getCachedNoteAiContext = unstable_cache(
+  async (noteId: string): Promise<{ title: string; content: string; categoryName: string } | null> => {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+      .from("notes")
+      .select("title, content, category:categories!inner(name)")
+      .eq("id", noteId)
+      .eq("status", "published")
+      .maybeSingle();
+
+    if (error) throw error;
+    if (!data) return null;
+    const category = Array.isArray(data.category) ? data.category[0] : data.category;
+    return { title: data.title, content: data.content, categoryName: category?.name ?? "" };
+  },
+  ["note-ai-context"],
+  { tags: ["notes"], revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
 
 export async function getCategoryAiContext(
   categoryId: string
 ): Promise<{ name: string; description: string | null; noteTitles: string[] } | null> {
   if (!supabaseConfigured) return null;
-  const supabase = await createClient();
-  const { data: category, error: categoryError } = await supabase
-    .from("categories")
-    .select("name, description")
-    .eq("id", categoryId)
-    .maybeSingle();
-
-  if (categoryError) throw categoryError;
-  if (!category) return null;
-
-  const { data: notes, error: notesError } = await supabase
-    .from("notes")
-    .select("title")
-    .eq("category_id", categoryId)
-    .eq("status", "published")
-    .order("order_index", { ascending: true });
-
-  if (notesError) throw notesError;
-
-  return { name: category.name, description: category.description, noteTitles: (notes ?? []).map((n) => n.title) };
+  return getCachedCategoryAiContext(categoryId);
 }
+
+const getCachedCategoryAiContext = unstable_cache(
+  async (categoryId: string): Promise<{ name: string; description: string | null; noteTitles: string[] } | null> => {
+    const supabase = createPublicClient();
+    const { data: category, error: categoryError } = await supabase
+      .from("categories")
+      .select("name, description")
+      .eq("id", categoryId)
+      .maybeSingle();
+
+    if (categoryError) throw categoryError;
+    if (!category) return null;
+
+    const { data: notes, error: notesError } = await supabase
+      .from("notes")
+      .select("title")
+      .eq("category_id", categoryId)
+      .eq("status", "published")
+      .order("order_index", { ascending: true });
+
+    if (notesError) throw notesError;
+
+    return { name: category.name, description: category.description, noteTitles: (notes ?? []).map((n) => n.title) };
+  },
+  ["category-ai-context"],
+  { tags: ["notes", "categories"], revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);

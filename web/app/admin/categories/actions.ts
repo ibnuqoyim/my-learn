@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { requireAdmin } from "@/lib/admin-guard";
 import { validateCategoryInput, type CategoryInput } from "@/lib/validateCategory";
 
@@ -22,6 +22,8 @@ export async function createCategoryAction(input: CategoryInput): Promise<Action
 
     revalidatePath("/admin/categories");
     revalidatePath("/");
+    revalidateTag("categories", { expire: 0 });
+    revalidateTag("notes", { expire: 0 });
     return { success: true };
   } catch (e) {
     return { success: false, error: e instanceof Error ? e.message : "Terjadi kesalahan" };
@@ -47,6 +49,8 @@ export async function updateCategoryAction(id: string, input: CategoryInput): Pr
 
     revalidatePath("/admin/categories");
     revalidatePath("/");
+    revalidateTag("categories", { expire: 0 });
+    revalidateTag("notes", { expire: 0 });
     return { success: true };
   } catch (e) {
     return { success: false, error: e instanceof Error ? e.message : "Terjadi kesalahan" };
@@ -64,6 +68,8 @@ export async function deleteCategoryAction(id: string): Promise<ActionResult> {
 
     revalidatePath("/admin/categories");
     revalidatePath("/");
+    revalidateTag("categories", { expire: 0 });
+    revalidateTag("notes", { expire: 0 });
     return { success: true };
   } catch (e) {
     return { success: false, error: e instanceof Error ? e.message : "Terjadi kesalahan" };
