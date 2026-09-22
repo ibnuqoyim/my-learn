@@ -1,12 +1,5 @@
 [
   {
-    "id": "df6694f2-8cc1-47da-b697-e5c0f0f2cf89",
-    "name": "Git",
-    "slug": "git",
-    "created_at": "2026-09-18 06:20:59.380972+00",
-    "description": "Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (`script_v2_final.js`, `script_v2_REVISI.js`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.\n\nRoadmap ini membawamu dari cara menyimpan perubahan (staging & commit), mengabaikan file yang tidak boleh ter-commit lewat .gitignore, berkolaborasi lewat repository remote (GitHub), bercabang untuk mengerjakan fitur terisolasi (branching), menyimpan perubahan sementara lewat stash, menyelesaikan merge conflict saat menggabungkan kode, sampai teknik membatalkan perubahan yang salah (restore, reset, revert). Tujuh langkah, ikuti berurutan.\n\n**Asumsi:** familiar dengan command line/terminal dasar. Prasyarat tool (Git, akun GitHub) disebutkan di catatan yang membutuhkannya."
-  },
-  {
     "id": "b4e47208-8775-4a24-a2f3-1655745b90f1",
     "name": "Python",
     "slug": "python",
@@ -21,11 +14,18 @@
     "description": "Membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya. Supabase menyediakan semua itu siap pakai di atas Postgres, diakses langsung dari client tanpa perlu backend server terpisah.\n\nRoadmap ini membawamu dari setup client, operasi CRUD dasar, menghubungkan data lewat relasi tabel & foreign key, mengenali user lewat autentikasi, mengamankan data per user lewat Row Level Security, menyimpan file lewat Storage, sampai mendengarkan perubahan data secara live lewat Realtime. Tujuh langkah yang membangun satu sama lain — RLS memakai `auth.uid()` dari langkah autentikasi sebelumnya, dan policy Storage/Realtime memakai pola RLS yang sama, jadi urutannya penting.\n\n**Asumsi:** familiar dengan JavaScript/TypeScript dasar dan konsep `async`/`await`. Butuh akun Supabase (gratis) — disebutkan di catatan pertama."
   },
   {
-    "id": "620410c3-ebfb-4e0b-a8a6-578aaa70d726",
-    "name": "Java (Spring Boot)",
-    "slug": "java-spring-boot",
-    "created_at": "2026-09-19 12:26:42.215569+00",
-    "description": "Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual dan setup server terpisah (Tomcat, web.xml) sebelum sempat menulis baris kode business logic pertama. Spring Boot menyelesaikan ini dengan auto-configuration, server tertanam (*embedded*), dan bundel dependency siap pakai (*starter*) — aplikasi web bisa jalan dari satu perintah.\n\nRoadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency Injection yang jadi tulang punggung Spring, membangun REST API, menyimpan data ke database lewat Spring Data JPA, validasi request & penanganan error terpusat, sampai arsitektur DTO yang aman dan konfigurasi CORS agar API bisa diakses oleh aplikasi frontend. Enam langkah, ikuti berurutan.\n\n**Asumsi:** familiar dengan dasar bahasa Java (class, interface, method) dan konsep OOP — roadmap ini fokus ke Spring Boot itu sendiri, bukan mengajari sintaks Java dari nol. Prasyarat tool (JDK, Maven) disebutkan di catatan pertama."
+    "id": "94331b9c-fe70-4f7c-be9b-742a1996b9e1",
+    "name": "Redis",
+    "slug": "redis",
+    "created_at": "2026-09-22 14:24:46.062157+00",
+    "description": "**Remote Dictionary Server** — in-memory data structure store berkecepatan tinggi yang dapat difungsikan sebagai database, cache layer, session store, dan message broker. Menyimpan seluruh data di RAM dengan latensi sub-milidetik (< 1 ms), menjadikannya senjata utama untuk mengatasi beban tinggi (*high traffic*) di aplikasi web modern.\n\nRoadmap ini membawamu dari instalasi & koneksi lewat redis-cli, tipe data String dan masa kedaluwarsa otomatis (TTL), struktur data tingkat lanjut (Hash, List, Set), penerapan pola arsitektur Cache-Aside untuk meringankan beban database SQL, sampai komunikasi realtime lewat Publish/Subscribe (Pub/Sub). Lima langkah berjenjang, ikuti berurutan.\n\n**Asumsi:** familiar dengan konsep dasar client-server dan format data key-value. Prasyarat tool (Docker atau Redis server) disebutkan di catatan pertama."
+  },
+  {
+    "id": "df6694f2-8cc1-47da-b697-e5c0f0f2cf89",
+    "name": "Git",
+    "slug": "git",
+    "created_at": "2026-09-18 06:20:59.380972+00",
+    "description": "Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (`script_v2_final.js`, `script_v2_REVISI.js`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.\n\nRoadmap ini membawamu dari cara menyimpan perubahan (staging & commit), mengabaikan file yang tidak boleh ter-commit lewat .gitignore, berkolaborasi lewat repository remote (GitHub), bercabang untuk mengerjakan fitur terisolasi (branching), menyimpan perubahan sementara lewat stash, menyelesaikan merge conflict saat menggabungkan kode, sampai teknik membatalkan perubahan yang salah (restore, reset, revert). Tujuh langkah, ikuti berurutan.\n\n**Asumsi:** familiar dengan command line/terminal dasar. Prasyarat tool (Git, akun GitHub) disebutkan di catatan yang membutuhkannya."
   },
   {
     "id": "4e1efab5-9672-4b24-bdd9-5951a9a18a9d",
@@ -35,11 +35,11 @@
     "description": "Mengelola belasan atau ratusan server secara manual berarti SSH satu per satu, menjalankan command yang sama berulang-ulang — lambat, gampang lupa satu langkah di salah satu server, dan hasilnya gampang beda-beda antar server (*configuration drift*) meski niatnya sama persis. Ansible menyelesaikan ini dengan otomasi *agentless*: definisikan konfigurasi yang diinginkan sekali dalam file YAML, jalankan ke banyak server sekaligus lewat SSH.\n\nRoadmap ini membawamu dari instalasi & cara kerja dasar, mendata server yang dikelola lewat inventory, menjalankan playbook untuk otomasi berulang, membuat konfigurasi yang fleksibel lewat variables & templating, sampai mengorganisir automation jadi modular lewat roles. Lima langkah, ikuti berurutan.\n\n**Asumsi:** familiar dengan command line/terminal, SSH ke server Linux, dan sintaks dasar YAML. Butuh minimal satu mesin Linux untuk dipraktikkan (VM lokal atau VPS) — disebutkan di catatan pertama."
   },
   {
-    "id": "b8ecce90-6cfa-42bd-bd17-b76f0aa0569d",
-    "name": "Agentic AI (Hermes)",
-    "slug": "agentic-ai-hermes",
-    "created_at": "2026-09-19 10:23:25.989758+00",
-    "description": "Chatbot LLM biasa cuma bisa membalas teks — begitu jawabannya berupa kode atau command, KAMU yang harus menyalin, menjalankannya sendiri di terminal, membaca hasil/errornya, lalu menempelkannya balik ke chat supaya model tahu apa yang terjadi. Untuk task yang butuh banyak langkah, siklus manual ini melelahkan dan lambat. Agentic AI membalik itu: model yang mengeksekusi tool-nya sendiri (terminal, file, browser) secara langsung, mengamati hasilnya, dan melanjutkan sampai task selesai — kamu cukup kasih instruksi dan menyetujui langkah yang berisiko.\n\nRoadmap ini pakai **Hermes Agent** dari Nous Research (open-source, *self-improving*) sebagai contoh konkret: instalasi & autentikasi, menjalankan task pertama lewat CLI, memahami memori lintas sesi, membuat & memakai ulang pengetahuan prosedural (*skills*), sampai menghubungkan tool eksternal lewat MCP. Lima langkah, ikuti berurutan.\n\n**Asumsi:** familiar dengan command line/terminal dasar. Tidak perlu pengalaman sebelumnya dengan agentic AI atau LLM API — roadmap ini menjelaskan dari instalasi. Prasyarat tool (Git) dan akun untuk akses model disebutkan di catatan pertama."
+    "id": "620410c3-ebfb-4e0b-a8a6-578aaa70d726",
+    "name": "Java (Spring Boot)",
+    "slug": "java-spring-boot",
+    "created_at": "2026-09-19 12:26:42.215569+00",
+    "description": "Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual dan setup server terpisah (Tomcat, web.xml) sebelum sempat menulis baris kode business logic pertama. Spring Boot menyelesaikan ini dengan auto-configuration, server tertanam (*embedded*), dan bundel dependency siap pakai (*starter*) — aplikasi web bisa jalan dari satu perintah.\n\nRoadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency Injection yang jadi tulang punggung Spring, membangun REST API, menyimpan data ke database lewat Spring Data JPA, validasi request & penanganan error terpusat, sampai arsitektur DTO yang aman dan konfigurasi CORS agar API bisa diakses oleh aplikasi frontend. Enam langkah, ikuti berurutan.\n\n**Asumsi:** familiar dengan dasar bahasa Java (class, interface, method) dan konsep OOP — roadmap ini fokus ke Spring Boot itu sendiri, bukan mengajari sintaks Java dari nol. Prasyarat tool (JDK, Maven) disebutkan di catatan pertama."
   },
   {
     "id": "9edf40dd-0158-4e70-b0e6-1e64c4282cb0",
@@ -56,18 +56,18 @@
     "description": "Sebelum .NET Core (2016 ke atas), .NET Framework hanya berjalan di Windows — sulit dipakai untuk deployment modern yang mengandalkan server Linux dan container. .NET sekarang adalah platform open-source dan cross-platform dari Microsoft: satu SDK yang jalan di Windows, Linux, maupun macOS, untuk membangun aplikasi web, cloud, hingga desktop.\n\nRoadmap ini membawamu dari pengenalan ekosistem & CLI `dotnet`, dasar bahasa C# (tipe data, class, record), pola Dependency Injection yang jadi tulang punggung aplikasi .NET modern, membangun REST API sungguhan lewat ASP.NET Core Minimal API, menyimpan datanya ke database lewat Entity Framework Core, sampai proteksi data dengan DTO dan konfigurasi CORS untuk integrasi frontend. Tujuh langkah, ikuti berurutan.\n\n**Asumsi:** roadmap ini menjelaskan dari dasar, tapi familiar dengan konsep OOP (object, class) dari bahasa lain akan membantu mempercepat pemahaman. Prasyarat tool (.NET SDK) disebutkan di catatan pertama."
   },
   {
+    "id": "a6e9d866-c1b5-4e38-a511-d27a0fed6caa",
+    "name": "MariaDB",
+    "slug": "mariadb",
+    "created_at": "2026-09-22 14:24:45.96517+00",
+    "description": "Database relasional open-source berkinerja tinggi, dibuat oleh pengembang asli MySQL setelah akuisisi oleh Oracle untuk memastikan kebebasan open-source sejati. Kompatibel penuh dengan ekosistem MySQL, banyak digunakan di arsitektur LAMP/LEMP stack, hosting web, dan enterprise berkat performa query cepat dan mesin penyimpanan (*storage engine*) yang fleksibel.\n\nRoadmap ini membawamu dari pengenalan server MariaDB dan CLI, operasi dasar SQL dan manajemen tabel, memahami arsitektur modular storage engine (InnoDB vs Aria), manajemen user dan hak akses aman (*privileges*), sampai prosedur backup dan restore berkala menggunakan mariadb-dump. Lima langkah, ikuti berurutan.\n\n**Asumsi:** familiar dengan dasar command line/terminal. Prasyarat tool (Docker atau MariaDB server) disebutkan di catatan pertama."
+  },
+  {
     "id": "ea6a08d0-0af9-435b-88f7-ff6e196be052",
     "name": "TypeScript",
     "slug": "typescript",
     "created_at": "2026-09-18 06:20:59.380972+00",
     "description": "JavaScript murni tidak mendeteksi kesalahan tipe data sampai program benar-benar dijalankan (runtime) — kirim string ke fungsi yang harusnya menerima angka baru ketahuan setelah aplikasi jalan, bahkan mungkin sudah di production. TypeScript menambahkan sistem tipe di atas JavaScript yang dicek saat menulis kode (compile time), sebelum bug itu sempat sampai ke user.\n\nRoadmap ini membawamu dari tipe dasar sampai bisa membaca dan menulis konfigurasi TypeScript sendiri: mulai dari type annotation primitif, mendefinisikan bentuk object lewat interface/type alias, union & literal type untuk merepresentasikan pilihan terbatas, type narrowing untuk menangani union dengan aman, type assertion untuk kasus kamu lebih tahu dari compiler, generics untuk kode yang reusable tanpa kehilangan type safety, utility types untuk memanipulasi tipe yang sudah ada, enum sebagai alternatif union, sampai opsi `tsconfig.json` yang paling penting untuk dikonfigurasi. Sembilan langkah, ikuti berurutan.\n\n**Asumsi:** TypeScript itu JavaScript plus sistem tipe, bukan bahasa baru dari nol — roadmap ini mengasumsikan kamu familiar dengan JavaScript dasar (variabel, fungsi, object, array). Prasyarat tool (Node.js, TypeScript compiler) disebutkan di catatan pertama."
-  },
-  {
-    "id": "3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902",
-    "name": "Java Lanjutan (Advance)",
-    "slug": "java-advance",
-    "created_at": "2026-09-22 14:14:28.78047+00",
-    "description": "Setelah memahami sintaks dasar dan konsep OOP di roadmap Java Dasar, menulis kode Java modern skala industri menuntut pemahaman teknik lanjutan: bagaimana mengelola koleksi data secara dinamis, menulis kode yang type-safe tanpa duplikasi, dan memproses ribuan data secara deklaratif serta konkruen.\n\nRoadmap ini membawamu menguasai fitur-fitur penting Java modern: Generics untuk fleksibilitas tipe data, Java Collections Framework (List, Set, Map), Functional Programming dengan Lambda Expressions, pemrosesan data deklaratif lewat Stream API, penanganan null yang aman dengan Optional, sampai revolusi konkurensi modern lewat Virtual Threads (Java 21 / Project Loom). Enam langkah, ikuti berurutan setelah menyelesaikan Java Dasar.\n\n**Asumsi:** sudah menyelesaikan atau familiar dengan materi di roadmap [Java Dasar](/kategori/java-dasar) (OOP, class, inheritance, interface)."
   },
   {
     "id": "9deddb76-862f-4fce-83e4-57a0202df83b",
@@ -77,18 +77,11 @@
     "description": "JavaScript adalah bahasa pemrograman inti di balik hampir semua interaktivitas web — dari validasi form sampai aplikasi kompleks seperti Gmail. Roadmap ini membangun fondasinya secara bertahap: banyak konsep JS lanjutan (closure, Promise) sering disalahpahami pemula justru karena dasar-dasarnya (scope, fungsi) belum kokoh.\n\nRoadmap ini membawamu dari variabel & scope, mendefinisikan fungsi (termasuk arrow function), membongkar object/array lewat destructuring, mentransformasi array secara deklaratif, manipulasi DOM & event listener untuk mengubah tampilan web, closure untuk data privat, menangani error runtime, Promise untuk kode asinkron, async/await sebagai gula sintaksnya, memanggil REST API dengan Fetch API, sampai memecah kode jadi module terorganisir. Sebelas langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.\n\n**Asumsi:** belum pernah menulis JavaScript sama sekali juga tidak masalah — roadmap ini menjelaskan dari variabel. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan."
   },
   {
-    "id": "b403e972-3cb3-4605-a6b6-bb0f2774b0f6",
-    "name": "Next.js",
-    "slug": "nextjs",
-    "created_at": "2026-09-18 06:20:59.380972+00",
-    "description": "Sebelum ada *file-based routing* seperti di Next.js, menyusun routing di aplikasi React itu kerja manual: install library router, lalu tulis config terpisah yang memetakan tiap URL ke komponennya — dan config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya. Masalah lain: React tradisional mengirim **semua** kode JavaScript ke browser, bahkan untuk bagian yang cuma menampilkan teks statis dari database, bikin aplikasi lambat di koneksi lemah.\n\nRoadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dasar, memahami batas Server vs Client Component sejak awal, navigasi dinamis, menyusun layout bersama antar halaman, mengambil data di Server Component, mutasi data langsung lewat Server Actions, membuat API publik lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sepuluh langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya.\n\n**Asumsi:** roadmap ini fokus ke Next.js itu sendiri, bukan mengajari React dari nol — kamu perlu familiar dengan dasar JavaScript dan konsep component/props/hooks di React (lihat roadmap [React](/kategori/react) di platform ini jika belum). Prasyarat tool spesifik (Node.js) disebutkan di catatan pertama."
-  },
-  {
-    "id": "874d0ef2-3e06-451f-80e8-6cd10276bd6a",
-    "name": "React",
-    "slug": "react",
-    "created_at": "2026-09-21 23:24:41.175314+00",
-    "description": "React adalah library JavaScript paling populer untuk membangun antarmuka (UI) — dipakai jutaan aplikasi web, dari dashboard internal sampai produk skala besar seperti Instagram dan Facebook (yang menciptakannya). Sebelum React (dan library serupa), memperbarui tampilan setelah data berubah berarti memanipulasi DOM manual satu per satu (`document.getElementById(...).innerHTML = ...`) — gampang jadi berantakan dan bug begitu aplikasinya makin besar. React menyelesaikan ini lewat pendekatan deklaratif: kamu deskripsikan UI seharusnya terlihat seperti apa berdasarkan state saat ini, React yang mengurus cara memperbaruinya di DOM.\n\nRoadmap ini membawamu dari instalasi project dengan Vite, menulis UI dengan JSX, memecah UI jadi component yang bisa dipakai ulang lewat props, merespons interaksi user lewat event listener, membuat component \"mengingat\" sesuatu lewat state (useState), menampilkan UI kondisional, me-render list data dinamis, berbagi state antar-komponen (lifting state up), mengelola form, menyinkronkan component dengan sistem luar lewat useEffect, sampai mengetik komponen React dengan TypeScript sebagai jembatan ke Next.js. Sebelas langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.\n\n**Asumsi:** kamu perlu familiar dengan dasar JavaScript (variabel, fungsi, array method seperti `map`/`filter`, destructuring) — kalau belum, roadmap [JavaScript](/kategori/javascript) di platform ini membahas semua itu dari nol. Roadmap ini murni fokus ke React-nya sendiri, bukan mengulang dasar JavaScript."
+    "id": "3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902",
+    "name": "Java Lanjutan (Advance)",
+    "slug": "java-advance",
+    "created_at": "2026-09-22 14:14:28.78047+00",
+    "description": "Setelah memahami sintaks dasar dan konsep OOP di roadmap Java Dasar, menulis kode Java modern skala industri menuntut pemahaman teknik lanjutan: bagaimana mengelola koleksi data secara dinamis, menulis kode yang type-safe tanpa duplikasi, dan memproses ribuan data secara deklaratif serta konkruen.\n\nRoadmap ini membawamu menguasai fitur-fitur penting Java modern: Generics untuk fleksibilitas tipe data, Java Collections Framework (List, Set, Map), Functional Programming dengan Lambda Expressions, pemrosesan data deklaratif lewat Stream API, penanganan null yang aman dengan Optional, sampai revolusi konkurensi modern lewat Virtual Threads (Java 21 / Project Loom). Enam langkah, ikuti berurutan setelah menyelesaikan Java Dasar.\n\n**Asumsi:** sudah menyelesaikan atau familiar dengan materi di roadmap [Java Dasar](/kategori/java-dasar) (OOP, class, inheritance, interface)."
   },
   {
     "id": "d68cb157-4b1f-4921-a71f-2d6c9b127e5f",
@@ -103,5 +96,33 @@
     "slug": "java-dasar",
     "created_at": "2026-09-22 14:14:28.535743+00",
     "description": "Java adalah salah satu bahasa pemrograman paling stabil dan banyak digunakan di dunia — dari backend sistem perbankan, aplikasi Android, hingga platform big data. Filosofi utamanya adalah **\"Write Once, Run Anywhere\" (WORA)**: kode Java yang dikompilasi menjadi bytecode dapat berjalan di sistem operasi apa pun (Windows, Linux, macOS) asalkan memiliki Java Virtual Machine (JVM).\n\nRoadmap ini membangun fondasi Java murni dari nol: mulai dari setup JDK dan memahami ekosistem JVM, tipe data primitif vs reference, percabangan dan perulangan modern, dasar Pemrograman Berorientasi Objek (Class, Object, Constructor), pewarisan sifat (Inheritance & Polymorphism), sampai merancang kontrak modular lewat Interface dan Abstract Class. Enam langkah berjenjang, ikuti berurutan.\n\n**Asumsi:** belum pernah menulis Java sama sekali tidak masalah — roadmap ini menjelaskan dari nol. Familiar dengan konsep logika dasar komputer akan membantu mempercepat pemahaman."
+  },
+  {
+    "id": "874d0ef2-3e06-451f-80e8-6cd10276bd6a",
+    "name": "React",
+    "slug": "react",
+    "created_at": "2026-09-21 23:24:41.175314+00",
+    "description": "React adalah library JavaScript paling populer untuk membangun antarmuka (UI) — dipakai jutaan aplikasi web, dari dashboard internal sampai produk skala besar seperti Instagram dan Facebook (yang menciptakannya). Sebelum React (dan library serupa), memperbarui tampilan setelah data berubah berarti memanipulasi DOM manual satu per satu (`document.getElementById(...).innerHTML = ...`) — gampang jadi berantakan dan bug begitu aplikasinya makin besar. React menyelesaikan ini lewat pendekatan deklaratif: kamu deskripsikan UI seharusnya terlihat seperti apa berdasarkan state saat ini, React yang mengurus cara memperbaruinya di DOM.\n\nRoadmap ini membawamu dari instalasi project dengan Vite, menulis UI dengan JSX, memecah UI jadi component yang bisa dipakai ulang lewat props, merespons interaksi user lewat event listener, membuat component \"mengingat\" sesuatu lewat state (useState), menampilkan UI kondisional, me-render list data dinamis, berbagi state antar-komponen (lifting state up), mengelola form, menyinkronkan component dengan sistem luar lewat useEffect, sampai mengetik komponen React dengan TypeScript sebagai jembatan ke Next.js. Sebelas langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.\n\n**Asumsi:** kamu perlu familiar dengan dasar JavaScript (variabel, fungsi, array method seperti `map`/`filter`, destructuring) — kalau belum, roadmap [JavaScript](/kategori/javascript) di platform ini membahas semua itu dari nol. Roadmap ini murni fokus ke React-nya sendiri, bukan mengulang dasar JavaScript."
+  },
+  {
+    "id": "c397eb64-1f60-4364-b6c2-ad628083b315",
+    "name": "PostgreSQL",
+    "slug": "postgresql",
+    "created_at": "2026-09-22 14:24:45.634768+00",
+    "description": "Database relasional open-source paling canggih di dunia, terkenal dengan kepatuhan standar SQL yang ketat, keandalan transaksi ACID, dan dukungan tipe data modern seperti JSONB. PostgreSQL menjadi fondasi teknologi di balik platform cloud-native modern seperti Supabase.\n\nRoadmap ini membawamu dari nol memahami arsitektur database relasional: mulai dari instalasi & CLI psql, perancangan skema tabel dengan constraints dan tipe data modern, relasi antar-tabel lewat foreign key dan berbagai variasi JOIN, optimasi query dengan B-Tree Index dan EXPLAIN ANALYZE, query dokumen semi-terstruktur menggunakan JSONB & GIN index, sampai jaminan integritas data lewat transaksi ACID dan isolation levels. Enam langkah berjenjang, ikuti berurutan.\n\n**Asumsi:** belum pernah menulis SQL sama sekali tidak masalah — roadmap ini menjelaskan dari sintaks dasar. Prasyarat tool (Docker atau instalasi PostgreSQL) disebutkan di catatan pertama."
+  },
+  {
+    "id": "b403e972-3cb3-4605-a6b6-bb0f2774b0f6",
+    "name": "Next.js",
+    "slug": "nextjs",
+    "created_at": "2026-09-18 06:20:59.380972+00",
+    "description": "Sebelum ada *file-based routing* seperti di Next.js, menyusun routing di aplikasi React itu kerja manual: install library router, lalu tulis config terpisah yang memetakan tiap URL ke komponennya — dan config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya. Masalah lain: React tradisional mengirim **semua** kode JavaScript ke browser, bahkan untuk bagian yang cuma menampilkan teks statis dari database, bikin aplikasi lambat di koneksi lemah.\n\nRoadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dasar, memahami batas Server vs Client Component sejak awal, navigasi dinamis, menyusun layout bersama antar halaman, mengambil data di Server Component, mutasi data langsung lewat Server Actions, membuat API publik lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sepuluh langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya.\n\n**Asumsi:** roadmap ini fokus ke Next.js itu sendiri, bukan mengajari React dari nol — kamu perlu familiar dengan dasar JavaScript dan konsep component/props/hooks di React (lihat roadmap [React](/kategori/react) di platform ini jika belum). Prasyarat tool spesifik (Node.js) disebutkan di catatan pertama."
+  },
+  {
+    "id": "b8ecce90-6cfa-42bd-bd17-b76f0aa0569d",
+    "name": "Agentic AI (Hermes)",
+    "slug": "agentic-ai-hermes",
+    "created_at": "2026-09-19 10:23:25.989758+00",
+    "description": "Chatbot LLM biasa cuma bisa membalas teks — begitu jawabannya berupa kode atau command, KAMU yang harus menyalin, menjalankannya sendiri di terminal, membaca hasil/errornya, lalu menempelkannya balik ke chat supaya model tahu apa yang terjadi. Untuk task yang butuh banyak langkah, siklus manual ini melelahkan dan lambat. Agentic AI membalik itu: model yang mengeksekusi tool-nya sendiri (terminal, file, browser) secara langsung, mengamati hasilnya, dan melanjutkan sampai task selesai — kamu cukup kasih instruksi dan menyetujui langkah yang berisiko.\n\nRoadmap ini pakai **Hermes Agent** dari Nous Research (open-source, *self-improving*) sebagai contoh konkret: instalasi & autentikasi, menjalankan task pertama lewat CLI, memahami memori lintas sesi, membuat & memakai ulang pengetahuan prosedural (*skills*), sampai menghubungkan tool eksternal lewat MCP. Lima langkah, ikuti berurutan.\n\n**Asumsi:** familiar dengan command line/terminal dasar. Tidak perlu pengalaman sebelumnya dengan agentic AI atau LLM API — roadmap ini menjelaskan dari instalasi. Prasyarat tool (Git) dan akun untuk akses model disebutkan di catatan pertama."
   }
 ]

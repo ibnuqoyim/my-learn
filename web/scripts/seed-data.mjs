@@ -5,6 +5,33 @@
 
 export const categories = [
   {
+    name: "PostgreSQL",
+    slug: "postgresql",
+    description: `Database relasional open-source paling canggih di dunia, terkenal dengan kepatuhan standar SQL yang ketat, keandalan transaksi ACID, dan dukungan tipe data modern seperti JSONB. PostgreSQL menjadi fondasi teknologi di balik platform cloud-native modern seperti Supabase.
+
+Roadmap ini membawamu dari nol memahami arsitektur database relasional: mulai dari instalasi & CLI psql, perancangan skema tabel dengan constraints dan tipe data modern, relasi antar-tabel lewat foreign key dan berbagai variasi JOIN, optimasi query dengan B-Tree Index dan EXPLAIN ANALYZE, query dokumen semi-terstruktur menggunakan JSONB & GIN index, sampai jaminan integritas data lewat transaksi ACID dan isolation levels. Enam langkah berjenjang, ikuti berurutan.
+
+**Asumsi:** belum pernah menulis SQL sama sekali tidak masalah — roadmap ini menjelaskan dari sintaks dasar. Prasyarat tool (Docker atau instalasi PostgreSQL) disebutkan di catatan pertama.`,
+  },
+  {
+    name: "MariaDB",
+    slug: "mariadb",
+    description: `Database relasional open-source berkinerja tinggi, dibuat oleh pengembang asli MySQL setelah akuisisi oleh Oracle untuk memastikan kebebasan open-source sejati. Kompatibel penuh dengan ekosistem MySQL, banyak digunakan di arsitektur LAMP/LEMP stack, hosting web, dan enterprise berkat performa query cepat dan mesin penyimpanan (*storage engine*) yang fleksibel.
+
+Roadmap ini membawamu dari pengenalan server MariaDB dan CLI, operasi dasar SQL dan manajemen tabel, memahami arsitektur modular storage engine (InnoDB vs Aria), manajemen user dan hak akses aman (*privileges*), sampai prosedur backup dan restore berkala menggunakan mariadb-dump. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan dasar command line/terminal. Prasyarat tool (Docker atau MariaDB server) disebutkan di catatan pertama.`,
+  },
+  {
+    name: "Redis",
+    slug: "redis",
+    description: `**Remote Dictionary Server** — in-memory data structure store berkecepatan tinggi yang dapat difungsikan sebagai database, cache layer, session store, dan message broker. Menyimpan seluruh data di RAM dengan latensi sub-milidetik (< 1 ms), menjadikannya senjata utama untuk mengatasi beban tinggi (*high traffic*) di aplikasi web modern.
+
+Roadmap ini membawamu dari instalasi & koneksi lewat redis-cli, tipe data String dan masa kedaluwarsa otomatis (TTL), struktur data tingkat lanjut (Hash, List, Set), penerapan pola arsitektur Cache-Aside untuk meringankan beban database SQL, sampai komunikasi realtime lewat Publish/Subscribe (Pub/Sub). Lima langkah berjenjang, ikuti berurutan.
+
+**Asumsi:** familiar dengan konsep dasar client-server dan format data key-value. Prasyarat tool (Docker atau Redis server) disebutkan di catatan pertama.`,
+  },
+  {
     name: "Java Dasar",
     slug: "java-dasar",
     description: `Java adalah salah satu bahasa pemrograman paling stabil dan banyak digunakan di dunia — dari backend sistem perbankan, aplikasi Android, hingga platform big data. Filosofi utamanya adalah **"Write Once, Run Anywhere" (WORA)**: kode Java yang dikompilasi menjadi bytecode dapat berjalan di sistem operasi apa pun (Windows, Linux, macOS) asalkan memiliki Java Virtual Machine (JVM).
@@ -142,6 +169,1150 @@ Roadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency 
 ];
 
 export const notes = [
+  {
+    category: "postgresql",
+    slug: "pengenalan-postgresql-dan-instalasi",
+    order: 0,
+    title: "Pengenalan PostgreSQL, Arsitektur, & psql CLI",
+    content: `**Masalah yang diselesaikan:** menyimpan data aplikasi di dalam file teks mentah (seperti CSV atau JSON) rentan terhadap kerusakan data saat crash (*data corruption*), tidak mendukung banyak pengguna yang menulis bersamaan (*concurrent write*), dan pencarian data menjadi lambat saat ukuran file membesar. PostgreSQL adalah sistem manajemen database relasional (**RDBMS**) open-source tingkat enterprise yang menjamin integritas data secara mutlak.
+
+PostgreSQL beroperasi dengan model proses client-server: setiap koneksi dari aplikasi dilayani oleh proses terpisah di server yang berkomunikasi dengan memori bersama (*shared memory*) dan mencatat perubahan ke berkas **Write-Ahead Log (WAL)** sebelum ditulis permanen ke disk.
+
+\`\`\`mermaid
+flowchart LR
+  Client["Klien (psql CLI / Backend App)"] -->|Koneksi Port 5432| Postmaster["Postgres Server Process"]
+  Postmaster --> SharedBuffer["Shared Memory Buffer (RAM)"]
+  SharedBuffer --> WAL["Write-Ahead Log (WAL) Disk"]
+  SharedBuffer --> DataFiles["Tabel & Data Disk (Permanen)"]
+\`\`\`
+
+Cara paling cepat menjalankan PostgreSQL menggunakan Docker:
+
+\`\`\`bash
+# 1. Jalankan container PostgreSQL 16 di background
+docker run --name postgres-belajar -e POSTGRES_PASSWORD=rahasia -p 5432:5432 -d postgres:16
+
+# 2. Masuk ke terminal interaktif psql di dalam container
+docker exec -it postgres-belajar psql -U postgres
+\`\`\`
+
+Perintah navigasi paling penting di dalam \`psql\`:
+
+\`\`\`sql
+-- Melihat daftar database yang ada
+\l
+
+-- Membuat database baru
+CREATE DATABASE belajar_db;
+
+-- Pindah koneksi ke database tertentu
+\c belajar_db
+
+-- Melihat daftar tabel di database saat ini
+\dt
+
+-- Keluar dari psql
+\q
+\`\`\`
+
+Poin penting:
+
+- PostgreSQL menggunakan port default **5432**.
+- Format perintah SQL selalu diakhiri dengan titik koma (\`;\`), sedangkan perintah internal \`psql\` diawali garis miring terbalik (misal \`\l\`, \`\dt\`, \`\q\`).
+- Menjalankan PostgreSQL via Docker adalah standar industri untuk lingkungan pengembangan karena menjaga sistem operasi host tetap bersih tanpa instalasi service latar belakang.`,
+    sources: [
+      {
+            "label": "PostgreSQL Official Documentation — What is PostgreSQL?",
+            "url": "https://www.postgresql.org/docs/current/intro-whatis.html"
+      },
+      {
+            "label": "Docker Hub Official PostgreSQL Image",
+            "url": "https://hub.docker.com/_/postgres"
+      }
+],
+    prerequisites: [
+      {
+            "label": "Docker sudah terinstall di komputermu (atau PostgreSQL native)",
+            "url": "https://www.docker.com/"
+      }
+],
+    practice: `Buka terminal komputermu:
+1. Jalankan PostgreSQL lewat Docker seperti contoh perintah di atas.
+2. Masuk ke terminal \`psql -U postgres\`.
+3. Buat database baru: \`CREATE DATABASE toko_online;\`.
+4. Hubungkan ke database tersebut dengan perintah \`\c toko_online\`.
+5. Keluar dari psql dengan \`\q\` dan coba jalankan kembali untuk membuktikan database \`toko_online\` tetap tersimpan.`,
+  },
+  {
+    category: "postgresql",
+    slug: "ddl-dan-tipe-data-lanjutan",
+    order: 1,
+    title: "DDL, Tipe Data Modern, & Constraints",
+    content: `Catatan sebelumnya mengenalkan cara terhubung ke PostgreSQL lewat psql. **Masalah yang diselesaikan sekarang:** bagaimana cara merancang wadah penyimpanan tabel yang menjamin data tidak mungkin salah format — misal mencegah harga bernilai negatif, memastikan email tidak kosong dan tidak duplikat, serta menghasilkan ID unik secara otomatis?
+
+**DDL (Data Definition Language)** digunakan untuk membuat dan mengubah struktur tabel. PostgreSQL menyediakan sistem tipe data dan batasan (*constraints*) yang sangat ketat untuk memvalidasi data di tingkat database sebelum baris data disimpan.
+
+\`\`\`mermaid
+flowchart TD
+  Input["Input Data Baru:<br/>{ id: uuid, email: 'budi@mail.com', harga: -5000 }"]
+  Input --> CheckNull{"NOT NULL?<br/>Email terisi?"}
+  CheckNull -- Ya --> CheckUnique{"UNIQUE?<br/>Email belum terdaftar?"}
+  CheckUnique -- Ya --> CheckValidation{"CHECK constraint:<br/>harga > 0?"}
+  CheckValidation -- Gagal (harga minus) --> Reject["Ditolak Database:<br/>CHECK constraint violation!"]
+  CheckValidation -- Lolos --> Save["Data Disimpan Aman"]
+\`\`\`
+
+Contoh pembuatan tabel dengan tipe data modern dan constraints:
+
+\`\`\`sql
+-- Mengaktifkan ekstensi pgcrypto untuk fungsi generate UUID bawaan
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE pengguna (
+    -- ID unik berbasis UUID (sangat aman untuk sistem terdistribusi)
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    
+    -- Teks nama dengan batas karakter yang wajib diisi
+    nama VARCHAR(100) NOT NULL,
+    
+    -- Email wajib unik, ditolak jika duplikat
+    email VARCHAR(255) UNIQUE NOT NULL,
+    
+    -- Angka saldo desimal presisi tinggi dengan validasi nilai tidak boleh minus
+    saldo NUMERIC(12, 2) NOT NULL DEFAULT 0.00 CHECK (saldo >= 0),
+    
+    -- Status aktif
+    is_aktif BOOLEAN NOT NULL DEFAULT true,
+    
+    -- Timestamp otomatis mencatat waktu zona waktu lengkap
+    dibuat_pada TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+\`\`\`
+
+Perintah manipulasi data dasar:
+
+\`\`\`sql
+-- Memasukkan data valid
+INSERT INTO pengguna (nama, email, saldo)
+VALUES ('Budi Santoso', 'budi@gmail.com', 500000.00);
+
+-- Query membaca data
+SELECT id, nama, email, saldo, dibuat_pada FROM pengguna;
+\`\`\`
+
+Poin penting:
+
+- Gunakan \`UUID\` (Universally Unique Identifier) sebagai Primary Key jika tidak ingin ID berurutan yang mudah ditebak oleh pihak luar (\`1, 2, 3...\`).
+- Gunakan \`NUMERIC\` atau \`DECIMAL\` untuk nilai uang, **jangan pernah gunakan \`FLOAT\` atau \`DOUBLE\`** karena floating-point memiliki masalah pembulatan biner.
+- Gunakan \`TIMESTAMPTZ\` (Timestamp with time zone) alih-alih \`TIMESTAMP\` biasa agar waktu akurat lintas zona waktu internasional.
+- Batasan \`CHECK (kondisi)\` adalah filter pertahanan terakhir di database: bila backend aplikasi memiliki celah bug, database tetap menolak data yang tidak valid.`,
+    sources: [
+      {
+            "label": "PostgreSQL Documentation — Data Types",
+            "url": "https://www.postgresql.org/docs/current/datatype.html"
+      },
+      {
+            "label": "PostgreSQL Documentation — Constraints",
+            "url": "https://www.postgresql.org/docs/current/ddl-constraints.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di database latihan kamu (\`psql\`):
+1. Salin dan jalankan skrip \`CREATE TABLE pengguna\` di atas.
+2. Coba masukkan satu baris data valid.
+3. Coba sengaja masukkan data dengan saldo minus: \`INSERT INTO pengguna (nama, email, saldo) VALUES ('Hacker', 'hack@mail.com', -100);\`.
+4. Amati pesan error penolakan dari constraint: \`violates check constraint "pengguna_saldo_check"\`.
+5. Periksa struktur tabel dengan mengetik \`\d pengguna\`.`,
+  },
+  {
+    category: "postgresql",
+    slug: "relasi-foreign-key-dan-join",
+    order: 2,
+    title: "Relasi Tabel, Foreign Keys, & Ragam JOIN",
+    content: `Catatan sebelumnya membahas pembuatan satu tabel terisolasi. **Masalah yang diselesaikan sekarang:** di aplikasi nyata, entitas selalu saling terhubung — satu kategori memayungi banyak produk (*one-to-many*). Jika kita menyimpan nama kategori langsung di setiap baris produk, ketika nama kategori diganti kita harus mengupdate ribuan baris, dan risiko inkonsistensi data sangat tinggi (*data redundancy*).
+
+Solusinya adalah **Normalisasi Database**: memisahkan data ke tabel berbeda dan menghubungkannya menggunakan **Foreign Key (Kunci Asing)**. Saat data ingin dibaca bersamaan, kita menggabungkannya kembali lewat operasi **JOIN**.
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Kategori["Tabel Kategori"]
+    K1["id: 1, nama: 'Elektronik'"]
+    K2["id: 2, nama: 'Buku'"]
+  end
+  subgraph Produk["Tabel Produk"]
+    P1["Laptop (kategori_id: 1)"]
+    P2["Mouse (kategori_id: 1)"]
+    P3["Novel (kategori_id: 2)"]
+  end
+  K1 --- P1 & P2
+  K2 --- P3
+\`\`\`
+
+Skema Foreign Key dan Ragam Operasi JOIN:
+
+\`\`\`sql
+-- 1. Tabel Induk (Parent)
+CREATE TABLE kategori (
+    id SERIAL PRIMARY KEY,
+    nama VARCHAR(50) NOT NULL
+);
+
+-- 2. Tabel Anak (Child) dengan Foreign Key
+CREATE TABLE produk (
+    id SERIAL PRIMARY KEY,
+    kategori_id INT NOT NULL REFERENCES kategori(id) ON DELETE CASCADE,
+    nama VARCHAR(100) NOT NULL,
+    harga INT NOT NULL
+);
+
+-- Mengisi data contoh
+INSERT INTO kategori (nama) VALUES ('Elektronik'), ('Pakaian');
+INSERT INTO produk (kategori_id, nama, harga) VALUES
+(1, 'Laptop Gaming', 15000000),
+(1, 'Keyboard Mekanikal', 800000);
+\`\`\`
+
+Membaca data terhubung dengan JOIN:
+
+\`\`\`sql
+-- INNER JOIN: Hanya mengambil baris yang memiliki pasangan cocok di kedua tabel
+SELECT 
+    p.nama AS nama_produk,
+    p.harga,
+    k.nama AS nama_kategori
+FROM produk p
+INNER JOIN kategori k ON p.kategori_id = k.id;
+
+-- LEFT JOIN: Mengambil SEMUA kategori, meskipun belum ada produknya
+SELECT 
+    k.nama AS nama_kategori,
+    COUNT(p.id) AS total_produk
+FROM kategori k
+LEFT JOIN produk p ON k.id = p.kategori_id
+GROUP BY k.id, k.nama;
+\`\`\`
+
+Poin penting:
+
+- \`ON DELETE CASCADE\`: Jika baris kategori dihapus, seluruh produk di bawah kategori tersebut otomatis terhapus, mencegah data yatim piatu (*orphaned records*).
+- \`ON DELETE RESTRICT\` / \`NO ACTION\`: Menolak penghapusan kategori jika masih ada produk yang merujuk kepadanya.
+- \`INNER JOIN\` menghasilkan irisan dua tabel; \`LEFT JOIN\` menjamin seluruh baris dari tabel kiri selalu tampil (kolom tabel kanan akan bernilai \`NULL\` jika belum ada pasangannya).`,
+    sources: [
+      {
+            "label": "PostgreSQL Documentation — Foreign Keys",
+            "url": "https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK"
+      },
+      {
+            "label": "PostgreSQL Documentation — Table Expressions (Joins)",
+            "url": "https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-FROM"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal psql kamu:
+1. Buat tabel \`kategori\` dan \`produk\` seperti contoh di atas.
+2. Tambahkan kategori baru ke-3: \`INSERT INTO kategori (nama) VALUES ('Otomotif');\` (tanpa membuat produknya).
+3. Jalankan query \`INNER JOIN\` dan perhatikan bahwa kategori 'Otomotif' tidak muncul.
+4. Jalankan query \`LEFT JOIN\` dan amati bagaimana kategori 'Otomotif' tetap muncul dengan kolom produk bernilai \`NULL\` (atau count 0).`,
+  },
+  {
+    category: "postgresql",
+    slug: "indexing-dan-query-performance",
+    order: 3,
+    title: "Indexing & Optimasi Query dengan EXPLAIN ANALYZE",
+    content: `Catatan sebelumnya membahas relasi dan join. **Masalah yang diselesaikan sekarang:** saat tabel hanya berisi 100 baris, semua query terasa instan. Namun ketika tabel berkembang menjadi 1 juta baris, query \`SELECT * FROM transaksi WHERE nomor_resi = 'XYZ'\` bisa memakan waktu 3 hingga 10 detik dan membuat CPU server 100% karena database harus membaca seluruh baris dari awal sampai akhir (**Sequential Scan / Full Table Scan**).
+
+**Index** adalah struktur data khusus (paling umum berupa **B-Tree**) yang bertindak seperti indeks di buku belakang: alih-alih membaca seluruh halaman buku, database langsung melompat ke lokasi nomor baris yang dituju dalam kompleksitas waktu $O(\log N)$.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph TanpaIndex["Tanpa Index: Sequential Scan (Lambat)"]
+    S["Cari resi 'RESI-999'"] --> B1["Baris 1"] --> B2["Baris 2"] --> B3["... Scan 1.000.000 baris ..."] --> Found1["Ditemukan setelah 3 detik"]
+  end
+  subgraph DenganIndex["Dengan B-Tree Index (Sangat Cepat)"]
+    I["Cari resi 'RESI-999'"] --> Root["Root B-Tree Node"]
+    Root --> Branch["Branch Node"]
+    Branch --> Leaf["Leaf Node (Langsung dapat pointer memori)"]
+    Leaf --> Found2["Ditemukan dalam 0.5 milidetik!"]
+  end
+\`\`\`
+
+Membuat Index dan Menganalisis Performa:
+
+\`\`\`sql
+-- 1. Membuat index B-Tree pada kolom yang sering dicari / difilter
+CREATE INDEX idx_pengguna_email ON pengguna (email);
+
+-- 2. Index komposit (dua kolom yang sering dicari bersamaan)
+CREATE INDEX idx_produk_kategori_harga ON produk (kategori_id, harga);
+
+-- 3. Menguji rencana eksekusi query sebelum dan sesudah index
+EXPLAIN ANALYZE 
+SELECT * FROM pengguna WHERE email = 'budi@gmail.com';
+\`\`\`
+
+Hasil analisis dari \`EXPLAIN ANALYZE\`:
+\`\`\`text
+Index Scan using idx_pengguna_email on pengguna  (cost=0.28..8.29 rows=1 width=128) (actual time=0.042..0.044 rows=1 loops=1)
+  Index Cond: ((email)::text = 'budi@gmail.com'::text)
+Planning Time: 0.112 ms
+Execution Time: 0.065 ms
+\`\`\`
+
+Poin penting:
+
+- Kolom yang memiliki constraint \`PRIMARY KEY\` dan \`UNIQUE\` secara otomatis dibuatkan index B-Tree oleh PostgreSQL di belakang layar.
+- Perintah \`EXPLAIN ANALYZE\` wajib dipelajari setiap developer: perintah ini benar-benar mengeksekusi query dan menampilkan waktu eksekusi riil (*actual execution time*) serta metode pencarian yang dipilih database.
+- **Jangan mengindeks semua kolom:** setiap index mempercepat operasi \`SELECT\`, tetapi sedikit memperlambat operasi \`INSERT\`, \`UPDATE\`, dan \`DELETE\` karena pohon index harus diatur ulang setiap kali data berubah.`,
+    sources: [
+      {
+            "label": "PostgreSQL Documentation — Indexes",
+            "url": "https://www.postgresql.org/docs/current/indexes.html"
+      },
+      {
+            "label": "PostgreSQL Documentation — Using EXPLAIN",
+            "url": "https://www.postgresql.org/docs/current/using-explain.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal psql kamu:
+1. Buat tabel uji berisi angka acak: \`CREATE TABLE angka_test AS SELECT generate_series(1, 100000) AS angka;\`.
+2. Jalankan \`EXPLAIN ANALYZE SELECT * FROM angka_test WHERE angka = 75432;\` dan catat metode (\`Seq Scan\`) serta waktu eksekusinya.
+3. Buat index: \`CREATE INDEX idx_angka ON angka_test (angka);\`.
+4. Jalankan kembali \`EXPLAIN ANALYZE\` yang sama dan amati perubahan metode menjadi \`Index Scan\` dengan waktu eksekusi yang turun drastis.`,
+  },
+  {
+    category: "postgresql",
+    slug: "jsonb-dan-semi-structured-data",
+    order: 4,
+    title: "Tipe Data JSONB & Index GIN: NoSQL di dalam Relasional",
+    content: `Catatan sebelumnya membahas pengoptimalan query relasional. **Masalah yang diselesaikan sekarang:** tidak semua data memiliki struktur kolom yang seragam. Bayangkan katalog toko online: laptop memiliki spesifikasi \`RAM\` dan \`Processor\`, sementara pakaian memiliki \`Ukuran\` dan \`Warna\`, serta makanan memiliki \`TanggalKedaluwarsa\`. Menambahkan ratusan kolom kosong (*nullable*) untuk setiap variasi barang membuat tabel sangat kotor. Developer sering kali terpaksa beralih ke database NoSQL terpisah (seperti MongoDB) hanya untuk menyimpan dokumen dinamis ini.
+
+PostgreSQL memecahkan masalah ini dengan menyediakan tipe data **JSONB (Binary JSON)**: format JSON yang disimpan dalam representasi biner terurai sehingga dapat di-query, di-filter, dan **di-index dengan GIN (Generalized Inverted Index)** secepat kolom relasional biasa!
+
+\`\`\`mermaid
+flowchart LR
+  Doc["{ 'spesifikasi': { 'ram': '16GB', 'layar': 14 }, 'tags': ['laptop', 'kerja'] }"]
+  Doc --> GIN["GIN Index (Generalized Inverted Index)"]
+  GIN --> Query1["WHERE data @> '{"tags": ["laptop"]}'"]
+  GIN --> Query2["SELECT data->'spesifikasi'->>'ram'"]
+  Query1 & Query2 --> Fast["Hasil Instan tanpa Full Table Scan!"]
+\`\`\`
+
+Sintaks Operasi JSONB di PostgreSQL:
+
+\`\`\`sql
+CREATE TABLE produk_katalog (
+    id SERIAL PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    -- Kolom JSONB untuk atribut dinamis
+    metadata JSONB NOT NULL
+);
+
+-- Menyimpan dokumen JSON
+INSERT INTO produk_katalog (nama, metadata) VALUES
+('ThinkPad X1', '{"kategori": "laptop", "ram_gb": 16, "garansi_tahun": 3, "tags": ["bisnis", "ringan"]}'),
+('Kemeja Flanel', '{"kategori": "pakaian", "ukuran": "L", "warna": "merah", "tags": ["casual"]}');
+\`\`\`
+
+Membaca dan Memfilter Kolom JSONB:
+
+\`\`\`sql
+-- 1. Operator '->>' mengekstrak nilai sebagai teks biasa (text)
+SELECT nama, metadata->>'kategori' AS kategori, metadata->>'ram_gb' AS ram
+FROM produk_katalog;
+
+-- 2. Operator '@>' (Containment): Apakah dokumen memuat JSON tertentu?
+SELECT nama FROM produk_katalog
+WHERE metadata @> '{"kategori": "laptop"}';
+
+-- 3. Membuat GIN Index agar query JSON secepat kilat pada jutaan baris
+CREATE INDEX idx_katalog_metadata ON produk_katalog USING GIN (metadata);
+\`\`\`
+
+Poin penting:
+
+- Selalu gunakan tipe **\`JSONB\`**, jangan gunakan \`JSON\` biasa: \`JSON\` biasa menyimpan teks mentah (harus di-parse ulang setiap kali query), sedangkan \`JSONB\` disimpan dalam biner terurai dan mendukung index GIN.
+- Operator \`->\` mengembalikan objek JSON / elemen JSON, sedangkan \`->>\` mengembalikan nilai akhir sebagai tipe \`text\`.
+- Kombinasi keandalan relasional ACID dan fleksibilitas dokumen NoSQL JSONB inilah yang menjadikan PostgreSQL pilihan utama arsitektur modern (termasuk Supabase).`,
+    sources: [
+      {
+            "label": "PostgreSQL Documentation — JSON Types",
+            "url": "https://www.postgresql.org/docs/current/datatype-json.html"
+      },
+      {
+            "label": "PostgreSQL Documentation — GIN Indexes",
+            "url": "https://www.postgresql.org/docs/current/gin.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal psql kamu:
+1. Buat tabel \`produk_katalog\` seperti contoh di atas dan masukkan kedua baris data.
+2. Jalankan query containment \`@>\` untuk mencari produk yang memiliki tag \`"bisnis"\`.
+3. Buat index GIN pada kolom metadata tersebut.
+4. Coba tambahkan baris ketiga dengan struktur atribut yang sama sekali baru (misal buku dengan atribut \`{"penulis": "Pramoedya", "halaman": 300}\`).`,
+  },
+  {
+    category: "postgresql",
+    slug: "transaksi-acid-dan-lock",
+    order: 5,
+    title: "Transaksi ACID & Tingkat Isolasi (Isolation Levels)",
+    content: `Catatan sebelumnya membahas fleksibilitas data JSONB. **Masalah yang diselesaikan sekarang (dan menutup roadmap PostgreSQL):** bayangkan operasi transfer bank: akun Budi dikurangi Rp 1.000.000, lalu server tiba-tiba mati listrik sebelum saldo akun Ani sempat ditambah. Uang satu juta tersebut hilang begitu saja! Masalah kedua: dua user membeli barang terakhir di tiket konser pada mikrodetik yang persis sama. Bagaimana database mencegah data tidak konsisten dalam situasi konkruensi tinggi?
+
+PostgreSQL menjamin kepatuhan penuh terhadap prinsip **ACID**:
+- **A (Atomicity):** Seluruh rangkaian operasi berhasil sepenuhnya, atau batal sama sekali (*all or nothing*).
+- **C (Consistency):** Data selalu mematuhi semua batasan (*constraints*) sebelum dan sesudah transaksi.
+- **I (Isolation):** Transaksi yang berjalan bersamaan tidak saling mengacaukan hasil sementara.
+- **D (Durability):** Begitu transaksi sukses di-commit, data dijamin aman dan tidak akan hilang meski server mati mendadak.
+
+\`\`\`mermaid
+flowchart TD
+  Begin["BEGIN (Mulai Transaksi)"] --> Step1["1. UPDATE akun SET saldo = saldo - 1000 WHERE id = 1;"]
+  Step1 --> Step2["2. UPDATE akun SET saldo = saldo + 1000 WHERE id = 2;"]
+  Step2 --> Check{"Ada Gangguan / Error?"}
+  Check -- Ada --> Rollback["ROLLBACK (Batalkan semua, saldo Budi kembali utuh!)"]
+  Check -- Aman --> Commit["COMMIT (Simpan permanen ke WAL & Disk)"]
+\`\`\`
+
+Contoh sintaks Transaksi Aman di PostgreSQL:
+
+\`\`\`sql
+-- Memulai blok transaksi
+BEGIN;
+
+-- Langkah 1: Kurangi saldo pengirim
+UPDATE pengguna 
+SET saldo = saldo - 100000 
+WHERE email = 'budi@gmail.com';
+
+-- Langkah 2: Tambah saldo penerima
+UPDATE pengguna 
+SET saldo = saldo + 100000 
+WHERE email = 'ani@gmail.com';
+
+-- Jika semua langkah sukses tanpa error, simpan permanen:
+COMMIT;
+
+-- Atau jika terjadi kesalahan logika, batalkan semuanya seketika:
+-- ROLLBACK;
+\`\`\`
+
+Tingkat Isolasi (*Isolation Levels*) di PostgreSQL:
+| Level | Masalah Dirty Read? | Masalah Non-Repeatable Read? | Masalah Phantom Read? |
+| --- | --- | --- | --- |
+| **Read Committed (Default)** | Tidak | Bisa Terjadi | Bisa Terjadi |
+| **Repeatable Read** | Tidak | Tidak | Tidak (di Postgres) |
+| **Serializable** | Tidak | Tidak | Tidak |
+
+Poin penting:
+
+- PostgreSQL menggunakan **MVCC (Multi-Version Concurrency Control)**: pembacaan (*SELECT*) tidak pernah memblokir penulisan (*UPDATE/INSERT*), dan penulisan tidak pernah memblokir pembacaan.
+- Gunakan \`SELECT ... FOR UPDATE\` saat kamu perlu mengunci baris tertentu (pesimistic lock) agar tidak diubah oleh transaksi lain hingga transaksi saat ini selesai (sangat krusial untuk sistem inventaris stok/tiket).
+- Jangan biarkan transaksi menggantung terbuka terlalu lama tanpa \`COMMIT\`/\`ROLLBACK\` karena akan menahan lock memori server.`,
+    sources: [
+      {
+            "label": "PostgreSQL Documentation — Transaction Isolation",
+            "url": "https://www.postgresql.org/docs/current/transaction-iso.html"
+      },
+      {
+            "label": "PostgreSQL Documentation — Concurrency Control (MVCC)",
+            "url": "https://www.postgresql.org/docs/current/mvcc.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal psql:
+1. Buka dua jendela terminal psql berbeda yang terhubung ke database yang sama (Terminal A dan Terminal B).
+2. Di Terminal A, ketik \`BEGIN; UPDATE pengguna SET saldo = 999999 WHERE email = 'budi@gmail.com';\` (JANGAN COMMIT DULU).
+3. Di Terminal B, jalankan \`SELECT saldo FROM pengguna WHERE email = 'budi@gmail.com';\` — amati bahwa Terminal B masih melihat saldo lama (karena transaksi A belum di-commit).
+4. Di Terminal A, ketik \`COMMIT;\`.
+5. Kembali ke Terminal B dan lakukan SELECT ulang — saksikan saldo baru kini terlihat. Ini menutup roadmap PostgreSQL!`,
+  },
+  {
+    category: "mariadb",
+    slug: "pengenalan-mariadb-dan-mariadb-client",
+    order: 0,
+    title: "Pengenalan MariaDB & CLI mariadb / mysql",
+    content: `**Masalah yang diselesaikan:** ketika Sun Microsystems (dan kemudian Oracle) mengakuisisi MySQL, komunitas open-source khawatir masa depan MySQL akan ditutup atau dibatasi fiturnya. Michael "Monty" Widenius (pencipta asli MySQL) membuat fork bernama **MariaDB** untuk menjamin bahwa teknologi database relasional populer ini akan selalu 100% gratis, open-source, dan dikembangkan secara transparan.
+
+MariaDB adalah pengganti langsung (*drop-in replacement*) untuk MySQL: protokol jaringan, port koneksi (3306), dan sebagian besar sintaks SQL identik, namun MariaDB menawarkan performa query optimizer yang lebih agresif dan storage engine modern.
+
+\`\`\`mermaid
+flowchart LR
+  App["Aplikasi Web / Web Hosting (Port 3306)"] --> Socket["MariaDB Server Daemon (mariadbd)"]
+  Socket --> Auth["Autentikasi User (mysql.user)"]
+  Socket --> Engine["Default Storage Engine (InnoDB / Aria)"]
+\`\`\`
+
+Menjalankan server MariaDB menggunakan Docker:
+
+\`\`\`bash
+# 1. Jalankan container MariaDB terbaru
+docker run --name mariadb-belajar -e MARIADB_ROOT_PASSWORD=rahasia -p 3306:3306 -d mariadb:latest
+
+# 2. Masuk ke terminal client mariadb / mysql
+docker exec -it mariadb-belajar mariadb -u root -prahasia
+\`\`\`
+
+Perintah navigasi dasar:
+
+\`\`\`sql
+-- Melihat daftar database
+SHOW DATABASES;
+
+-- Membuat database baru
+CREATE DATABASE portal_berita;
+
+-- Memilih database aktif
+USE portal_berita;
+
+-- Memeriksa versi server MariaDB yang sedang berjalan
+SELECT VERSION();
+
+-- Keluar
+EXIT;
+\`\`\`
+
+Poin penting:
+
+- MariaDB menggunakan port default **3306**.
+- Klien terminal MariaDB dapat dipanggil dengan perintah \`mariadb\` atau alias lama \`mysql\`.
+- MariaDB menyertakan fitur modern seperti *system-versioned tables* (mencatat riwayat audit perubahan data otomatis) yang tidak dimiliki MySQL standar.`,
+    sources: [
+      {
+            "label": "MariaDB Official Knowledge Base — About MariaDB",
+            "url": "https://mariadb.com/kb/en/about-mariadb/"
+      },
+      {
+            "label": "Docker Hub Official MariaDB Image",
+            "url": "https://hub.docker.com/_/mariadb"
+      }
+],
+    prerequisites: [
+      {
+            "label": "Docker sudah terinstall di komputermu (atau MariaDB native server)",
+            "url": "https://www.docker.com/"
+      }
+],
+    practice: `Buka terminal:
+1. Jalankan container MariaDB via Docker seperti contoh di atas.
+2. Masuk ke terminal client \`mariadb -u root -prahasia\`.
+3. Buat database baru bernama \`blog_pribadi\` dengan \`CREATE DATABASE blog_pribadi;\`.
+4. Jalankan \`SHOW DATABASES;\` dan pastikan database barumu terdaftar.
+5. Ketik \`USE blog_pribadi;\` lalu \`EXIT;\`.`,
+  },
+  {
+    category: "mariadb",
+    slug: "dasar-sql-dan-manajemen-tabel",
+    order: 1,
+    title: "Operasi SQL Dasar & Manajemen Tabel di MariaDB",
+    content: `Catatan sebelumnya mengenalkan cara terhubung ke MariaDB. **Masalah yang diselesaikan sekarang:** bagaimana cara menyusun tabel data dengan kunci utama otomatis (*auto-increment*) dan menjalankan operasi CRUD (Create, Read, Update, Delete) sehari-hari?
+
+Di MariaDB, pembuatan tabel dan manipulasi data mengikuti standar SQL yang sangat ramah pemula, dengan fitur auto-increment integer yang efisien untuk Primary Key.
+
+\`\`\`mermaid
+flowchart TD
+  Table["Tabel 'artikel'<br/>id INT AUTO_INCREMENT PRIMARY KEY<br/>judul VARCHAR(100)<br/>status ENUM('draft', 'published')"]
+  C["INSERT INTO artikel... ➔ ID otomatis 1, 2, 3..."] --> Table
+  Table --> R["SELECT * WHERE status = 'published'"]
+  Table --> U["UPDATE artikel SET judul = '...' WHERE id = 1"]
+  Table --> D["DELETE FROM artikel WHERE id = 2"]
+\`\`\`
+
+Sintaks pembuatan tabel dan operasi CRUD:
+
+\`\`\`sql
+USE portal_berita;
+
+-- 1. Membuat tabel dengan AUTO_INCREMENT dan ENUM
+CREATE TABLE artikel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    judul VARCHAR(150) NOT NULL,
+    isi TEXT NOT NULL,
+    status ENUM('draft', 'published') NOT NULL DEFAULT 'draft',
+    dibuat_pada DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 2. CREATE (Insert data)
+INSERT INTO artikel (judul, isi, status) VALUES
+('Mengenal MariaDB', 'MariaDB adalah database performa tinggi...', 'published'),
+('Tips Optimasi SQL', 'Gunakan indexing pada kolom kunci...', 'draft');
+
+-- 3. READ (Query dengan filter dan pengurutan)
+SELECT id, judul, status, dibuat_pada 
+FROM artikel 
+WHERE status = 'published'
+ORDER BY dibuat_pada DESC;
+
+-- 4. UPDATE (Ubah status artikel)
+UPDATE artikel 
+SET status = 'published' 
+WHERE id = 2;
+
+-- 5. DELETE (Hapus data tertentu)
+DELETE FROM artikel 
+WHERE id = 1;
+\`\`\`
+
+Poin penting:
+
+- Kata kunci \`AUTO_INCREMENT\` membuat database otomatis menghasilkan nomor urut berikutnya tanpa kamu perlu mengisi nilainya saat \`INSERT\`.
+- Tipe data \`ENUM('nilai1', 'nilai2')\` membatasi isi kolom secara ketat hanya pada pilihan teks yang didefinisikan, menghemat ruang disk dan mencegah typo.
+- **Waspada saat UPDATE / DELETE:** Selalu sertakan klausa \`WHERE\` pada perintah \`UPDATE\` dan \`DELETE\`. Menjalankan \`DELETE FROM artikel;\` tanpa \`WHERE\` akan menghapus seluruh isi tabel seketika!`,
+    sources: [
+      {
+            "label": "MariaDB Knowledge Base — CREATE TABLE",
+            "url": "https://mariadb.com/kb/en/create-table/"
+      },
+      {
+            "label": "MariaDB Knowledge Base — Auto_Increment",
+            "url": "https://mariadb.com/kb/en/auto_increment/"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal mariadb kamu:
+1. Buat tabel \`artikel\` seperti contoh di atas.
+2. Masukkan 3 baris artikel baru dengan status bervariasi.
+3. Jalankan \`SELECT * FROM artikel;\` dan perhatikan bagaimana kolom \`id\` bertambah otomatis (1, 2, 3).
+4. Update salah satu artikel menjadi \`published\`.
+5. Hapus artikel pertama dan periksa isi akhir tabel.`,
+  },
+  {
+    category: "mariadb",
+    slug: "storage-engines-innodb-vs-aria",
+    order: 2,
+    title: "Memahami Storage Engines: InnoDB vs Aria vs MyISAM",
+    content: `Catatan sebelumnya membahas operasi SQL dasar. **Masalah yang diselesaikan sekarang:** database lain (seperti PostgreSQL) menggunakan satu mesin penyimpanan yang seragam untuk semua tabel. MariaDB memiliki keunikan berupa **Pluggable Storage Engine Architecture**: kamu bisa memilih mesin penyimpanan yang berbeda untuk tabel yang berbeda sesuai kebutuhan beban kerja aplikasi (apakah butuh transaksi keuangan yang ketat, atau butuh pembacaan analitik super cepat tanpa transaksi).
+
+Dua engine paling penting di MariaDB:
+1. **InnoDB (Default untuk Aplikasi Web Modern):** Mendukung penuh transaksi ACID, kunci baris (*row-level locking*), dan integritas Foreign Key.
+2. **Aria (Fitur Eksklusif MariaDB):** Pengganti mesin lawas MyISAM yang dirancang aman dari crash (*crash-safe*), sangat efisien untuk data read-heavy dan tabel sementara (*temporary tables*).
+
+\`\`\`mermaid
+flowchart TD
+  Query["MariaDB SQL Layer (Parser & Optimizer)"]
+  Query --> EngineCheck{"Pilih Storage Engine per Tabel"}
+  EngineCheck -- ENGINE=InnoDB --> InnoDB["InnoDB Engine<br/>Transaksional ACID<br/>Row-level Lock<br/>Foreign Keys"]
+  EngineCheck -- ENGINE=Aria --> Aria["Aria Engine<br/>Crash-safe<br/>Super Cepat Read-Only<br/>Table-level Lock"]
+\`\`\`
+
+Menentukan Storage Engine pada Tabel:
+
+\`\`\`sql
+-- 1. Tabel transaksional (misal order/pembayaran) WAJIB menggunakan InnoDB
+CREATE TABLE pesanan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    total_bayar DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) NOT NULL
+) ENGINE=InnoDB;
+
+-- 2. Tabel analitik / log baca-saja yang jarang di-update bisa menggunakan Aria
+CREATE TABLE log_kunjungan (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ip_address VARCHAR(45) NOT NULL,
+    halaman VARCHAR(255) NOT NULL,
+    waktu DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=Aria PAGE_CHECKSUM=1;
+
+-- 3. Memeriksa storage engine seluruh tabel
+SHOW TABLE STATUS FROM portal_berita;
+\`\`\`
+
+Poin penting:
+
+- Untuk 95% kasus aplikasi web modern (seperti Laravel, WordPress, Django, Node.js), **selalu gunakan InnoDB**.
+- Jangan gunakan engine kuno \`MyISAM\` di proyek baru: MyISAM tidak tahan crash (tabel bisa rusak jika mati lampu) dan hanya mendukung *table-level locking* (satu update mengunci seluruh tabel).
+- Engine \`MEMORY\` menyimpan seluruh tabel murni di RAM untuk data sementara berumur pendek.`,
+    sources: [
+      {
+            "label": "MariaDB Knowledge Base — Storage Engines",
+            "url": "https://mariadb.com/kb/en/storage-engines/"
+      },
+      {
+            "label": "MariaDB Knowledge Base — Aria Storage Engine",
+            "url": "https://mariadb.com/kb/en/aria/"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal mariadb kamu:
+1. Jalankan \`SHOW ENGINES;\` untuk melihat seluruh storage engine yang aktif di server MariaDB.
+2. Buat satu tabel dengan \`ENGINE=InnoDB\` dan satu tabel log dengan \`ENGINE=Aria\`.
+3. Jalankan \`SHOW TABLE STATUS\G\` dan amati perbedaan kolom \`Engine\` pada kedua tabel tersebut.`,
+  },
+  {
+    category: "mariadb",
+    slug: "user-privileges-dan-keamanan",
+    order: 3,
+    title: "Manajemen User, Hak Akses (Privileges), & Keamanan",
+    content: `Catatan sebelumnya membahas storage engine. **Masalah yang diselesaikan sekarang:** kesalahan keamanan nomor satu bagi pemula adalah menghubungkan aplikasi web langsung menggunakan akun \`root\` tanpa batasan. Jika aplikasi web tersebut memiliki celah celah SQL Injection, penyerang dapat menghapus seluruh database, membaca berkas rahasia server, bahkan menguasai sistem operasi!
+
+Prinsip keamanan standar industri adalah **Principle of Least Privilege**: buat user database khusus untuk aplikasi tersebut, dan hanya berikan hak akses pada database miliknya saja.
+
+\`\`\`mermaid
+flowchart LR
+  Hacker["Potensi SQL Injection di Web"] --> AppUser["Akun 'app_user'@'%'"]
+  AppUser -->|Hanya boleh SELECT/INSERT/UPDATE di 'portal_berita'| Allowed["Operasi Normal Sukses"]
+  AppUser -.->|Coba DROP DATABASE lain / akses sistem| Denied["Ditolak MariaDB:<br/>Access denied for user!"]
+\`\`\`
+
+Perintah membuat User dan mengatur Hak Akses (*Privileges*):
+
+\`\`\`sql
+-- 1. Membuat user baru dengan password yang kuat
+-- '%' berarti user boleh terhubung dari IP mana saja (atau ganti 'localhost')
+CREATE USER 'app_user'@'%' IDENTIFIED BY 'PasswordSangatKuat123!';
+
+-- 2. Memberikan hak akses CRUD spesifik HANYA pada database 'portal_berita'
+GRANT SELECT, INSERT, UPDATE, DELETE ON portal_berita.* TO 'app_user'@'%';
+
+-- 3. Terapkan perubahan hak akses seketika
+FLUSH PRIVILEGES;
+
+-- 4. Memeriksa daftar izin yang dimiliki user tersebut
+SHOW GRANTS FOR 'app_user'@'%';
+\`\`\`
+
+Jika suatu saat ingin mencabut hak akses atau menghapus user:
+
+\`\`\`sql
+-- Mencabut hak DELETE (misal akun hanya boleh membaca dan menambah)
+REVOKE DELETE ON portal_berita.* FROM 'app_user'@'%';
+
+-- Menghapus user sepenuhnya
+DROP USER 'app_user'@'%';
+\`\`\`
+
+Poin penting:
+
+- Akun \`root\` hanya boleh dipakai oleh administrator database untuk pemeliharaan server, jangan pernah disimpan di file konfigurasi \`.env\` aplikasi produksi.
+- Selalu batasi hostname/IP jika memungkinkan: gunakan \`'app_user'@'localhost'\` jika backend web berjalan di mesin yang sama dengan database MariaDB.
+- Perintah \`FLUSH PRIVILEGES\` memastikan tabel otentikasi internal server di-reload seketika.`,
+    sources: [
+      {
+            "label": "MariaDB Knowledge Base — GRANT",
+            "url": "https://mariadb.com/kb/en/grant/"
+      },
+      {
+            "label": "MariaDB Knowledge Base — User Account Management",
+            "url": "https://mariadb.com/kb/en/user-account-management/"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal mariadb:
+1. Buat user baru bernama \`kasir_toko\` dengan password unik.
+2. Berikan izin hanya \`SELECT\` dan \`INSERT\` pada database latihanmu.
+3. Buka terminal baru dan coba login menggunakan user baru tersebut: \`mariadb -u kasir_toko -p\`.
+4. Coba jalankan perintah \`DELETE FROM ...\` dan buktikan bahwa MariaDB menolak eksekusi karena akun tersebut tidak memiliki hak hapus data.`,
+  },
+  {
+    category: "mariadb",
+    slug: "backup-dan-restore-mariadb-dump",
+    order: 4,
+    title: "Backup & Restore Database dengan mariadb-dump",
+    content: `Catatan sebelumnya melengkapi konfigurasi hak akses user. **Masalah yang diselesaikan sekarang (dan menutup roadmap MariaDB):** perangkat keras server bisa rusak, disk bisa penuh, atau ada rekan tim yang tidak sengaja menghapus tabel produksi. Tanpa salinan cadangan (*backup*) otomatis, perusahaan bisa kehilangan seluruh data bisnisnya secara permanen. Bagaimana cara mencadangkan database secara konsisten tanpa mematikan aplikasi yang sedang berjalan?
+
+MariaDB menyertakan tool CLI resmi bernama **\`mariadb-dump\`** (sebelumnya dikenal sebagai \`mysqldump\`). Tool ini membaca struktur skema dan baris data, lalu mengubahnya menjadi berkas teks SQL yang dapat dieksekusi ulang di server mana pun.
+
+\`\`\`mermaid
+flowchart LR
+  DB["Database Aktif (MariaDB)"] -->|mariadb-dump --single-transaction| Dump["File Backup (.sql.gz)<br/>CREATE TABLE...<br/>INSERT INTO..."]
+  Dump -->|Kirim ke Server Baru / Disaster Recovery| Restore["mariadb -u root target_db < backup.sql"]
+  Restore --> TargetDB["Database Pulih 100%!"]
+\`\`\`
+
+Perintah Backup dan Restore di Terminal OS:
+
+\`\`\`bash
+# 1. Melakukan Backup satu database secara konsisten tanpa mengunci tabel (InnoDB)
+mariadb-dump -u root -prahasia --single-transaction portal_berita > backup_portal.sql
+
+# 2. Backup dengan kompresi gzip langsung (menghemat ukuran disk hingga 80%)
+mariadb-dump -u root -prahasia --single-transaction portal_berita | gzip > backup_portal.sql.gz
+
+# 3. Restore / Memulihkan data dari file backup SQL
+# Pastikan database target sudah dibuat terlebih dahulu:
+mariadb -u root -prahasia -e "CREATE DATABASE IF NOT EXISTS portal_pulih;"
+mariadb -u root -prahasia portal_pulih < backup_portal.sql
+\`\`\`
+
+Poin penting:
+
+- **Flag \`--single-transaction\` WAJIB disertakan:** opsi ini memanfaatkan sifat transaksional InnoDB untuk membuat snapshot data yang konsisten pada satu titik waktu tanpa mengunci (*lock*) pembacaan dan penulisan aplikasi web.
+- Berkas dump berisi perintah DDL (\`CREATE TABLE\`) dan DML (\`INSERT INTO\`), sehingga mudah dibaca manusia dan kompatibel lintas versi MariaDB/MySQL.
+- Di lingkungan produksi, proses backup ini biasanya dijadwalkan otomatis setiap malam menggunakan Cronjob dan diunggah ke penyimpanan cloud aman (seperti AWS S3).`,
+    sources: [
+      {
+            "label": "MariaDB Knowledge Base — mariadb-dump / mysqldump",
+            "url": "https://mariadb.com/kb/en/mariadb-dump/"
+      },
+      {
+            "label": "MariaDB Knowledge Base — Backup and Restore Overview",
+            "url": "https://mariadb.com/kb/en/backup-and-restore-overview/"
+      }
+],
+    prerequisites: [],
+    practice: `Buka terminal komputermu:
+1. Jalankan \`mariadb-dump\` untuk mencadangkan database latihanmu ke file \`backup.sql\`.
+2. Buka file \`backup.sql\` di editor teks dan lihat bagaimana tabel dan datamu dituliskan sebagai kumpulan query SQL.
+3. Buat database baru \`mariadb -u root -p -e "CREATE DATABASE db_kembar;"\`.
+4. Restore data tersebut ke database baru dengan \`mariadb -u root -p db_kembar < backup.sql\`.
+5. Masuk ke \`db_kembar\` dan pastikan seluruh tabel dan data telah berhasil disalin sempurna. Ini menutup roadmap MariaDB!`,
+  },
+  {
+    category: "redis",
+    slug: "pengenalan-redis-dan-redis-cli",
+    order: 0,
+    title: "Pengenalan Redis, In-Memory Storage, & redis-cli",
+    content: `**Masalah yang diselesaikan:** database relasional tradisional (seperti PostgreSQL atau MariaDB) menyimpan datanya di piringan disk (HDD/SSD). Mengambil data dari disk membutuhkan latensi milidetik. Ketika jutaan pengunjung mengakses halaman yang sama secara serentak (misal: halaman flash sale produk populer), jutaan query SQL membanjiri disk server, membuat response time melonjak dari 50 ms menjadi 10 detik, bahkan menumbangkan server database.
+
+**Redis (Remote Dictionary Server)** memecahkan masalah ini dengan menyimpan seluruh datanya langsung di **RAM (Random Access Memory)**. Mengambil data dari memori RAM hanya membutuhkan latensi **sub-milidetik (< 1 ms)**, ratusan kali lebih cepat dibanding disk!
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Tradisional["Database Disk (Postgres / MariaDB)"]
+    D1["Query SQL"] --> D2["Baca Disk I/O (HDD/SSD)"]
+    D2 --> D3["Latensi: 10 - 50 milidetik"]
+  end
+  subgraph InMem["In-Memory Redis"]
+    R1["Perintah Key-Value"] --> R2["Baca RAM Langsung (Memory Bus)"]
+    R2 --> R3["Latensi: < 0.5 milidetik (Kilat!)"]
+  end
+\`\`\`
+
+Menjalankan Redis menggunakan Docker:
+
+\`\`\`bash
+# 1. Jalankan container Redis di background (port 6379)
+docker run --name redis-belajar -p 6379:6379 -d redis:7-alpine
+
+# 2. Masuk ke terminal interaktif redis-cli
+docker exec -it redis-belajar redis-cli
+\`\`\`
+
+Perintah dasar paling penting di \`redis-cli\`:
+
+\`\`\`text
+# 1. Menguji koneksi server (merespon PONG jika sehat)
+PING
+
+# 2. Menyimpan data string sederhana (Key-Value)
+SET nama "Budi Santoso"
+
+# 3. Mengambil data berdasarkan kunci
+GET nama
+
+# 4. Memeriksa apakah suatu kunci ada di memori (mengembalikan 1 jika ada, 0 jika tidak)
+EXISTS nama
+
+# 5. Menghapus kunci
+DEL nama
+\`\`\`
+
+Poin penting:
+
+- Redis menggunakan port default **6379**.
+- Arsitektur inti Redis dirancang dengan *single-threaded event loop* yang sangat teroptimasi, menghindari overhead penguncian thread (*lock contention*) dan mampu menangani lebih dari 100.000 operasi per detik pada perangkat keras standar.
+- Meskipun berbasis RAM, Redis memiliki mekanisme persistensi berkala ke disk (RDB snapshot & Append-Only File / AOF) sehingga data tidak hilang saat server di-restart.`,
+    sources: [
+      {
+            "label": "Redis Official Documentation — Introduction to Redis",
+            "url": "https://redis.io/docs/latest/get-started/"
+      },
+      {
+            "label": "Docker Hub Official Redis Image",
+            "url": "https://hub.docker.com/_/redis"
+      }
+],
+    prerequisites: [
+      {
+            "label": "Docker sudah terpasang di komputermu (atau Redis native CLI)",
+            "url": "https://www.docker.com/"
+      }
+],
+    practice: `Buka terminal:
+1. Jalankan container Redis via Docker seperti contoh di atas.
+2. Masuk ke terminal \`redis-cli\`.
+3. Ketik \`PING\` dan pastikan server membalas \`PONG\`.
+4. Simpan kunci baru: \`SET situs "Catatan Belajar"\`.
+5. Ambil nilainya dengan \`GET situs\`.
+6. Keluar dari redis-cli dengan mengetik \`exit\`.`,
+  },
+  {
+    category: "redis",
+    slug: "struktur-data-string-dan-key-expiration",
+    order: 1,
+    title: "Struktur Data String & Key Expiration (TTL)",
+    content: `Catatan sebelumnya mengenalkan dasar Redis. **Masalah yang diselesaikan sekarang:** bagaimana cara mengelola data yang hanya boleh hidup sementara — seperti kode OTP SMS yang kedaluwarsa dalam 5 menit, sesi login token pengguna yang hangus setelah 24 jam, atau pembatas jumlah request API (*rate limiter*)? Di database SQL biasa, kamu harus membuat kolom \`expired_at\` dan menjalankan cronjob pembersihan data basi secara berkala yang membebani server.
+
+Redis memiliki fitur bawaan **Key Expiration (TTL - Time To Live)**: kamu bisa menyetel masa aktif kunci, dan Redis akan menghapus data tersebut secara otomatis dari RAM begitu waktunya habis! Selain itu, tipe String di Redis mendukung operasi aritmatika atomik (\`INCR\`).
+
+\`\`\`mermaid
+flowchart LR
+  Set["SET otp:user123 '88421' EX 300<br/>(Masa hidup 300 detik)"] --> Wait["Waktu Berjalan (Countdown TTL)"]
+  Wait -->|Setelah 5 Menit Habis| Expired["Otomatis Dihapus dari RAM!<br/>GET mengembalikan (nil)"]
+\`\`\`
+
+Sintaks TTL dan Operasi Hitungan Atomik:
+
+\`\`\`text
+# 1. Menyimpan kunci dengan masa kedaluwarsa otomatis (EX = detik)
+# Contoh: Token sesi login user aktif selama 60 detik
+SET sesi:token_abc "user_id_42" EX 60
+
+# 2. Memeriksa sisa masa aktif suatu kunci (dalam satuan detik)
+TTL sesi:token_abc
+# Mengembalikan angka sisa detik (misal: 45)
+# Mengembalikan -2 jika kunci sudah hangus/tidak ada
+# Mengembalikan -1 jika kunci bersifat permanen (tanpa batas waktu)
+
+# 3. Menambahkan TTL ke kunci yang sudah terlanjur dibuat
+SET kupon_diskon "HEMAT10"
+EXPIRE kupon_diskon 120
+
+# 4. Operator Penambah Atomik (Sangat berguna untuk Counter / Hit / Rate Limiting)
+SET jumlah_kunjungan 100
+INCR jumlah_kunjungan
+# Mengembalikan 101 secara instan dan aman dari race-condition!
+\`\`\`
+
+Poin penting:
+
+- Operasi \`INCR\` dan \`DECR\` bersifat **atomic**: bahkan jika ada 10.000 request bersamaan menaikkan counter counter, tidak akan pernah ada nilai yang hilang (*zero race-condition*).
+- Manfaatkan konvensi penamaan kunci dengan titik dua (\`:\`) sebagai pemisah namespace logis: \`user:1001:profile\`, \`session:token_xyz\`.
+- Jika memori RAM server penuh, Redis menerapkan algoritma penggusuran (*eviction policy*) seperti LRU (Least Recently Used) untuk menghapus data lama yang jarang diakses.`,
+    sources: [
+      {
+            "label": "Redis Documentation — Strings",
+            "url": "https://redis.io/docs/latest/develop/data-types/strings/"
+      },
+      {
+            "label": "Redis Documentation — EXPIRE Command",
+            "url": "https://redis.io/docs/latest/commands/expire/"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal redis-cli kamu:
+1. Simpan kode OTP sementara dengan masa aktif 10 detik: \`SET kode_otp 123456 EX 10\`.
+2. Periksa sisa waktunya dengan mengetik \`TTL kode_otp\` berulang kali dan perhatikan hitungan mundurnya.
+3. Tunggu hingga 10 detik, lalu jalankan \`GET kode_otp\` dan pastikan nilainya berubah menjadi \`(nil)\` (kosong).
+4. Buat counter hitung: \`SET counter 0\`, lalu jalankan \`INCR counter\` tiga kali.`,
+  },
+  {
+    category: "redis",
+    slug: "struktur-data-lanjutan-list-set-hash",
+    order: 2,
+    title: "Struktur Data Kaya: Hash, List, dan Set",
+    content: `Catatan sebelumnya membahas String dan masa aktif TTL. **Masalah yang diselesaikan sekarang:** Redis sering kali disalahpahami hanya sebagai "tempat menyimpan teks sederhana". Bagaimana jika kamu ingin menyimpan objek profil pengguna dengan banyak atribut, atau membuat antrean tugas (*job queue*) yang diproses berurutan, atau mengelola daftar tag unik tanpa duplikasi? Menyimpan semuanya sebagai string JSON mengharuskan kamu mengunduh dan mem-parse seluruh teks hanya untuk mengubah satu atribut kecil.
+
+Redis menyediakan **struktur data kaya di tingkat mesin (*native data structures*)**:
+1. **Hash:** Wadah pasangan field-nilai di dalam satu key (sempurna untuk representasi Objek / Record).
+2. **List:** Antrean data berurutan (cocok untuk FIFO queue / activity feeds).
+3. **Set:** Kumpulan elemen unik tanpa duplikasi dengan operasi himpunan (irisan, gabungan).
+
+\`\`\`mermaid
+flowchart TD
+  subgraph H["Hash: 'user:101'"]
+    H1["nama: 'Budi'"]
+    H2["email: 'budi@mail.com'"]
+    H3["skor: 90"]
+  end
+  subgraph L["List (Queue): 'antrean_pesan'"]
+    L1["[Pesan 1]"] --> L2["[Pesan 2]"] --> L3["[Pesan 3]"]
+  end
+  subgraph S["Set: 'tags:artikel'"]
+    S1["'java', 'backend', 'database' (Dijamin Unik)"]
+  end
+\`\`\`
+
+Contoh penggunaan Hash, List, dan Set:
+
+\`\`\`text
+# 1. HASH: Mengelola objek pengguna
+HSET user:101 nama "Budi" email "budi@mail.com" level 5
+HGET user:101 nama
+# Mengubah satu field secara atomik tanpa menyentuh field lain
+HINCRBY user:101 level 1
+# Mengambil seluruh field sekaligus
+HGETALL user:101
+
+# 2. LIST: Antrean Pesan / Jobs (Queue FIFO)
+# Memasukkan antrean dari kiri (Left Push)
+LPUSH antrean_email "email_user_A"
+LPUSH antrean_email "email_user_B"
+# Mengambil dan menghapus item dari kanan (Right Pop: elemen paling awal keluar duluan)
+RPOP antrean_email
+
+# 3. SET: Koleksi elemen unik
+SADD tag_artikel "database" "backend" "redis"
+# Duplikat otomatis diabaikan:
+SADD tag_artikel "database"
+# Melihat seluruh tag yang ada
+SMEMBERS tag_artikel
+# Memeriksa apakah suatu elemen ada di set (O(1))
+SISMEMBER tag_artikel "backend"
+\`\`\`
+
+Poin penting:
+
+- Mengubah field di dalam \`Hash\` (misal \`HSET\` atau \`HINCRBY\`) sangat hemat bandwidth karena hanya mengirimkan field yang berubah, bukan seluruh objek.
+- \`List\` di Redis diimplementasikan sebagai *Linked List*: operasi push dan pop di ujung antrean (\`LPUSH\`/\`RPOP\`) berkecepatan instan $O(1)$ bahkan jika list memuat jutaan item.
+- \`Set\` sangat ideal untuk sistem rekomendasi dan pertemanan: Redis menyediakan operasi matematika himpunan super cepat seperti \`SINTER\` (irisan/teman bersama) dan \`SDIFF\` (selisih).`,
+    sources: [
+      {
+            "label": "Redis Documentation — Hashes",
+            "url": "https://redis.io/docs/latest/develop/data-types/hashes/"
+      },
+      {
+            "label": "Redis Documentation — Lists & Sets",
+            "url": "https://redis.io/docs/latest/develop/data-types/lists/"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal redis-cli kamu:
+1. Buat hash profil barang: \`HSET produk:1 nama "Kopi" harga 25000 stok 10\`.
+2. Kurangi stoknya sebesar 1 menggunakan \`HINCRBY produk:1 stok -1\`.
+3. Buat antrean tugas: masukkan 3 item dengan \`LPUSH antrean "Tugas 1"\` lalu \`Tugas 2\` dan \`Tugas 3\`.
+4. Ambil item pertama yang harus diproses dengan \`RPOP antrean\` dan buktikan "Tugas 1" yang keluar pertama.
+5. Buat set pengguna online dengan \`SADD online "ani" "budi"\`, lalu cek keanggotaannya dengan \`SISMEMBER online "ani"\`.`,
+  },
+  {
+    category: "redis",
+    slug: "pola-caching-cache-aside",
+    order: 3,
+    title: "Pola Caching di Aplikasi Web (Cache-Aside Pattern)",
+    content: `Catatan sebelumnya membahas struktur data kaya di Redis. **Masalah yang diselesaikan sekarang:** bagaimana cara mengintegrasikan Redis ke dalam aplikasi backend nyata (seperti Node.js, Spring Boot, atau Python) untuk melindungi database SQL utama dari kelebihan beban?
+
+Pola arsitektur caching yang paling banyak dipakai di dunia industri adalah **Cache-Aside (Lazy Loading)**:
+1. Aplikasi menerima permintaan data dari user.
+2. Aplikasi pertama kali mengecek apakah data ada di cache Redis.
+3. **Cache Hit:** Jika ada, data langsung dikembalikan seketika (< 1 ms). Database SQL sama sekali tidak disentuh!
+4. **Cache Miss:** Jika belum ada, ambil data dari database SQL utama, simpan salinannya ke Redis dengan masa kedaluwarsa (TTL), lalu kembalikan hasilnya ke user.
+
+\`\`\`mermaid
+flowchart TD
+  User["Pengguna Web / Frontend"] --> App["Backend Aplikasi"]
+  App --> CacheCheck{"Cek Redis Cache<br/>(GET produk:123)"}
+  CacheCheck -- Cache Hit (Data Ada) --> ReturnFast["Kembalikan Data Instan (<1 ms)"]
+  CacheCheck -- Cache Miss (Kosong) --> QueryDB["Ambil dari Database SQL (Postgres/MariaDB)"]
+  QueryDB --> SaveCache["Simpan ke Redis dengan TTL<br/>(SET produk:123 ... EX 3600)"]
+  SaveCache --> ReturnSlow["Kembalikan Data ke Pengguna"]
+  ReturnFast & ReturnSlow --> User
+\`\`\`
+
+Contoh kode implementasi Cache-Aside di Node.js (TypeScript):
+
+\`\`\`ts
+import { createClient } from "redis";
+
+const redis = createClient();
+await redis.connect();
+
+async function ambilDetailProduk(id: string) {
+    const cacheKey = \`produk:\${id}\`;
+
+    // 1. Periksa Cache di Redis
+    const cachedData = await redis.get(cacheKey);
+    if (cachedData) {
+        console.log("⚡ Cache Hit: Mengambil dari Redis!");
+        return JSON.parse(cachedData);
+    }
+
+    // 2. Cache Miss: Jalankan query SQL berat ke Database
+    console.log("🐢 Cache Miss: Query ke Database SQL...");
+    const dataDariDb = await db.query("SELECT * FROM produk WHERE id = ?", [id]);
+
+    if (dataDariDb) {
+        // 3. Simpan ke Redis dengan masa kedaluwarsa 1 jam (3600 detik)
+        await redis.set(cacheKey, JSON.stringify(dataDariDb), { EX: 3600 });
+    }
+
+    return dataDariDb;
+}
+\`\`\`
+
+Poin penting:
+
+- **Wajib gunakan TTL (Expiration):** Jangan pernah menyimpan data cache tanpa batas waktu; TTL menjamin bahwa jika ada data yang diperbarui di database utama, cache otomatis disegarkan setelah waktunya habis.
+- **Cache Invalidation:** Saat ada operasi \`UPDATE\` atau \`DELETE\` pada produk di database, backend sebaiknya langsung menghapus kuncinya di Redis (\`DEL produk:123\`) agar pengguna tidak membaca data basi (*stale data*).
+- Dengan pola Cache-Aside, jika server Redis mengalami gangguan mendadak, aplikasi tetap dapat berjalan normal (hanya sedikit lebih lambat) karena aplikasi otomatis beralih membaca langsung dari database SQL.`,
+    sources: [
+      {
+            "label": "Microsoft Cloud Architecture Center — Cache-Aside Pattern",
+            "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside"
+      },
+      {
+            "label": "Redis Documentation — Redis as an LRU Cache",
+            "url": "https://redis.io/docs/latest/develop/use-cases/caching/"
+      }
+],
+    prerequisites: [],
+    practice: `Di terminal redis-cli kamu:
+1. Simulasikan skenario Cache-Aside: simpan data hasil query berat ke Redis: \`SET artikel:1 '{"judul":"Belajar Redis","view":500}' EX 60\`.
+2. Jalankan \`GET artikel:1\` untuk merasakan betapa instannya pengambilan data berformat JSON dari RAM.
+3. Simulasikan skenario update data: hapus kuncinya dengan \`DEL artikel:1\`.
+4. Jalankan \`GET artikel:1\` kembali dan pastikan nilainya \`(nil)\` (menandakan aplikasi harus mengambil ulang dari SQL).`,
+  },
+  {
+    category: "redis",
+    slug: "pub-sub-dan-message-broker",
+    order: 4,
+    title: "Pub/Sub: Komunikasi Realtime & Message Broker",
+    content: `Catatan sebelumnya membahas pola caching data. **Masalah yang diselesaikan sekarang (dan menutup roadmap Redis):** bayangkan kamu membangun fitur chat realtime, notifikasi siaran live, atau sistem pembaruan harga saham. Jika frontend harus terus-menerus bertanya ke server setiap 1 detik (*polling*), server akan cepat kehabisan bandwidth dan membebani database. Bagaimana cara mengirimkan pesan seketika ke ribuan pengguna begitu sebuah peristiwa terjadi?
+
+Redis menyediakan fitur bawaan **Pub/Sub (Publish / Subscribe)**: pola komunikasi di mana pengirim (*Publisher*) mengirim pesan ke saluran (*Channel*) tanpa perlu tahu siapa penerimanya, dan semua pendengar (*Subscriber*) yang sedang terhubung ke saluran tersebut langsung menerima pesan dalam hitungan mikrodetik.
+
+\`\`\`mermaid
+flowchart TD
+  Publisher["Publisher (Backend Server)"]
+  Publisher -->|PUBLISH notifikasi_channel 'Diskon 50%!'| RedisCore["Redis Channel: 'notifikasi_channel'"]
+  RedisCore --> Sub1["Subscriber 1 (Client Web A)"]
+  RedisCore --> Sub2["Subscriber 2 (Client Mobile B)"]
+  RedisCore --> Sub3["Subscriber 3 (Dashboard Admin)"]
+\`\`\`
+
+Sintaks Perintah Pub/Sub di \`redis-cli\`:
+
+\`\`\`text
+# JENDELA TERMINAL 1 (Subscriber - Menunggu pesan masuk)
+SUBSCRIBE saluran_berita
+
+# Output: Berada dalam mode standby mendengarkan channel...
+\`\`\`
+
+\`\`\`text
+# JENDELA TERMINAL 2 (Publisher - Mengirim pesan)
+PUBLISH saluran_berita "Breaking News: Redis v8 Resmi Rilis!"
+
+# Output: (integer) 1  (artinya ada 1 subscriber aktif yang menerima pesan)
+\`\`\`
+
+Di Jendela Terminal 1 seketika muncul output:
+\`\`\`text
+1) "message"
+2) "saluran_berita"
+3) "Breaking News: Redis v8 Resmi Rilis!"
+\`\`\`
+
+Poin penting:
+
+- Fitur Pub/Sub di Redis bekerja dengan prinsip **"Fire and Forget"**: jika tidak ada subscriber yang sedang mendengarkan saat pesan di-publish, pesan tersebut tidak akan disimpan dan hilang.
+- Jika kamu membutuhkan antrean pesan yang terjamin tidak hilang dan memiliki riwayat pengiriman (*persistent stream*), Redis menyediakan fitur **Redis Streams** (\`XADD\`, \`XREADGROUP\`).
+- Sangat ideal dikombinasikan dengan WebSocket di Node.js/Go/Java untuk menyiarkan pesan ke ribuan koneksi browser secara simultan.`,
+    sources: [
+      {
+            "label": "Redis Documentation — Pub/Sub",
+            "url": "https://redis.io/docs/latest/develop/interact/pubsub/"
+      },
+      {
+            "label": "Redis Documentation — Redis Streams",
+            "url": "https://redis.io/docs/latest/develop/data-types/streams/"
+      }
+],
+    prerequisites: [],
+    practice: `Di komputer latihan kamu:
+1. Buka dua tab terminal berbeda dan jalankan \`docker exec -it redis-belajar redis-cli\` di kedua tab.
+2. Di Tab 1, ketik perintah \`SUBSCRIBE ruang_obrolan\`.
+3. Di Tab 2, kirim pesan dengan \`PUBLISH ruang_obrolan "Halo dari tab kedua!"\`.
+4. Lihat bagaimana pesan langsung muncul instan di Tab 1 tanpa jeda sama sekali. Ini menutup roadmap Redis!`,
+  },
   {
     category: "java-dasar",
     slug: "pengenalan-jdk-dan-program-pertama",
