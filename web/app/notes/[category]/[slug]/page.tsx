@@ -37,8 +37,12 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
     getAdjacentNotes(note.category.id, note.id),
     getQuizQuestions({ noteId: note.id }),
   ]);
-  const quizAttempt = currentUser ? await getQuizAttempt(currentUser.id, { noteId: note.id }) : null;
-  const aiChatMessages = currentUser ? await getAiChatMessages(currentUser.id, { noteId: note.id }) : [];
+  const [quizAttempt, aiChatMessages] = currentUser
+    ? await Promise.all([
+        getQuizAttempt(currentUser.id, { noteId: note.id }),
+        getAiChatMessages(currentUser.id, { noteId: note.id }),
+      ])
+    : [null, []];
 
   const updated = new Date(note.updated_at).toLocaleDateString("id-ID", {
     day: "numeric",

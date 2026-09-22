@@ -12,6 +12,7 @@ import {
   getQuizAttempt,
   getQuizQuestions,
 } from "@/lib/queries";
+import type { AiChatMessage, QuizAttempt } from "@/lib/types";
 
 export async function generateMetadata({
   params,
@@ -36,14 +37,18 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   if (!result) notFound();
   const { category, notes } = result;
 
-  const user = await getCurrentProfile();
-  const progressMap = user ? await getNoteProgressMap(user.id, notes.map((n) => n.id)) : {};
+  const [user, quizQuestions] = await Promise.all([getCurrentProfile(), getQuizQuestions({ categoryId: category.id })]);
+
+  const [progressMap, quizAttempt, aiChatMessages]: [Record<string, string>, QuizAttempt | null, AiChatMessage[]] = user
+    ? await Promise.all([
+        getNoteProgressMap(user.id, notes.map((n) => n.id)),
+        getQuizAttempt(user.id, { categoryId: category.id }),
+        getAiChatMessages(user.id, { categoryId: category.id }),
+      ])
+    : [{}, null, []];
+
   const selesaiCount = notes.filter((n) => progressMap[n.id] === "selesai").length;
   const progressPercent = notes.length > 0 ? Math.round((selesaiCount / notes.length) * 100) : 0;
-
-  const quizQuestions = await getQuizQuestions({ categoryId: category.id });
-  const quizAttempt = user ? await getQuizAttempt(user.id, { categoryId: category.id }) : null;
-  const aiChatMessages = user ? await getAiChatMessages(user.id, { categoryId: category.id }) : [];
 
   return (
     <div>
