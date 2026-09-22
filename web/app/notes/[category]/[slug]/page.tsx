@@ -6,15 +6,7 @@ import CommentSection from "@/components/CommentSection";
 import MarkdownContent from "@/components/MarkdownContent";
 import ProgressControl from "@/components/ProgressControl";
 import QuizSection from "@/components/QuizSection";
-import {
-  getAdjacentNotes,
-  getAiChatMessages,
-  getComments,
-  getCurrentProfile,
-  getNoteBySlug,
-  getQuizAttempt,
-  getQuizQuestions,
-} from "@/lib/queries";
+import { getAdjacentNotes, getComments, getCurrentProfile, getNoteBySlug } from "@/lib/queries";
 
 type Params = { category: string; slug: string };
 
@@ -31,18 +23,11 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
 
   if (!note) notFound();
 
-  const [comments, currentUser, adjacent, quizQuestions] = await Promise.all([
+  const [comments, currentUser, adjacent] = await Promise.all([
     getComments(note.id),
     getCurrentProfile(),
     getAdjacentNotes(note.category.id, note.id),
-    getQuizQuestions({ noteId: note.id }),
   ]);
-  const [quizAttempt, aiChatMessages] = currentUser
-    ? await Promise.all([
-        getQuizAttempt(currentUser.id, { noteId: note.id }),
-        getAiChatMessages(currentUser.id, { noteId: note.id }),
-      ])
-    : [null, []];
 
   const updated = new Date(note.updated_at).toLocaleDateString("id-ID", {
     day: "numeric",
@@ -111,15 +96,9 @@ export default async function NotePage({ params }: { params: Promise<Params> }) 
         </>
       )}
 
-      <QuizSection
-        scope={{ noteId: note.id }}
-        title="Kuis Catatan Ini"
-        questions={quizQuestions}
-        currentUser={currentUser}
-        initialAttempt={quizAttempt}
-      />
+      <QuizSection scope={{ noteId: note.id }} title="Kuis Catatan Ini" currentUser={currentUser} />
 
-      <AskAiPanel scope={{ noteId: note.id }} currentUser={currentUser} initialMessages={aiChatMessages} />
+      <AskAiPanel scope={{ noteId: note.id }} currentUser={currentUser} />
 
       <nav className="mt-10 flex flex-wrap justify-between gap-4 border-t border-border pt-4 text-sm">
         {adjacent.prev ? (

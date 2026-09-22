@@ -4,15 +4,7 @@ import { notFound } from "next/navigation";
 import AskAiPanel from "@/components/AskAiPanel";
 import MarkdownContent from "@/components/MarkdownContent";
 import QuizSection from "@/components/QuizSection";
-import {
-  getAiChatMessages,
-  getCategoryBySlug,
-  getCurrentProfile,
-  getNoteProgressMap,
-  getQuizAttempt,
-  getQuizQuestions,
-} from "@/lib/queries";
-import type { AiChatMessage, QuizAttempt } from "@/lib/types";
+import { getCategoryBySlug, getCurrentProfile, getNoteProgressMap } from "@/lib/queries";
 
 export async function generateMetadata({
   params,
@@ -37,15 +29,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   if (!result) notFound();
   const { category, notes } = result;
 
-  const [user, quizQuestions] = await Promise.all([getCurrentProfile(), getQuizQuestions({ categoryId: category.id })]);
-
-  const [progressMap, quizAttempt, aiChatMessages]: [Record<string, string>, QuizAttempt | null, AiChatMessage[]] = user
-    ? await Promise.all([
-        getNoteProgressMap(user.id, notes.map((n) => n.id)),
-        getQuizAttempt(user.id, { categoryId: category.id }),
-        getAiChatMessages(user.id, { categoryId: category.id }),
-      ])
-    : [{}, null, []];
+  const user = await getCurrentProfile();
+  const progressMap = user ? await getNoteProgressMap(user.id, notes.map((n) => n.id)) : {};
 
   const selesaiCount = notes.filter((n) => progressMap[n.id] === "selesai").length;
   const progressPercent = notes.length > 0 ? Math.round((selesaiCount / notes.length) * 100) : 0;
@@ -109,15 +94,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         })}
       </ol>
 
-      <QuizSection
-        scope={{ categoryId: category.id }}
-        title="Kuis Akhir Kategori"
-        questions={quizQuestions}
-        currentUser={user}
-        initialAttempt={quizAttempt}
-      />
+      <QuizSection scope={{ categoryId: category.id }} title="Kuis Akhir Kategori" currentUser={user} />
 
-      <AskAiPanel scope={{ categoryId: category.id }} currentUser={user} initialMessages={aiChatMessages} />
+      <AskAiPanel scope={{ categoryId: category.id }} currentUser={user} />
     </div>
   );
 }
