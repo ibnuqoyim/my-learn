@@ -5,6 +5,24 @@
 
 export const categories = [
   {
+    name: "PHP",
+    slug: "php",
+    description: `PHP adalah bahasa pemrograman server-side yang menggerakkan lebih dari 75% website di dunia — dari platform raksasa seperti Wikipedia dan WordPress hingga sistem enterprise berskala besar. Di era modern (PHP 8.2 & 8.3+), PHP telah bertransformasi total menjadi bahasa yang cepat (JIT compiler), sangat aman dengan sistem strict typing, dan kaya fitur berorientasi objek yang elegan.
+
+Roadmap ini membangun fondasi PHP modern dari nol: mulai dari setup PHP CLI dan server bawaan, tipe data modern dan match expression, type hinting pada fungsi dan arrow functions, OOP modern tanpa boilerplate lewat Constructor Property Promotion dan Readonly, penanganan error dan exception terstruktur, sampai manajemen dependensi standar industri menggunakan Composer dan PSR-4 autoloading. Enam langkah berjenjang, ikuti berurutan.
+
+**Asumsi:** belum pernah menulis PHP sama sekali tidak masalah — roadmap ini menjelaskan dari sintaks modern. Prasyarat tool (PHP 8.2+) disebutkan di catatan pertama.`,
+  },
+  {
+    name: "Laravel",
+    slug: "laravel",
+    description: `Framework web PHP paling populer di dunia dengan filosofi *"The PHP Framework for Web Artisans"*. Di **Laravel 11**, arsitektur aplikasi disederhanakan secara dramatis: konfigurasi terpusat di \`bootstrap/app.php\`, routing ramping, Eloquent ORM yang ekspresif, dan ekosistem modern untuk membangun API maupun fullstack apps.
+
+Roadmap ini membawamu dari nol menguasai framework Laravel 11 modern: mulai dari instalasi project ramping dan arsitektur file terbaru, routing dan controller dengan Route Model Binding, templating dinamis dengan Blade Layout Components, kontrol versi database lewat Migrations dan Seeders, manipulasi data ekspresif dengan Eloquent ORM dan pencegahan masalah N+1 query, sampai validasi input terpusat dengan Form Request dan Middleware. Enam langkah berjenjang, ikuti berurutan.
+
+**Asumsi:** familiar dengan dasar bahasa PHP (OOP dan fungsi) dari roadmap [PHP](/kategori/php). Prasyarat tool (PHP 8.2+ dan Composer) disebutkan di catatan pertama.`,
+  },
+  {
     name: "PostgreSQL",
     slug: "postgresql",
     description: `Database relasional open-source paling canggih di dunia, terkenal dengan kepatuhan standar SQL yang ketat, keandalan transaksi ACID, dan dukungan tipe data modern seperti JSONB. PostgreSQL menjadi fondasi teknologi di balik platform cloud-native modern seperti Supabase.
@@ -169,6 +187,1125 @@ Roadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency 
 ];
 
 export const notes = [
+  {
+    category: "php",
+    slug: "pengenalan-php-modern-dan-cli",
+    order: 0,
+    title: "Pengenalan PHP Modern (8.2+), CLI, & Built-in Server",
+    content: `**Masalah yang diselesaikan:** banyak orang memiliki stigma bahwa PHP adalah bahasa yang lambat, penuh kode campur aduk spageti HTML-PHP, dan rawan bug karena tipe data yang terlalu longgar. Stigma tersebut berasal dari era PHP 4 dan 5 (dua dekade lalu!). Di era modern (**PHP 8.2 dan 8.3+**), PHP telah berevolusi menjadi bahasa pemrograman yang sangat cepat (dilengkapi JIT / Just-In-Time compiler), memiliki sistem pengetikan ketat (*strict typing*), dan arsitektur berorientasi objek yang bersih.
+
+PHP dijalankan di sisi server (*server-side*). Setiap kali pengunjung membuka halaman web, server mengeksekusi skrip PHP untuk mengambil data atau memproses logika, lalu mengirimkan hasil akhirnya (biasanya berupa HTML murni atau JSON) ke browser.
+
+\`\`\`mermaid
+flowchart LR
+  Browser["Browser Klien"] -->|HTTP Request| WebServer["Web Server (PHP CLI / FPM)"]
+  WebServer --> Engine["PHP 8.x Engine (Strict Types & JIT)"]
+  Engine --> Exec["Eksekusi Logika & Render Output"]
+  Exec -->|Kirim HTML / JSON Bersih| Browser
+\`\`\`
+
+Menjalankan PHP dari Terminal dan Mengaktifkan Development Server Bawaan:
+
+\`\`\`bash
+# 1. Memeriksa versi PHP yang terpasang di komputer
+php -v
+
+# 2. Menjalankan skrip PHP langsung lewat CLI
+php skrip.php
+
+# 3. Menjalankan web server lokal bawaan PHP (tanpa perlu install XAMPP/Apache!)
+php -S localhost:8000
+\`\`\`
+
+Contoh skrip PHP Modern pertama (\`index.php\`):
+
+\`\`\`php
+<?php
+// Wajib di baris paling atas: mengaktifkan pengetikan ketat di seluruh berkas
+declare(strict_types=1);
+
+// Variabel di PHP selalu diawali tanda dollar ($)
+$nama = "Budi Santoso";
+$tahunIni = 2026;
+
+// Mencetak output ke layar terminal / browser
+echo "Halo, $nama! Selamat datang di PHP Modern tahun $tahunIni.
+";
+\`\`\`
+
+Poin penting:
+
+- Skrip PHP selalu diawali dengan tag pembuka \`<?php\`. Jika berkas murni hanya berisi kode PHP (tanpa campuran tag HTML), **jangan pernah menulis tag penutup \`?>\`** di akhir file untuk mencegah celah spasi putih tak disengaja (*whitespace header issues*).
+- Direktif \`declare(strict_types=1);\` memaksa PHP menolak nilai yang tidak sesuai tipe data parameter fungsi (mencegah bug konversi tipe otomatis).
+- Perintah \`php -S localhost:8000\` sangat praktis untuk pengembangan lokal cepat tanpa perlu mengonfigurasi web server berat.`,
+    sources: [
+      {
+            "label": "PHP: The Right Way — Modern PHP Best Practices",
+            "url": "https://phptherightway.com/"
+      },
+      {
+            "label": "PHP Official Manual — Getting Started",
+            "url": "https://www.php.net/manual/en/getting-started.php"
+      }
+],
+    prerequisites: [
+      {
+            "label": "PHP versi 8.2 atau 8.3 sudah terpasang (cek dengan `php -v` di terminal)",
+            "url": "https://www.php.net/downloads"
+      }
+],
+    practice: `Buka terminal:
+1. Pastikan PHP terpasang dengan mengetik \`php -v\`.
+2. Buat folder baru \`belajar-php\` dan buat file \`index.php\`.
+3. Tulis kode contoh di atas dan ubah variabel nama dengan namamu.
+4. Jalankan \`php index.php\` di terminal dan periksa hasilnya.
+5. Jalankan \`php -S localhost:8000\`, lalu buka \`http://localhost:8000\` di browser untuk melihat outputnya secara langsung.`,
+  },
+  {
+    category: "php",
+    slug: "tipe-data-dan-sintaks-modern",
+    order: 1,
+    title: "Tipe Data, Match Expression, & Nullsafe Operator",
+    content: `Catatan sebelumnya mengenalkan dasar PHP modern. **Masalah yang diselesaikan sekarang:** di PHP lama, percabangan \`switch\` sering menjadi sarang bug karena memakai perbandingan longgar (\`==\`) dan gampang terselip bug lupa menulis \`break\` (*fall-through*). Selain itu, mengakses properti objek bertingkat (\`$user->alamat->kota\`) rentan memicu crash *Fatal Error* jika salah satu objek di tengah rantai bernilai \`null\`.
+
+PHP 8+ memperkenalkan dua fitur sintaks modern yang sangat revolusioner:
+1. **Match Expression:** Pengganti \`switch\` yang mengembalikan nilai langsung, menggunakan perbandingan ketat (\`===\`), dan tidak membutuhkan \`break\`.
+2. **Nullsafe Operator (\`?->\`):** Rantai pemanggilan objek yang otomatis mengembalikan \`null\` tanpa crash jika salah satu elemennya bernilai null.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph SwitchLama["Switch Tradisional (Rawan Bug)"]
+    S1["switch($status)"] --> S2["Perbandingan Longgar (==)"]
+    S2 --> S3["Wajib tulis 'break;' manual di tiap baris"]
+  end
+  subgraph MatchModern["PHP 8+: Match Expression (Ringkas & Aman)"]
+    M1["$hasil = match($status)"] --> M2["Perbandingan Ketat (===)"]
+    M2 --> M3["Mengembalikan nilai ekspresi langsung tanpa break!"]
+  end
+\`\`\`
+
+Contoh penggunaan Tipe Data, Match Expression, dan Nullsafe Operator:
+
+\`\`\`php
+<?php
+declare(strict_types=1);
+
+// 1. Tipe data skalar dan Array modern
+$umur = 25;              // int
+$harga = 99000.50;        // float
+$isMember = true;         // bool
+$hobi = ["Coding", "Baca"]; // array (sintaks braket siku)
+
+// 2. Modern Match Expression (PHP 8.0+)
+$kodeStatus = "PAID";
+
+$statusPesanan = match ($kodeStatus) {
+    "PENDING" => "Menunggu Pembayaran",
+    "PAID", "SETTLED" => "Pembayaran Berhasil, Siap Dikirim",
+    "EXPIRED" => "Pembayaran Kedaluwarsa",
+    default => "Status Tidak Dikenali",
+};
+
+echo "Status: $statusPesanan
+";
+
+// 3. Nullsafe Operator (?->)
+class Profil {
+    public ?string $kota = "Bandung";
+}
+class Pengguna {
+    public ?Profil $profil = null; // Bisa bernilai null
+}
+
+$user = new Pengguna();
+
+// Cara lama yang bertele-tele:
+// $kota = ($user->profil !== null) ? $user->profil->kota : null;
+
+// Cara modern dengan Nullsafe Operator: aman tanpa fatal error!
+$kota = $user->profil?->kota;
+echo "Kota domisili: " . ($kota ?? "Belum diisi") . "
+";
+\`\`\`
+
+Poin penting:
+
+- \`match\` expression melakukan evaluasi ketat (\`===\`): angka \`0\` tidak akan pernah dianggap sama dengan string \`"0"\`.
+- Jika tidak ada kondisi \`match\` yang cocok dan kamu lupa menulis cabang \`default\`, PHP akan melempar error \`UnhandledMatchError\` yang aman alih-alih mengeksekusi kode salah.
+- Operator penggabung null **\`??\` (Null Coalescing Operator)** digunakan untuk menyediakan nilai bawaan jika variabel bernilai null atau belum didefinisikan.`,
+    sources: [
+      {
+            "label": "PHP Official Manual — Match Expressions",
+            "url": "https://www.php.net/manual/en/control-structures.match.php"
+      },
+      {
+            "label": "PHP Official Manual — Nullsafe Operator",
+            "url": "https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.nullsafe"
+      }
+],
+    prerequisites: [],
+    practice: `Di file \`index.php\` kamu:
+1. Buat variabel peran user: \`$peran = "admin";\`.
+2. Gunakan \`match\` expression untuk menentukan hak akses: \`"admin"\` -> \`"Akses Penuh"\`, \`"editor"\` -> \`"Akses Konten"\`, \`"tamu"\` -> \`"Akses Baca"\`, dan default -> \`"Akses Ditolak"\`.
+3. Cetak hasil hak akses ke terminal.
+4. Uji dengan mengubah nilai \`$peran\` menjadi string yang tidak terdaftar untuk membuktikan cabang \`default\` bekerja dengan baik.`,
+  },
+  {
+    category: "php",
+    slug: "fungsi-dan-arrow-functions",
+    order: 2,
+    title: "Fungsi, Type Hinting, & Arrow Functions",
+    content: `Catatan sebelumnya membahas percabangan modern. **Masalah yang diselesaikan sekarang:** di PHP lama, fungsi tidak memiliki kejelasan tipe data — kamu bisa mengirim array ke fungsi yang mengharapkan angka tanpa peringatan awal. Selain itu, membuat fungsi *callback* sederhana (misal untuk menyaring array) memakan banyak baris dengan kata kunci \`function() { return ...; }\`.
+
+PHP modern mendukung **Type Hinting** lengkap (parameter dan return type), **Union Types** (\`int|float\`), **Named Arguments**, dan **Arrow Functions** yang sangat ringkas (\`fn($x) => $x * 2\`).
+
+\`\`\`mermaid
+flowchart LR
+  Input["hitungDiskon(harga: 100000, persen: 10)"] --> TypeCheck{"Validasi Tipe Data Parameter<br/>harga: int|float<br/>persen: int"}
+  TypeCheck -- Tipe Valid --> Calc["Hitung Diskon"]
+  Calc --> ReturnCheck{"Validasi Return Type: float"}
+  ReturnCheck --> Output["Kembalikan Nilai: 90000.0"]
+\`\`\`
+
+Contoh pembuatan Fungsi Modern dan Arrow Function:
+
+\`\`\`php
+<?php
+declare(strict_types=1);
+
+// 1. Fungsi dengan Type Hinting, Union Types, dan Return Type
+function hitungTotal(int|float $harga, int $jumlah = 1): float 
+{
+    return (float) ($harga * $jumlah);
+}
+
+// 2. Named Arguments (PHP 8.0+) — Memanggil argumen berdasarkan nama parameter
+// Urutan parameter boleh diacak dan lebih mudah dibaca!
+$totalBelanja = hitungTotal(jumlah: 3, harga: 45000.0);
+echo "Total: Rp$totalBelanja
+";
+
+// 3. Arrow Functions (fn() => ...) untuk operasi array deklaratif
+$daftarAngka = [1, 2, 3, 4, 5, 6];
+
+// Menyaring angka genap dengan array_filter
+$angkaGenap = array_filter($daftarAngka, fn(int $n): bool => $n % 2 === 0);
+
+// Mengalikan setiap angka dengan 10 menggunakan array_map
+$dikalikanSepuluh = array_map(fn(int $n): int => $n * 10, $daftarAngka);
+
+print_r($dikalikanSepuluh);
+\`\`\`
+
+Poin penting:
+
+- Sintaks tanda tanya sebelum tipe data (misal \`?string\`) menandakan bahwa parameter tersebut bersifat *nullable* (boleh bernilai string atau \`null\`).
+- **Arrow functions (\`fn\`)** otomatis menangkap variabel dari scope luar (*by-value capture*) tanpa perlu menuliskan klausa \`use ($var)\` manual seperti anonymous function klasik.
+- **Named Arguments** membuat kode sangat ekspresif (mirip Flutter atau Python) dan memungkinkan kamu melewati parameter opsional di tengah tanpa mengisi nilai default manual.`,
+    sources: [
+      {
+            "label": "PHP Official Manual — Function Arguments & Type Declarations",
+            "url": "https://www.php.net/manual/en/functions.arguments.php"
+      },
+      {
+            "label": "PHP Official Manual — Arrow Functions",
+            "url": "https://www.php.net/manual/en/functions.arrow.php"
+      }
+],
+    prerequisites: [],
+    practice: `Di project latihan kamu:
+1. Buat fungsi \`formatRupiah(int|float $angka, string $simbol = "Rp"): string\`.
+2. Gunakan \`number_format($angka, 0, ',', '.')\` untuk memformat angkanya.
+3. Panggil fungsi tersebut dengan *Named Arguments*: \`formatRupiah(simbol: "IDR ", angka: 1500000);\`.
+4. Buat array harga barang dan gunakan \`array_map\` dengan arrow function \`fn($h) => $h * 0.9\` untuk memberikan diskon 10% pada seluruh harga.`,
+  },
+  {
+    category: "php",
+    slug: "oop-constructor-promotion-dan-readonly",
+    order: 3,
+    title: "OOP Modern: Constructor Property Promotion & Readonly",
+    content: `Catatan sebelumnya membahas fungsi bertipe. **Masalah yang diselesaikan sekarang:** menulis class di PHP klasik membutuhkan penulisan nama variabel sebanyak 3 sampai 4 kali untuk satu properti saja (deklarasi properti, argumen constructor, penugasan \`$this->nama = $nama;\`, dan getter). Ini memakan puluhan baris boilerplate hanya untuk membuat data model sederhana.
+
+PHP 8+ memperkenalkan **Constructor Property Promotion** dan **Readonly Properties**: kamu bisa mendeklarasikan properti class, visibilitas, dan tipe datanya langsung di dalam parameter constructor dalam satu baris saja!
+
+\`\`\`mermaid
+flowchart TD
+  subgraph CaraLama["PHP Klasik (15 Baris Boilerplate)"]
+    L1["private string $judul;"]
+    L2["private float $harga;"]
+    L3["public function __construct($j, $h) {"]
+    L4["  $this->judul = $j; $this->harga = $h;"]
+    L5["}"]
+  end
+  subgraph Modern["PHP 8+: Constructor Promotion (3 Baris!)"]
+    M1["public function __construct(<br/>  public readonly string $judul,<br/>  public float $harga<br/>) {}"]
+  end
+  CaraLama -->|Diringkas secara radikal| Modern
+\`\`\`
+
+Contoh pembuatan Class Modern dan Enum di PHP:
+
+\`\`\`php
+<?php
+declare(strict_types=1);
+
+// 1. Pure Enum (PHP 8.1+) — Pilihan terbatas yang aman dari typo
+enum StatusOrder: string {
+    case Pending = "menunggu_bayar";
+    case Selesai = "selesai";
+    case Batal = "dibatalkan";
+}
+
+// 2. Class Modern dengan Constructor Property Promotion & Readonly
+class Produk {
+    // Properti 'nama' bersifat readonly (hanya bisa diisi sekali, tidak bisa diubah lagi)
+    public function __construct(
+        public readonly string $nama,
+        public float $harga,
+        public StatusOrder $status = StatusOrder::Pending
+    ) {
+        // Body constructor boleh kosong karena penugasan properti sudah otomatis!
+    }
+
+    public function tampilkanInfo(): void {
+        echo "Produk: {$this->nama} | Harga: Rp{$this->harga} | Status: {$this->status->value}
+";
+    }
+}
+
+// Instansiasi objek
+$laptop = new Produk(nama: "MacBook Air", harga: 18000000.0);
+$laptop->tampilkanInfo();
+
+// $laptop->nama = "Asus"; // Fatal Error: Cannot modify readonly property!
+\`\`\`
+
+Poin penting:
+
+- **Constructor Property Promotion**: Kata kunci visibilitas (\`public\`, \`private\`, \`protected\`) di depan parameter constructor secara otomatis mengubah parameter tersebut menjadi atribut class.
+- **Readonly Property / Readonly Class**: Menjamin imutabilitas data (*immutable object*), mencegah bug tak terduga akibat mutasi state liar.
+- **Backed Enums** (misal \`enum Status: string\`) memiliki properti \`.value\` untuk mengambil nilai skalar dasarnya (sangat berguna untuk disimpan ke database).
+- Pola OOP modern ini adalah fondasi penulisan Controller dan Entity di **Laravel 11**.`,
+    sources: [
+      {
+            "label": "PHP Official Manual — Constructor Property Promotion",
+            "url": "https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion"
+      },
+      {
+            "label": "PHP Official Manual — Readonly Properties",
+            "url": "https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties"
+      }
+],
+    prerequisites: [],
+    practice: `Di file latihan kamu:
+1. Buat enum \`KategoriBuku: string\` dengan kasus \`Teknologi\`, \`Sains\`, dan \`Fiksi\`.
+2. Buat class \`Buku\` menggunakan Constructor Promotion dengan properti \`public readonly string $judul\`, \`public string $penulis\`, dan \`public KategoriBuku $kategori\`.
+3. Buat objek buku baru dengan *Named Arguments*: \`new Buku(judul: "Laskar Pelangi", penulis: "Andrea Hirata", kategori: KategoriBuku::Fiksi);\`.
+4. Cetak properti judul dan kategori dari objek tersebut.`,
+  },
+  {
+    category: "php",
+    slug: "error-handling-dan-exceptions",
+    order: 4,
+    title: "Penanganan Error & Exceptions Modern",
+    content: `Catatan sebelumnya membahas class dan enkapsulasi. **Masalah yang diselesaikan sekarang:** di PHP zaman dulu, fungsi sering mengembalikan nilai \`false\` saat gagal, dan developer harus menulis \`if ($hasil === false)\` di mana-mana. Jika terjadi kesalahan fatal (seperti pembagian dengan nol atau salah tipe), script langsung berhenti mati (*white screen of death*) tanpa pesan error yang terstruktur.
+
+Di PHP modern, semua kesalahan fatal dan exception mengimplementasikan interface **\`Throwable\`**, memungkinkan kita menangkap dan menangani kesalahan secara anggun menggunakan blok **\`try-catch-finally\`** dan membuat Custom Exception sendiri.
+
+\`\`\`mermaid
+flowchart TD
+  Code["Operasi Berisiko (Transfer Saldo)"] --> Try["try { ... }"]
+  Try --> Check{"Terjadi Masalah?"}
+  Check -- Saldo Kurang --> Throw["throw new SaldoTidakCukupException()"]
+  Throw --> Catch["catch (SaldoTidakCukupException $e)"]
+  Catch --> Recovery["Tampilkan Pesan Ramah ke Pengguna<br/>(Aplikasi Tidak Crash!)"]
+  Check -- Sukses --> Finally["finally { Tutup Koneksi Database }"]
+  Recovery --> Finally
+\`\`\`
+
+Contoh Exception Handling terstruktur:
+
+\`\`\`php
+<?php
+declare(strict_types=1);
+
+// 1. Membuat Custom Exception Class sendiri
+class SaldoTidakCukupException extends Exception {}
+
+class AkunBank {
+    public function __construct(
+        private string $pemilik,
+        private float $saldo
+    ) {}
+
+    public function tarikTunai(float $jumlah): float {
+        if ($jumlah <= 0) {
+            throw new InvalidArgumentException("Jumlah penarikan harus lebih dari 0!");
+        }
+
+        if ($jumlah > $this->saldo) {
+            // Lempar kustom exception jika aturan bisnis dilanggar
+            throw new SaldoTidakCukupException("Saldo {$this->pemilik} tidak mencukupi untuk tarik tunai Rp$jumlah.");
+        }
+
+        $this->saldo -= $jumlah;
+        return $this->saldo;
+    }
+}
+
+// 2. Menangkap exception dengan try-catch-finally
+try {
+    $akun = new AkunBank("Budi", 500000.0);
+    $akun->tarikTunai(1000000.0); // Sengaja menarik melebihi saldo
+} catch (SaldoTidakCukupException $e) {
+    echo "Peringatan Bisnis: " . $e->getMessage() . "
+";
+} catch (InvalidArgumentException $e) {
+    echo "Input Tidak Valid: " . $e->getMessage() . "
+";
+} catch (Throwable $e) {
+    echo "Terjadi kesalahan sistem yang tidak terduga: " . $e->getMessage() . "
+";
+} finally {
+    echo "Sesi transaksi perbankan selesai.
+";
+}
+\`\`\`
+
+Poin penting:
+
+- \`Throwable\` adalah interface puncak dari semua error di PHP (\`Error\` dan \`Exception\` keduanya mengimplementasikan \`Throwable\`).
+- Blok \`finally\` dijamin **selalu dieksekusi**, baik terjadi error maupun tidak (sangat ideal untuk menutup koneksi database atau socket file).
+- PHP mendukung *Multi-Catch* di satu blok: \`catch (FirstException | SecondException $e)\`.
+- Jangan biarkan exception lolos tanpa penanganan di production, karena pesan error teknis berisiko membocorkan struktur kode dan password database kepada publik.`,
+    sources: [
+      {
+            "label": "PHP Official Manual — Exceptions",
+            "url": "https://www.php.net/manual/en/language.exceptions.php"
+      },
+      {
+            "label": "PHP Official Manual — The Throwable Interface",
+            "url": "https://www.php.net/manual/en/class.throwable.php"
+      }
+],
+    prerequisites: [],
+    practice: `Di project latihan kamu:
+1. Buat fungsi \`bagiAngka(float $pembilang, float $penyebut): float\`.
+2. Jika \`$penyebut == 0\`, lempar \`DivisionByZeroError("Penyebut tidak boleh bernilai nol!");\`.
+3. Bungkus pemanggilan fungsi tersebut dengan blok \`try-catch\`.
+4. Uji dengan membagi \`10\` dengan \`0\`, lalu pastikan pesan error tertangkap dengan anggun dan aplikasi terus berjalan normal.`,
+  },
+  {
+    category: "php",
+    slug: "composer-dan-autoloading-psr4",
+    order: 5,
+    title: "Package Manager Composer & Autoloading PSR-4",
+    content: `Catatan sebelumnya membahas exception handling. **Masalah yang diselesaikan sekarang (dan menutup roadmap PHP):** ketika proyek memiliki puluhan atau ratusan file class, cara lama mengharuskan kita menulis \`require_once 'models/User.php';\` di setiap file. Selain itu, bagaimana jika kita ingin memakai library pihak ketiga yang dibuat komunitas (seperti library kirim email, manipulasi gambar, atau framework besar seperti Laravel)?
+
+Dunia PHP modern disatukan oleh **Composer** (dependency manager resmi) dan standar **PSR-4 Autoloading**:
+1. **Composer:** Mengunduh dan mengelola dependensi pihak ketiga dari repositori terpusat **Packagist**.
+2. **PSR-4 Autoloading:** Cukup tulis \`require 'vendor/autoload.php'\` sekali di awal aplikasi, maka class apa pun yang kamu panggil akan otomatis di-load oleh PHP berdasarkan keselarasan namespace dan struktur foldernya!
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Packagist["Packagist.org (Ekosistem Library PHP)"]
+    Pkg["Guzzle / Carbon / Monolog"]
+  end
+  subgraph LocalProject["Proyek PHP Lokal"]
+    JSON["composer.json<br/>(Daftar Kebutuhan)"]
+    CLI["composer install / require"]
+    Vendor["Folder vendor/ & vendor/autoload.php"]
+    AppCode["Namespace App\Models\User ➔ file src/Models/User.php"]
+  end
+  Pkg -->|Diunduh oleh Composer| Vendor
+  JSON --> CLI --> Vendor
+  Vendor -->|Autoload Otomatis| AppCode
+\`\`\`
+
+Perintah dasar Composer di terminal:
+
+\`\`\`bash
+# 1. Inisialisasi proyek baru dengan Composer
+composer init
+
+# 2. Menginstal library pihak ketiga (contoh: Carbon untuk manipulasi tanggal)
+composer require nesbot/carbon
+
+# 3. Menginstal seluruh dependensi dari composer.json
+composer install
+\`\`\`
+
+Konfigurasi \`composer.json\` dengan standar PSR-4 Autoloading:
+
+\`\`\`json
+{
+    "name": "belajar/proyek-php",
+    "require": {
+        "php": ">=8.2",
+        "nesbot/carbon": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
+\`\`\`
+
+Memakai Class dan Library secara otomatis di \`index.php\`:
+
+\`\`\`php
+<?php
+declare(strict_types=1);
+
+// Cukup panggil SATU baris ini di pintu masuk aplikasi:
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Carbon\Carbon;
+use App\Models\User; // Otomatis mencari berkas 'src/Models/User.php'
+
+// Menggunakan library Carbon
+$waktuSekarang = Carbon::now()->locale('id')->diffForHumans();
+echo "Diperbarui: $waktuSekarang
+";
+\`\`\`
+
+Poin penting:
+
+- Folder \`vendor/\` berisi ribuan berkas dependensi eksternal — **jangan pernah mengubah kode di dalam folder \`vendor/\`** dan selalu masukkan \`vendor/\` ke dalam file \`.gitignore\`.
+- Berkas \`composer.lock\` mencatat versi exact dari setiap library yang terpasang agar lingkungan production dan staging memiliki versi yang 100% identik.
+- Standar PSR-4: Namespace \`App\Services\PaymentService\` dipetakan langsung ke lokasi file \`src/Services/PaymentService.php\`.
+- Pemahaman Composer dan PSR-4 ini adalah pintu gerbang mutlak untuk menguasai **Laravel 11**!`,
+    sources: [
+      {
+            "label": "Composer Official Documentation",
+            "url": "https://getcomposer.org/doc/"
+      },
+      {
+            "label": "PHP-FIG — PSR-4: Autoloader Standard",
+            "url": "https://www.php-fig.org/psr/psr-4/"
+      }
+],
+    prerequisites: [
+      {
+            "label": "Composer sudah terinstall di komputermu (cek dengan `composer --version` di terminal)",
+            "url": "https://getcomposer.org/download/"
+      }
+],
+    practice: `Buka terminal:
+1. Buat folder proyek \`belajar-composer\` dan jalankan \`composer init -n\` (mode non-interaktif cepat).
+2. Install library tanggal terpopuler: \`composer require nesbot/carbon\`.
+3. Buat file \`test.php\`, panggil \`require 'vendor/autoload.php';\`, lalu cetak hari ini dengan \`echo Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y');\`.
+4. Jalankan \`php test.php\` dan amati betapa mudahnya mengintegrasikan ekosistem open-source PHP modern! Ini menutup roadmap PHP Dasar-Menengah!`,
+  },
+  {
+    category: "laravel",
+    slug: "instalasi-dan-struktur-project-laravel-11",
+    order: 0,
+    title: "Instalasi & Struktur Project Ramping Laravel 11",
+    content: `**Masalah yang diselesaikan:** membangun aplikasi web dari nol menggunakan PHP murni membutuhkan perakitan manual untuk sistem routing, database migration, template engine, keamanan session, dan autentikasi. Di sisi lain, Laravel versi lawas (versi 10 ke bawah) memiliki struktur direktori yang gemuk dengan puluhan file konfigurasi di folder \`config/\` dan middleware boilerplate di \`app/Http/Kernel.php\` yang sering kali tidak pernah disentuh oleh developer pemula.
+
+**Laravel 11** merombak arsitektur menjadi **sangat ramping dan minimalis**:
+1. Menghilangkan \`Http/Kernel.php\` dan \`Console/Kernel.php\`.
+2. Seluruh konfigurasi middleware, exception handling, dan routing disederhanakan dan dipusatkan di satu file utama: **\`bootstrap/app.php\`**.
+3. Struktur controller dan model yang bersih tanpa folder boilerplate kosong.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Laravel11Structure["Struktur Ramping Laravel 11"]
+    App["app/ (Models, Providers, Http Controllers)"]
+    Bootstrap["bootstrap/app.php (Pusat Konfigurasi Tunggal)"]
+    Routes["routes/web.php (Routing Aplikasi)"]
+    Resources["resources/views/ (Tampilan Blade)"]
+    Database["database/ (Migrations, Seeders, SQLite default)"]
+  end
+\`\`\`
+
+Perintah membuat project Laravel 11 via Composer:
+
+\`\`\`bash
+# 1. Membuat project baru Laravel 11
+composer create-project laravel/laravel belajar-laravel
+
+# 2. Masuk ke direktori project
+cd belajar-laravel
+
+# 3. Menjalankan server development lokal
+php artisan serve
+\`\`\`
+
+Aplikasi langsung menyala di \`http://127.0.0.1:8000\`.
+
+Struktur Pusat Konfigurasi Baru di \`bootstrap/app.php\`:
+
+\`\`\`php
+<?php
+
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up', // Endpoint health check bawaan untuk monitoring cloud
+    )
+    ->withMiddleware(function (Middleware $middleware) {
+        // Daftarkan middleware global atau alias di sini (menggantikan Kernel.php)
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        // Konfigurasi penanganan error kustom terpusat di sini
+    })->create();
+\`\`\`
+
+Poin penting:
+
+- Secara default, Laravel 11 menggunakan database file **SQLite** (\`database/database.sqlite\`), sehingga kamu bisa langsung membuat tabel dan migration tanpa perlu install server database terpisah saat awal belajar.
+- Endpoint bawaan \`/up\` (health check) otomatis tersedia untuk kebutuhan container orchestration (seperti Docker/Kubernetes).
+- Tool CLI **\`php artisan\`** adalah asisten pengembang serbaguna untuk membuat controller, migration, model, dan menjalankan task background.`,
+    sources: [
+      {
+            "label": "Laravel Official Documentation — Installation",
+            "url": "https://laravel.com/docs/11.x/installation"
+      },
+      {
+            "label": "Laravel 11 Release Notes & New Directory Structure",
+            "url": "https://laravel.com/docs/11.x/releases"
+      }
+],
+    prerequisites: [
+      {
+            "label": "PHP versi 8.2+ dan Composer sudah terpasang",
+            "url": "https://getcomposer.org/"
+      }
+],
+    practice: `Buka terminal:
+1. Buat project Laravel 11 baru: \`composer create-project laravel/laravel coba-laravel\`.
+2. Masuk ke folder \`cd coba-laravel\`.
+3. Buka file \`bootstrap/app.php\` di editor teks dan perhatikan betapa rampingnya konfigurasi routing dan middleware.
+4. Jalankan \`php artisan serve\`, buka browser di \`http://127.0.0.1:8000\`, dan saksikan halaman beranda default Laravel yang elegan.`,
+  },
+  {
+    category: "laravel",
+    slug: "routing-dan-controller",
+    order: 1,
+    title: "Routing, Controller, & Route Model Binding",
+    content: `Catatan sebelumnya mengenalkan struktur project Laravel 11. **Masalah yang diselesaikan sekarang:** bagaimana mengarahkan URL pengunjung (seperti \`/artikel/5\` atau \`/kontak\`) ke fungsi kode yang tepat tanpa menumpuk seluruh logika bisnis di dalam file routing?
+
+Laravel menyediakan sistem routing yang ekspresif di \`routes/web.php\`. Untuk menjaga arsitektur kode tetap bersih dan terpisah (*Separation of Concerns*), logika penanganan request dipindahkan ke dalam **Controller**. Laravel juga memiliki fitur ajaib bernama **Route Model Binding**: Laravel otomatis mencari data model dari database berdasarkan ID di URL!
+
+\`\`\`mermaid
+flowchart LR
+  URL["User Request:<br/>GET /produk/12"] --> Route["routes/web.php"]
+  Route --> RBM["Route Model Binding:<br/>Otomatis SELECT * WHERE id=12"]
+  RBM --> Controller["ProdukController@show(Produk $produk)"]
+  Controller --> View["Tampilkan View Blade / JSON"]
+\`\`\`
+
+Mendefinisikan Route dan Controller di Laravel 11:
+
+\`\`\`bash
+# Membuat Controller baru menggunakan Artisan CLI
+php artisan make:controller ProdukController
+\`\`\`
+
+Kode di \`routes/web.php\`:
+
+\`\`\`php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProdukController;
+
+// 1. Route dasar sederhana dengan closure
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// 2. Route diarahkan ke Controller Method
+Route::get('/produk', [ProdukController::class, 'index']);
+
+// 3. Route Model Binding otomatis (mencari objek Produk berdasarkan {produk} ID)
+Route::get('/produk/{produk}', [ProdukController::class, 'show']);
+\`\`\`
+
+Kode di \`app/Http/Controllers/ProdukController.php\`:
+
+\`\`\`php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Produk;
+use Illuminate\View\View;
+
+class ProdukController extends Controller
+{
+    // Menampilkan daftar seluruh produk
+    public function index(): View
+    {
+        $produkList = Produk::all();
+        return view('produk.index', ['produkList' => $produkList]);
+    }
+
+    // Route Model Binding: parameter bertipe 'Produk $produk' otomatis diisi data dari DB!
+    // Jika ID tidak ditemukan, Laravel otomatis mengembalikan respons 404 Not Found.
+    public function show(Produk $produk): View
+    {
+        return view('produk.show', ['produk' => $produk]);
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Nama parameter di URL (\`{produk}\`) harus cocok dengan nama variabel di method controller (\`$produk\`) agar fitur *Route Model Binding* aktif.
+- Perintah \`php artisan route:list\` menampilkan seluruh daftar rute yang aktif di aplikasi beserta middleware dan controller pasangannya.
+- Untuk membuat kumpulan route CRUD lengkap sekaligus, kamu bisa menggunakan \`Route::resource('produk', ProdukController::class);\`.`,
+    sources: [
+      {
+            "label": "Laravel Documentation — Routing",
+            "url": "https://laravel.com/docs/11.x/routing"
+      },
+      {
+            "label": "Laravel Documentation — Controllers",
+            "url": "https://laravel.com/docs/11.x/controllers"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Laravel kamu:
+1. Buat controller baru: \`php artisan make:controller HalamanController\`.
+2. Tambahkan method \`public function tentang() { return "Ini halaman tentang kami"; }\`.
+3. Daftarkan di \`routes/web.php\`: \`Route::get('/tentang', [HalamanController::class, 'tentang']);\`.
+4. Buka \`http://127.0.0.1:8000/tentang\` di browser dan pastikan teks muncul.
+5. Jalankan \`php artisan route:list\` di terminal untuk melihat daftar routemu tercatat rapi.`,
+  },
+  {
+    category: "laravel",
+    slug: "blade-templating-dan-layout",
+    order: 2,
+    title: "Blade Templating Engine & Layout Components",
+    content: `Catatan sebelumnya membahas routing dan controller. **Masalah yang diselesaikan sekarang:** membuat halaman web HTML dengan PHP mentah sering kali membuka celah keamanan XSS (Cross-Site Scripting) jika kamu lupa menulis \`htmlspecialchars()\`. Selain itu, menyalin kerangka HTML yang sama (navbar, footer, tag \`<head>\`) ke belasan file tampilan sangat melelahkan dan sulit di-maintain.
+
+Laravel menyertakan **Blade**, mesin templating yang cepat dan elegan:
+1. **Otomatis Aman:** Sintaks \`{{ $variabel }}\` secara otomatis membersihkan input dari serangan XSS.
+2. **Layout Component Modern (\`<x-layout>\`):** Membungkus halaman anak di dalam komponen tata letak induk menggunakan tag kustom dan slot konten.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph ParentLayout["Komponen Induk: resources/views/components/layout.blade.php"]
+    Nav["Navbar & Header Bersama"]
+    Slot["{{ $slot }} ➔ Tempat Menyisipkan Konten Halaman Anak"]
+    Foot["Footer Bersama"]
+  end
+  subgraph ChildPage["Halaman Anak: resources/views/beranda.blade.php"]
+    Content["<x-layout><br/>  <h1>Selamat Datang!</h1><br/>  <p>Isi artikel...</p><br/></x-layout>"]
+  end
+  Content -->|Diinjeksi ke dalam| Slot
+\`\`\`
+
+Membuat Komponen Layout Bersama (\`resources/views/components/layout.blade.php\`):
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ $title ?? 'Aplikasi Laravel' }}</title>
+    <style>body { font-family: sans-serif; padding: 20px; }</style>
+</head>
+<body>
+    <nav>
+        <a href="/">Beranda</a> | <a href="/produk">Katalog Produk</a>
+    </nav>
+    <hr>
+
+    <!-- Seluruh konten halaman anak akan dirender di dalam $slot ini -->
+    <main>
+        {{ $slot }}
+    </main>
+
+    <hr>
+    <footer>&copy; 2026 Catatan Belajar Laravel</footer>
+</body>
+</html>
+\`\`\`
+
+Menggunakan Layout di Halaman (\`resources/views/produk/index.blade.php\`):
+
+\`\`\`html
+<x-layout title="Daftar Produk">
+    <h1>Katalog Belanja</h1>
+
+    @if ($produkList->isEmpty())
+        <p>Belum ada produk yang tersedia.</p>
+    @else
+        <ul>
+            @foreach ($produkList as $item)
+                <li>
+                    <strong>{{ $item->nama }}</strong> — Rp{{ number_format($item->harga) }}
+                </li>
+            @endforeach
+        </ul>
+    @endif
+</x-layout>
+\`\`\`
+
+Poin penting:
+
+- Ekstensi berkas tampilan Blade selalu \`.blade.php\`.
+- Perintah logika Blade diawali tanda \`@\` (misal \`@if\`, \`@else\`, \`@foreach\`, \`@auth\`, \`@guest\`).
+- Blade dikompilasi menjadi kode PHP mentah dan di-cache secara otomatis, sehingga performa renderingnya sama cepatnya dengan PHP murni tanpa beban tambahan.`,
+    sources: [
+      {
+            "label": "Laravel Documentation — Blade Templates",
+            "url": "https://laravel.com/docs/11.x/blade"
+      },
+      {
+            "label": "Laravel Documentation — Blade Components",
+            "url": "https://laravel.com/docs/11.x/blade#components"
+      }
+],
+    prerequisites: [],
+    practice: `Di project latihan kamu:
+1. Buat folder \`resources/views/components/\` dan buat file \`layout.blade.php\` seperti contoh di atas.
+2. Buat file \`resources/views/kontak.blade.php\` yang dibungkus tag \`<x-layout>\`.
+3. Tulis formulir kontak sederhana di dalam tag \`<x-layout>\`.
+4. Buat route \`Route::view('/kontak', 'kontak');\` di \`routes/web.php\`.
+5. Buka \`/kontak\` di browser dan amati bagaimana navbar dan footer otomatis membungkus halaman barumu.`,
+  },
+  {
+    category: "laravel",
+    slug: "database-migrations-dan-seeder",
+    order: 3,
+    title: "Database Migrations, Schema Builder, & Seeders",
+    content: `Catatan sebelumnya membahas tampilan antarmuka Blade. **Masalah yang diselesaikan sekarang:** bagaimana tim developer berbagi dan menyelaraskan struktur tabel database? Cara lama dengan membagikan file \`database.sql\` lewat chat sangat kacau: tidak ada riwayat perubahan versi (*version control*) dan rawan menimpa kolom teman satu tim.
+
+**Database Migrations** bertindak seperti *Version Control (Git)* khusus untuk skema database kamu: setiap perubahan struktur tabel dicatat dalam file migration bertanggal yang dapat dijalankan (*migrate*) atau dibatalkan (*rollback*) secara konsisten di seluruh komputer tim dan server produksi.
+
+\`\`\`mermaid
+flowchart LR
+  Dev["php artisan make:migration"] --> File["File Migration Berkas:<br/>database/migrations/2026_..._create_produks_table.php"]
+  File --> Artisan["php artisan migrate"]
+  Artisan --> DB["Tabel 'produks' Dibuat di Database"]
+  Artisan --> Log["Tercatat di tabel riwayat 'migrations'"]
+\`\`\`
+
+Membuat Migration dan Menjalankannya:
+
+\`\`\`bash
+# 1. Membuat migration untuk tabel baru 'produks'
+php artisan make:migration create_produks_table
+\`\`\`
+
+Kode di dalam berkas migration yang dihasilkan (\`database/migrations/..._create_produks_table.php\`):
+
+\`\`\`php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('produks', function (Blueprint $table) {
+            $table->id(); // BigIncrements Primary Key
+            $table->string('nama', 100);
+            $table->text('deskripsi')->nullable();
+            $table->decimal('harga', 10, 2);
+            $table->boolean('is_tersedia')->default(true);
+            $table->timestamps(); // Otomatis membuat created_at dan updated_at!
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('produks');
+    }
+};
+\`\`\`
+
+Perintah eksekusi di terminal:
+
+\`\`\`bash
+# Menjalankan seluruh migration yang belum pernah dieksekusi
+php artisan migrate
+
+# Membatalkan batch migration paling terakhir (undo)
+php artisan migrate:rollback
+
+# Mereset dan menjalankan ulang seluruh migration dari nol (hati-hati: menghapus data!)
+php artisan migrate:fresh
+\`\`\`
+
+Membuat Seeder untuk Mengisi Data Awal (\`database/seeders/DatabaseSeeder.php\`):
+
+\`\`\`php
+// Menjalankan seeder untuk mengisi data dummy otomatis
+php artisan db:seed
+\`\`\`
+
+Poin penting:
+
+- Konvensi nama tabel di Laravel selalu dalam bentuk **jamak bahasa Inggris (*plural*)**, misalnya model \`Produk\` berpasangan dengan tabel \`produks\`, model \`User\` dengan tabel \`users\`.
+- Kolom \`$table->timestamps()\` secara otomatis mengelola pencatatan waktu kapan baris dibuat dan terakhir diubah.
+- Perintah \`php artisan migrate:status\` menampilkan daftar file migration mana saja yang sudah atau belum dijalankan di database.`,
+    sources: [
+      {
+            "label": "Laravel Documentation — Database: Migrations",
+            "url": "https://laravel.com/docs/11.x/migrations"
+      },
+      {
+            "label": "Laravel Documentation — Database: Seeding",
+            "url": "https://laravel.com/docs/11.x/seeding"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Laravel kamu:
+1. Buat migration baru: \`php artisan make:migration create_kategoris_table\`.
+2. Buka file migration tersebut dan tambahkan kolom \`$table->string('nama');\` dan \`$table->string('slug')->unique();\`.
+3. Jalankan \`php artisan migrate\` di terminal.
+4. Buka database (misal via SQLite viewer atau \`php artisan tinker\`) dan pastikan tabel \`kategoris\` telah terbentuk sempurna.`,
+  },
+  {
+    category: "laravel",
+    slug: "eloquent-orm-dan-relasi",
+    order: 4,
+    title: "Eloquent ORM: Query Builder & Relasi Antar-Model",
+    content: `Catatan sebelumnya membahas skema database migration. **Masalah yang diselesaikan sekarang:** menulis perintah SQL manual (\`SELECT * FROM produks WHERE harga > ...\`) melelahkan dan rentan kesalahan ketik. Selain itu, masalah klasik performa **N+1 Query Problem** sering terjadi saat kita mencoba menampilkan daftar produk beserta nama kategorinya (1 query untuk mengambil 20 produk, diikuti 20 query tambahan hanya untuk mengambil nama kategori masing-masing!).
+
+**Eloquent ORM** adalah implementasi Active Record bawaan Laravel yang sangat ekspresif: setiap tabel di database dipetakan ke sebuah **Model**, dan relasi antar-tabel didefinisikan secara deklaratif di dalam model tersebut.
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Relasi["Relasi One-to-Many"]
+    Cat["Model Kategori<br/>public function produks()<br/>return $this->hasMany(Produk::class)"]
+    Prod["Model Produk<br/>public function kategori()<br/>return $this->belongsTo(Kategori::class)"]
+  end
+  Cat ---|1 Kategori Punya Banyak Produk| Prod
+\`\`\`
+
+Mendefinisikan Model dan Relasi:
+
+\`\`\`bash
+# Membuat Model sekaligus file Migration-nya
+php artisan make:model Produk -m
+php artisan make:model Kategori -m
+\`\`\`
+
+Kode Model \`app/Models/Kategori.php\`:
+
+\`\`\`php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Kategori extends Model
+{
+    protected $fillable = ['nama', 'slug'];
+
+    // Relasi: Satu Kategori memiliki banyak Produk (One to Many)
+    public function produks(): HasMany
+    {
+        return $this->hasMany(Produk::class);
+    }
+}
+\`\`\`
+
+Kode Model \`app/Models/Produk.php\`:
+
+\`\`\`php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Produk extends Model
+{
+    // Mendaftarkan atribut yang diizinkan untuk mass-assignment (Create/Update)
+    protected $fillable = ['kategori_id', 'nama', 'harga'];
+
+    // Relasi balik: Produk terikat pada satu Kategori
+    public function kategori(): BelongsTo
+    {
+        return $this->belongsTo(Kategori::class);
+    }
+}
+\`\`\`
+
+Operasi CRUD Ekspresif & Pencegahan N+1 Query (Eager Loading):
+
+\`\`\`php
+// 1. Create (Menambah data baru)
+$produk = Produk::create([
+    'kategori_id' => 1,
+    'nama' => 'Mouse Wireless',
+    'harga' => 250000.00
+]);
+
+// 2. Read dengan Eager Loading (with) — Mencegah Masalah N+1 Query!
+// Mengambil 50 produk HANYA dengan 2 query database gabungan, bukan 51 query!
+$daftarProduk = Produk::with('kategori')->where('harga', '>=', 100000)->get();
+
+foreach ($daftarProduk as $p) {
+    echo "{$p->nama} (Kategori: {$p->kategori->nama})
+";
+}
+\`\`\`
+
+Poin penting:
+
+- Properti \`$fillable\` wajib didefinisikan pada setiap Model untuk melindungi aplikasi dari celah keamanan *Mass Assignment Vulnerability*.
+- **Eager Loading (\`with('relasi')\`)** wajib digunakan ketika ingin menampilkan relasi data di dalam perulangan loop untuk menjaga aplikasi tetap cepat.
+- Uji coba interaktif logika Eloquent dapat dilakukan langsung lewat REPL terminal dengan mengetik \`php artisan tinker\`.`,
+    sources: [
+      {
+            "label": "Laravel Documentation — Eloquent ORM Getting Started",
+            "url": "https://laravel.com/docs/11.x/eloquent"
+      },
+      {
+            "label": "Laravel Documentation — Eloquent Relationships",
+            "url": "https://laravel.com/docs/11.x/eloquent-relationships"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Laravel kamu:
+1. Buka terminal interaktif Tinker: \`php artisan tinker\`.
+2. Buat kategori baru lewat Eloquent: \`$k = App\Models\Kategori::create(['nama' => 'Elektronik', 'slug' => 'elektronik']);\`.
+3. Query data yang baru dibuat: \`App\Models\Kategori::all();\`.
+4. Amati betapa mudahnya berinteraksi dengan database tanpa perlu menulis sintaks SQL mentah satu baris pun.`,
+  },
+  {
+    category: "laravel",
+    slug: "form-request-validation-dan-middleware",
+    order: 5,
+    title: "Request Validation & Middleware di Laravel 11",
+    content: `Catatan sebelumnya melengkapi operasi database dengan Eloquent. **Masalah yang diselesaikan sekarang (dan menutup roadmap Laravel 11):** jangan pernah percaya data yang dikirimkan oleh pengguna (user input). Pengguna bisa saja mengosongkan form, mengirim email berformat salah, atau mencoba menyusupkan skrip berbahaya. Selain itu, bagaimana cara membatasi agar halaman admin hanya bisa dibuka oleh pengguna yang sudah login?
+
+Laravel menyediakan dua lapisan pertahanan utama:
+1. **Form Request Validation:** Memisahkan aturan validasi input ke dalam class terpisah yang otomatis menghentikan request dan mengembalikan pesan error ramah jika data tidak valid.
+2. **Middleware:** Lapisan penyaring (*HTTP filter*) yang memeriksa setiap request yang masuk sebelum diizinkan mencapai Controller.
+
+\`\`\`mermaid
+flowchart LR
+  Request["Request Form HTTP POST"] --> Middleware["Middleware: auth<br/>(Cek Status Login)"]
+  Middleware -- Belum Login --> Redirect["Redirect ke Halaman /login"]
+  Middleware -- Sudah Login --> Validator["Form Request Validation<br/>(nama: required, harga: numeric)"]
+  Validator -- Data Gagal --> Back["Kembali ke Form + Pesan Error Merah"]
+  Validator -- Lolos Validasi --> Controller["Controller Eksekusi Logika Simpan"]
+\`\`\`
+
+Membuat Form Request Validation Khusus:
+
+\`\`\`bash
+php artisan make:request SimpanProdukRequest
+\`\`\`
+
+Kode di \`app/Http/Requests/SimpanProdukRequest.php\`:
+
+\`\`\`php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class SimpanProdukRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true; // Set true agar diizinkan dieksekusi
+    }
+
+    public function rules(): array
+    {
+        return [
+            'nama' => 'required|string|min:3|max:100',
+            'harga' => 'required|numeric|min:1000',
+            'kategori_id' => 'required|exists:kategoris,id',
+        ];
+    }
+}
+\`\`\`
+
+Memakai Form Request di Controller dan Menampilkan Error di Blade:
+
+\`\`\`php
+// app/Http/Controllers/ProdukController.php
+use App\Http\Requests\SimpanProdukRequest;
+use App\Models\Produk;
+
+public function store(SimpanProdukRequest $request)
+{
+    // Hanya data yang sudah lolos validasi yang diambil (sangat aman!)
+    $dataValid = $request->validated();
+    Produk::create($dataValid);
+
+    return redirect('/produk')->with('sukses', 'Produk berhasil ditambahkan!');
+}
+\`\`\`
+
+Menampilkan Error di Form Blade (\`create.blade.php\`):
+
+\`\`\`html
+<form action="/produk" method="POST">
+    @csrf <!-- Token proteksi Cross-Site Request Forgery WAJIB ada di setiap form POST -->
+
+    <div>
+        <label>Nama Produk:</label>
+        <input type="text" name="nama" value="{{ old('nama') }}">
+        @error('nama')
+            <p style="color: red;">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+\`\`\`
+
+Pendaftaran Middleware di Laravel 11 (\`bootstrap/app.php\`):
+
+\`\`\`php
+// Mendaftarkan alias middleware di bootstrap/app.php
+->withMiddleware(function (Middleware $middleware) {
+    $middleware->alias([
+        'admin' => \App\Http\Middleware\PastikanUserAdmin::class,
+    ]);
+})
+\`\`\`
+
+Poin penting:
+
+- Directive \`@csrf\` wajib disertakan pada setiap formulir HTML berbasis \`POST\`, \`PUT\`, atau \`DELETE\` di Laravel untuk mencegah serangan penipuan request lintas situs.
+- Method \`$request->validated()\` hanya mengembalikan data yang terdaftar di \`rules()\`, melindungi aplikasi dari field ilegal yang disusupkan pihak luar.
+- Fungsi helper \`old('field')\` mempertahankan teks yang sudah diketik user di form jika validasi gagal, sehingga user tidak perlu mengetik ulang dari awal. Ini menutup roadmap Laravel 11!`,
+    sources: [
+      {
+            "label": "Laravel Documentation — Validation",
+            "url": "https://laravel.com/docs/11.x/validation"
+      },
+      {
+            "label": "Laravel Documentation — Middleware",
+            "url": "https://laravel.com/docs/11.x/middleware"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Laravel kamu:
+1. Buat form request baru: \`php artisan make:request KontakRequest\`.
+2. Tentukan aturan: \`'email' => 'required|email'\`, \`'pesan' => 'required|min:10'\`.
+3. Buat form di Blade dengan tag \`@csrf\` dan masukkan input email dan pesan.
+4. Coba submit form dengan format email yang salah dan kosongkan pesan.
+5. Amati bagaimana Laravel secara otomatis menolak request dan menampilkan pesan error merah tanpa menulis satu baris pun logika \`if/else\` manual di controller!`,
+  },
   {
     category: "postgresql",
     slug: "pengenalan-postgresql-dan-instalasi",

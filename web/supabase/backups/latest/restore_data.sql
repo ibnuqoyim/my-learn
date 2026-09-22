@@ -1,25 +1,25 @@
 -- Database Backup Snapshot (data only)
--- Generated: 2026-09-22T14:25:19.229Z
+-- Generated: 2026-09-22T14:30:47.920Z
 -- Supabase Project: sgtopeghogkwaaaygakc
 
 BEGIN;
 
--- Categories (18 baris)
+-- Categories (20 baris)
 INSERT INTO categories (id, name, slug, description, created_at) VALUES ('b4e47208-8775-4a24-a2f3-1655745b90f1', 'Python', 'python', 'Python dikenal sebagai bahasa yang mudah dibaca dan cepat dipelajari, dipakai luas mulai dari scripting, web backend, sampai data science. Roadmap ini membangun fondasinya secara bertahap dari nol.
 
 Roadmap ini membawamu dari sintaks & tipe data dasar, struktur kontrol (percabangan & perulangan), struktur data (list/tuple/dict/set), menulis fungsi sendiri, list comprehension untuk kode yang lebih ringkas, menangani error runtime, membaca/menulis file, memakai module bawaan, mengisolasi dependency tiap proyek lewat virtual environment, sampai menginstal library pihak ketiga dengan pip dan mengambil data API dengan Requests. Sepuluh langkah, ikuti berurutan.
 
 **Asumsi:** belum pernah menulis Python sama sekali juga tidak masalah — roadmap ini menjelaskan dari sintaks dasar. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
-INSERT INTO categories (id, name, slug, description, created_at) VALUES ('3e71ad0e-b25a-4567-b43e-282574f1590a', 'Supabase', 'supabase', 'Membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya. Supabase menyediakan semua itu siap pakai di atas Postgres, diakses langsung dari client tanpa perlu backend server terpisah.
-
-Roadmap ini membawamu dari setup client, operasi CRUD dasar, menghubungkan data lewat relasi tabel & foreign key, mengenali user lewat autentikasi, mengamankan data per user lewat Row Level Security, menyimpan file lewat Storage, sampai mendengarkan perubahan data secara live lewat Realtime. Tujuh langkah yang membangun satu sama lain — RLS memakai `auth.uid()` dari langkah autentikasi sebelumnya, dan policy Storage/Realtime memakai pola RLS yang sama, jadi urutannya penting.
-
-**Asumsi:** familiar dengan JavaScript/TypeScript dasar dan konsep `async`/`await`. Butuh akun Supabase (gratis) — disebutkan di catatan pertama.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
 INSERT INTO categories (id, name, slug, description, created_at) VALUES ('94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Redis', 'redis', '**Remote Dictionary Server** — in-memory data structure store berkecepatan tinggi yang dapat difungsikan sebagai database, cache layer, session store, dan message broker. Menyimpan seluruh data di RAM dengan latensi sub-milidetik (< 1 ms), menjadikannya senjata utama untuk mengatasi beban tinggi (*high traffic*) di aplikasi web modern.
 
 Roadmap ini membawamu dari instalasi & koneksi lewat redis-cli, tipe data String dan masa kedaluwarsa otomatis (TTL), struktur data tingkat lanjut (Hash, List, Set), penerapan pola arsitektur Cache-Aside untuk meringankan beban database SQL, sampai komunikasi realtime lewat Publish/Subscribe (Pub/Sub). Lima langkah berjenjang, ikuti berurutan.
 
 **Asumsi:** familiar dengan konsep dasar client-server dan format data key-value. Prasyarat tool (Docker atau Redis server) disebutkan di catatan pertama.', '2026-09-22 14:24:46.062157+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('3e71ad0e-b25a-4567-b43e-282574f1590a', 'Supabase', 'supabase', 'Membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya. Supabase menyediakan semua itu siap pakai di atas Postgres, diakses langsung dari client tanpa perlu backend server terpisah.
+
+Roadmap ini membawamu dari setup client, operasi CRUD dasar, menghubungkan data lewat relasi tabel & foreign key, mengenali user lewat autentikasi, mengamankan data per user lewat Row Level Security, menyimpan file lewat Storage, sampai mendengarkan perubahan data secara live lewat Realtime. Tujuh langkah yang membangun satu sama lain — RLS memakai `auth.uid()` dari langkah autentikasi sebelumnya, dan policy Storage/Realtime memakai pola RLS yang sama, jadi urutannya penting.
+
+**Asumsi:** familiar dengan JavaScript/TypeScript dasar dan konsep `async`/`await`. Butuh akun Supabase (gratis) — disebutkan di catatan pertama.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
 INSERT INTO categories (id, name, slug, description, created_at) VALUES ('df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Git', 'git', 'Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (`script_v2_final.js`, `script_v2_REVISI.js`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.
 
 Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), mengabaikan file yang tidak boleh ter-commit lewat .gitignore, berkolaborasi lewat repository remote (GitHub), bercabang untuk mengerjakan fitur terisolasi (branching), menyimpan perubahan sementara lewat stash, menyelesaikan merge conflict saat menggabungkan kode, sampai teknik membatalkan perubahan yang salah (restore, reset, revert). Tujuh langkah, ikuti berurutan.
@@ -45,6 +45,11 @@ INSERT INTO categories (id, name, slug, description, created_at) VALUES ('5f9276
 Roadmap ini membawamu dari pengenalan ekosistem & CLI `dotnet`, dasar bahasa C# (tipe data, class, record), pola Dependency Injection yang jadi tulang punggung aplikasi .NET modern, membangun REST API sungguhan lewat ASP.NET Core Minimal API, menyimpan datanya ke database lewat Entity Framework Core, sampai proteksi data dengan DTO dan konfigurasi CORS untuk integrasi frontend. Tujuh langkah, ikuti berurutan.
 
 **Asumsi:** roadmap ini menjelaskan dari dasar, tapi familiar dengan konsep OOP (object, class) dari bahasa lain akan membantu mempercepat pemahaman. Prasyarat tool (.NET SDK) disebutkan di catatan pertama.', '2026-09-18 09:10:05.725507+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('9deddb76-862f-4fce-83e4-57a0202df83b', 'JavaScript', 'javascript', 'JavaScript adalah bahasa pemrograman inti di balik hampir semua interaktivitas web — dari validasi form sampai aplikasi kompleks seperti Gmail. Roadmap ini membangun fondasinya secara bertahap: banyak konsep JS lanjutan (closure, Promise) sering disalahpahami pemula justru karena dasar-dasarnya (scope, fungsi) belum kokoh.
+
+Roadmap ini membawamu dari variabel & scope, mendefinisikan fungsi (termasuk arrow function), membongkar object/array lewat destructuring, mentransformasi array secara deklaratif, manipulasi DOM & event listener untuk mengubah tampilan web, closure untuk data privat, menangani error runtime, Promise untuk kode asinkron, async/await sebagai gula sintaksnya, memanggil REST API dengan Fetch API, sampai memecah kode jadi module terorganisir. Sebelas langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
+
+**Asumsi:** belum pernah menulis JavaScript sama sekali juga tidak masalah — roadmap ini menjelaskan dari variabel. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
 INSERT INTO categories (id, name, slug, description, created_at) VALUES ('a6e9d866-c1b5-4e38-a511-d27a0fed6caa', 'MariaDB', 'mariadb', 'Database relasional open-source berkinerja tinggi, dibuat oleh pengembang asli MySQL setelah akuisisi oleh Oracle untuk memastikan kebebasan open-source sejati. Kompatibel penuh dengan ekosistem MySQL, banyak digunakan di arsitektur LAMP/LEMP stack, hosting web, dan enterprise berkat performa query cepat dan mesin penyimpanan (*storage engine*) yang fleksibel.
 
 Roadmap ini membawamu dari pengenalan server MariaDB dan CLI, operasi dasar SQL dan manajemen tabel, memahami arsitektur modular storage engine (InnoDB vs Aria), manajemen user dan hak akses aman (*privileges*), sampai prosedur backup dan restore berkala menggunakan mariadb-dump. Lima langkah, ikuti berurutan.
@@ -55,36 +60,41 @@ INSERT INTO categories (id, name, slug, description, created_at) VALUES ('ea6a08
 Roadmap ini membawamu dari tipe dasar sampai bisa membaca dan menulis konfigurasi TypeScript sendiri: mulai dari type annotation primitif, mendefinisikan bentuk object lewat interface/type alias, union & literal type untuk merepresentasikan pilihan terbatas, type narrowing untuk menangani union dengan aman, type assertion untuk kasus kamu lebih tahu dari compiler, generics untuk kode yang reusable tanpa kehilangan type safety, utility types untuk memanipulasi tipe yang sudah ada, enum sebagai alternatif union, sampai opsi `tsconfig.json` yang paling penting untuk dikonfigurasi. Sembilan langkah, ikuti berurutan.
 
 **Asumsi:** TypeScript itu JavaScript plus sistem tipe, bukan bahasa baru dari nol — roadmap ini mengasumsikan kamu familiar dengan JavaScript dasar (variabel, fungsi, object, array). Prasyarat tool (Node.js, TypeScript compiler) disebutkan di catatan pertama.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
-INSERT INTO categories (id, name, slug, description, created_at) VALUES ('9deddb76-862f-4fce-83e4-57a0202df83b', 'JavaScript', 'javascript', 'JavaScript adalah bahasa pemrograman inti di balik hampir semua interaktivitas web — dari validasi form sampai aplikasi kompleks seperti Gmail. Roadmap ini membangun fondasinya secara bertahap: banyak konsep JS lanjutan (closure, Promise) sering disalahpahami pemula justru karena dasar-dasarnya (scope, fungsi) belum kokoh.
-
-Roadmap ini membawamu dari variabel & scope, mendefinisikan fungsi (termasuk arrow function), membongkar object/array lewat destructuring, mentransformasi array secara deklaratif, manipulasi DOM & event listener untuk mengubah tampilan web, closure untuk data privat, menangani error runtime, Promise untuk kode asinkron, async/await sebagai gula sintaksnya, memanggil REST API dengan Fetch API, sampai memecah kode jadi module terorganisir. Sebelas langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
-
-**Asumsi:** belum pernah menulis JavaScript sama sekali juga tidak masalah — roadmap ini menjelaskan dari variabel. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
 INSERT INTO categories (id, name, slug, description, created_at) VALUES ('3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Java Lanjutan (Advance)', 'java-advance', 'Setelah memahami sintaks dasar dan konsep OOP di roadmap Java Dasar, menulis kode Java modern skala industri menuntut pemahaman teknik lanjutan: bagaimana mengelola koleksi data secara dinamis, menulis kode yang type-safe tanpa duplikasi, dan memproses ribuan data secara deklaratif serta konkruen.
 
 Roadmap ini membawamu menguasai fitur-fitur penting Java modern: Generics untuk fleksibilitas tipe data, Java Collections Framework (List, Set, Map), Functional Programming dengan Lambda Expressions, pemrosesan data deklaratif lewat Stream API, penanganan null yang aman dengan Optional, sampai revolusi konkurensi modern lewat Virtual Threads (Java 21 / Project Loom). Enam langkah, ikuti berurutan setelah menyelesaikan Java Dasar.
 
 **Asumsi:** sudah menyelesaikan atau familiar dengan materi di roadmap [Java Dasar](/kategori/java-dasar) (OOP, class, inheritance, interface).', '2026-09-22 14:14:28.78047+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
-INSERT INTO categories (id, name, slug, description, created_at) VALUES ('d68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Flutter (Android)', 'flutter', 'Membangun aplikasi mobile yang jalan di Android DAN iOS secara tradisional berarti menulis DUA codebase terpisah — Kotlin/Java untuk Android, Swift untuk iOS. Logic bisnis yang sama harus diimplementasikan dua kali, dan bug yang diperbaiki di satu platform harus diperbaiki lagi manual di platform lainnya. Flutter menyelesaikan ini dengan satu codebase (bahasa Dart) yang dikompilasi jadi kode native untuk berbagai platform sekaligus.
-
-Roadmap ini fokus ke target Android: instalasi & menjalankan aplikasi pertama, memahami widget (StatelessWidget vs StatefulWidget), menyusun layout dari beberapa widget, berpindah antar halaman, mengambil data dari API lewat HTTP request, sampai berbagi state reaktif antar-halaman secara ringan lewat ValueNotifier. Enam langkah, ikuti berurutan.
-
-**Asumsi:** familiar dengan konsep pemrograman umum (variabel, fungsi, class) dari bahasa apa pun — roadmap ini tidak mengajarkan sintaks Dart dari nol, tapi contoh kodenya cukup sederhana untuk diikuti pemula. Prasyarat tool (Flutter SDK, Android Studio) disebutkan di catatan pertama.', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
-INSERT INTO categories (id, name, slug, description, created_at) VALUES ('651e63fd-70f5-4611-9727-7181eb577a4c', 'Java Dasar', 'java-dasar', 'Java adalah salah satu bahasa pemrograman paling stabil dan banyak digunakan di dunia — dari backend sistem perbankan, aplikasi Android, hingga platform big data. Filosofi utamanya adalah **"Write Once, Run Anywhere" (WORA)**: kode Java yang dikompilasi menjadi bytecode dapat berjalan di sistem operasi apa pun (Windows, Linux, macOS) asalkan memiliki Java Virtual Machine (JVM).
-
-Roadmap ini membangun fondasi Java murni dari nol: mulai dari setup JDK dan memahami ekosistem JVM, tipe data primitif vs reference, percabangan dan perulangan modern, dasar Pemrograman Berorientasi Objek (Class, Object, Constructor), pewarisan sifat (Inheritance & Polymorphism), sampai merancang kontrak modular lewat Interface dan Abstract Class. Enam langkah berjenjang, ikuti berurutan.
-
-**Asumsi:** belum pernah menulis Java sama sekali tidak masalah — roadmap ini menjelaskan dari nol. Familiar dengan konsep logika dasar komputer akan membantu mempercepat pemahaman.', '2026-09-22 14:14:28.535743+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
 INSERT INTO categories (id, name, slug, description, created_at) VALUES ('874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'React', 'react', 'React adalah library JavaScript paling populer untuk membangun antarmuka (UI) — dipakai jutaan aplikasi web, dari dashboard internal sampai produk skala besar seperti Instagram dan Facebook (yang menciptakannya). Sebelum React (dan library serupa), memperbarui tampilan setelah data berubah berarti memanipulasi DOM manual satu per satu (`document.getElementById(...).innerHTML = ...`) — gampang jadi berantakan dan bug begitu aplikasinya makin besar. React menyelesaikan ini lewat pendekatan deklaratif: kamu deskripsikan UI seharusnya terlihat seperti apa berdasarkan state saat ini, React yang mengurus cara memperbaruinya di DOM.
 
 Roadmap ini membawamu dari instalasi project dengan Vite, menulis UI dengan JSX, memecah UI jadi component yang bisa dipakai ulang lewat props, merespons interaksi user lewat event listener, membuat component "mengingat" sesuatu lewat state (useState), menampilkan UI kondisional, me-render list data dinamis, berbagi state antar-komponen (lifting state up), mengelola form, menyinkronkan component dengan sistem luar lewat useEffect, sampai mengetik komponen React dengan TypeScript sebagai jembatan ke Next.js. Sebelas langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
 
 **Asumsi:** kamu perlu familiar dengan dasar JavaScript (variabel, fungsi, array method seperti `map`/`filter`, destructuring) — kalau belum, roadmap [JavaScript](/kategori/javascript) di platform ini membahas semua itu dari nol. Roadmap ini murni fokus ke React-nya sendiri, bukan mengulang dasar JavaScript.', '2026-09-21 23:24:41.175314+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('d68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Flutter (Android)', 'flutter', 'Membangun aplikasi mobile yang jalan di Android DAN iOS secara tradisional berarti menulis DUA codebase terpisah — Kotlin/Java untuk Android, Swift untuk iOS. Logic bisnis yang sama harus diimplementasikan dua kali, dan bug yang diperbaiki di satu platform harus diperbaiki lagi manual di platform lainnya. Flutter menyelesaikan ini dengan satu codebase (bahasa Dart) yang dikompilasi jadi kode native untuk berbagai platform sekaligus.
+
+Roadmap ini fokus ke target Android: instalasi & menjalankan aplikasi pertama, memahami widget (StatelessWidget vs StatefulWidget), menyusun layout dari beberapa widget, berpindah antar halaman, mengambil data dari API lewat HTTP request, sampai berbagi state reaktif antar-halaman secara ringan lewat ValueNotifier. Enam langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan konsep pemrograman umum (variabel, fungsi, class) dari bahasa apa pun — roadmap ini tidak mengajarkan sintaks Dart dari nol, tapi contoh kodenya cukup sederhana untuk diikuti pemula. Prasyarat tool (Flutter SDK, Android Studio) disebutkan di catatan pertama.', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
 INSERT INTO categories (id, name, slug, description, created_at) VALUES ('c397eb64-1f60-4364-b6c2-ad628083b315', 'PostgreSQL', 'postgresql', 'Database relasional open-source paling canggih di dunia, terkenal dengan kepatuhan standar SQL yang ketat, keandalan transaksi ACID, dan dukungan tipe data modern seperti JSONB. PostgreSQL menjadi fondasi teknologi di balik platform cloud-native modern seperti Supabase.
 
 Roadmap ini membawamu dari nol memahami arsitektur database relasional: mulai dari instalasi & CLI psql, perancangan skema tabel dengan constraints dan tipe data modern, relasi antar-tabel lewat foreign key dan berbagai variasi JOIN, optimasi query dengan B-Tree Index dan EXPLAIN ANALYZE, query dokumen semi-terstruktur menggunakan JSONB & GIN index, sampai jaminan integritas data lewat transaksi ACID dan isolation levels. Enam langkah berjenjang, ikuti berurutan.
 
 **Asumsi:** belum pernah menulis SQL sama sekali tidak masalah — roadmap ini menjelaskan dari sintaks dasar. Prasyarat tool (Docker atau instalasi PostgreSQL) disebutkan di catatan pertama.', '2026-09-22 14:24:45.634768+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('651e63fd-70f5-4611-9727-7181eb577a4c', 'Java Dasar', 'java-dasar', 'Java adalah salah satu bahasa pemrograman paling stabil dan banyak digunakan di dunia — dari backend sistem perbankan, aplikasi Android, hingga platform big data. Filosofi utamanya adalah **"Write Once, Run Anywhere" (WORA)**: kode Java yang dikompilasi menjadi bytecode dapat berjalan di sistem operasi apa pun (Windows, Linux, macOS) asalkan memiliki Java Virtual Machine (JVM).
+
+Roadmap ini membangun fondasi Java murni dari nol: mulai dari setup JDK dan memahami ekosistem JVM, tipe data primitif vs reference, percabangan dan perulangan modern, dasar Pemrograman Berorientasi Objek (Class, Object, Constructor), pewarisan sifat (Inheritance & Polymorphism), sampai merancang kontrak modular lewat Interface dan Abstract Class. Enam langkah berjenjang, ikuti berurutan.
+
+**Asumsi:** belum pernah menulis Java sama sekali tidak masalah — roadmap ini menjelaskan dari nol. Familiar dengan konsep logika dasar komputer akan membantu mempercepat pemahaman.', '2026-09-22 14:14:28.535743+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('45b3c3a2-5021-4fe0-a1d2-494440bb4ea8', 'PHP', 'php', 'PHP adalah bahasa pemrograman server-side yang menggerakkan lebih dari 75% website di dunia — dari platform raksasa seperti Wikipedia dan WordPress hingga sistem enterprise berskala besar. Di era modern (PHP 8.2 & 8.3+), PHP telah bertransformasi total menjadi bahasa yang cepat (JIT compiler), sangat aman dengan sistem strict typing, dan kaya fitur berorientasi objek yang elegan.
+
+Roadmap ini membangun fondasi PHP modern dari nol: mulai dari setup PHP CLI dan server bawaan, tipe data modern dan match expression, type hinting pada fungsi dan arrow functions, OOP modern tanpa boilerplate lewat Constructor Property Promotion dan Readonly, penanganan error dan exception terstruktur, sampai manajemen dependensi standar industri menggunakan Composer dan PSR-4 autoloading. Enam langkah berjenjang, ikuti berurutan.
+
+**Asumsi:** belum pernah menulis PHP sama sekali tidak masalah — roadmap ini menjelaskan dari sintaks modern. Prasyarat tool (PHP 8.2+) disebutkan di catatan pertama.', '2026-09-22 14:30:02.571206+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('8d1b066d-2a4b-429c-ab92-be5a7f37e392', 'Laravel', 'laravel', 'Framework web PHP paling populer di dunia dengan filosofi *"The PHP Framework for Web Artisans"*. Di **Laravel 11**, arsitektur aplikasi disederhanakan secara dramatis: konfigurasi terpusat di `bootstrap/app.php`, routing ramping, Eloquent ORM yang ekspresif, dan ekosistem modern untuk membangun API maupun fullstack apps.
+
+Roadmap ini membawamu dari nol menguasai framework Laravel 11 modern: mulai dari instalasi project ramping dan arsitektur file terbaru, routing dan controller dengan Route Model Binding, templating dinamis dengan Blade Layout Components, kontrol versi database lewat Migrations dan Seeders, manipulasi data ekspresif dengan Eloquent ORM dan pencegahan masalah N+1 query, sampai validasi input terpusat dengan Form Request dan Middleware. Enam langkah berjenjang, ikuti berurutan.
+
+**Asumsi:** familiar dengan dasar bahasa PHP (OOP dan fungsi) dari roadmap [PHP](/kategori/php). Prasyarat tool (PHP 8.2+ dan Composer) disebutkan di catatan pertama.', '2026-09-22 14:30:02.833338+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
 INSERT INTO categories (id, name, slug, description, created_at) VALUES ('b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Next.js', 'nextjs', 'Sebelum ada *file-based routing* seperti di Next.js, menyusun routing di aplikasi React itu kerja manual: install library router, lalu tulis config terpisah yang memetakan tiap URL ke komponennya — dan config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya. Masalah lain: React tradisional mengirim **semua** kode JavaScript ke browser, bahkan untuk bagian yang cuma menampilkan teks statis dari database, bikin aplikasi lambat di koneksi lemah.
 
 Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dasar, memahami batas Server vs Client Component sejak awal, navigasi dinamis, menyusun layout bersama antar halaman, mengambil data di Server Component, mutasi data langsung lewat Server Actions, membuat API publik lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sepuluh langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya.
@@ -96,58 +106,58 @@ Roadmap ini pakai **Hermes Agent** dari Nous Research (open-source, *self-improv
 
 **Asumsi:** familiar dengan command line/terminal dasar. Tidak perlu pengalaman sebelumnya dengan agentic AI atau LLM API — roadmap ini menjelaskan dari instalasi. Prasyarat tool (Git) dan akun untuk akses model disebutkan di catatan pertama.', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
 
--- Notes (127 baris)
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('9eb21fa5-b6a3-49c8-9c17-1f53393c22a7', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'Pengenalan PostgreSQL, Arsitektur, & psql CLI', 'pengenalan-postgresql-dan-instalasi', '**Masalah yang diselesaikan:** menyimpan data aplikasi di dalam file teks mentah (seperti CSV atau JSON) rentan terhadap kerusakan data saat crash (*data corruption*), tidak mendukung banyak pengguna yang menulis bersamaan (*concurrent write*), dan pencarian data menjadi lambat saat ukuran file membesar. PostgreSQL adalah sistem manajemen database relasional (**RDBMS**) open-source tingkat enterprise yang menjamin integritas data secara mutlak.
+-- Notes (139 baris)
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1a462faa-c9cc-44fc-ba29-bcebad51fdae', '45b3c3a2-5021-4fe0-a1d2-494440bb4ea8', 'Pengenalan PHP Modern (8.2+), CLI, & Built-in Server', 'pengenalan-php-modern-dan-cli', '**Masalah yang diselesaikan:** banyak orang memiliki stigma bahwa PHP adalah bahasa yang lambat, penuh kode campur aduk spageti HTML-PHP, dan rawan bug karena tipe data yang terlalu longgar. Stigma tersebut berasal dari era PHP 4 dan 5 (dua dekade lalu!). Di era modern (**PHP 8.2 dan 8.3+**), PHP telah berevolusi menjadi bahasa pemrograman yang sangat cepat (dilengkapi JIT / Just-In-Time compiler), memiliki sistem pengetikan ketat (*strict typing*), dan arsitektur berorientasi objek yang bersih.
 
-PostgreSQL beroperasi dengan model proses client-server: setiap koneksi dari aplikasi dilayani oleh proses terpisah di server yang berkomunikasi dengan memori bersama (*shared memory*) dan mencatat perubahan ke berkas **Write-Ahead Log (WAL)** sebelum ditulis permanen ke disk.
+PHP dijalankan di sisi server (*server-side*). Setiap kali pengunjung membuka halaman web, server mengeksekusi skrip PHP untuk mengambil data atau memproses logika, lalu mengirimkan hasil akhirnya (biasanya berupa HTML murni atau JSON) ke browser.
 
 ```mermaid
 flowchart LR
-  Client["Klien (psql CLI / Backend App)"] -->|Koneksi Port 5432| Postmaster["Postgres Server Process"]
-  Postmaster --> SharedBuffer["Shared Memory Buffer (RAM)"]
-  SharedBuffer --> WAL["Write-Ahead Log (WAL) Disk"]
-  SharedBuffer --> DataFiles["Tabel & Data Disk (Permanen)"]
+  Browser["Browser Klien"] -->|HTTP Request| WebServer["Web Server (PHP CLI / FPM)"]
+  WebServer --> Engine["PHP 8.x Engine (Strict Types & JIT)"]
+  Engine --> Exec["Eksekusi Logika & Render Output"]
+  Exec -->|Kirim HTML / JSON Bersih| Browser
 ```
 
-Cara paling cepat menjalankan PostgreSQL menggunakan Docker:
+Menjalankan PHP dari Terminal dan Mengaktifkan Development Server Bawaan:
 
 ```bash
-# 1. Jalankan container PostgreSQL 16 di background
-docker run --name postgres-belajar -e POSTGRES_PASSWORD=rahasia -p 5432:5432 -d postgres:16
+# 1. Memeriksa versi PHP yang terpasang di komputer
+php -v
 
-# 2. Masuk ke terminal interaktif psql di dalam container
-docker exec -it postgres-belajar psql -U postgres
+# 2. Menjalankan skrip PHP langsung lewat CLI
+php skrip.php
+
+# 3. Menjalankan web server lokal bawaan PHP (tanpa perlu install XAMPP/Apache!)
+php -S localhost:8000
 ```
 
-Perintah navigasi paling penting di dalam `psql`:
+Contoh skrip PHP Modern pertama (`index.php`):
 
-```sql
--- Melihat daftar database yang ada
-l
+```php
+<?php
+// Wajib di baris paling atas: mengaktifkan pengetikan ketat di seluruh berkas
+declare(strict_types=1);
 
--- Membuat database baru
-CREATE DATABASE belajar_db;
+// Variabel di PHP selalu diawali tanda dollar ($)
+$nama = "Budi Santoso";
+$tahunIni = 2026;
 
--- Pindah koneksi ke database tertentu
-c belajar_db
-
--- Melihat daftar tabel di database saat ini
-dt
-
--- Keluar dari psql
-q
+// Mencetak output ke layar terminal / browser
+echo "Halo, $nama! Selamat datang di PHP Modern tahun $tahunIni.
+";
 ```
 
 Poin penting:
 
-- PostgreSQL menggunakan port default **5432**.
-- Format perintah SQL selalu diakhiri dengan titik koma (`;`), sedangkan perintah internal `psql` diawali garis miring terbalik (misal `l`, `dt`, `q`).
-- Menjalankan PostgreSQL via Docker adalah standar industri untuk lingkungan pengembangan karena menjaga sistem operasi host tetap bersih tanpa instalasi service latar belakang.', '[{"url":"https://www.postgresql.org/docs/current/intro-whatis.html","label":"PostgreSQL Official Documentation — What is PostgreSQL?"},{"url":"https://hub.docker.com/_/postgres","label":"Docker Hub Official PostgreSQL Image"}]'::jsonb, '[{"url":"https://www.docker.com/","label":"Docker sudah terinstall di komputermu (atau PostgreSQL native)"}]'::jsonb, 'Buka terminal komputermu:
-1. Jalankan PostgreSQL lewat Docker seperti contoh perintah di atas.
-2. Masuk ke terminal `psql -U postgres`.
-3. Buat database baru: `CREATE DATABASE toko_online;`.
-4. Hubungkan ke database tersebut dengan perintah `c toko_online`.
-5. Keluar dari psql dengan `q` dan coba jalankan kembali untuk membuktikan database `toko_online` tetap tersimpan.', 0, 'published', '2026-09-22 14:24:47.745107+00', '2026-09-22 14:24:47.439+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Skrip PHP selalu diawali dengan tag pembuka `<?php`. Jika berkas murni hanya berisi kode PHP (tanpa campuran tag HTML), **jangan pernah menulis tag penutup `?>`** di akhir file untuk mencegah celah spasi putih tak disengaja (*whitespace header issues*).
+- Direktif `declare(strict_types=1);` memaksa PHP menolak nilai yang tidak sesuai tipe data parameter fungsi (mencegah bug konversi tipe otomatis).
+- Perintah `php -S localhost:8000` sangat praktis untuk pengembangan lokal cepat tanpa perlu mengonfigurasi web server berat.', '[{"url":"https://phptherightway.com/","label":"PHP: The Right Way — Modern PHP Best Practices"},{"url":"https://www.php.net/manual/en/getting-started.php","label":"PHP Official Manual — Getting Started"}]'::jsonb, '[{"url":"https://www.php.net/downloads","label":"PHP versi 8.2 atau 8.3 sudah terpasang (cek dengan `php -v` di terminal)"}]'::jsonb, 'Buka terminal:
+1. Pastikan PHP terpasang dengan mengetik `php -v`.
+2. Buat folder baru `belajar-php` dan buat file `index.php`.
+3. Tulis kode contoh di atas dan ubah variabel nama dengan namamu.
+4. Jalankan `php index.php` di terminal dan periksa hasilnya.
+5. Jalankan `php -S localhost:8000`, lalu buka `http://localhost:8000` di browser untuk melihat outputnya secara langsung.', 0, 'published', '2026-09-22 14:30:04.949566+00', '2026-09-22 14:30:04.634+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('aa64099e-d0de-407b-99f1-f5fa90dbf50b', '651e63fd-70f5-4611-9727-7181eb577a4c', 'Class, Object, dan Constructor (Dasar OOP)', 'class-object-dan-constructor', 'Catatan sebelumnya membahas logika percabangan dan perulangan. **Masalah yang diselesaikan sekarang:** di aplikasi nyata, data dan fungsi yang memanipulasinya saling terikat erat. Mengelola data user menggunakan variabel terpisah (`nama1`, `umur1`, `nama2`, `umur2`) akan sangat kacau saat ada ratusan data. Java adalah bahasa **Object-Oriented Programming (OOP)** murni: segala entitas di dunia nyata dimodelkan sebagai **Class** dan **Object**.
 
 - **Class** adalah cetak biru (*blueprint*) atau rancangan.
@@ -209,7 +219,7 @@ Poin penting:
 2. Buat constructor yang menerima parameter `merk` dan `tahun`.
 3. Buat method `tambahKecepatan(int akselerasi)` yang menambah nilai kecepatan dan mencetak kecepatan saat ini.
 4. Di method `main`, buat objek `Mobil mobilSaya = new Mobil("Toyota", 2022);`.
-5. Panggil `mobilSaya.tambahKecepatan(40);` dua kali dan amati perubahan kecepatannya.', 3, 'published', '2026-09-22 14:14:31.016826+00', '2026-09-22 14:24:50.972+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Panggil `mobilSaya.tambahKecepatan(40);` dua kali dan amati perubahan kecepatannya.', 3, 'published', '2026-09-22 14:14:31.016826+00', '2026-09-22 14:30:11.104+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('f5e12ef2-2bb3-4c8c-84dc-022aa5214645', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Menyelesaikan Merge Conflict', 'merge-conflict-dasar', 'Sekarang kamu tahu cara branching, push/pull, dan mengabaikan file yang tidak perlu (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau dua branch (atau kamu dan rekan tim) sama-sama mengubah BARIS YANG SAMA di file yang sama, Git tidak tahu versi mana yang benar saat `merge`/`pull` — proses berhenti di tengah jalan dan minta kamu memutuskan sendiri.
 
 **Merge conflict** terjadi ketika Git tidak bisa menggabungkan otomatis dua perubahan yang saling bertabrakan pada baris yang sama.
@@ -430,7 +440,7 @@ Poin penting:
 
 - `type(nilai)` selalu bisa dipakai untuk mengecek tipe suatu nilai saat ini — berguna terutama karena tipe variabel Python bisa berubah.
 - Indentasi (spasi di awal baris) di Python BUKAN sekadar gaya penulisan — ia bagian dari sintaks, menentukan blok kode mana yang termasuk bagian mana (akan terlihat jelas di catatan berikutnya soal struktur kontrol).
-- Konversi tipe eksplisit (`int()`, `str()`, dst) diperlukan saat Python tidak bisa menebak otomatis, misalnya menggabungkan angka dengan teks: `"Umur: " + str(umur)` — `"Umur: " + umur` akan error kalau `umur` berupa `int`.', '[{"url":"https://docs.python.org/3/tutorial/introduction.html","label":"An Informal Introduction to Python — Python Docs"},{"url":"https://docs.python.org/3/library/stdtypes.html","label":"Built-in Types — Python Docs"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python 3 sudah terinstall (cek dengan `python --version` atau `python3 --version`)"}]'::jsonb, 'Buat empat variabel dengan masing-masing tipe (`int`, `float`, `str`, `bool`), cetak tipe masing-masing pakai `type()`. Buat variabel `umur = 25` (angka) dan coba `print("Umur saya: " + umur)` — catat error-nya (`TypeError`). Perbaiki dengan `str(umur)` atau f-string `f"Umur saya: {umur}"`. Terakhir, hitung luas persegi panjang dari `panjang = 8` dan `lebar = 3` lalu cetak hasilnya pakai f-string.', 0, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-22 14:25:01.018+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Konversi tipe eksplisit (`int()`, `str()`, dst) diperlukan saat Python tidak bisa menebak otomatis, misalnya menggabungkan angka dengan teks: `"Umur: " + str(umur)` — `"Umur: " + umur` akan error kalau `umur` berupa `int`.', '[{"url":"https://docs.python.org/3/tutorial/introduction.html","label":"An Informal Introduction to Python — Python Docs"},{"url":"https://docs.python.org/3/library/stdtypes.html","label":"Built-in Types — Python Docs"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python 3 sudah terinstall (cek dengan `python --version` atau `python3 --version`)"}]'::jsonb, 'Buat empat variabel dengan masing-masing tipe (`int`, `float`, `str`, `bool`), cetak tipe masing-masing pakai `type()`. Buat variabel `umur = 25` (angka) dan coba `print("Umur saya: " + umur)` — catat error-nya (`TypeError`). Perbaiki dengan `str(umur)` atau f-string `f"Umur saya: {umur}"`. Terakhir, hitung luas persegi panjang dari `panjang = 8` dan `lebar = 3` lalu cetak hasilnya pakai f-string.', 0, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-22 14:30:22.109+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('250fe04c-1ad6-4f91-9456-df1e8af14ed6', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Package Manager pip & Konsumsi API dengan Requests', 'pip-dan-requests-dasar', 'Catatan sebelumnya membahas cara mengisolasi lingkungan proyek lewat virtual environment (`.venv`). **Masalah yang diselesaikan sekarang:** pustaka standar Python (`math`, `os`, `json`) sangat berguna, tetapi kekuatan terbesar Python ada pada ekosistem ribuan library pihak ketiga di **PyPI (Python Package Index)**. Bagaimana cara menginstal library eksternal dan memakainya untuk mengambil data dari REST API di internet?
 
 Python menyertakan package manager bawaan bernama **`pip`**. Salah satu library paling populer di dunia Python adalah **`requests`**, yang dirancang agar pengiriman HTTP request terasa sederhana dan manusiawi (*HTTP for Humans*).
@@ -500,70 +510,78 @@ Poin penting:
 2. Buat file `cek_cuaca.py`.
 3. Gunakan `requests.get("https://api.github.com/zen")` untuk mengambil kutipan filosofi acak dari GitHub API.
 4. Cetak teks kutipannya menggunakan `response.text` dan periksa `response.status_code`.
-5. Jalankan `pip freeze > requirements.txt` dan buka file yang dihasilkan untuk melihat versi library yang tercatat.', 9, 'published', '2026-09-22 14:02:46.631491+00', '2026-09-22 14:25:02.716+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('63c78c0f-8d29-4212-bc3e-e0e9b4615465', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'DDL, Tipe Data Modern, & Constraints', 'ddl-dan-tipe-data-lanjutan', 'Catatan sebelumnya mengenalkan cara terhubung ke PostgreSQL lewat psql. **Masalah yang diselesaikan sekarang:** bagaimana cara merancang wadah penyimpanan tabel yang menjamin data tidak mungkin salah format — misal mencegah harga bernilai negatif, memastikan email tidak kosong dan tidak duplikat, serta menghasilkan ID unik secara otomatis?
+5. Jalankan `pip freeze > requirements.txt` dan buka file yang dihasilkan untuk melihat versi library yang tercatat.', 9, 'published', '2026-09-22 14:02:46.631491+00', '2026-09-22 14:30:23.823+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8dff1607-2207-46b5-9c6e-90f366ed9842', '45b3c3a2-5021-4fe0-a1d2-494440bb4ea8', 'Tipe Data, Match Expression, & Nullsafe Operator', 'tipe-data-dan-sintaks-modern', 'Catatan sebelumnya mengenalkan dasar PHP modern. **Masalah yang diselesaikan sekarang:** di PHP lama, percabangan `switch` sering menjadi sarang bug karena memakai perbandingan longgar (`==`) dan gampang terselip bug lupa menulis `break` (*fall-through*). Selain itu, mengakses properti objek bertingkat (`$user->alamat->kota`) rentan memicu crash *Fatal Error* jika salah satu objek di tengah rantai bernilai `null`.
 
-**DDL (Data Definition Language)** digunakan untuk membuat dan mengubah struktur tabel. PostgreSQL menyediakan sistem tipe data dan batasan (*constraints*) yang sangat ketat untuk memvalidasi data di tingkat database sebelum baris data disimpan.
+PHP 8+ memperkenalkan dua fitur sintaks modern yang sangat revolusioner:
+1. **Match Expression:** Pengganti `switch` yang mengembalikan nilai langsung, menggunakan perbandingan ketat (`===`), dan tidak membutuhkan `break`.
+2. **Nullsafe Operator (`?->`):** Rantai pemanggilan objek yang otomatis mengembalikan `null` tanpa crash jika salah satu elemennya bernilai null.
 
 ```mermaid
 flowchart TD
-  Input["Input Data Baru:<br/>{ id: uuid, email: ''budi@mail.com'', harga: -5000 }"]
-  Input --> CheckNull{"NOT NULL?<br/>Email terisi?"}
-  CheckNull -- Ya --> CheckUnique{"UNIQUE?<br/>Email belum terdaftar?"}
-  CheckUnique -- Ya --> CheckValidation{"CHECK constraint:<br/>harga > 0?"}
-  CheckValidation -- Gagal (harga minus) --> Reject["Ditolak Database:<br/>CHECK constraint violation!"]
-  CheckValidation -- Lolos --> Save["Data Disimpan Aman"]
+  subgraph SwitchLama["Switch Tradisional (Rawan Bug)"]
+    S1["switch($status)"] --> S2["Perbandingan Longgar (==)"]
+    S2 --> S3["Wajib tulis ''break;'' manual di tiap baris"]
+  end
+  subgraph MatchModern["PHP 8+: Match Expression (Ringkas & Aman)"]
+    M1["$hasil = match($status)"] --> M2["Perbandingan Ketat (===)"]
+    M2 --> M3["Mengembalikan nilai ekspresi langsung tanpa break!"]
+  end
 ```
 
-Contoh pembuatan tabel dengan tipe data modern dan constraints:
+Contoh penggunaan Tipe Data, Match Expression, dan Nullsafe Operator:
 
-```sql
--- Mengaktifkan ekstensi pgcrypto untuk fungsi generate UUID bawaan
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+```php
+<?php
+declare(strict_types=1);
 
-CREATE TABLE pengguna (
-    -- ID unik berbasis UUID (sangat aman untuk sistem terdistribusi)
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    
-    -- Teks nama dengan batas karakter yang wajib diisi
-    nama VARCHAR(100) NOT NULL,
-    
-    -- Email wajib unik, ditolak jika duplikat
-    email VARCHAR(255) UNIQUE NOT NULL,
-    
-    -- Angka saldo desimal presisi tinggi dengan validasi nilai tidak boleh minus
-    saldo NUMERIC(12, 2) NOT NULL DEFAULT 0.00 CHECK (saldo >= 0),
-    
-    -- Status aktif
-    is_aktif BOOLEAN NOT NULL DEFAULT true,
-    
-    -- Timestamp otomatis mencatat waktu zona waktu lengkap
-    dibuat_pada TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-```
+// 1. Tipe data skalar dan Array modern
+$umur = 25;              // int
+$harga = 99000.50;        // float
+$isMember = true;         // bool
+$hobi = ["Coding", "Baca"]; // array (sintaks braket siku)
 
-Perintah manipulasi data dasar:
+// 2. Modern Match Expression (PHP 8.0+)
+$kodeStatus = "PAID";
 
-```sql
--- Memasukkan data valid
-INSERT INTO pengguna (nama, email, saldo)
-VALUES (''Budi Santoso'', ''budi@gmail.com'', 500000.00);
+$statusPesanan = match ($kodeStatus) {
+    "PENDING" => "Menunggu Pembayaran",
+    "PAID", "SETTLED" => "Pembayaran Berhasil, Siap Dikirim",
+    "EXPIRED" => "Pembayaran Kedaluwarsa",
+    default => "Status Tidak Dikenali",
+};
 
--- Query membaca data
-SELECT id, nama, email, saldo, dibuat_pada FROM pengguna;
+echo "Status: $statusPesanan
+";
+
+// 3. Nullsafe Operator (?->)
+class Profil {
+    public ?string $kota = "Bandung";
+}
+class Pengguna {
+    public ?Profil $profil = null; // Bisa bernilai null
+}
+
+$user = new Pengguna();
+
+// Cara lama yang bertele-tele:
+// $kota = ($user->profil !== null) ? $user->profil->kota : null;
+
+// Cara modern dengan Nullsafe Operator: aman tanpa fatal error!
+$kota = $user->profil?->kota;
+echo "Kota domisili: " . ($kota ?? "Belum diisi") . "
+";
 ```
 
 Poin penting:
 
-- Gunakan `UUID` (Universally Unique Identifier) sebagai Primary Key jika tidak ingin ID berurutan yang mudah ditebak oleh pihak luar (`1, 2, 3...`).
-- Gunakan `NUMERIC` atau `DECIMAL` untuk nilai uang, **jangan pernah gunakan `FLOAT` atau `DOUBLE`** karena floating-point memiliki masalah pembulatan biner.
-- Gunakan `TIMESTAMPTZ` (Timestamp with time zone) alih-alih `TIMESTAMP` biasa agar waktu akurat lintas zona waktu internasional.
-- Batasan `CHECK (kondisi)` adalah filter pertahanan terakhir di database: bila backend aplikasi memiliki celah bug, database tetap menolak data yang tidak valid.', '[{"url":"https://www.postgresql.org/docs/current/datatype.html","label":"PostgreSQL Documentation — Data Types"},{"url":"https://www.postgresql.org/docs/current/ddl-constraints.html","label":"PostgreSQL Documentation — Constraints"}]'::jsonb, '[]'::jsonb, 'Di database latihan kamu (`psql`):
-1. Salin dan jalankan skrip `CREATE TABLE pengguna` di atas.
-2. Coba masukkan satu baris data valid.
-3. Coba sengaja masukkan data dengan saldo minus: `INSERT INTO pengguna (nama, email, saldo) VALUES (''Hacker'', ''hack@mail.com'', -100);`.
-4. Amati pesan error penolakan dari constraint: `violates check constraint "pengguna_saldo_check"`.
-5. Periksa struktur tabel dengan mengetik `d pengguna`.', 1, 'published', '2026-09-22 14:24:47.929868+00', '2026-09-22 14:24:47.634+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- `match` expression melakukan evaluasi ketat (`===`): angka `0` tidak akan pernah dianggap sama dengan string `"0"`.
+- Jika tidak ada kondisi `match` yang cocok dan kamu lupa menulis cabang `default`, PHP akan melempar error `UnhandledMatchError` yang aman alih-alih mengeksekusi kode salah.
+- Operator penggabung null **`??` (Null Coalescing Operator)** digunakan untuk menyediakan nilai bawaan jika variabel bernilai null atau belum didefinisikan.', '[{"url":"https://www.php.net/manual/en/control-structures.match.php","label":"PHP Official Manual — Match Expressions"},{"url":"https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.nullsafe","label":"PHP Official Manual — Nullsafe Operator"}]'::jsonb, '[]'::jsonb, 'Di file `index.php` kamu:
+1. Buat variabel peran user: `$peran = "admin";`.
+2. Gunakan `match` expression untuk menentukan hak akses: `"admin"` -> `"Akses Penuh"`, `"editor"` -> `"Akses Konten"`, `"tamu"` -> `"Akses Baca"`, dan default -> `"Akses Ditolak"`.
+3. Cetak hasil hak akses ke terminal.
+4. Uji dengan mengubah nilai `$peran` menjadi string yang tidak terdaftar untuk membuktikan cabang `default` bekerja dengan baik.', 1, 'published', '2026-09-22 14:30:05.151328+00', '2026-09-22 14:30:04.855+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('751fa8f0-5662-499c-83ac-d020316e3c53', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'Tipe Data JSONB & Index GIN: NoSQL di dalam Relasional', 'jsonb-dan-semi-structured-data', 'Catatan sebelumnya membahas pengoptimalan query relasional. **Masalah yang diselesaikan sekarang:** tidak semua data memiliki struktur kolom yang seragam. Bayangkan katalog toko online: laptop memiliki spesifikasi `RAM` dan `Processor`, sementara pakaian memiliki `Ukuran` dan `Warna`, serta makanan memiliki `TanggalKedaluwarsa`. Menambahkan ratusan kolom kosong (*nullable*) untuk setiap variasi barang membuat tabel sangat kotor. Developer sering kali terpaksa beralih ke database NoSQL terpisah (seperti MongoDB) hanya untuk menyimpan dokumen dinamis ini.
 
 PostgreSQL memecahkan masalah ini dengan menyediakan tipe data **JSONB (Binary JSON)**: format JSON yang disimpan dalam representasi biner terurai sehingga dapat di-query, di-filter, dan **di-index dengan GIN (Generalized Inverted Index)** secepat kolom relasional biasa!
@@ -616,7 +634,7 @@ Poin penting:
 1. Buat tabel `produk_katalog` seperti contoh di atas dan masukkan kedua baris data.
 2. Jalankan query containment `@>` untuk mencari produk yang memiliki tag `"bisnis"`.
 3. Buat index GIN pada kolom metadata tersebut.
-4. Coba tambahkan baris ketiga dengan struktur atribut yang sama sekali baru (misal buku dengan atribut `{"penulis": "Pramoedya", "halaman": 300}`).', 4, 'published', '2026-09-22 14:24:48.540413+00', '2026-09-22 14:24:48.244+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Coba tambahkan baris ketiga dengan struktur atribut yang sama sekali baru (misal buku dengan atribut `{"penulis": "Pramoedya", "halaman": 300}`).', 4, 'published', '2026-09-22 14:24:48.540413+00', '2026-09-22 14:30:08.314+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5ea3c8d7-f066-40c8-bc7b-76bb0101970d', 'a6e9d866-c1b5-4e38-a511-d27a0fed6caa', 'Operasi SQL Dasar & Manajemen Tabel di MariaDB', 'dasar-sql-dan-manajemen-tabel', 'Catatan sebelumnya mengenalkan cara terhubung ke MariaDB. **Masalah yang diselesaikan sekarang:** bagaimana cara menyusun tabel data dengan kunci utama otomatis (*auto-increment*) dan menjalankan operasi CRUD (Create, Read, Update, Delete) sehari-hari?
 
 Di MariaDB, pembuatan tabel dan manipulasi data mengikuti standar SQL yang sangat ramah pemula, dengan fitur auto-increment integer yang efisien untuk Primary Key.
@@ -674,7 +692,7 @@ Poin penting:
 2. Masukkan 3 baris artikel baru dengan status bervariasi.
 3. Jalankan `SELECT * FROM artikel;` dan perhatikan bagaimana kolom `id` bertambah otomatis (1, 2, 3).
 4. Update salah satu artikel menjadi `published`.
-5. Hapus artikel pertama dan periksa isi akhir tabel.', 1, 'published', '2026-09-22 14:24:49.032501+00', '2026-09-22 14:24:48.739+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Hapus artikel pertama dan periksa isi akhir tabel.', 1, 'published', '2026-09-22 14:24:49.032501+00', '2026-09-22 14:30:08.863+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('6a194ce7-7aad-41ba-88a0-32dfbad77aeb', '651e63fd-70f5-4611-9727-7181eb577a4c', 'Pewarisan (Inheritance) & Polimorfisme', 'inheritance-dan-polymorphism', 'Catatan sebelumnya membahas cara membuat class dan objek. **Masalah yang diselesaikan sekarang:** bayangkan kamu membuat aplikasi game yang memiliki karakter `Prajurit`, `Penyihir`, dan `Pemanah`. Ketiganya sama-sama memiliki atribut `nama` dan `darah`, serta method `berjalan()`. Menuliskan kode ini berulang-ulang di setiap class memicu duplikasi besar (*DRY violation*).
 
 Java menyediakan dua pilar utama OOP untuk ini:
@@ -759,7 +777,7 @@ Poin penting:
 1. Buat class induk `Pegawai` dengan atribut `nama` dan method `hitungGaji()` yang mengembalikan `4000000`.
 2. Buat subclass `Manager extends Pegawai` yang meng-override method `hitungGaji()` menjadi `8000000` (ditambah bonus).
 3. Buat array polimorfis: `Pegawai[] daftar = { new Pegawai("Rudi"), new Manager("Siti") };`.
-4. Buat perulangan untuk mencetak nama dan gaji masing-masing pegawai, dan buktikan bahwa method gaji Manager otomatis terhitung lebih besar.', 4, 'published', '2026-09-22 14:14:31.229347+00', '2026-09-22 14:24:51.162+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Buat perulangan untuk mencetak nama dan gaji masing-masing pegawai, dan buktikan bahwa method gaji Manager otomatis terhitung lebih besar.', 4, 'published', '2026-09-22 14:14:31.229347+00', '2026-09-22 14:30:11.291+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('eaee8034-bdcf-40ca-9e9c-e621eedc1bb4', '3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Java Collections Framework: List, Set, dan Map', 'collections-framework', 'Catatan sebelumnya mengenalkan Generics. **Masalah yang diselesaikan sekarang:** array biasa di Java memiliki satu kelemahan fatal: **ukurannya paten** sejak pertama kali dibuat. Kalau kamu membuat `int[] data = new int[5];`, kamu tidak bisa menambah elemen ke-6 tanpa membuat array baru dan menyalin isinya manual. Selain itu, bagaimana kalau kamu butuh data yang otomatis menolak duplikasi atau pencarian data secepat kilat berdasarkan kunci?
 
 Java menyediakan **Collections Framework**: kumpulan struktur data dinamis berstandar tinggi yang siap pakai, terbagi menjadi tiga jenis utama:
@@ -823,7 +841,7 @@ Poin penting:
 2. Masukkan 3 barang beserta harganya.
 3. Buat perulangan membaca seluruh isi Map menggunakan `for (Map.Entry<String, Double> entry : daftarHarga.entrySet())`.
 4. Cetak nama barang dan harganya ke terminal.
-5. Coba buat `Set<String>` dari daftar kategori barang belanjaan tersebut.', 1, 'published', '2026-09-22 14:14:31.777111+00', '2026-09-22 14:24:51.647+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Coba buat `Set<String>` dari daftar kategori barang belanjaan tersebut.', 1, 'published', '2026-09-22 14:14:31.777111+00', '2026-09-22 14:30:11.946+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('17ec47c4-e277-4f50-b227-f754b1b66c7d', '3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Null-Safety dengan Optional & Penanganan Exception Modern', 'optional-dan-modern-exception', 'Catatan sebelumnya membahas Stream API. **Masalah yang diselesaikan sekarang:** penemu konsep `null`, Sir Tony Hoare, menyebut `null reference` sebagai *"The Billion Dollar Mistake"* (kesalahan bernilai miliaran dolar). Di Java, memanggil method pada variabel yang ternyata bernilai `null` seketika memicu `NullPointerException` (NPE) yang sering meloloskan crash ke produksi.
 
 Untuk mengatasi ini, Java modern menyediakan **`Optional<T>`** — wadah pembungkus yang secara eksplisit menyatakan bahwa sebuah nilai bisa saja "ada" atau "kosong", memaksa developer menangani kemungkinan ketiadaan data sebelum memakainya.
@@ -880,60 +898,7 @@ Poin penting:
 - Fitur **Try-With-Resources** (Java 7+) otomatis menutup berkas/koneksi database yang mengimplementasikan `AutoCloseable` begitu blok try selesai, mencegah kebocoran memori (*memory leak*).', '[{"url":"https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html","label":"Oracle Documentation — java.util.Optional Class"},{"url":"https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html","label":"Oracle Java Tutorial — The try-with-resources Statement"}]'::jsonb, '[]'::jsonb, 'Di project latihan kamu:
 1. Buat method `public static Optional<Integer> cariNilaiTertinggi(List<Integer> list)`.
 2. Jika list kosong, kembalikan `Optional.empty()`. Jika ada isi, kembalikan nilai tertingginya dibungkus `Optional.of(...)`.
-3. Panggil method tersebut dengan list kosong, lalu gunakan `.ifPresentOrElse(...)` untuk mencetak angka atau menampilkan pesan "Daftar masih kosong".', 4, 'published', '2026-09-22 14:14:32.353913+00', '2026-09-22 14:24:52.191+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('e7e76a81-a52f-4d08-9a86-dfc74fb4fe1d', '9deddb76-862f-4fce-83e4-57a0202df83b', 'DOM & Event Listener Dasar: Membuat Halaman Web Interaktif', 'dom-dan-event-listener-dasar', 'Catatan sebelumnya membahas cara memproses dan mentransformasi data array di memori. **Masalah yang diselesaikan sekarang:** semua kode yang kamu pelajari sejauh ini hanya berjalan dan mencetak teks di terminal console. Bagaimana cara JavaScript mengubah teks, warna, atau struktur halaman web di browser, serta merespons saat pengunjung mengklik tombol?
-
-Browser merepresentasikan dokumen HTML sebagai pohon objek yang disebut **DOM (Document Object Model)**. Lewat JavaScript, kita bisa memilih elemen HTML (*query*), membaca atau mengubah isinya, dan memasang pendengar aksi (*event listener*).
-
-```mermaid
-flowchart TD
-  subgraph Browser["Halaman Web di Browser"]
-    Btn["<button id=''tombol''>Klik Saya</button>"]
-    P["<p id=''pesan''>Teks Awal</p>"]
-  end
-  subgraph JS["JavaScript DOM API"]
-    Sel["const btn = document.querySelector(''#tombol'');<br/>const pesan = document.querySelector(''#pesan'');"]
-    Ev["btn.addEventListener(''click'', () => {<br/>  pesan.textContent = ''Halo dari JavaScript!'';<br/>});"]
-  end
-  Btn -.->|Dipilih oleh| Sel
-  P -.->|Dipilih oleh| Sel
-  Sel --> Ev
-  Ev -->|Memperbarui DOM saat diklik| P
-```
-
-Contoh kode dasar manipulasi DOM dan Event:
-
-```html
-<!-- index.html -->
-<button id="btn-ubah">Ganti Salam</button>
-<p id="teks-salam">Selamat pagi!</p>
-
-<script>
-  // 1. Memilih elemen dari dokumen HTML berdasarkan selector CSS
-  const tombol = document.querySelector("#btn-ubah");
-  const teksSalam = document.querySelector("#teks-salam");
-
-  // 2. Memasang Event Listener: fungsi yang otomatis dipanggil saat aksi terjadi
-  tombol.addEventListener("click", function () {
-    // 3. Mengubah teks dan styling elemen secara dinamis
-    teksSalam.textContent = "Halo, selamat datang di dunia web!";
-    teksSalam.style.color = "#2563eb";
-    teksSalam.style.fontWeight = "bold";
-  });
-</script>
-```
-
-Poin penting:
-
-- `document.querySelector(''selector'')` memilih elemen pertama yang cocok dengan selector CSS (misal `#id`, `.class`, atau nama tag seperti `button`).
-- `addEventListener(''event'', callback)` mendengarkan event tertentu seperti `''click''`, `''input''`, `''submit''`, atau `''keydown''` tanpa menimpa event listener lain.
-- Gunakan `textContent` (bukan `innerHTML`) untuk mengubah teks biasa agar aman dari celah keamanan Cross-Site Scripting (XSS).
-- Memahami manipulasi DOM langsung ini adalah fondasi penting sebelum beralih ke React, di mana manipulasi DOM diotomatisasi secara deklaratif.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction","label":"MDN Web Docs — Introduction to the DOM"},{"url":"https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener","label":"MDN Web Docs — EventTarget.addEventListener()"}]'::jsonb, '[{"url":"https://developer.mozilla.org","label":"Browser web modern (Chrome/Firefox/Edge) dan editor teks"}]'::jsonb, 'Buat file `index.html` sederhana di komputermu dan buka di browser:
-1. Buat tag `<input type="text" id="input-nama" placeholder="Ketik namamu..." />`.
-2. Buat tag `<h2 id="salam">Halo, Pengunjung!</h2>`.
-3. Di tag `<script>`, pilih input dan h2 tersebut dengan `document.querySelector`.
-4. Pasang event listener `''input''` pada tag input: setiap kali user mengetik, ubah teks h2 menjadi `Halo, ${input.value || "Pengunjung"}!`.
-5. Amati bagaimana tampilan halaman berubah secara live di browser tanpa reload setiap kali kamu menekan tuts keyboard.', 4, 'published', '2026-09-22 13:53:02.884132+00', '2026-09-22 14:24:57.417+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+3. Panggil method tersebut dengan list kosong, lalu gunakan `.ifPresentOrElse(...)` untuk mencetak angka atau menampilkan pesan "Daftar masih kosong".', 4, 'published', '2026-09-22 14:14:32.353913+00', '2026-09-22 14:30:12.513+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5aa2858a-ba05-4cd2-8119-608ded4f1b67', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Struktur Kontrol: if, for, while', 'struktur-kontrol-dasar', 'Sekarang kamu paham variabel dan tipe data dasar (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** program yang cuma dijalankan baris demi baris secara linear tidak bisa membuat KEPUTUSAN (melakukan hal berbeda tergantung kondisi) atau MENGULANG pekerjaan yang sama tanpa menulis ulang kodenya berkali-kali.
 
 ### Percabangan: `if` / `elif` / `else`
@@ -991,78 +956,57 @@ Poin penting:
 - Python TIDAK pakai kurung kurawal `{ }` untuk menandai blok kode seperti banyak bahasa lain — blok ditandai lewat INDENTASI (biasanya 4 spasi) setelah tanda titik dua (`:`). Indentasi yang salah/tidak konsisten menyebabkan `IndentationError`.
 - `range(5)` menghasilkan urutan `0, 1, 2, 3, 4` (5 ANGKA, tapi berhenti SEBELUM angka 5) — pola ini sering bikin bingung pemula (*off-by-one*).
 - Pakai `for` kalau tahu persis berapa kali/apa yang mau diiterasi (list, range), pakai `while` kalau pengulangannya tergantung kondisi yang tidak diketahui jumlahnya di awal.', '[{"url":"https://docs.python.org/3/tutorial/controlflow.html","label":"More Control Flow Tools — Python Docs"}]'::jsonb, '[]'::jsonb, 'Tulis program yang mengecek satu angka: cetak "Fizz" kalau habis dibagi 3, "Buzz" kalau habis dibagi 5, "FizzBuzz" kalau habis dibagi KEDUANYA, atau angkanya sendiri kalau tidak keduanya — pakai `if`/`elif`/`else`. Bungkus dalam `for n in range(1, 21)` supaya jalan untuk angka 1 sampai 20. Lalu tulis `while` loop terpisah yang mencetak angka 10 turun ke 1 (hitung mundur), berhenti otomatis begitu mencapai 0.', 1, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5555bed3-f021-4ed5-9544-5da0aeb1d4c5', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'Relasi Tabel, Foreign Keys, & Ragam JOIN', 'relasi-foreign-key-dan-join', 'Catatan sebelumnya membahas pembuatan satu tabel terisolasi. **Masalah yang diselesaikan sekarang:** di aplikasi nyata, entitas selalu saling terhubung — satu kategori memayungi banyak produk (*one-to-many*). Jika kita menyimpan nama kategori langsung di setiap baris produk, ketika nama kategori diganti kita harus mengupdate ribuan baris, dan risiko inkonsistensi data sangat tinggi (*data redundancy*).
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('2c3c2da4-993d-4390-8b32-a03cc8a63534', '45b3c3a2-5021-4fe0-a1d2-494440bb4ea8', 'Fungsi, Type Hinting, & Arrow Functions', 'fungsi-dan-arrow-functions', 'Catatan sebelumnya membahas percabangan modern. **Masalah yang diselesaikan sekarang:** di PHP lama, fungsi tidak memiliki kejelasan tipe data — kamu bisa mengirim array ke fungsi yang mengharapkan angka tanpa peringatan awal. Selain itu, membuat fungsi *callback* sederhana (misal untuk menyaring array) memakan banyak baris dengan kata kunci `function() { return ...; }`.
 
-Solusinya adalah **Normalisasi Database**: memisahkan data ke tabel berbeda dan menghubungkannya menggunakan **Foreign Key (Kunci Asing)**. Saat data ingin dibaca bersamaan, kita menggabungkannya kembali lewat operasi **JOIN**.
+PHP modern mendukung **Type Hinting** lengkap (parameter dan return type), **Union Types** (`int|float`), **Named Arguments**, dan **Arrow Functions** yang sangat ringkas (`fn($x) => $x * 2`).
 
 ```mermaid
 flowchart LR
-  subgraph Kategori["Tabel Kategori"]
-    K1["id: 1, nama: ''Elektronik''"]
-    K2["id: 2, nama: ''Buku''"]
-  end
-  subgraph Produk["Tabel Produk"]
-    P1["Laptop (kategori_id: 1)"]
-    P2["Mouse (kategori_id: 1)"]
-    P3["Novel (kategori_id: 2)"]
-  end
-  K1 --- P1 & P2
-  K2 --- P3
+  Input["hitungDiskon(harga: 100000, persen: 10)"] --> TypeCheck{"Validasi Tipe Data Parameter<br/>harga: int|float<br/>persen: int"}
+  TypeCheck -- Tipe Valid --> Calc["Hitung Diskon"]
+  Calc --> ReturnCheck{"Validasi Return Type: float"}
+  ReturnCheck --> Output["Kembalikan Nilai: 90000.0"]
 ```
 
-Skema Foreign Key dan Ragam Operasi JOIN:
+Contoh pembuatan Fungsi Modern dan Arrow Function:
 
-```sql
--- 1. Tabel Induk (Parent)
-CREATE TABLE kategori (
-    id SERIAL PRIMARY KEY,
-    nama VARCHAR(50) NOT NULL
-);
+```php
+<?php
+declare(strict_types=1);
 
--- 2. Tabel Anak (Child) dengan Foreign Key
-CREATE TABLE produk (
-    id SERIAL PRIMARY KEY,
-    kategori_id INT NOT NULL REFERENCES kategori(id) ON DELETE CASCADE,
-    nama VARCHAR(100) NOT NULL,
-    harga INT NOT NULL
-);
+// 1. Fungsi dengan Type Hinting, Union Types, dan Return Type
+function hitungTotal(int|float $harga, int $jumlah = 1): float 
+{
+    return (float) ($harga * $jumlah);
+}
 
--- Mengisi data contoh
-INSERT INTO kategori (nama) VALUES (''Elektronik''), (''Pakaian'');
-INSERT INTO produk (kategori_id, nama, harga) VALUES
-(1, ''Laptop Gaming'', 15000000),
-(1, ''Keyboard Mekanikal'', 800000);
-```
+// 2. Named Arguments (PHP 8.0+) — Memanggil argumen berdasarkan nama parameter
+// Urutan parameter boleh diacak dan lebih mudah dibaca!
+$totalBelanja = hitungTotal(jumlah: 3, harga: 45000.0);
+echo "Total: Rp$totalBelanja
+";
 
-Membaca data terhubung dengan JOIN:
+// 3. Arrow Functions (fn() => ...) untuk operasi array deklaratif
+$daftarAngka = [1, 2, 3, 4, 5, 6];
 
-```sql
--- INNER JOIN: Hanya mengambil baris yang memiliki pasangan cocok di kedua tabel
-SELECT 
-    p.nama AS nama_produk,
-    p.harga,
-    k.nama AS nama_kategori
-FROM produk p
-INNER JOIN kategori k ON p.kategori_id = k.id;
+// Menyaring angka genap dengan array_filter
+$angkaGenap = array_filter($daftarAngka, fn(int $n): bool => $n % 2 === 0);
 
--- LEFT JOIN: Mengambil SEMUA kategori, meskipun belum ada produknya
-SELECT 
-    k.nama AS nama_kategori,
-    COUNT(p.id) AS total_produk
-FROM kategori k
-LEFT JOIN produk p ON k.id = p.kategori_id
-GROUP BY k.id, k.nama;
+// Mengalikan setiap angka dengan 10 menggunakan array_map
+$dikalikanSepuluh = array_map(fn(int $n): int => $n * 10, $daftarAngka);
+
+print_r($dikalikanSepuluh);
 ```
 
 Poin penting:
 
-- `ON DELETE CASCADE`: Jika baris kategori dihapus, seluruh produk di bawah kategori tersebut otomatis terhapus, mencegah data yatim piatu (*orphaned records*).
-- `ON DELETE RESTRICT` / `NO ACTION`: Menolak penghapusan kategori jika masih ada produk yang merujuk kepadanya.
-- `INNER JOIN` menghasilkan irisan dua tabel; `LEFT JOIN` menjamin seluruh baris dari tabel kiri selalu tampil (kolom tabel kanan akan bernilai `NULL` jika belum ada pasangannya).', '[{"url":"https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK","label":"PostgreSQL Documentation — Foreign Keys"},{"url":"https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-FROM","label":"PostgreSQL Documentation — Table Expressions (Joins)"}]'::jsonb, '[]'::jsonb, 'Di terminal psql kamu:
-1. Buat tabel `kategori` dan `produk` seperti contoh di atas.
-2. Tambahkan kategori baru ke-3: `INSERT INTO kategori (nama) VALUES (''Otomotif'');` (tanpa membuat produknya).
-3. Jalankan query `INNER JOIN` dan perhatikan bahwa kategori ''Otomotif'' tidak muncul.
-4. Jalankan query `LEFT JOIN` dan amati bagaimana kategori ''Otomotif'' tetap muncul dengan kolom produk bernilai `NULL` (atau count 0).', 2, 'published', '2026-09-22 14:24:48.107643+00', '2026-09-22 14:24:47.813+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Sintaks tanda tanya sebelum tipe data (misal `?string`) menandakan bahwa parameter tersebut bersifat *nullable* (boleh bernilai string atau `null`).
+- **Arrow functions (`fn`)** otomatis menangkap variabel dari scope luar (*by-value capture*) tanpa perlu menuliskan klausa `use ($var)` manual seperti anonymous function klasik.
+- **Named Arguments** membuat kode sangat ekspresif (mirip Flutter atau Python) dan memungkinkan kamu melewati parameter opsional di tengah tanpa mengisi nilai default manual.', '[{"url":"https://www.php.net/manual/en/functions.arguments.php","label":"PHP Official Manual — Function Arguments & Type Declarations"},{"url":"https://www.php.net/manual/en/functions.arrow.php","label":"PHP Official Manual — Arrow Functions"}]'::jsonb, '[]'::jsonb, 'Di project latihan kamu:
+1. Buat fungsi `formatRupiah(int|float $angka, string $simbol = "Rp"): string`.
+2. Gunakan `number_format($angka, 0, '','', ''.'')` untuk memformat angkanya.
+3. Panggil fungsi tersebut dengan *Named Arguments*: `formatRupiah(simbol: "IDR ", angka: 1500000);`.
+4. Buat array harga barang dan gunakan `array_map` dengan arrow function `fn($h) => $h * 0.9` untuk memberikan diskon 10% pada seluruh harga.', 2, 'published', '2026-09-22 14:30:05.367275+00', '2026-09-22 14:30:05.057+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('eda9d5ab-bdfa-43b2-936d-5e89cf0aae0c', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'Transaksi ACID & Tingkat Isolasi (Isolation Levels)', 'transaksi-acid-dan-lock', 'Catatan sebelumnya membahas fleksibilitas data JSONB. **Masalah yang diselesaikan sekarang (dan menutup roadmap PostgreSQL):** bayangkan operasi transfer bank: akun Budi dikurangi Rp 1.000.000, lalu server tiba-tiba mati listrik sebelum saldo akun Ani sempat ditambah. Uang satu juta tersebut hilang begitu saja! Masalah kedua: dua user membeli barang terakhir di tiket konser pada mikrodetik yang persis sama. Bagaimana database mencegah data tidak konsisten dalam situasi konkruensi tinggi?
 
 PostgreSQL menjamin kepatuhan penuh terhadap prinsip **ACID**:
@@ -1119,7 +1063,7 @@ Poin penting:
 2. Di Terminal A, ketik `BEGIN; UPDATE pengguna SET saldo = 999999 WHERE email = ''budi@gmail.com'';` (JANGAN COMMIT DULU).
 3. Di Terminal B, jalankan `SELECT saldo FROM pengguna WHERE email = ''budi@gmail.com'';` — amati bahwa Terminal B masih melihat saldo lama (karena transaksi A belum di-commit).
 4. Di Terminal A, ketik `COMMIT;`.
-5. Kembali ke Terminal B dan lakukan SELECT ulang — saksikan saldo baru kini terlihat. Ini menutup roadmap PostgreSQL!', 5, 'published', '2026-09-22 14:24:48.686672+00', '2026-09-22 14:24:48.399+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Kembali ke Terminal B dan lakukan SELECT ulang — saksikan saldo baru kini terlihat. Ini menutup roadmap PostgreSQL!', 5, 'published', '2026-09-22 14:24:48.686672+00', '2026-09-22 14:30:08.505+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4d71d35f-0a91-4d9d-91e1-90b588b8244e', 'a6e9d866-c1b5-4e38-a511-d27a0fed6caa', 'Memahami Storage Engines: InnoDB vs Aria vs MyISAM', 'storage-engines-innodb-vs-aria', 'Catatan sebelumnya membahas operasi SQL dasar. **Masalah yang diselesaikan sekarang:** database lain (seperti PostgreSQL) menggunakan satu mesin penyimpanan yang seragam untuk semua tabel. MariaDB memiliki keunikan berupa **Pluggable Storage Engine Architecture**: kamu bisa memilih mesin penyimpanan yang berbeda untuk tabel yang berbeda sesuai kebutuhan beban kerja aplikasi (apakah butuh transaksi keuangan yang ketat, atau butuh pembacaan analitik super cepat tanpa transaksi).
 
 Dua engine paling penting di MariaDB:
@@ -1163,7 +1107,7 @@ Poin penting:
 - Engine `MEMORY` menyimpan seluruh tabel murni di RAM untuk data sementara berumur pendek.', '[{"url":"https://mariadb.com/kb/en/storage-engines/","label":"MariaDB Knowledge Base — Storage Engines"},{"url":"https://mariadb.com/kb/en/aria/","label":"MariaDB Knowledge Base — Aria Storage Engine"}]'::jsonb, '[]'::jsonb, 'Di terminal mariadb kamu:
 1. Jalankan `SHOW ENGINES;` untuk melihat seluruh storage engine yang aktif di server MariaDB.
 2. Buat satu tabel dengan `ENGINE=InnoDB` dan satu tabel log dengan `ENGINE=Aria`.
-3. Jalankan `SHOW TABLE STATUSG` dan amati perbedaan kolom `Engine` pada kedua tabel tersebut.', 2, 'published', '2026-09-22 14:24:49.211488+00', '2026-09-22 14:24:48.912+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+3. Jalankan `SHOW TABLE STATUSG` dan amati perbedaan kolom `Engine` pada kedua tabel tersebut.', 2, 'published', '2026-09-22 14:24:49.211488+00', '2026-09-22 14:30:09.07+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4a0c242e-8f48-4777-8060-ad5d6073febd', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'useEffect Dasar (Sinkronisasi dengan Sistem Luar)', 'use-effect-dasar', '**Masalah yang diselesaikan:** semua yang dibahas roadmap ini sejauh ini terjadi murni di dalam React — render UI dari state dan props. Tapi aplikasi nyata sering perlu "keluar" dari dunia React: mengambil data dari API, mengatur judul tab browser, memasang timer, atau berlangganan event dari luar. Kalau kode semacam ini dijalankan langsung di badan component (waktu render), efeknya bisa terpicu berkali-kali secara tidak terduga setiap kali component render ulang.
 
 `useEffect` adalah Hook yang menyelesaikan ini: menjalankan kode **setelah** render selesai, dan cuma dijalankan ulang kalau nilai yang kamu tentukan benar-benar berubah.
@@ -1374,131 +1318,72 @@ Poin penting:
 - Tangkap jenis exception SPESIFIK (`ValueError`, `KeyError`, dst) sebisa mungkin, bukan langsung `except:` tanpa jenis — supaya kamu tahu persis error apa yang sedang ditangani, dan tidak diam-diam menyembunyikan bug lain yang tidak terkait.
 - `finally` dijalankan SELALU, baik `try`-nya berhasil maupun gagal — cocok untuk kode pembersihan (menutup file/koneksi) yang wajib jalan apa pun hasilnya.
 - `raise` melempar exception secara manual — berguna untuk menandai kondisi yang secara logis salah meski tidak menyebabkan error Python secara langsung.', '[{"url":"https://docs.python.org/3/tutorial/errors.html","label":"Errors and Exceptions — Python Docs"}]'::jsonb, '[]'::jsonb, 'Tulis program yang minta input umur lewat `input()`, coba konversi ke `int()` di dalam `try/except ValueError` — kalau gagal, cetak pesan error yang jelas alih-alih program crash. Tambahkan `finally` yang selalu mencetak "Selesai". Tulis fungsi `bagi(a, b)` yang `raise ValueError` kalau `b == 0`, panggil dalam `try/except`, cetak pesan error-nya lewat `except ValueError as e: print(e)`.', 5, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('406e1717-fd7c-4e5d-a4ed-5af477abe8fc', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Pola DTO & Konfigurasi CORS di ASP.NET Core', 'dto-dan-cors-dotnet', 'Catatan sebelumnya membahas cara mengakses database menggunakan Entity Framework Core. **Masalah yang diselesaikan sekarang:** saat API ASP.NET Core dipanggil oleh aplikasi frontend (seperti React, Vue, atau mobile app), browser memblokir request karena kebijakan keamanan **CORS**. Selain itu, mengembalikan class model EF Core langsung ke JSON rentan terhadap *over-posting attack* (user memasukkan field yang tidak seharusnya) dan dapat memicu crash *cyclic references*.
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b4ce9eba-3ca3-44cc-b477-7d1d8b755665', '45b3c3a2-5021-4fe0-a1d2-494440bb4ea8', 'OOP Modern: Constructor Property Promotion & Readonly', 'oop-constructor-promotion-dan-readonly', 'Catatan sebelumnya membahas fungsi bertipe. **Masalah yang diselesaikan sekarang:** menulis class di PHP klasik membutuhkan penulisan nama variabel sebanyak 3 sampai 4 kali untuk satu properti saja (deklarasi properti, argumen constructor, penugasan `$this->nama = $nama;`, dan getter). Ini memakan puluhan baris boilerplate hanya untuk membuat data model sederhana.
 
-Penyelesaiannya adalah menerapkan pola **DTO (Data Transfer Object)** menggunakan C# `record` serta mengaktifkan middleware **CORS** bawaan ASP.NET Core.
-
-```mermaid
-flowchart LR
-  subgraph Frontend["Frontend Browser (Port 3000)"]
-    FE["Aplikasi Frontend"]
-  end
-  subgraph ASPNET["ASP.NET Core Backend (Port 5000)"]
-    CorsMiddleware["app.UseCors(''FrontendPolicy'')"]
-    Endpoint["app.MapGet(''/api/produk'', ...)"]
-    DTO["ProdukDto (C# record)<br/>id, nama, harga"]
-    DBModel["Model EF Core Produk<br/>(id, nama, harga, biayaRahasia, user_id)"]
-  end
-  FE -->|CORS Preflight / Request| CorsMiddleware
-  CorsMiddleware --> Endpoint
-  Endpoint --> DBModel
-  DBModel -->|Select projection| DTO
-  DTO -->|Kirim JSON Bersih| FE
-```
-
-Contoh implementasi DTO dan Middleware CORS di `Program.cs`:
-
-```csharp
-// 1. DTO Didefinisikan sebagai C# record yang ringkas dan immutable
-public record ProdukDto(int Id, string Nama, decimal Harga);
-public record BuatProdukDto(string Nama, decimal Harga);
-
-// 2. Konfigurasi di Program.cs
-var builder = WebApplication.CreateBuilder(args);
-
-// Daftarkan service CORS
-var corsPolicy = "IzinkanFrontend";
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: corsPolicy, policy =>
-    {
-        policy.WithOrigins("http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
-
-var app = builder.Build();
-
-// Aktifkan middleware CORS (wajib ditaruh sebelum endpoint mapping)
-app.UseCors(corsPolicy);
-
-// Endpoint menggunakan DTO untuk input dan output
-app.MapGet("/api/produk", async (AppDbContext db) =>
-    await db.Produk
-            .Select(p => new ProdukDto(p.Id, p.Nama, p.Harga))
-            .ToListAsync());
-
-app.MapPost("/api/produk", async (BuatProdukDto input, AppDbContext db) =>
-{
-    var produkBaru = new Produk { Nama = input.Nama, Harga = input.Harga };
-    db.Produk.Add(produkBaru);
-    await db.SaveChangesAsync();
-
-    return Results.Created($"/api/produk/{produkBaru.Id}", new ProdukDto(produkBaru.Id, produkBaru.Nama, produkBaru.Harga));
-});
-
-app.Run();
-```
-
-Poin penting:
-
-- Penggunaan `.Select(p => new ProdukDto(...))` pada query LINQ EF Core melakukan *projection* langsung di query SQL (`SELECT Id, Nama, Harga FROM Produk`), bukan mengambil semua kolom baru difilter di memori.
-- `record` di C# secara bawaan memiliki *value equality* dan sintaks yang sangat ringkas, menjadikannya standar baku untuk DTO di .NET modern.
-- Selalu pastikan pemanggilan `app.UseCors()` diletakkan pada posisi pipeline middleware yang tepat (sebelum definisi routing endpoint).', '[{"url":"https://learn.microsoft.com/en-us/aspnet/core/security/cors","label":"Microsoft Learn — Enable Cross-Origin Requests (CORS) in ASP.NET Core"},{"url":"https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5","label":"Microsoft Learn — Create Data Transfer Objects (DTOs)"}]'::jsonb, '[]'::jsonb, 'Di project ASP.NET Core Minimal API kamu:
-1. Buat record `UserDto(int Id, string Username, string Email)`.
-2. Di `Program.cs`, tambahkan service `builder.Services.AddCors(...)` untuk mengizinkan `http://localhost:3000`.
-3. Pasang `app.UseCors(...)` sebelum endpoint.
-4. Ubah endpoint `GET /api/users` agar mengembalikan `UserDto` menggunakan proyeksi LINQ `.Select()`.
-5. Jalankan aplikasi (`dotnet run`) dan verifikasi melalui tab Network browser bahwa header respons `Access-Control-Allow-Origin: http://localhost:3000` berhasil disertakan.', 6, 'published', '2026-09-22 14:02:51.088271+00', '2026-09-22 14:25:06.892+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('7aebd158-43a3-4d15-af68-f248654d812d', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'Indexing & Optimasi Query dengan EXPLAIN ANALYZE', 'indexing-dan-query-performance', 'Catatan sebelumnya membahas relasi dan join. **Masalah yang diselesaikan sekarang:** saat tabel hanya berisi 100 baris, semua query terasa instan. Namun ketika tabel berkembang menjadi 1 juta baris, query `SELECT * FROM transaksi WHERE nomor_resi = ''XYZ''` bisa memakan waktu 3 hingga 10 detik dan membuat CPU server 100% karena database harus membaca seluruh baris dari awal sampai akhir (**Sequential Scan / Full Table Scan**).
-
-**Index** adalah struktur data khusus (paling umum berupa **B-Tree**) yang bertindak seperti indeks di buku belakang: alih-alih membaca seluruh halaman buku, database langsung melompat ke lokasi nomor baris yang dituju dalam kompleksitas waktu $O(log N)$.
+PHP 8+ memperkenalkan **Constructor Property Promotion** dan **Readonly Properties**: kamu bisa mendeklarasikan properti class, visibilitas, dan tipe datanya langsung di dalam parameter constructor dalam satu baris saja!
 
 ```mermaid
 flowchart TD
-  subgraph TanpaIndex["Tanpa Index: Sequential Scan (Lambat)"]
-    S["Cari resi ''RESI-999''"] --> B1["Baris 1"] --> B2["Baris 2"] --> B3["... Scan 1.000.000 baris ..."] --> Found1["Ditemukan setelah 3 detik"]
+  subgraph CaraLama["PHP Klasik (15 Baris Boilerplate)"]
+    L1["private string $judul;"]
+    L2["private float $harga;"]
+    L3["public function __construct($j, $h) {"]
+    L4["  $this->judul = $j; $this->harga = $h;"]
+    L5["}"]
   end
-  subgraph DenganIndex["Dengan B-Tree Index (Sangat Cepat)"]
-    I["Cari resi ''RESI-999''"] --> Root["Root B-Tree Node"]
-    Root --> Branch["Branch Node"]
-    Branch --> Leaf["Leaf Node (Langsung dapat pointer memori)"]
-    Leaf --> Found2["Ditemukan dalam 0.5 milidetik!"]
+  subgraph Modern["PHP 8+: Constructor Promotion (3 Baris!)"]
+    M1["public function __construct(<br/>  public readonly string $judul,<br/>  public float $harga<br/>) {}"]
   end
+  CaraLama -->|Diringkas secara radikal| Modern
 ```
 
-Membuat Index dan Menganalisis Performa:
+Contoh pembuatan Class Modern dan Enum di PHP:
 
-```sql
--- 1. Membuat index B-Tree pada kolom yang sering dicari / difilter
-CREATE INDEX idx_pengguna_email ON pengguna (email);
+```php
+<?php
+declare(strict_types=1);
 
--- 2. Index komposit (dua kolom yang sering dicari bersamaan)
-CREATE INDEX idx_produk_kategori_harga ON produk (kategori_id, harga);
+// 1. Pure Enum (PHP 8.1+) — Pilihan terbatas yang aman dari typo
+enum StatusOrder: string {
+    case Pending = "menunggu_bayar";
+    case Selesai = "selesai";
+    case Batal = "dibatalkan";
+}
 
--- 3. Menguji rencana eksekusi query sebelum dan sesudah index
-EXPLAIN ANALYZE 
-SELECT * FROM pengguna WHERE email = ''budi@gmail.com'';
-```
+// 2. Class Modern dengan Constructor Property Promotion & Readonly
+class Produk {
+    // Properti ''nama'' bersifat readonly (hanya bisa diisi sekali, tidak bisa diubah lagi)
+    public function __construct(
+        public readonly string $nama,
+        public float $harga,
+        public StatusOrder $status = StatusOrder::Pending
+    ) {
+        // Body constructor boleh kosong karena penugasan properti sudah otomatis!
+    }
 
-Hasil analisis dari `EXPLAIN ANALYZE`:
-```text
-Index Scan using idx_pengguna_email on pengguna  (cost=0.28..8.29 rows=1 width=128) (actual time=0.042..0.044 rows=1 loops=1)
-  Index Cond: ((email)::text = ''budi@gmail.com''::text)
-Planning Time: 0.112 ms
-Execution Time: 0.065 ms
+    public function tampilkanInfo(): void {
+        echo "Produk: {$this->nama} | Harga: Rp{$this->harga} | Status: {$this->status->value}
+";
+    }
+}
+
+// Instansiasi objek
+$laptop = new Produk(nama: "MacBook Air", harga: 18000000.0);
+$laptop->tampilkanInfo();
+
+// $laptop->nama = "Asus"; // Fatal Error: Cannot modify readonly property!
 ```
 
 Poin penting:
 
-- Kolom yang memiliki constraint `PRIMARY KEY` dan `UNIQUE` secara otomatis dibuatkan index B-Tree oleh PostgreSQL di belakang layar.
-- Perintah `EXPLAIN ANALYZE` wajib dipelajari setiap developer: perintah ini benar-benar mengeksekusi query dan menampilkan waktu eksekusi riil (*actual execution time*) serta metode pencarian yang dipilih database.
-- **Jangan mengindeks semua kolom:** setiap index mempercepat operasi `SELECT`, tetapi sedikit memperlambat operasi `INSERT`, `UPDATE`, dan `DELETE` karena pohon index harus diatur ulang setiap kali data berubah.', '[{"url":"https://www.postgresql.org/docs/current/indexes.html","label":"PostgreSQL Documentation — Indexes"},{"url":"https://www.postgresql.org/docs/current/using-explain.html","label":"PostgreSQL Documentation — Using EXPLAIN"}]'::jsonb, '[]'::jsonb, 'Di terminal psql kamu:
-1. Buat tabel uji berisi angka acak: `CREATE TABLE angka_test AS SELECT generate_series(1, 100000) AS angka;`.
-2. Jalankan `EXPLAIN ANALYZE SELECT * FROM angka_test WHERE angka = 75432;` dan catat metode (`Seq Scan`) serta waktu eksekusinya.
-3. Buat index: `CREATE INDEX idx_angka ON angka_test (angka);`.
-4. Jalankan kembali `EXPLAIN ANALYZE` yang sama dan amati perubahan metode menjadi `Index Scan` dengan waktu eksekusi yang turun drastis.', 3, 'published', '2026-09-22 14:24:48.289256+00', '2026-09-22 14:24:47.989+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- **Constructor Property Promotion**: Kata kunci visibilitas (`public`, `private`, `protected`) di depan parameter constructor secara otomatis mengubah parameter tersebut menjadi atribut class.
+- **Readonly Property / Readonly Class**: Menjamin imutabilitas data (*immutable object*), mencegah bug tak terduga akibat mutasi state liar.
+- **Backed Enums** (misal `enum Status: string`) memiliki properti `.value` untuk mengambil nilai skalar dasarnya (sangat berguna untuk disimpan ke database).
+- Pola OOP modern ini adalah fondasi penulisan Controller dan Entity di **Laravel 11**.', '[{"url":"https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion","label":"PHP Official Manual — Constructor Property Promotion"},{"url":"https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties","label":"PHP Official Manual — Readonly Properties"}]'::jsonb, '[]'::jsonb, 'Di file latihan kamu:
+1. Buat enum `KategoriBuku: string` dengan kasus `Teknologi`, `Sains`, dan `Fiksi`.
+2. Buat class `Buku` menggunakan Constructor Promotion dengan properti `public readonly string $judul`, `public string $penulis`, dan `public KategoriBuku $kategori`.
+3. Buat objek buku baru dengan *Named Arguments*: `new Buku(judul: "Laskar Pelangi", penulis: "Andrea Hirata", kategori: KategoriBuku::Fiksi);`.
+4. Cetak properti judul dan kategori dari objek tersebut.', 3, 'published', '2026-09-22 14:30:05.583553+00', '2026-09-22 14:30:05.283+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b7e12e0b-d09c-43d9-bf12-f7247219e599', 'a6e9d866-c1b5-4e38-a511-d27a0fed6caa', 'Pengenalan MariaDB & CLI mariadb / mysql', 'pengenalan-mariadb-dan-mariadb-client', '**Masalah yang diselesaikan:** ketika Sun Microsystems (dan kemudian Oracle) mengakuisisi MySQL, komunitas open-source khawatir masa depan MySQL akan ditutup atau dibatasi fiturnya. Michael "Monty" Widenius (pencipta asli MySQL) membuat fork bernama **MariaDB** untuk menjamin bahwa teknologi database relasional populer ini akan selalu 100% gratis, open-source, dan dikembangkan secara transparan.
 
 MariaDB adalah pengganti langsung (*drop-in replacement*) untuk MySQL: protokol jaringan, port koneksi (3306), dan sebagian besar sintaks SQL identik, namun MariaDB menawarkan performa query optimizer yang lebih agresif dan storage engine modern.
@@ -1548,7 +1433,7 @@ Poin penting:
 2. Masuk ke terminal client `mariadb -u root -prahasia`.
 3. Buat database baru bernama `blog_pribadi` dengan `CREATE DATABASE blog_pribadi;`.
 4. Jalankan `SHOW DATABASES;` dan pastikan database barumu terdaftar.
-5. Ketik `USE blog_pribadi;` lalu `EXIT;`.', 0, 'published', '2026-09-22 14:24:48.857103+00', '2026-09-22 14:24:48.56+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Ketik `USE blog_pribadi;` lalu `EXIT;`.', 0, 'published', '2026-09-22 14:24:48.857103+00', '2026-09-22 14:30:08.67+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('cad40864-66e5-4387-8974-c04cdc104a41', 'a6e9d866-c1b5-4e38-a511-d27a0fed6caa', 'Manajemen User, Hak Akses (Privileges), & Keamanan', 'user-privileges-dan-keamanan', 'Catatan sebelumnya membahas storage engine. **Masalah yang diselesaikan sekarang:** kesalahan keamanan nomor satu bagi pemula adalah menghubungkan aplikasi web langsung menggunakan akun `root` tanpa batasan. Jika aplikasi web tersebut memiliki celah celah SQL Injection, penyerang dapat menghapus seluruh database, membaca berkas rahasia server, bahkan menguasai sistem operasi!
 
 Prinsip keamanan standar industri adalah **Principle of Least Privilege**: buat user database khusus untuk aplikasi tersebut, dan hanya berikan hak akses pada database miliknya saja.
@@ -1595,7 +1480,7 @@ Poin penting:
 1. Buat user baru bernama `kasir_toko` dengan password unik.
 2. Berikan izin hanya `SELECT` dan `INSERT` pada database latihanmu.
 3. Buka terminal baru dan coba login menggunakan user baru tersebut: `mariadb -u kasir_toko -p`.
-4. Coba jalankan perintah `DELETE FROM ...` dan buktikan bahwa MariaDB menolak eksekusi karena akun tersebut tidak memiliki hak hapus data.', 3, 'published', '2026-09-22 14:24:49.399504+00', '2026-09-22 14:24:49.102+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Coba jalankan perintah `DELETE FROM ...` dan buktikan bahwa MariaDB menolak eksekusi karena akun tersebut tidak memiliki hak hapus data.', 3, 'published', '2026-09-22 14:24:49.399504+00', '2026-09-22 14:30:09.236+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5b25c713-0c3b-467d-9bd2-3f5002f12668', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'State & useState Dasar', 'state-dan-usestate-dasar', 'Catatan sebelumnya menunjukkan cara merespons interaksi user lewat event listener. **Masalah yang diselesaikan sekarang:** kalau kamu cuma mengubah variabel JavaScript biasa di dalam event handler (`let count = 0; count++`), tampilan layar **tidak akan berubah**. Variabel lokal tereset setiap kali fungsi component dijalankan, dan React tidak tahu kapan harus menggambar ulang layar. Component butuh cara untuk **mengingat** data antar-render dan memberi tahu React untuk memperbarui tampilan.
 
 `useState` adalah *Hook* bawaan React yang menyelesaikan dua masalah itu sekaligus: menyimpan nilai yang tetap ada antar render, dan memberi tahu React untuk render ulang UI setiap nilainya berubah.
@@ -1862,43 +1747,253 @@ Poin penting:
 1. Buat file `lib/state_counter.dart` dan buat objek `final ValueNotifier<int> skorApp = ValueNotifier<int>(0);`.
 2. Di halaman utama, tampilkan nilai skor menggunakan widget `ValueListenableBuilder<int>`.
 3. Di halaman kedua (buka lewat `Navigator.push`), buat tombol "Tambah Skor" yang menjalankan `skorApp.value += 10`.
-4. Tekan tombol di halaman kedua, lalu kembali ke halaman utama (`Navigator.pop`), dan buktikan bahwa nilai skor langsung tersinkronisasi secara otomatis tanpa passing argumen balik.', 5, 'published', '2026-09-22 14:02:54.742136+00', '2026-09-22 14:25:10.533+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1831001a-c2c3-4404-8572-f972ee9f7df0', 'a6e9d866-c1b5-4e38-a511-d27a0fed6caa', 'Backup & Restore Database dengan mariadb-dump', 'backup-dan-restore-mariadb-dump', 'Catatan sebelumnya melengkapi konfigurasi hak akses user. **Masalah yang diselesaikan sekarang (dan menutup roadmap MariaDB):** perangkat keras server bisa rusak, disk bisa penuh, atau ada rekan tim yang tidak sengaja menghapus tabel produksi. Tanpa salinan cadangan (*backup*) otomatis, perusahaan bisa kehilangan seluruh data bisnisnya secara permanen. Bagaimana cara mencadangkan database secara konsisten tanpa mematikan aplikasi yang sedang berjalan?
+4. Tekan tombol di halaman kedua, lalu kembali ke halaman utama (`Navigator.pop`), dan buktikan bahwa nilai skor langsung tersinkronisasi secara otomatis tanpa passing argumen balik.', 5, 'published', '2026-09-22 14:02:54.742136+00', '2026-09-22 14:30:33.26+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('ddbce733-94d6-4d63-ba11-b68a6082a44a', '45b3c3a2-5021-4fe0-a1d2-494440bb4ea8', 'Penanganan Error & Exceptions Modern', 'error-handling-dan-exceptions', 'Catatan sebelumnya membahas class dan enkapsulasi. **Masalah yang diselesaikan sekarang:** di PHP zaman dulu, fungsi sering mengembalikan nilai `false` saat gagal, dan developer harus menulis `if ($hasil === false)` di mana-mana. Jika terjadi kesalahan fatal (seperti pembagian dengan nol atau salah tipe), script langsung berhenti mati (*white screen of death*) tanpa pesan error yang terstruktur.
 
-MariaDB menyertakan tool CLI resmi bernama **`mariadb-dump`** (sebelumnya dikenal sebagai `mysqldump`). Tool ini membaca struktur skema dan baris data, lalu mengubahnya menjadi berkas teks SQL yang dapat dieksekusi ulang di server mana pun.
+Di PHP modern, semua kesalahan fatal dan exception mengimplementasikan interface **`Throwable`**, memungkinkan kita menangkap dan menangani kesalahan secara anggun menggunakan blok **`try-catch-finally`** dan membuat Custom Exception sendiri.
 
 ```mermaid
-flowchart LR
-  DB["Database Aktif (MariaDB)"] -->|mariadb-dump --single-transaction| Dump["File Backup (.sql.gz)<br/>CREATE TABLE...<br/>INSERT INTO..."]
-  Dump -->|Kirim ke Server Baru / Disaster Recovery| Restore["mariadb -u root target_db < backup.sql"]
-  Restore --> TargetDB["Database Pulih 100%!"]
+flowchart TD
+  Code["Operasi Berisiko (Transfer Saldo)"] --> Try["try { ... }"]
+  Try --> Check{"Terjadi Masalah?"}
+  Check -- Saldo Kurang --> Throw["throw new SaldoTidakCukupException()"]
+  Throw --> Catch["catch (SaldoTidakCukupException $e)"]
+  Catch --> Recovery["Tampilkan Pesan Ramah ke Pengguna<br/>(Aplikasi Tidak Crash!)"]
+  Check -- Sukses --> Finally["finally { Tutup Koneksi Database }"]
+  Recovery --> Finally
 ```
 
-Perintah Backup dan Restore di Terminal OS:
+Contoh Exception Handling terstruktur:
 
-```bash
-# 1. Melakukan Backup satu database secara konsisten tanpa mengunci tabel (InnoDB)
-mariadb-dump -u root -prahasia --single-transaction portal_berita > backup_portal.sql
+```php
+<?php
+declare(strict_types=1);
 
-# 2. Backup dengan kompresi gzip langsung (menghemat ukuran disk hingga 80%)
-mariadb-dump -u root -prahasia --single-transaction portal_berita | gzip > backup_portal.sql.gz
+// 1. Membuat Custom Exception Class sendiri
+class SaldoTidakCukupException extends Exception {}
 
-# 3. Restore / Memulihkan data dari file backup SQL
-# Pastikan database target sudah dibuat terlebih dahulu:
-mariadb -u root -prahasia -e "CREATE DATABASE IF NOT EXISTS portal_pulih;"
-mariadb -u root -prahasia portal_pulih < backup_portal.sql
+class AkunBank {
+    public function __construct(
+        private string $pemilik,
+        private float $saldo
+    ) {}
+
+    public function tarikTunai(float $jumlah): float {
+        if ($jumlah <= 0) {
+            throw new InvalidArgumentException("Jumlah penarikan harus lebih dari 0!");
+        }
+
+        if ($jumlah > $this->saldo) {
+            // Lempar kustom exception jika aturan bisnis dilanggar
+            throw new SaldoTidakCukupException("Saldo {$this->pemilik} tidak mencukupi untuk tarik tunai Rp$jumlah.");
+        }
+
+        $this->saldo -= $jumlah;
+        return $this->saldo;
+    }
+}
+
+// 2. Menangkap exception dengan try-catch-finally
+try {
+    $akun = new AkunBank("Budi", 500000.0);
+    $akun->tarikTunai(1000000.0); // Sengaja menarik melebihi saldo
+} catch (SaldoTidakCukupException $e) {
+    echo "Peringatan Bisnis: " . $e->getMessage() . "
+";
+} catch (InvalidArgumentException $e) {
+    echo "Input Tidak Valid: " . $e->getMessage() . "
+";
+} catch (Throwable $e) {
+    echo "Terjadi kesalahan sistem yang tidak terduga: " . $e->getMessage() . "
+";
+} finally {
+    echo "Sesi transaksi perbankan selesai.
+";
+}
 ```
 
 Poin penting:
 
-- **Flag `--single-transaction` WAJIB disertakan:** opsi ini memanfaatkan sifat transaksional InnoDB untuk membuat snapshot data yang konsisten pada satu titik waktu tanpa mengunci (*lock*) pembacaan dan penulisan aplikasi web.
-- Berkas dump berisi perintah DDL (`CREATE TABLE`) dan DML (`INSERT INTO`), sehingga mudah dibaca manusia dan kompatibel lintas versi MariaDB/MySQL.
-- Di lingkungan produksi, proses backup ini biasanya dijadwalkan otomatis setiap malam menggunakan Cronjob dan diunggah ke penyimpanan cloud aman (seperti AWS S3).', '[{"url":"https://mariadb.com/kb/en/mariadb-dump/","label":"MariaDB Knowledge Base — mariadb-dump / mysqldump"},{"url":"https://mariadb.com/kb/en/backup-and-restore-overview/","label":"MariaDB Knowledge Base — Backup and Restore Overview"}]'::jsonb, '[]'::jsonb, 'Buka terminal komputermu:
-1. Jalankan `mariadb-dump` untuk mencadangkan database latihanmu ke file `backup.sql`.
-2. Buka file `backup.sql` di editor teks dan lihat bagaimana tabel dan datamu dituliskan sebagai kumpulan query SQL.
-3. Buat database baru `mariadb -u root -p -e "CREATE DATABASE db_kembar;"`.
-4. Restore data tersebut ke database baru dengan `mariadb -u root -p db_kembar < backup.sql`.
-5. Masuk ke `db_kembar` dan pastikan seluruh tabel dan data telah berhasil disalin sempurna. Ini menutup roadmap MariaDB!', 4, 'published', '2026-09-22 14:24:49.581025+00', '2026-09-22 14:24:49.275+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- `Throwable` adalah interface puncak dari semua error di PHP (`Error` dan `Exception` keduanya mengimplementasikan `Throwable`).
+- Blok `finally` dijamin **selalu dieksekusi**, baik terjadi error maupun tidak (sangat ideal untuk menutup koneksi database atau socket file).
+- PHP mendukung *Multi-Catch* di satu blok: `catch (FirstException | SecondException $e)`.
+- Jangan biarkan exception lolos tanpa penanganan di production, karena pesan error teknis berisiko membocorkan struktur kode dan password database kepada publik.', '[{"url":"https://www.php.net/manual/en/language.exceptions.php","label":"PHP Official Manual — Exceptions"},{"url":"https://www.php.net/manual/en/class.throwable.php","label":"PHP Official Manual — The Throwable Interface"}]'::jsonb, '[]'::jsonb, 'Di project latihan kamu:
+1. Buat fungsi `bagiAngka(float $pembilang, float $penyebut): float`.
+2. Jika `$penyebut == 0`, lempar `DivisionByZeroError("Penyebut tidak boleh bernilai nol!");`.
+3. Bungkus pemanggilan fungsi tersebut dengan blok `try-catch`.
+4. Uji dengan membagi `10` dengan `0`, lalu pastikan pesan error tertangkap dengan anggun dan aplikasi terus berjalan normal.', 4, 'published', '2026-09-22 14:30:05.78432+00', '2026-09-22 14:30:05.465+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('01843843-3c1b-4fb0-b5e0-edddfad9d38e', '8d1b066d-2a4b-429c-ab92-be5a7f37e392', 'Routing, Controller, & Route Model Binding', 'routing-dan-controller', 'Catatan sebelumnya mengenalkan struktur project Laravel 11. **Masalah yang diselesaikan sekarang:** bagaimana mengarahkan URL pengunjung (seperti `/artikel/5` atau `/kontak`) ke fungsi kode yang tepat tanpa menumpuk seluruh logika bisnis di dalam file routing?
+
+Laravel menyediakan sistem routing yang ekspresif di `routes/web.php`. Untuk menjaga arsitektur kode tetap bersih dan terpisah (*Separation of Concerns*), logika penanganan request dipindahkan ke dalam **Controller**. Laravel juga memiliki fitur ajaib bernama **Route Model Binding**: Laravel otomatis mencari data model dari database berdasarkan ID di URL!
+
+```mermaid
+flowchart LR
+  URL["User Request:<br/>GET /produk/12"] --> Route["routes/web.php"]
+  Route --> RBM["Route Model Binding:<br/>Otomatis SELECT * WHERE id=12"]
+  RBM --> Controller["ProdukController@show(Produk $produk)"]
+  Controller --> View["Tampilkan View Blade / JSON"]
+```
+
+Mendefinisikan Route dan Controller di Laravel 11:
+
+```bash
+# Membuat Controller baru menggunakan Artisan CLI
+php artisan make:controller ProdukController
+```
+
+Kode di `routes/web.php`:
+
+```php
+<?php
+
+use IlluminateSupportFacadesRoute;
+use AppHttpControllersProdukController;
+
+// 1. Route dasar sederhana dengan closure
+Route::get(''/'', function () {
+    return view(''welcome'');
+});
+
+// 2. Route diarahkan ke Controller Method
+Route::get(''/produk'', [ProdukController::class, ''index'']);
+
+// 3. Route Model Binding otomatis (mencari objek Produk berdasarkan {produk} ID)
+Route::get(''/produk/{produk}'', [ProdukController::class, ''show'']);
+```
+
+Kode di `app/Http/Controllers/ProdukController.php`:
+
+```php
+<?php
+
+namespace AppHttpControllers;
+
+use AppModelsProduk;
+use IlluminateViewView;
+
+class ProdukController extends Controller
+{
+    // Menampilkan daftar seluruh produk
+    public function index(): View
+    {
+        $produkList = Produk::all();
+        return view(''produk.index'', [''produkList'' => $produkList]);
+    }
+
+    // Route Model Binding: parameter bertipe ''Produk $produk'' otomatis diisi data dari DB!
+    // Jika ID tidak ditemukan, Laravel otomatis mengembalikan respons 404 Not Found.
+    public function show(Produk $produk): View
+    {
+        return view(''produk.show'', [''produk'' => $produk]);
+    }
+}
+```
+
+Poin penting:
+
+- Nama parameter di URL (`{produk}`) harus cocok dengan nama variabel di method controller (`$produk`) agar fitur *Route Model Binding* aktif.
+- Perintah `php artisan route:list` menampilkan seluruh daftar rute yang aktif di aplikasi beserta middleware dan controller pasangannya.
+- Untuk membuat kumpulan route CRUD lengkap sekaligus, kamu bisa menggunakan `Route::resource(''produk'', ProdukController::class);`.', '[{"url":"https://laravel.com/docs/11.x/routing","label":"Laravel Documentation — Routing"},{"url":"https://laravel.com/docs/11.x/controllers","label":"Laravel Documentation — Controllers"}]'::jsonb, '[]'::jsonb, 'Di project Laravel kamu:
+1. Buat controller baru: `php artisan make:controller HalamanController`.
+2. Tambahkan method `public function tentang() { return "Ini halaman tentang kami"; }`.
+3. Daftarkan di `routes/web.php`: `Route::get(''/tentang'', [HalamanController::class, ''tentang'']);`.
+4. Buka `http://127.0.0.1:8000/tentang` di browser dan pastikan teks muncul.
+5. Jalankan `php artisan route:list` di terminal untuk melihat daftar routemu tercatat rapi.', 1, 'published', '2026-09-22 14:30:06.475839+00', '2026-09-22 14:30:06.149+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('24869908-74c2-4880-a901-773f99394d4a', '8d1b066d-2a4b-429c-ab92-be5a7f37e392', 'Eloquent ORM: Query Builder & Relasi Antar-Model', 'eloquent-orm-dan-relasi', 'Catatan sebelumnya membahas skema database migration. **Masalah yang diselesaikan sekarang:** menulis perintah SQL manual (`SELECT * FROM produks WHERE harga > ...`) melelahkan dan rentan kesalahan ketik. Selain itu, masalah klasik performa **N+1 Query Problem** sering terjadi saat kita mencoba menampilkan daftar produk beserta nama kategorinya (1 query untuk mengambil 20 produk, diikuti 20 query tambahan hanya untuk mengambil nama kategori masing-masing!).
+
+**Eloquent ORM** adalah implementasi Active Record bawaan Laravel yang sangat ekspresif: setiap tabel di database dipetakan ke sebuah **Model**, dan relasi antar-tabel didefinisikan secara deklaratif di dalam model tersebut.
+
+```mermaid
+flowchart LR
+  subgraph Relasi["Relasi One-to-Many"]
+    Cat["Model Kategori<br/>public function produks()<br/>return $this->hasMany(Produk::class)"]
+    Prod["Model Produk<br/>public function kategori()<br/>return $this->belongsTo(Kategori::class)"]
+  end
+  Cat ---|1 Kategori Punya Banyak Produk| Prod
+```
+
+Mendefinisikan Model dan Relasi:
+
+```bash
+# Membuat Model sekaligus file Migration-nya
+php artisan make:model Produk -m
+php artisan make:model Kategori -m
+```
+
+Kode Model `app/Models/Kategori.php`:
+
+```php
+<?php
+
+namespace AppModels;
+
+use IlluminateDatabaseEloquentModel;
+use IlluminateDatabaseEloquentRelationsHasMany;
+
+class Kategori extends Model
+{
+    protected $fillable = [''nama'', ''slug''];
+
+    // Relasi: Satu Kategori memiliki banyak Produk (One to Many)
+    public function produks(): HasMany
+    {
+        return $this->hasMany(Produk::class);
+    }
+}
+```
+
+Kode Model `app/Models/Produk.php`:
+
+```php
+<?php
+
+namespace AppModels;
+
+use IlluminateDatabaseEloquentModel;
+use IlluminateDatabaseEloquentRelationsBelongsTo;
+
+class Produk extends Model
+{
+    // Mendaftarkan atribut yang diizinkan untuk mass-assignment (Create/Update)
+    protected $fillable = [''kategori_id'', ''nama'', ''harga''];
+
+    // Relasi balik: Produk terikat pada satu Kategori
+    public function kategori(): BelongsTo
+    {
+        return $this->belongsTo(Kategori::class);
+    }
+}
+```
+
+Operasi CRUD Ekspresif & Pencegahan N+1 Query (Eager Loading):
+
+```php
+// 1. Create (Menambah data baru)
+$produk = Produk::create([
+    ''kategori_id'' => 1,
+    ''nama'' => ''Mouse Wireless'',
+    ''harga'' => 250000.00
+]);
+
+// 2. Read dengan Eager Loading (with) — Mencegah Masalah N+1 Query!
+// Mengambil 50 produk HANYA dengan 2 query database gabungan, bukan 51 query!
+$daftarProduk = Produk::with(''kategori'')->where(''harga'', ''>='', 100000)->get();
+
+foreach ($daftarProduk as $p) {
+    echo "{$p->nama} (Kategori: {$p->kategori->nama})
+";
+}
+```
+
+Poin penting:
+
+- Properti `$fillable` wajib didefinisikan pada setiap Model untuk melindungi aplikasi dari celah keamanan *Mass Assignment Vulnerability*.
+- **Eager Loading (`with(''relasi'')`)** wajib digunakan ketika ingin menampilkan relasi data di dalam perulangan loop untuk menjaga aplikasi tetap cepat.
+- Uji coba interaktif logika Eloquent dapat dilakukan langsung lewat REPL terminal dengan mengetik `php artisan tinker`.', '[{"url":"https://laravel.com/docs/11.x/eloquent","label":"Laravel Documentation — Eloquent ORM Getting Started"},{"url":"https://laravel.com/docs/11.x/eloquent-relationships","label":"Laravel Documentation — Eloquent Relationships"}]'::jsonb, '[]'::jsonb, 'Di project Laravel kamu:
+1. Buka terminal interaktif Tinker: `php artisan tinker`.
+2. Buat kategori baru lewat Eloquent: `$k = AppModelsKategori::create([''nama'' => ''Elektronik'', ''slug'' => ''elektronik'']);`.
+3. Query data yang baru dibuat: `AppModelsKategori::all();`.
+4. Amati betapa mudahnya berinteraksi dengan database tanpa perlu menulis sintaks SQL mentah satu baris pun.', 4, 'published', '2026-09-22 14:30:07.366886+00', '2026-09-22 14:30:07.05+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('ea564c0d-b971-431c-809c-fc733bb7f737', '94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Struktur Data Kaya: Hash, List, dan Set', 'struktur-data-lanjutan-list-set-hash', 'Catatan sebelumnya membahas String dan masa aktif TTL. **Masalah yang diselesaikan sekarang:** Redis sering kali disalahpahami hanya sebagai "tempat menyimpan teks sederhana". Bagaimana jika kamu ingin menyimpan objek profil pengguna dengan banyak atribut, atau membuat antrean tugas (*job queue*) yang diproses berurutan, atau mengelola daftar tag unik tanpa duplikasi? Menyimpan semuanya sebagai string JSON mengharuskan kamu mengunduh dan mem-parse seluruh teks hanya untuk mengubah satu atribut kecil.
 
 Redis menyediakan **struktur data kaya di tingkat mesin (*native data structures*)**:
@@ -1958,7 +2053,7 @@ Poin penting:
 2. Kurangi stoknya sebesar 1 menggunakan `HINCRBY produk:1 stok -1`.
 3. Buat antrean tugas: masukkan 3 item dengan `LPUSH antrean "Tugas 1"` lalu `Tugas 2` dan `Tugas 3`.
 4. Ambil item pertama yang harus diproses dengan `RPOP antrean` dan buktikan "Tugas 1" yang keluar pertama.
-5. Buat set pengguna online dengan `SADD online "ani" "budi"`, lalu cek keanggotaannya dengan `SISMEMBER online "ani"`.', 2, 'published', '2026-09-22 14:24:50.113833+00', '2026-09-22 14:24:49.833+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Buat set pengguna online dengan `SADD online "ani" "budi"`, lalu cek keanggotaannya dengan `SISMEMBER online "ani"`.', 2, 'published', '2026-09-22 14:24:50.113833+00', '2026-09-22 14:30:09.954+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('37c77516-48b1-411e-b857-4fd964666cd2', '651e63fd-70f5-4611-9727-7181eb577a4c', 'Pengenalan Java, JDK, dan Program Pertama', 'pengenalan-jdk-dan-program-pertama', '**Masalah yang diselesaikan:** bahasa seperti C/C++ dikompilasi langsung ke instruksi mesin spesifik untuk prosesor dan OS tertentu — program yang dicompile di Windows tidak bisa jalan di Linux tanpa dicompile ulang dari kode sumber. Java memecahkan masalah ini dengan konsep **Java Virtual Machine (JVM)**: kode Java dicompile menjadi berkas perantara (*bytecode* berekstensi `.class`), dan JVM di masing-masing sistem operasi yang akan menjalankannya.
 
 Slogan legendaris Java adalah **"Write Once, Run Anywhere" (Tulis Sekali, Jalankan di Mana Saja)**.
@@ -2009,7 +2104,7 @@ Poin penting:
 2. Buat folder baru `belajar-java` dan buat file `Main.java`.
 3. Tulis kode program seperti contoh di atas, ubah teks salam menjadi namamu sendiri.
 4. Kompilasi dengan `javac Main.java` dan amati munculnya file baru `Main.class`.
-5. Jalankan dengan `java Main` dan lihat output teks muncul di layar terminal.', 0, 'published', '2026-09-22 14:14:30.287211+00', '2026-09-22 14:24:50.394+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Jalankan dengan `java Main` dan lihat output teks muncul di layar terminal.', 0, 'published', '2026-09-22 14:14:30.287211+00', '2026-09-22 14:30:10.552+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8b4931d3-f34b-4598-8e3f-f4c91df07c59', '651e63fd-70f5-4611-9727-7181eb577a4c', 'Interface & Abstract Class: Merancang Kontrak Kode', 'interface-dan-abstract-class', 'Catatan sebelumnya membahas bagaimana class anak mewarisi perilaku class induk. **Masalah yang diselesaikan sekarang (dan menutup roadmap Java Dasar):** kadang class induk terlalu abstrak untuk memiliki implementasi nyata — bayangkan class `Pembayaran`. Tidak ada pembayaran yang mengambang tanpa metode konkret; pembayaran *harus* berupa `TransferBank`, `KartuKredit`, atau `EWallet`. Selain itu, bagaimana jika sebuah class butuh mengadopsi banyak kemampuan sekaligus (misal: bisa disimpan DAN bisa dicetak)?
 
 Java menyelesaikannya lewat dua konsep:
@@ -2085,7 +2180,7 @@ Poin penting:
 1. Buat interface `Notifikasi` dengan method `void kirimPesan(String pesan);`.
 2. Buat class `EmailNotifikasi` dan `SmsNotifikasi` yang mengimplementasikan interface tersebut.
 3. Buat method statis `broadcast(Notifikasi layanan, String pesan)` yang memanggil `layanan.kirimPesan(pesan)`.
-4. Uji panggil method `broadcast` menggunakan objek Email dan SMS bergantian di method `main`. Ini menutup roadmap Java Dasar: kamu siap melangkah ke Java Lanjutan!', 5, 'published', '2026-09-22 14:14:31.408147+00', '2026-09-22 14:24:51.324+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Uji panggil method `broadcast` menggunakan objek Email dan SMS bergantian di method `main`. Ini menutup roadmap Java Dasar: kamu siap melangkah ke Java Lanjutan!', 5, 'published', '2026-09-22 14:14:31.408147+00', '2026-09-22 14:30:11.579+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('9d60e834-1bd9-4efb-9491-e9bd050a04f0', '3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Lambda Expressions & Functional Interface', 'lambda-dan-functional-interface', 'Catatan sebelumnya mengajarkan cara menyimpan data dalam Collections. **Masalah yang diselesaikan sekarang:** sebelum Java 8, jika kamu ingin mengoper sebuah fungsi/logika aksi ke method lain (misal: menyaring data atau merespons klik tombol), kamu terpaksa membuat *Anonymous Inner Class* yang panjang dan penuh boilerplate (bisa memakan 6-8 baris kode hanya untuk 1 baris logika).
 
 Sejak Java 8, Java mendukung paradigma fungsional lewat **Lambda Expression** (sintaks `(param) -> { body }`) dan **Functional Interface** (interface yang hanya memiliki satu method abstrak).
@@ -2146,7 +2241,7 @@ Poin penting:
 1. Buat list angka: `List<Integer> angkaList = new ArrayList<>(List.of(12, 5, 8, 20, 3, 15));`.
 2. Gunakan `angkaList.removeIf(n -> n < 10);` untuk menghapus semua angka di bawah 10 menggunakan Lambda Predicate.
 3. Cetak elemen yang tersisa menggunakan `angkaList.forEach(System.out::println);`.
-4. Amati betapa ringkasnya kode dibandingkan perulangan `for` konvensional.', 2, 'published', '2026-09-22 14:14:31.933971+00', '2026-09-22 14:24:51.813+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Amati betapa ringkasnya kode dibandingkan perulangan `for` konvensional.', 2, 'published', '2026-09-22 14:14:31.933971+00', '2026-09-22 14:30:12.142+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('925ecd75-7b79-409e-b372-642eafd5f496', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Rendering List & Keys', 'rendering-list-dan-keys', '**Masalah yang diselesaikan:** data di aplikasi nyata jarang berupa satu nilai tunggal — biasanya array: daftar produk, daftar komentar, daftar to-do. Menulis JSX manual satu-satu untuk tiap item jelas tidak mungkin kalau datanya dinamis dari database. React menyelesaikan ini dengan memakai `Array.prototype.map()` biasa (bukan API baru) untuk mengubah array data jadi array elemen JSX.
 
 ```mermaid
@@ -2197,305 +2292,6 @@ function DaftarSelesai({ tugas }) {
 1. Buat array data di component kamu: `const tugas = [{ id: 1, teks: "Belajar JSX" }, { id: 2, teks: "Pahami Props" }, { id: 3, teks: "Eksplorasi State" }]`.
 2. Render array tersebut ke dalam elemen `<ul>` menggunakan `tugas.map(item => <li key={item.id}>{item.teks}</li>)`.
 3. Coba sengaja hapus atribut `key={item.id}`, buka Console DevTools browser, dan lihat pesan peringatan merah *"Each child in a list should have a unique key prop"*. Kembalikan prop `key` tersebut dan amati pesan peringatan hilang.', 6, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-22 13:32:05.872+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1dc3a453-b286-4ad1-84f3-37af9ce54c5f', '94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Pengenalan Redis, In-Memory Storage, & redis-cli', 'pengenalan-redis-dan-redis-cli', '**Masalah yang diselesaikan:** database relasional tradisional (seperti PostgreSQL atau MariaDB) menyimpan datanya di piringan disk (HDD/SSD). Mengambil data dari disk membutuhkan latensi milidetik. Ketika jutaan pengunjung mengakses halaman yang sama secara serentak (misal: halaman flash sale produk populer), jutaan query SQL membanjiri disk server, membuat response time melonjak dari 50 ms menjadi 10 detik, bahkan menumbangkan server database.
-
-**Redis (Remote Dictionary Server)** memecahkan masalah ini dengan menyimpan seluruh datanya langsung di **RAM (Random Access Memory)**. Mengambil data dari memori RAM hanya membutuhkan latensi **sub-milidetik (< 1 ms)**, ratusan kali lebih cepat dibanding disk!
-
-```mermaid
-flowchart TD
-  subgraph Tradisional["Database Disk (Postgres / MariaDB)"]
-    D1["Query SQL"] --> D2["Baca Disk I/O (HDD/SSD)"]
-    D2 --> D3["Latensi: 10 - 50 milidetik"]
-  end
-  subgraph InMem["In-Memory Redis"]
-    R1["Perintah Key-Value"] --> R2["Baca RAM Langsung (Memory Bus)"]
-    R2 --> R3["Latensi: < 0.5 milidetik (Kilat!)"]
-  end
-```
-
-Menjalankan Redis menggunakan Docker:
-
-```bash
-# 1. Jalankan container Redis di background (port 6379)
-docker run --name redis-belajar -p 6379:6379 -d redis:7-alpine
-
-# 2. Masuk ke terminal interaktif redis-cli
-docker exec -it redis-belajar redis-cli
-```
-
-Perintah dasar paling penting di `redis-cli`:
-
-```text
-# 1. Menguji koneksi server (merespon PONG jika sehat)
-PING
-
-# 2. Menyimpan data string sederhana (Key-Value)
-SET nama "Budi Santoso"
-
-# 3. Mengambil data berdasarkan kunci
-GET nama
-
-# 4. Memeriksa apakah suatu kunci ada di memori (mengembalikan 1 jika ada, 0 jika tidak)
-EXISTS nama
-
-# 5. Menghapus kunci
-DEL nama
-```
-
-Poin penting:
-
-- Redis menggunakan port default **6379**.
-- Arsitektur inti Redis dirancang dengan *single-threaded event loop* yang sangat teroptimasi, menghindari overhead penguncian thread (*lock contention*) dan mampu menangani lebih dari 100.000 operasi per detik pada perangkat keras standar.
-- Meskipun berbasis RAM, Redis memiliki mekanisme persistensi berkala ke disk (RDB snapshot & Append-Only File / AOF) sehingga data tidak hilang saat server di-restart.', '[{"url":"https://redis.io/docs/latest/get-started/","label":"Redis Official Documentation — Introduction to Redis"},{"url":"https://hub.docker.com/_/redis","label":"Docker Hub Official Redis Image"}]'::jsonb, '[{"url":"https://www.docker.com/","label":"Docker sudah terpasang di komputermu (atau Redis native CLI)"}]'::jsonb, 'Buka terminal:
-1. Jalankan container Redis via Docker seperti contoh di atas.
-2. Masuk ke terminal `redis-cli`.
-3. Ketik `PING` dan pastikan server membalas `PONG`.
-4. Simpan kunci baru: `SET situs "Catatan Belajar"`.
-5. Ambil nilainya dengan `GET situs`.
-6. Keluar dari redis-cli dengan mengetik `exit`.', 0, 'published', '2026-09-22 14:24:49.784274+00', '2026-09-22 14:24:49.48+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('54fee974-980c-4e61-8949-4310210fe8fb', '94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Pola Caching di Aplikasi Web (Cache-Aside Pattern)', 'pola-caching-cache-aside', 'Catatan sebelumnya membahas struktur data kaya di Redis. **Masalah yang diselesaikan sekarang:** bagaimana cara mengintegrasikan Redis ke dalam aplikasi backend nyata (seperti Node.js, Spring Boot, atau Python) untuk melindungi database SQL utama dari kelebihan beban?
-
-Pola arsitektur caching yang paling banyak dipakai di dunia industri adalah **Cache-Aside (Lazy Loading)**:
-1. Aplikasi menerima permintaan data dari user.
-2. Aplikasi pertama kali mengecek apakah data ada di cache Redis.
-3. **Cache Hit:** Jika ada, data langsung dikembalikan seketika (< 1 ms). Database SQL sama sekali tidak disentuh!
-4. **Cache Miss:** Jika belum ada, ambil data dari database SQL utama, simpan salinannya ke Redis dengan masa kedaluwarsa (TTL), lalu kembalikan hasilnya ke user.
-
-```mermaid
-flowchart TD
-  User["Pengguna Web / Frontend"] --> App["Backend Aplikasi"]
-  App --> CacheCheck{"Cek Redis Cache<br/>(GET produk:123)"}
-  CacheCheck -- Cache Hit (Data Ada) --> ReturnFast["Kembalikan Data Instan (<1 ms)"]
-  CacheCheck -- Cache Miss (Kosong) --> QueryDB["Ambil dari Database SQL (Postgres/MariaDB)"]
-  QueryDB --> SaveCache["Simpan ke Redis dengan TTL<br/>(SET produk:123 ... EX 3600)"]
-  SaveCache --> ReturnSlow["Kembalikan Data ke Pengguna"]
-  ReturnFast & ReturnSlow --> User
-```
-
-Contoh kode implementasi Cache-Aside di Node.js (TypeScript):
-
-```ts
-import { createClient } from "redis";
-
-const redis = createClient();
-await redis.connect();
-
-async function ambilDetailProduk(id: string) {
-    const cacheKey = `produk:${id}`;
-
-    // 1. Periksa Cache di Redis
-    const cachedData = await redis.get(cacheKey);
-    if (cachedData) {
-        console.log("⚡ Cache Hit: Mengambil dari Redis!");
-        return JSON.parse(cachedData);
-    }
-
-    // 2. Cache Miss: Jalankan query SQL berat ke Database
-    console.log("🐢 Cache Miss: Query ke Database SQL...");
-    const dataDariDb = await db.query("SELECT * FROM produk WHERE id = ?", [id]);
-
-    if (dataDariDb) {
-        // 3. Simpan ke Redis dengan masa kedaluwarsa 1 jam (3600 detik)
-        await redis.set(cacheKey, JSON.stringify(dataDariDb), { EX: 3600 });
-    }
-
-    return dataDariDb;
-}
-```
-
-Poin penting:
-
-- **Wajib gunakan TTL (Expiration):** Jangan pernah menyimpan data cache tanpa batas waktu; TTL menjamin bahwa jika ada data yang diperbarui di database utama, cache otomatis disegarkan setelah waktunya habis.
-- **Cache Invalidation:** Saat ada operasi `UPDATE` atau `DELETE` pada produk di database, backend sebaiknya langsung menghapus kuncinya di Redis (`DEL produk:123`) agar pengguna tidak membaca data basi (*stale data*).
-- Dengan pola Cache-Aside, jika server Redis mengalami gangguan mendadak, aplikasi tetap dapat berjalan normal (hanya sedikit lebih lambat) karena aplikasi otomatis beralih membaca langsung dari database SQL.', '[{"url":"https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside","label":"Microsoft Cloud Architecture Center — Cache-Aside Pattern"},{"url":"https://redis.io/docs/latest/develop/use-cases/caching/","label":"Redis Documentation — Redis as an LRU Cache"}]'::jsonb, '[]'::jsonb, 'Di terminal redis-cli kamu:
-1. Simulasikan skenario Cache-Aside: simpan data hasil query berat ke Redis: `SET artikel:1 ''{"judul":"Belajar Redis","view":500}'' EX 60`.
-2. Jalankan `GET artikel:1` untuk merasakan betapa instannya pengambilan data berformat JSON dari RAM.
-3. Simulasikan skenario update data: hapus kuncinya dengan `DEL artikel:1`.
-4. Jalankan `GET artikel:1` kembali dan pastikan nilainya `(nil)` (menandakan aplikasi harus mengambil ulang dari SQL).', 3, 'published', '2026-09-22 14:24:50.280516+00', '2026-09-22 14:24:49.983+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('235f1623-1f45-4b55-bd04-e56bfe0200b0', '651e63fd-70f5-4611-9727-7181eb577a4c', 'Tipe Data Primitif, Reference, dan Operator', 'tipe-data-dan-variabel', 'Catatan sebelumnya menunjukkan cara menjalankan program Java pertama. **Masalah yang diselesaikan sekarang:** komputer perlu menyimpan dan mengolah berbagai jenis informasi dalam memori — angka umur, desimal harga, huruf inisial, status kebenaran, atau teks panjang. Karena Java adalah bahasa yang *statically-typed*, setiap variabel wajib dideklarasikan tipe datanya secara jelas sebelum bisa diisi nilai.
-
-Java membagi tipe data ke dalam dua kategori besar: **Tipe Data Primitif** (menyimpan nilai langsung di memori Stack) dan **Tipe Data Reference / Objek** (menyimpan alamat memori/pointer yang menunjuk ke objek di memori Heap).
-
-```mermaid
-flowchart TD
-  subgraph Primitif["Tipe Primitif (Memori Stack Cepat)"]
-    P1["int, long (bilangan bulat)"]
-    P2["double, float (desimal)"]
-    P3["boolean (true / false)"]
-    P4["char (satu karakter: ''A'')"]
-  end
-  subgraph Reference["Tipe Reference / Objek (Memori Heap)"]
-    R1["String (teks: ''Budi'')"]
-    R2["Array (koleksi: int[])"]
-    R3["Objek Class Kustom"]
-  end
-```
-
-Contoh deklarasi variabel dan operasi dasar:
-
-```java
-public class VariabelDemo {
-    public static void main(String[] args) {
-        // 1. Tipe Data Primitif
-        int umur = 20;
-        double beratBadan = 65.5;
-        boolean isAktif = true;
-        char inisial = ''B'';
-
-        // 2. Tipe Data Reference (String & Array)
-        String namaLengkap = "Budi Santoso";
-        int[] nilaiUjian = { 85, 90, 78 };
-
-        // 3. Operator Aritmatika & Penggabungan Teks
-        int tahunLahir = 2026 - umur;
-        System.out.println("Nama: " + namaLengkap);
-        System.out.println("Perkiraan tahun lahir: " + tahunLahir);
-        System.out.println("Nilai pertama: " + nilaiUjian[0]);
-
-        // Sejak Java 10, bisa menggunakan ''var'' untuk tipe lokal yang jelas nilainya (type inference)
-        var kota = "Jakarta"; // Otomatis dikenali sebagai String
-    }
-}
-```
-
-Poin penting:
-
-- Tipe data primitif memiliki ukuran tetap: `int` (4 byte), `long` (8 byte), `double` (8 byte), `boolean` (1 bit logis).
-- Karakter tunggal ditulis dengan kutip satu (`''A''`), sedangkan teks (String) ditulis dengan kutip dua (`"Budi"`).
-- Variabel primitif tidak bisa bernilai `null`, sedangkan variabel reference bisa bernilai `null` jika belum menunjuk ke objek mana pun.
-- Kata kunci `var` hanya boleh dipakai untuk variabel lokal di dalam method yang langsung diberi nilai awal.', '[{"url":"https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html","label":"Oracle Java Tutorial — Primitive Data Types"},{"url":"https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html","label":"Oracle Java Tutorial — Variables"}]'::jsonb, '[]'::jsonb, 'Di file `Main.java` kamu:
-1. Deklarasikan variabel primitif: `double harga = 50000.0;` dan `int jumlah = 3;`.
-2. Hitung total bayar: `double total = harga * jumlah;`.
-3. Terapkan diskon 10% jika total di atas 100.000 menggunakan operator perkalian `total = total * 0.9;`.
-4. Cetak rincian nama barang, jumlah, dan total akhir bayar ke terminal.
-5. Jalankan program dengan `java Main.java` dan periksa kebenaran hasil perhitungannya.', 1, 'published', '2026-09-22 14:14:30.624549+00', '2026-09-22 14:24:50.622+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8872b2bf-9aea-4886-b457-6189d69ce719', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Lifting State Up: Berbagi State Antar-Komponen', 'lifting-state-up', 'Catatan sebelumnya menunjukkan cara me-render daftar data dinamis dengan key. **Masalah yang diselesaikan sekarang:** di aplikasi nyata, data sering kali perlu diakses atau diubah oleh beberapa komponen yang bertetangga (*sibling*). Kalau state disimpan di dalam Component A, Component B tidak bisa membacanya karena props di React hanya mengalir ke bawah (*one-way data flow*).
-
-Solusinya adalah **Lifting State Up (mengangkat state ke atas)**: pindahkan state dari komponen anak ke komponen induk (*parent*) terdekat yang menaungi kedua komponen tersebut. Komponen induk kemudian membagikan nilai state ke anak pertama lewat props biasa, dan membagikan fungsi pengubah state (*callback*) ke anak kedua.
-
-```mermaid
-flowchart TD
-  subgraph Salah["Sebelum (State Terkunci di Komponen Anak)"]
-    SA["ParentComponent"]
-    SA --> SB1["ChildA<br/>(punya state: teks)"]
-    SA --> SB2["ChildB<br/>(butuh baca teks, tapi tidak bisa!)"]
-  end
-  subgraph Benar["Setelah (Lifting State Up ke Parent)"]
-    PA["ParentComponent<br/>const [teks, setTeks] = useState('''')"]
-    PA -->|props: value=teks, onChange=setTeks| PB1["InputChild (mengubah state)"]
-    PA -->|props: pesan=teks| PB2["DisplayChild (membaca state)"]
-  end
-```
-
-Contoh kode konkret: sinkronisasi input suhu atau teks catatan dengan pratinjau live:
-
-```jsx
-// src/App.jsx
-import { useState } from "react";
-
-// Komponen 1: Mengatur input teks
-function KotakInput({ nilai, onChangeNilai }) {
-  return (
-    <div>
-      <label>Ketik catatan: </label>
-      <input
-        type="text"
-        value={nilai}
-        onChange={(e) => onChangeNilai(e.target.value)}
-        placeholder="Tulis pesan..."
-      />
-    </div>
-  );
-}
-
-// Komponen 2: Menampilkan hasil ketikan secara langsung
-function PratinjauTeks({ nilai }) {
-  return (
-    <div style={{ marginTop: "12px", padding: "8px", border: "1px dashed #999" }}>
-      <strong>Pratinjau Live:</strong> {nilai || "Belum ada tulisan"}
-    </div>
-  );
-}
-
-// Komponen Induk: Menyimpan state bersama
-export default function App() {
-  const [teksBersama, setTeksBersama] = useState("");
-
-  return (
-    <div style={{ padding: "16px" }}>
-      <h2>Contoh Lifting State Up</h2>
-      <KotakInput nilai={teksBersama} onChangeNilai={setTeksBersama} />
-      <PratinjauTeks nilai={teksBersama} />
-    </div>
-  );
-}
-```
-
-Poin penting:
-
-- Data di React hanya mengalir satu arah (dari atas ke bawah). Untuk mengubah data ke atas, kirim fungsi handler (*callback*) dari parent ke child lewat props.
-- Komponen anak yang menerima data dan callback menjadi *controlled component* murni — ia tidak menyimpan state sendiri, sehingga mudah diuji dan dipakai ulang.
-- Jangan terburu-buru menggunakan state management global (seperti Redux atau Context API) jika masalah berbagi data bisa diselesaikan dengan mengangkat state ke parent terdekat.', '[{"url":"https://react.dev/learn/sharing-state-between-components","label":"React Docs — Sharing State Between Components"}]'::jsonb, '[]'::jsonb, 'Di project Vite latihan kamu:
-1. Buat dua komponen anak: `TombolTambah` (berisi tombol "+1") dan `TampilanAngka` (hanya menampilkan teks `Jumlah: X`).
-2. Angkat state `[hitung, setHitung]` ke komponen induk (`App`).
-3. Oper `hitung` ke `TampilanAngka` sebagai prop pembaca.
-4. Oper fungsi `() => setHitung(hitung + 1)` ke `TombolTambah` sebagai prop `onTambah`.
-5. Klik tombol dan pastikan komponen tampilan angka ter-update secara harmonis meskipun keduanya adalah komponen terpisah.', 7, 'published', '2026-09-22 13:32:06.326239+00', '2026-09-22 14:24:54.751+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('c896fece-5931-4659-ae78-9e06e810527a', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Realtime Subscription Dasar', 'realtime-dasar', 'Sekarang kamu sudah bisa CRUD, auth, RLS, dan simpan file. **Masalah yang diselesaikan sekarang (dan menutup roadmap Supabase ini):** bagaimana kalau aplikasi kamu perlu tahu SAAT ITU JUGA ketika data berubah di database — tanpa user harus refresh halaman manual? Cara lama: *polling* (fetch ulang tiap beberapa detik), yang boros request dan tetap ada delay sampai beberapa detik.
-
-**Supabase Realtime** memungkinkan client mendengarkan perubahan data (INSERT/UPDATE/DELETE) langsung dari database lewat WebSocket, tanpa polling.
-
-```mermaid
-sequenceDiagram
-  autonumber
-  participant DB as Database
-  participant RT as Supabase Realtime
-  participant C as Client (Browser)
-  C->>RT: channel().on(''postgres_changes'').subscribe()
-  Note over C,RT: Koneksi WebSocket terbuka
-  DB->>DB: INSERT INTO produk (...)
-  DB-->>RT: Perubahan terdeteksi
-  RT-->>C: Event terkirim real-time
-  Note over C: UI update tanpa reload
-```
-
-```ts
-import { supabase } from "./lib/supabase";
-
-// Mendengarkan semua perubahan di tabel "produk"
-const channel = supabase
-  .channel("produk-changes")
-  .on(
-    "postgres_changes",
-    { event: "*", schema: "public", table: "produk" },
-    (payload) => {
-      console.log("Perubahan diterima:", payload.eventType, payload.new);
-    }
-  )
-  .subscribe();
-
-// Berhenti mendengarkan (mis. saat komponen di-unmount)
-supabase.removeChannel(channel);
-```
-
-Bisa juga dipersempit cuma ke event atau baris tertentu:
-
-```ts
-supabase
-  .channel("produk-baru-saja")
-  .on(
-    "postgres_changes",
-    { event: "INSERT", schema: "public", table: "produk", filter: "kategori_id=eq.5" },
-    (payload) => console.log("Produk baru di kategori 5:", payload.new)
-  )
-  .subscribe();
-```
-
-Poin penting:
-
-- Realtime harus diaktifkan dulu per tabel lewat dashboard (Database → Replication) atau SQL `alter publication supabase_realtime add table produk;` — tabel yang belum diaktifkan tidak akan mengirim event apa pun.
-- Payload event berisi `eventType` (`INSERT`/`UPDATE`/`DELETE`), `new` (data terbaru), dan `old` (data sebelumnya, untuk UPDATE/DELETE).
-- RLS tetap berlaku untuk Realtime — user cuma menerima event untuk baris yang boleh dia `SELECT` menurut policy yang ada.', '[{"url":"https://supabase.com/docs/guides/realtime/postgres-changes","label":"Supabase Docs — Postgres Changes (Realtime)"}]'::jsonb, '[]'::jsonb, 'Aktifkan Realtime untuk tabel `produk` (Database → Replication di dashboard, atau lewat SQL). Buka dua tab browser di halaman yang sama, keduanya menjalankan kode `channel().on(...)` di atas. Di tab pertama, insert produk baru (lewat kode atau dashboard) — lihat tab KEDUA, data barunya harus muncul di console tanpa reload halaman sama sekali. Coba juga persempit filter-nya cuma ke event `INSERT`, lalu ke baris tertentu pakai `filter`, dan buktikan event UPDATE/DELETE tidak lagi memicu callback-nya. Ini menutup roadmap Supabase: dari setup client sampai data yang live ter-sinkron ke semua client yang terhubung.', 6, 'published', '2026-09-18 23:46:50.864953+00', '2026-09-22 13:53:08.255+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('99c9a061-9934-411d-8022-e516e40b0839', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Pola DTO & Konfigurasi CORS di Spring Boot', 'dto-dan-cors-spring-boot', 'Catatan sebelumnya membahas validasi data request dan penanganan error terpusat. **Masalah yang diselesaikan sekarang:** saat aplikasi frontend (seperti React, Next.js, atau Flutter) memanggil API Spring Boot di browser, browser memblokir request tersebut dengan pesan error **CORS (Cross-Origin Resource Sharing)**. Masalah kedua: mengembalikan langsung class `@Entity` database ke client bisa membocorkan data sensitif (seperti password hash) dan memicu error perulangan tak terbatas (*circular reference*).
 
 Solusinya terdiri dari dua best practice industri:
@@ -2567,49 +2363,471 @@ Poin penting:
 1. Buat record baru `UserResponseDTO(Long id, String username, String email)`.
 2. Di controller `@GetMapping("/api/users")`, ubah return type dari `List<User>` menjadi `List<UserResponseDTO>`.
 3. Buat file konfigurasi `CorsConfig.java` seperti contoh di atas untuk mengizinkan `http://localhost:3000`.
-4. Jalankan aplikasi dan coba panggil endpoint lewat browser atau fetch JavaScript dari domain yang berbeda untuk memverifikasi bahwa header `Access-Control-Allow-Origin` terkirim dengan benar.', 5, 'published', '2026-09-22 14:02:56.024673+00', '2026-09-22 14:25:11.675+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('79793930-5234-4da9-9a55-6aa81e54911f', '94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Struktur Data String & Key Expiration (TTL)', 'struktur-data-string-dan-key-expiration', 'Catatan sebelumnya mengenalkan dasar Redis. **Masalah yang diselesaikan sekarang:** bagaimana cara mengelola data yang hanya boleh hidup sementara — seperti kode OTP SMS yang kedaluwarsa dalam 5 menit, sesi login token pengguna yang hangus setelah 24 jam, atau pembatas jumlah request API (*rate limiter*)? Di database SQL biasa, kamu harus membuat kolom `expired_at` dan menjalankan cronjob pembersihan data basi secara berkala yang membebani server.
+4. Jalankan aplikasi dan coba panggil endpoint lewat browser atau fetch JavaScript dari domain yang berbeda untuk memverifikasi bahwa header `Access-Control-Allow-Origin` terkirim dengan benar.', 5, 'published', '2026-09-22 14:02:56.024673+00', '2026-09-22 14:30:34.703+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('9444f46e-e2c2-4248-be69-dd09ea41a1c8', '45b3c3a2-5021-4fe0-a1d2-494440bb4ea8', 'Package Manager Composer & Autoloading PSR-4', 'composer-dan-autoloading-psr4', 'Catatan sebelumnya membahas exception handling. **Masalah yang diselesaikan sekarang (dan menutup roadmap PHP):** ketika proyek memiliki puluhan atau ratusan file class, cara lama mengharuskan kita menulis `require_once ''models/User.php'';` di setiap file. Selain itu, bagaimana jika kita ingin memakai library pihak ketiga yang dibuat komunitas (seperti library kirim email, manipulasi gambar, atau framework besar seperti Laravel)?
 
-Redis memiliki fitur bawaan **Key Expiration (TTL - Time To Live)**: kamu bisa menyetel masa aktif kunci, dan Redis akan menghapus data tersebut secara otomatis dari RAM begitu waktunya habis! Selain itu, tipe String di Redis mendukung operasi aritmatika atomik (`INCR`).
+Dunia PHP modern disatukan oleh **Composer** (dependency manager resmi) dan standar **PSR-4 Autoloading**:
+1. **Composer:** Mengunduh dan mengelola dependensi pihak ketiga dari repositori terpusat **Packagist**.
+2. **PSR-4 Autoloading:** Cukup tulis `require ''vendor/autoload.php''` sekali di awal aplikasi, maka class apa pun yang kamu panggil akan otomatis di-load oleh PHP berdasarkan keselarasan namespace dan struktur foldernya!
 
 ```mermaid
-flowchart LR
-  Set["SET otp:user123 ''88421'' EX 300<br/>(Masa hidup 300 detik)"] --> Wait["Waktu Berjalan (Countdown TTL)"]
-  Wait -->|Setelah 5 Menit Habis| Expired["Otomatis Dihapus dari RAM!<br/>GET mengembalikan (nil)"]
+flowchart TD
+  subgraph Packagist["Packagist.org (Ekosistem Library PHP)"]
+    Pkg["Guzzle / Carbon / Monolog"]
+  end
+  subgraph LocalProject["Proyek PHP Lokal"]
+    JSON["composer.json<br/>(Daftar Kebutuhan)"]
+    CLI["composer install / require"]
+    Vendor["Folder vendor/ & vendor/autoload.php"]
+    AppCode["Namespace AppModelsUser ➔ file src/Models/User.php"]
+  end
+  Pkg -->|Diunduh oleh Composer| Vendor
+  JSON --> CLI --> Vendor
+  Vendor -->|Autoload Otomatis| AppCode
 ```
 
-Sintaks TTL dan Operasi Hitungan Atomik:
+Perintah dasar Composer di terminal:
 
-```text
-# 1. Menyimpan kunci dengan masa kedaluwarsa otomatis (EX = detik)
-# Contoh: Token sesi login user aktif selama 60 detik
-SET sesi:token_abc "user_id_42" EX 60
+```bash
+# 1. Inisialisasi proyek baru dengan Composer
+composer init
 
-# 2. Memeriksa sisa masa aktif suatu kunci (dalam satuan detik)
-TTL sesi:token_abc
-# Mengembalikan angka sisa detik (misal: 45)
-# Mengembalikan -2 jika kunci sudah hangus/tidak ada
-# Mengembalikan -1 jika kunci bersifat permanen (tanpa batas waktu)
+# 2. Menginstal library pihak ketiga (contoh: Carbon untuk manipulasi tanggal)
+composer require nesbot/carbon
 
-# 3. Menambahkan TTL ke kunci yang sudah terlanjur dibuat
-SET kupon_diskon "HEMAT10"
-EXPIRE kupon_diskon 120
+# 3. Menginstal seluruh dependensi dari composer.json
+composer install
+```
 
-# 4. Operator Penambah Atomik (Sangat berguna untuk Counter / Hit / Rate Limiting)
-SET jumlah_kunjungan 100
-INCR jumlah_kunjungan
-# Mengembalikan 101 secara instan dan aman dari race-condition!
+Konfigurasi `composer.json` dengan standar PSR-4 Autoloading:
+
+```json
+{
+    "name": "belajar/proyek-php",
+    "require": {
+        "php": ">=8.2",
+        "nesbot/carbon": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\": "src/"
+        }
+    }
+}
+```
+
+Memakai Class dan Library secara otomatis di `index.php`:
+
+```php
+<?php
+declare(strict_types=1);
+
+// Cukup panggil SATU baris ini di pintu masuk aplikasi:
+require_once __DIR__ . ''/vendor/autoload.php'';
+
+use CarbonCarbon;
+use AppModelsUser; // Otomatis mencari berkas ''src/Models/User.php''
+
+// Menggunakan library Carbon
+$waktuSekarang = Carbon::now()->locale(''id'')->diffForHumans();
+echo "Diperbarui: $waktuSekarang
+";
 ```
 
 Poin penting:
 
-- Operasi `INCR` dan `DECR` bersifat **atomic**: bahkan jika ada 10.000 request bersamaan menaikkan counter counter, tidak akan pernah ada nilai yang hilang (*zero race-condition*).
-- Manfaatkan konvensi penamaan kunci dengan titik dua (`:`) sebagai pemisah namespace logis: `user:1001:profile`, `session:token_xyz`.
-- Jika memori RAM server penuh, Redis menerapkan algoritma penggusuran (*eviction policy*) seperti LRU (Least Recently Used) untuk menghapus data lama yang jarang diakses.', '[{"url":"https://redis.io/docs/latest/develop/data-types/strings/","label":"Redis Documentation — Strings"},{"url":"https://redis.io/docs/latest/commands/expire/","label":"Redis Documentation — EXPIRE Command"}]'::jsonb, '[]'::jsonb, 'Di terminal redis-cli kamu:
-1. Simpan kode OTP sementara dengan masa aktif 10 detik: `SET kode_otp 123456 EX 10`.
-2. Periksa sisa waktunya dengan mengetik `TTL kode_otp` berulang kali dan perhatikan hitungan mundurnya.
-3. Tunggu hingga 10 detik, lalu jalankan `GET kode_otp` dan pastikan nilainya berubah menjadi `(nil)` (kosong).
-4. Buat counter hitung: `SET counter 0`, lalu jalankan `INCR counter` tiga kali.', 1, 'published', '2026-09-22 14:24:49.951467+00', '2026-09-22 14:24:49.657+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Folder `vendor/` berisi ribuan berkas dependensi eksternal — **jangan pernah mengubah kode di dalam folder `vendor/`** dan selalu masukkan `vendor/` ke dalam file `.gitignore`.
+- Berkas `composer.lock` mencatat versi exact dari setiap library yang terpasang agar lingkungan production dan staging memiliki versi yang 100% identik.
+- Standar PSR-4: Namespace `AppServicesPaymentService` dipetakan langsung ke lokasi file `src/Services/PaymentService.php`.
+- Pemahaman Composer dan PSR-4 ini adalah pintu gerbang mutlak untuk menguasai **Laravel 11**!', '[{"url":"https://getcomposer.org/doc/","label":"Composer Official Documentation"},{"url":"https://www.php-fig.org/psr/psr-4/","label":"PHP-FIG — PSR-4: Autoloader Standard"}]'::jsonb, '[{"url":"https://getcomposer.org/download/","label":"Composer sudah terinstall di komputermu (cek dengan `composer --version` di terminal)"}]'::jsonb, 'Buka terminal:
+1. Buat folder proyek `belajar-composer` dan jalankan `composer init -n` (mode non-interaktif cepat).
+2. Install library tanggal terpopuler: `composer require nesbot/carbon`.
+3. Buat file `test.php`, panggil `require ''vendor/autoload.php'';`, lalu cetak hari ini dengan `echo CarbonCarbon::now()->isoFormat(''dddd, D MMMM Y'');`.
+4. Jalankan `php test.php` dan amati betapa mudahnya mengintegrasikan ekosistem open-source PHP modern! Ini menutup roadmap PHP Dasar-Menengah!', 5, 'published', '2026-09-22 14:30:06.006739+00', '2026-09-22 14:30:05.679+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('7b7d43cb-9956-4cb7-8c41-9b92d19b4bfb', '8d1b066d-2a4b-429c-ab92-be5a7f37e392', 'Blade Templating Engine & Layout Components', 'blade-templating-dan-layout', 'Catatan sebelumnya membahas routing dan controller. **Masalah yang diselesaikan sekarang:** membuat halaman web HTML dengan PHP mentah sering kali membuka celah keamanan XSS (Cross-Site Scripting) jika kamu lupa menulis `htmlspecialchars()`. Selain itu, menyalin kerangka HTML yang sama (navbar, footer, tag `<head>`) ke belasan file tampilan sangat melelahkan dan sulit di-maintain.
+
+Laravel menyertakan **Blade**, mesin templating yang cepat dan elegan:
+1. **Otomatis Aman:** Sintaks `{{ $variabel }}` secara otomatis membersihkan input dari serangan XSS.
+2. **Layout Component Modern (`<x-layout>`):** Membungkus halaman anak di dalam komponen tata letak induk menggunakan tag kustom dan slot konten.
+
+```mermaid
+flowchart TD
+  subgraph ParentLayout["Komponen Induk: resources/views/components/layout.blade.php"]
+    Nav["Navbar & Header Bersama"]
+    Slot["{{ $slot }} ➔ Tempat Menyisipkan Konten Halaman Anak"]
+    Foot["Footer Bersama"]
+  end
+  subgraph ChildPage["Halaman Anak: resources/views/beranda.blade.php"]
+    Content["<x-layout><br/>  <h1>Selamat Datang!</h1><br/>  <p>Isi artikel...</p><br/></x-layout>"]
+  end
+  Content -->|Diinjeksi ke dalam| Slot
+```
+
+Membuat Komponen Layout Bersama (`resources/views/components/layout.blade.php`):
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ $title ?? ''Aplikasi Laravel'' }}</title>
+    <style>body { font-family: sans-serif; padding: 20px; }</style>
+</head>
+<body>
+    <nav>
+        <a href="/">Beranda</a> | <a href="/produk">Katalog Produk</a>
+    </nav>
+    <hr>
+
+    <!-- Seluruh konten halaman anak akan dirender di dalam $slot ini -->
+    <main>
+        {{ $slot }}
+    </main>
+
+    <hr>
+    <footer>&copy; 2026 Catatan Belajar Laravel</footer>
+</body>
+</html>
+```
+
+Menggunakan Layout di Halaman (`resources/views/produk/index.blade.php`):
+
+```html
+<x-layout title="Daftar Produk">
+    <h1>Katalog Belanja</h1>
+
+    @if ($produkList->isEmpty())
+        <p>Belum ada produk yang tersedia.</p>
+    @else
+        <ul>
+            @foreach ($produkList as $item)
+                <li>
+                    <strong>{{ $item->nama }}</strong> — Rp{{ number_format($item->harga) }}
+                </li>
+            @endforeach
+        </ul>
+    @endif
+</x-layout>
+```
+
+Poin penting:
+
+- Ekstensi berkas tampilan Blade selalu `.blade.php`.
+- Perintah logika Blade diawali tanda `@` (misal `@if`, `@else`, `@foreach`, `@auth`, `@guest`).
+- Blade dikompilasi menjadi kode PHP mentah dan di-cache secara otomatis, sehingga performa renderingnya sama cepatnya dengan PHP murni tanpa beban tambahan.', '[{"url":"https://laravel.com/docs/11.x/blade","label":"Laravel Documentation — Blade Templates"},{"url":"https://laravel.com/docs/11.x/blade#components","label":"Laravel Documentation — Blade Components"}]'::jsonb, '[]'::jsonb, 'Di project latihan kamu:
+1. Buat folder `resources/views/components/` dan buat file `layout.blade.php` seperti contoh di atas.
+2. Buat file `resources/views/kontak.blade.php` yang dibungkus tag `<x-layout>`.
+3. Tulis formulir kontak sederhana di dalam tag `<x-layout>`.
+4. Buat route `Route::view(''/kontak'', ''kontak'');` di `routes/web.php`.
+5. Buka `/kontak` di browser dan amati bagaimana navbar dan footer otomatis membungkus halaman barumu.', 2, 'published', '2026-09-22 14:30:06.942303+00', '2026-09-22 14:30:06.63+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('54fee974-980c-4e61-8949-4310210fe8fb', '94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Pola Caching di Aplikasi Web (Cache-Aside Pattern)', 'pola-caching-cache-aside', 'Catatan sebelumnya membahas struktur data kaya di Redis. **Masalah yang diselesaikan sekarang:** bagaimana cara mengintegrasikan Redis ke dalam aplikasi backend nyata (seperti Node.js, Spring Boot, atau Python) untuk melindungi database SQL utama dari kelebihan beban?
+
+Pola arsitektur caching yang paling banyak dipakai di dunia industri adalah **Cache-Aside (Lazy Loading)**:
+1. Aplikasi menerima permintaan data dari user.
+2. Aplikasi pertama kali mengecek apakah data ada di cache Redis.
+3. **Cache Hit:** Jika ada, data langsung dikembalikan seketika (< 1 ms). Database SQL sama sekali tidak disentuh!
+4. **Cache Miss:** Jika belum ada, ambil data dari database SQL utama, simpan salinannya ke Redis dengan masa kedaluwarsa (TTL), lalu kembalikan hasilnya ke user.
+
+```mermaid
+flowchart TD
+  User["Pengguna Web / Frontend"] --> App["Backend Aplikasi"]
+  App --> CacheCheck{"Cek Redis Cache<br/>(GET produk:123)"}
+  CacheCheck -- Cache Hit (Data Ada) --> ReturnFast["Kembalikan Data Instan (<1 ms)"]
+  CacheCheck -- Cache Miss (Kosong) --> QueryDB["Ambil dari Database SQL (Postgres/MariaDB)"]
+  QueryDB --> SaveCache["Simpan ke Redis dengan TTL<br/>(SET produk:123 ... EX 3600)"]
+  SaveCache --> ReturnSlow["Kembalikan Data ke Pengguna"]
+  ReturnFast & ReturnSlow --> User
+```
+
+Contoh kode implementasi Cache-Aside di Node.js (TypeScript):
+
+```ts
+import { createClient } from "redis";
+
+const redis = createClient();
+await redis.connect();
+
+async function ambilDetailProduk(id: string) {
+    const cacheKey = `produk:${id}`;
+
+    // 1. Periksa Cache di Redis
+    const cachedData = await redis.get(cacheKey);
+    if (cachedData) {
+        console.log("⚡ Cache Hit: Mengambil dari Redis!");
+        return JSON.parse(cachedData);
+    }
+
+    // 2. Cache Miss: Jalankan query SQL berat ke Database
+    console.log("🐢 Cache Miss: Query ke Database SQL...");
+    const dataDariDb = await db.query("SELECT * FROM produk WHERE id = ?", [id]);
+
+    if (dataDariDb) {
+        // 3. Simpan ke Redis dengan masa kedaluwarsa 1 jam (3600 detik)
+        await redis.set(cacheKey, JSON.stringify(dataDariDb), { EX: 3600 });
+    }
+
+    return dataDariDb;
+}
+```
+
+Poin penting:
+
+- **Wajib gunakan TTL (Expiration):** Jangan pernah menyimpan data cache tanpa batas waktu; TTL menjamin bahwa jika ada data yang diperbarui di database utama, cache otomatis disegarkan setelah waktunya habis.
+- **Cache Invalidation:** Saat ada operasi `UPDATE` atau `DELETE` pada produk di database, backend sebaiknya langsung menghapus kuncinya di Redis (`DEL produk:123`) agar pengguna tidak membaca data basi (*stale data*).
+- Dengan pola Cache-Aside, jika server Redis mengalami gangguan mendadak, aplikasi tetap dapat berjalan normal (hanya sedikit lebih lambat) karena aplikasi otomatis beralih membaca langsung dari database SQL.', '[{"url":"https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside","label":"Microsoft Cloud Architecture Center — Cache-Aside Pattern"},{"url":"https://redis.io/docs/latest/develop/use-cases/caching/","label":"Redis Documentation — Redis as an LRU Cache"}]'::jsonb, '[]'::jsonb, 'Di terminal redis-cli kamu:
+1. Simulasikan skenario Cache-Aside: simpan data hasil query berat ke Redis: `SET artikel:1 ''{"judul":"Belajar Redis","view":500}'' EX 60`.
+2. Jalankan `GET artikel:1` untuk merasakan betapa instannya pengambilan data berformat JSON dari RAM.
+3. Simulasikan skenario update data: hapus kuncinya dengan `DEL artikel:1`.
+4. Jalankan `GET artikel:1` kembali dan pastikan nilainya `(nil)` (menandakan aplikasi harus mengambil ulang dari SQL).', 3, 'published', '2026-09-22 14:24:50.280516+00', '2026-09-22 14:30:10.139+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('235f1623-1f45-4b55-bd04-e56bfe0200b0', '651e63fd-70f5-4611-9727-7181eb577a4c', 'Tipe Data Primitif, Reference, dan Operator', 'tipe-data-dan-variabel', 'Catatan sebelumnya menunjukkan cara menjalankan program Java pertama. **Masalah yang diselesaikan sekarang:** komputer perlu menyimpan dan mengolah berbagai jenis informasi dalam memori — angka umur, desimal harga, huruf inisial, status kebenaran, atau teks panjang. Karena Java adalah bahasa yang *statically-typed*, setiap variabel wajib dideklarasikan tipe datanya secara jelas sebelum bisa diisi nilai.
+
+Java membagi tipe data ke dalam dua kategori besar: **Tipe Data Primitif** (menyimpan nilai langsung di memori Stack) dan **Tipe Data Reference / Objek** (menyimpan alamat memori/pointer yang menunjuk ke objek di memori Heap).
+
+```mermaid
+flowchart TD
+  subgraph Primitif["Tipe Primitif (Memori Stack Cepat)"]
+    P1["int, long (bilangan bulat)"]
+    P2["double, float (desimal)"]
+    P3["boolean (true / false)"]
+    P4["char (satu karakter: ''A'')"]
+  end
+  subgraph Reference["Tipe Reference / Objek (Memori Heap)"]
+    R1["String (teks: ''Budi'')"]
+    R2["Array (koleksi: int[])"]
+    R3["Objek Class Kustom"]
+  end
+```
+
+Contoh deklarasi variabel dan operasi dasar:
+
+```java
+public class VariabelDemo {
+    public static void main(String[] args) {
+        // 1. Tipe Data Primitif
+        int umur = 20;
+        double beratBadan = 65.5;
+        boolean isAktif = true;
+        char inisial = ''B'';
+
+        // 2. Tipe Data Reference (String & Array)
+        String namaLengkap = "Budi Santoso";
+        int[] nilaiUjian = { 85, 90, 78 };
+
+        // 3. Operator Aritmatika & Penggabungan Teks
+        int tahunLahir = 2026 - umur;
+        System.out.println("Nama: " + namaLengkap);
+        System.out.println("Perkiraan tahun lahir: " + tahunLahir);
+        System.out.println("Nilai pertama: " + nilaiUjian[0]);
+
+        // Sejak Java 10, bisa menggunakan ''var'' untuk tipe lokal yang jelas nilainya (type inference)
+        var kota = "Jakarta"; // Otomatis dikenali sebagai String
+    }
+}
+```
+
+Poin penting:
+
+- Tipe data primitif memiliki ukuran tetap: `int` (4 byte), `long` (8 byte), `double` (8 byte), `boolean` (1 bit logis).
+- Karakter tunggal ditulis dengan kutip satu (`''A''`), sedangkan teks (String) ditulis dengan kutip dua (`"Budi"`).
+- Variabel primitif tidak bisa bernilai `null`, sedangkan variabel reference bisa bernilai `null` jika belum menunjuk ke objek mana pun.
+- Kata kunci `var` hanya boleh dipakai untuk variabel lokal di dalam method yang langsung diberi nilai awal.', '[{"url":"https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html","label":"Oracle Java Tutorial — Primitive Data Types"},{"url":"https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html","label":"Oracle Java Tutorial — Variables"}]'::jsonb, '[]'::jsonb, 'Di file `Main.java` kamu:
+1. Deklarasikan variabel primitif: `double harga = 50000.0;` dan `int jumlah = 3;`.
+2. Hitung total bayar: `double total = harga * jumlah;`.
+3. Terapkan diskon 10% jika total di atas 100.000 menggunakan operator perkalian `total = total * 0.9;`.
+4. Cetak rincian nama barang, jumlah, dan total akhir bayar ke terminal.
+5. Jalankan program dengan `java Main.java` dan periksa kebenaran hasil perhitungannya.', 1, 'published', '2026-09-22 14:14:30.624549+00', '2026-09-22 14:30:10.737+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8872b2bf-9aea-4886-b457-6189d69ce719', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Lifting State Up: Berbagi State Antar-Komponen', 'lifting-state-up', 'Catatan sebelumnya menunjukkan cara me-render daftar data dinamis dengan key. **Masalah yang diselesaikan sekarang:** di aplikasi nyata, data sering kali perlu diakses atau diubah oleh beberapa komponen yang bertetangga (*sibling*). Kalau state disimpan di dalam Component A, Component B tidak bisa membacanya karena props di React hanya mengalir ke bawah (*one-way data flow*).
+
+Solusinya adalah **Lifting State Up (mengangkat state ke atas)**: pindahkan state dari komponen anak ke komponen induk (*parent*) terdekat yang menaungi kedua komponen tersebut. Komponen induk kemudian membagikan nilai state ke anak pertama lewat props biasa, dan membagikan fungsi pengubah state (*callback*) ke anak kedua.
+
+```mermaid
+flowchart TD
+  subgraph Salah["Sebelum (State Terkunci di Komponen Anak)"]
+    SA["ParentComponent"]
+    SA --> SB1["ChildA<br/>(punya state: teks)"]
+    SA --> SB2["ChildB<br/>(butuh baca teks, tapi tidak bisa!)"]
+  end
+  subgraph Benar["Setelah (Lifting State Up ke Parent)"]
+    PA["ParentComponent<br/>const [teks, setTeks] = useState('''')"]
+    PA -->|props: value=teks, onChange=setTeks| PB1["InputChild (mengubah state)"]
+    PA -->|props: pesan=teks| PB2["DisplayChild (membaca state)"]
+  end
+```
+
+Contoh kode konkret: sinkronisasi input suhu atau teks catatan dengan pratinjau live:
+
+```jsx
+// src/App.jsx
+import { useState } from "react";
+
+// Komponen 1: Mengatur input teks
+function KotakInput({ nilai, onChangeNilai }) {
+  return (
+    <div>
+      <label>Ketik catatan: </label>
+      <input
+        type="text"
+        value={nilai}
+        onChange={(e) => onChangeNilai(e.target.value)}
+        placeholder="Tulis pesan..."
+      />
+    </div>
+  );
+}
+
+// Komponen 2: Menampilkan hasil ketikan secara langsung
+function PratinjauTeks({ nilai }) {
+  return (
+    <div style={{ marginTop: "12px", padding: "8px", border: "1px dashed #999" }}>
+      <strong>Pratinjau Live:</strong> {nilai || "Belum ada tulisan"}
+    </div>
+  );
+}
+
+// Komponen Induk: Menyimpan state bersama
+export default function App() {
+  const [teksBersama, setTeksBersama] = useState("");
+
+  return (
+    <div style={{ padding: "16px" }}>
+      <h2>Contoh Lifting State Up</h2>
+      <KotakInput nilai={teksBersama} onChangeNilai={setTeksBersama} />
+      <PratinjauTeks nilai={teksBersama} />
+    </div>
+  );
+}
+```
+
+Poin penting:
+
+- Data di React hanya mengalir satu arah (dari atas ke bawah). Untuk mengubah data ke atas, kirim fungsi handler (*callback*) dari parent ke child lewat props.
+- Komponen anak yang menerima data dan callback menjadi *controlled component* murni — ia tidak menyimpan state sendiri, sehingga mudah diuji dan dipakai ulang.
+- Jangan terburu-buru menggunakan state management global (seperti Redux atau Context API) jika masalah berbagi data bisa diselesaikan dengan mengangkat state ke parent terdekat.', '[{"url":"https://react.dev/learn/sharing-state-between-components","label":"React Docs — Sharing State Between Components"}]'::jsonb, '[]'::jsonb, 'Di project Vite latihan kamu:
+1. Buat dua komponen anak: `TombolTambah` (berisi tombol "+1") dan `TampilanAngka` (hanya menampilkan teks `Jumlah: X`).
+2. Angkat state `[hitung, setHitung]` ke komponen induk (`App`).
+3. Oper `hitung` ke `TampilanAngka` sebagai prop pembaca.
+4. Oper fungsi `() => setHitung(hitung + 1)` ke `TombolTambah` sebagai prop `onTambah`.
+5. Klik tombol dan pastikan komponen tampilan angka ter-update secara harmonis meskipun keduanya adalah komponen terpisah.', 7, 'published', '2026-09-22 13:32:06.326239+00', '2026-09-22 14:30:15.605+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('c896fece-5931-4659-ae78-9e06e810527a', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Realtime Subscription Dasar', 'realtime-dasar', 'Sekarang kamu sudah bisa CRUD, auth, RLS, dan simpan file. **Masalah yang diselesaikan sekarang (dan menutup roadmap Supabase ini):** bagaimana kalau aplikasi kamu perlu tahu SAAT ITU JUGA ketika data berubah di database — tanpa user harus refresh halaman manual? Cara lama: *polling* (fetch ulang tiap beberapa detik), yang boros request dan tetap ada delay sampai beberapa detik.
+
+**Supabase Realtime** memungkinkan client mendengarkan perubahan data (INSERT/UPDATE/DELETE) langsung dari database lewat WebSocket, tanpa polling.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant DB as Database
+  participant RT as Supabase Realtime
+  participant C as Client (Browser)
+  C->>RT: channel().on(''postgres_changes'').subscribe()
+  Note over C,RT: Koneksi WebSocket terbuka
+  DB->>DB: INSERT INTO produk (...)
+  DB-->>RT: Perubahan terdeteksi
+  RT-->>C: Event terkirim real-time
+  Note over C: UI update tanpa reload
+```
+
+```ts
+import { supabase } from "./lib/supabase";
+
+// Mendengarkan semua perubahan di tabel "produk"
+const channel = supabase
+  .channel("produk-changes")
+  .on(
+    "postgres_changes",
+    { event: "*", schema: "public", table: "produk" },
+    (payload) => {
+      console.log("Perubahan diterima:", payload.eventType, payload.new);
+    }
+  )
+  .subscribe();
+
+// Berhenti mendengarkan (mis. saat komponen di-unmount)
+supabase.removeChannel(channel);
+```
+
+Bisa juga dipersempit cuma ke event atau baris tertentu:
+
+```ts
+supabase
+  .channel("produk-baru-saja")
+  .on(
+    "postgres_changes",
+    { event: "INSERT", schema: "public", table: "produk", filter: "kategori_id=eq.5" },
+    (payload) => console.log("Produk baru di kategori 5:", payload.new)
+  )
+  .subscribe();
+```
+
+Poin penting:
+
+- Realtime harus diaktifkan dulu per tabel lewat dashboard (Database → Replication) atau SQL `alter publication supabase_realtime add table produk;` — tabel yang belum diaktifkan tidak akan mengirim event apa pun.
+- Payload event berisi `eventType` (`INSERT`/`UPDATE`/`DELETE`), `new` (data terbaru), dan `old` (data sebelumnya, untuk UPDATE/DELETE).
+- RLS tetap berlaku untuk Realtime — user cuma menerima event untuk baris yang boleh dia `SELECT` menurut policy yang ada.', '[{"url":"https://supabase.com/docs/guides/realtime/postgres-changes","label":"Supabase Docs — Postgres Changes (Realtime)"}]'::jsonb, '[]'::jsonb, 'Aktifkan Realtime untuk tabel `produk` (Database → Replication di dashboard, atau lewat SQL). Buka dua tab browser di halaman yang sama, keduanya menjalankan kode `channel().on(...)` di atas. Di tab pertama, insert produk baru (lewat kode atau dashboard) — lihat tab KEDUA, data barunya harus muncul di console tanpa reload halaman sama sekali. Coba juga persempit filter-nya cuma ke event `INSERT`, lalu ke baris tertentu pakai `filter`, dan buktikan event UPDATE/DELETE tidak lagi memicu callback-nya. Ini menutup roadmap Supabase: dari setup client sampai data yang live ter-sinkron ke semua client yang terhubung.', 6, 'published', '2026-09-18 23:46:50.864953+00', '2026-09-22 13:53:08.255+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('f5222804-79ce-4166-8e63-bfa5f00f1d85', '8d1b066d-2a4b-429c-ab92-be5a7f37e392', 'Instalasi & Struktur Project Ramping Laravel 11', 'instalasi-dan-struktur-project-laravel-11', '**Masalah yang diselesaikan:** membangun aplikasi web dari nol menggunakan PHP murni membutuhkan perakitan manual untuk sistem routing, database migration, template engine, keamanan session, dan autentikasi. Di sisi lain, Laravel versi lawas (versi 10 ke bawah) memiliki struktur direktori yang gemuk dengan puluhan file konfigurasi di folder `config/` dan middleware boilerplate di `app/Http/Kernel.php` yang sering kali tidak pernah disentuh oleh developer pemula.
+
+**Laravel 11** merombak arsitektur menjadi **sangat ramping dan minimalis**:
+1. Menghilangkan `Http/Kernel.php` dan `Console/Kernel.php`.
+2. Seluruh konfigurasi middleware, exception handling, dan routing disederhanakan dan dipusatkan di satu file utama: **`bootstrap/app.php`**.
+3. Struktur controller dan model yang bersih tanpa folder boilerplate kosong.
+
+```mermaid
+flowchart TD
+  subgraph Laravel11Structure["Struktur Ramping Laravel 11"]
+    App["app/ (Models, Providers, Http Controllers)"]
+    Bootstrap["bootstrap/app.php (Pusat Konfigurasi Tunggal)"]
+    Routes["routes/web.php (Routing Aplikasi)"]
+    Resources["resources/views/ (Tampilan Blade)"]
+    Database["database/ (Migrations, Seeders, SQLite default)"]
+  end
+```
+
+Perintah membuat project Laravel 11 via Composer:
+
+```bash
+# 1. Membuat project baru Laravel 11
+composer create-project laravel/laravel belajar-laravel
+
+# 2. Masuk ke direktori project
+cd belajar-laravel
+
+# 3. Menjalankan server development lokal
+php artisan serve
+```
+
+Aplikasi langsung menyala di `http://127.0.0.1:8000`.
+
+Struktur Pusat Konfigurasi Baru di `bootstrap/app.php`:
+
+```php
+<?php
+
+use IlluminateFoundationApplication;
+use IlluminateFoundationConfigurationExceptions;
+use IlluminateFoundationConfigurationMiddleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.''/../routes/web.php'',
+        commands: __DIR__.''/../routes/console.php'',
+        health: ''/up'', // Endpoint health check bawaan untuk monitoring cloud
+    )
+    ->withMiddleware(function (Middleware $middleware) {
+        // Daftarkan middleware global atau alias di sini (menggantikan Kernel.php)
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        // Konfigurasi penanganan error kustom terpusat di sini
+    })->create();
+```
+
+Poin penting:
+
+- Secara default, Laravel 11 menggunakan database file **SQLite** (`database/database.sqlite`), sehingga kamu bisa langsung membuat tabel dan migration tanpa perlu install server database terpisah saat awal belajar.
+- Endpoint bawaan `/up` (health check) otomatis tersedia untuk kebutuhan container orchestration (seperti Docker/Kubernetes).
+- Tool CLI **`php artisan`** adalah asisten pengembang serbaguna untuk membuat controller, migration, model, dan menjalankan task background.', '[{"url":"https://laravel.com/docs/11.x/installation","label":"Laravel Official Documentation — Installation"},{"url":"https://laravel.com/docs/11.x/releases","label":"Laravel 11 Release Notes & New Directory Structure"}]'::jsonb, '[{"url":"https://getcomposer.org/","label":"PHP versi 8.2+ dan Composer sudah terpasang"}]'::jsonb, 'Buka terminal:
+1. Buat project Laravel 11 baru: `composer create-project laravel/laravel coba-laravel`.
+2. Masuk ke folder `cd coba-laravel`.
+3. Buka file `bootstrap/app.php` di editor teks dan perhatikan betapa rampingnya konfigurasi routing dan middleware.
+4. Jalankan `php artisan serve`, buka browser di `http://127.0.0.1:8000`, dan saksikan halaman beranda default Laravel yang elegan.', 0, 'published', '2026-09-22 14:30:06.259447+00', '2026-09-22 14:30:05.952+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('a5fcc6c1-d176-4c9b-84e5-e531f0eec92d', '94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Pub/Sub: Komunikasi Realtime & Message Broker', 'pub-sub-dan-message-broker', 'Catatan sebelumnya membahas pola caching data. **Masalah yang diselesaikan sekarang (dan menutup roadmap Redis):** bayangkan kamu membangun fitur chat realtime, notifikasi siaran live, atau sistem pembaruan harga saham. Jika frontend harus terus-menerus bertanya ke server setiap 1 detik (*polling*), server akan cepat kehabisan bandwidth dan membebani database. Bagaimana cara mengirimkan pesan seketika ke ribuan pengguna begitu sebuah peristiwa terjadi?
 
 Redis menyediakan fitur bawaan **Pub/Sub (Publish / Subscribe)**: pola komunikasi di mana pengirim (*Publisher*) mengirim pesan ke saluran (*Channel*) tanpa perlu tahu siapa penerimanya, dan semua pendengar (*Subscriber*) yang sedang terhubung ke saluran tersebut langsung menerima pesan dalam hitungan mikrodetik.
@@ -2654,7 +2872,7 @@ Poin penting:
 1. Buka dua tab terminal berbeda dan jalankan `docker exec -it redis-belajar redis-cli` di kedua tab.
 2. Di Tab 1, ketik perintah `SUBSCRIBE ruang_obrolan`.
 3. Di Tab 2, kirim pesan dengan `PUBLISH ruang_obrolan "Halo dari tab kedua!"`.
-4. Lihat bagaimana pesan langsung muncul instan di Tab 1 tanpa jeda sama sekali. Ini menutup roadmap Redis!', 4, 'published', '2026-09-22 14:24:50.440475+00', '2026-09-22 14:24:50.14+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Lihat bagaimana pesan langsung muncul instan di Tab 1 tanpa jeda sama sekali. Ini menutup roadmap Redis!', 4, 'published', '2026-09-22 14:24:50.440475+00', '2026-09-22 14:30:10.369+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('10b51350-b4e0-4759-8d89-9fff7de41e83', '9edf40dd-0158-4e70-b0e6-1e64c4282cb0', 'Pengenalan Quarkus, CLI, & Live Coding Dev Mode', 'pengenalan-quarkus-dan-live-coding', '**Masalah yang diselesaikan:** framework Java enterprise tradisional (seperti Spring konvensional) dirancang puluhan tahun lalu ketika server fisik jarang di-restart. Masalahnya di era modern: saat kita men-deploy aplikasi ke container Kubernetes atau arsitektur serverless, startup lambat (3-10 detik) dan konsumsi memori tinggi (300MB - 1GB per pod) menjadi pemborosan biaya cloud yang sangat mahal. Selain itu, developer Java harus restart aplikasi manual setiap kali mengubah sebaris kode.
 
 **Quarkus** memecahkan masalah ini dengan konsep **"Supersonic Subatomic Java"**:
@@ -2700,7 +2918,7 @@ Poin penting:
 2. Jalankan `quarkus dev` (atau `./mvnw quarkus:dev`).
 3. Buka browser di `http://localhost:8080/hello`.
 4. Buka file `GreetingResource.java`, ubah teks return menjadi `"Halo dari Quarkus Live Coding!"`, lalu simpan file.
-5. Refresh browser dan saksikan teksnya berubah instan tanpa kamu pernah me-restart server!', 0, 'published', '2026-09-22 14:14:32.785701+00', '2026-09-22 14:24:52.531+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Refresh browser dan saksikan teksnya berubah instan tanpa kamu pernah me-restart server!', 0, 'published', '2026-09-22 14:14:32.785701+00', '2026-09-22 14:30:12.929+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('7d0300a2-99cd-4d8b-a214-08421f19f7ca', '9edf40dd-0158-4e70-b0e6-1e64c4282cb0', 'Akses Database Mudah dengan Hibernate ORM with Panache', 'panache-orm-database', 'Catatan sebelumnya membahas Dependency Injection. **Masalah yang diselesaikan sekarang:** berinteraksi dengan database lewat JPA/Hibernate murni membutuhkan banyak boilerplate: menulis *DAO / Repository*, menyusun EntityManager, dan mengelola transaksi secara manual.
 
 Quarkus menyediakan **Hibernate ORM with Panache**: modul yang menyederhanakan akses database dengan dua pola elegan:
@@ -2780,7 +2998,7 @@ Poin penting:
 2. Buat entity `Artikel extends PanacheEntity` dengan field publik `public String judul;`.
 3. Buat endpoint `@GET` yang memanggil `Artikel.listAll()` dan endpoint `@POST @Transactional` yang memanggil `data.persist()`.
 4. Jalankan `quarkus dev`, lalu coba kirim data lewat POST: `curl -X POST -H "Content-Type: application/json" -d ''{"judul":"Belajar Panache"}'' http://localhost:8080/api/catatan`.
-5. Amati kemudahan query tanpa menulis repository manual satu pun!', 3, 'published', '2026-09-22 14:14:33.341064+00', '2026-09-22 14:24:53.111+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Amati kemudahan query tanpa menulis repository manual satu pun!', 3, 'published', '2026-09-22 14:14:33.341064+00', '2026-09-22 14:30:13.588+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('d32cf121-3b02-42ce-bc5d-ea8577f5c39d', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Routing Dasar dengan App Router', 'routing-dasar', 'Project Next.js kamu dari catatan sebelumnya sudah jalan — pertanyaan berikutnya: bagaimana URL seperti `/blog/artikel-pertama` bisa menampilkan halaman yang tepat? **Masalah yang diselesaikan:** sebelum ada file-based routing, mengatur routing di aplikasi React itu kerja manual — install library router (React Router), lalu tulis config terpisah yang memetakan tiap URL ke komponennya: `<Route path="/blog/:slug" element={<BlogPost />} />`. Config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya, apalagi kalau aplikasinya sudah besar dan ditulis banyak orang.
 
 Next.js (App Router) menyelesaikan ini dengan **memakai struktur folder itu sendiri sebagai definisi routing** — tidak ada file config routing terpisah untuk disinkronkan. Struktur folder di dalam `app/` menentukan URL, dan file `page.tsx` di dalam folder itu yang jadi halamannya.
@@ -2827,7 +3045,7 @@ Poin penting:
 1. `app/kontak/page.tsx` yang menampilkan teks "Hubungi Kami".
 2. `app/produk/[id]/page.tsx` — dynamic route yang menerima `id` dari URL dan menampilkannya. Buka `/produk/42` di browser, harus muncul "Detail produk: 42".
 
-Kalau sudah jalan, coba tambahkan satu level lagi: `app/produk/[id]/ulasan/page.tsx` (nested dynamic route), lalu perhatikan bagaimana struktur folder yang makin dalam otomatis jadi URL yang makin panjang. Latihan ini melatih kamu membaca struktur folder sebagai peta URL, bukan sekadar menghafal syntax-nya.', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:24:59.167+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+Kalau sudah jalan, coba tambahkan satu level lagi: `app/produk/[id]/ulasan/page.tsx` (nested dynamic route), lalu perhatikan bagaimana struktur folder yang makin dalam otomatis jadi URL yang makin panjang. Latihan ini melatih kamu membaca struktur folder sebagai peta URL, bukan sekadar menghafal syntax-nya.', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:20.373+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('86b49caa-29d2-49ee-a8fa-9c60850f3654', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Server Actions Dasar: Mutasi Data Tanpa API Endpoint', 'server-actions-dasar', 'Catatan sebelumnya membahas cara mengambil data (*read*) di Server Component menggunakan `fetch()` langsung. **Masalah yang diselesaikan sekarang:** bagaimana cara mengirim data kembali ke server (*write / mutate*), misalnya saat user mengisi form pendaftaran atau mengklik tombol hapus?
 
 Di React tradisional atau Next.js versi lama (Pages Router), kamu harus membuat API endpoint terpisah, memasang event handler manual, lalu memanggil `fetch(''/api/...'', { method: ''POST'' })`. Next.js App Router menyederhanakan ini lewat **Server Actions**: fungsi asinkron bertanda `"use server"` yang dieksekusi secara aman di server, dan dapat langsung dipasang ke atribut `action` tag `<form>` HTML biasa tanpa perlu membuat API route terpisah!
@@ -2905,7 +3123,7 @@ Poin penting:
 2. Deklarasikan array pesan di level server module.
 3. Buat Server Action `kirimPesan(formData: FormData)` bertanda `"use server"`.
 4. Ambil teks dari `formData.get("pesan")`, masukkan ke array, dan panggil `revalidatePath("/pesan")`.
-5. Buka `http://localhost:3000/pesan` di browser, ketik pesan di form, klik submit, dan pastikan pesan baru langsung muncul di daftar tanpa ada reload halaman browser.', 6, 'published', '2026-09-22 13:32:11.759253+00', '2026-09-22 14:25:00.262+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Buka `http://localhost:3000/pesan` di browser, ketik pesan di form, klik submit, dan pastikan pesan baru langsung muncul di daftar tanpa ada reload halaman browser.', 6, 'published', '2026-09-22 13:32:11.759253+00', '2026-09-22 14:30:21.361+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('64ddb40a-29c5-476d-8146-6052ab96770c', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Autentikasi Dasar Pengguna', 'auth-dasar', 'Sekarang kamu bisa query data bebas (asalkan RLS belum aktif). **Masalah yang diselesaikan sekarang:** bagaimana tahu *siapa* yang sedang mengakses aplikasi, supaya nanti data bisa dibatasi per user — bukan semua orang melihat/mengubah data yang sama?
 
 Supabase menyediakan modul autentikasi lengkap (**Supabase Auth**) untuk mengelola pendaftaran, login, sesi token JWT, dan verifikasi email pengguna.
@@ -2967,66 +3185,84 @@ Poin penting:
 - Data akun autentikasi disimpan terpisah secara aman di dalam skema `auth.users`, bukan di skema `public`.
 - Untuk membaca identitas user di server atau client secara aman dan terverifikasi ke server auth, selalu utamakan pemanggilan `supabase.auth.getUser()`.
 - Setelah login berhasil, token JWT sesi otomatis disimpan (di cookie atau localStorage) dan disertakan di setiap panggilan query database berikutnya, sehingga RLS mengenali `auth.uid()`.', '[{"url":"https://supabase.com/docs/guides/auth","label":"Supabase Docs — User Management & Authentication"},{"url":"https://supabase.com/docs/reference/javascript/auth-signup","label":"Supabase Docs — Auth Reference (JavaScript)"}]'::jsonb, '[]'::jsonb, 'Buat form sederhana (atau langsung panggil dari kode/console) untuk `daftarUser()` dengan email+password sungguhan, cek email konfirmasi yang masuk. Setelah konfirmasi, coba `masukUser()`, lalu `ambilUserAktif()` untuk memastikan sesinya tersimpan. Terakhir panggil `keluar()` dan `ambilUserAktif()` lagi — pastikan hasilnya `null`.', 3, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-22 13:53:07.702+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('634ff80b-2f11-4e95-a49e-03dcc6a6f2b8', '651e63fd-70f5-4611-9727-7181eb577a4c', 'Struktur Kontrol: Percabangan & Perulangan', 'struktur-kontrol-percabangan-perulangan', 'Catatan sebelumnya membahas tipe data dan variabel. **Masalah yang diselesaikan sekarang:** program tidak selalu berjalan lurus dari baris atas ke bawah. Kamu perlu membuat keputusan (misal: jika nilai >= 75 lulus, jika tidak maka remidi) dan mengulang pekerjaan tanpa menyalin baris kode yang sama berulang-ulang.
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('ce8f756e-8815-4301-a4bc-d7d3366075b2', '8d1b066d-2a4b-429c-ab92-be5a7f37e392', 'Database Migrations, Schema Builder, & Seeders', 'database-migrations-dan-seeder', 'Catatan sebelumnya membahas tampilan antarmuka Blade. **Masalah yang diselesaikan sekarang:** bagaimana tim developer berbagi dan menyelaraskan struktur tabel database? Cara lama dengan membagikan file `database.sql` lewat chat sangat kacau: tidak ada riwayat perubahan versi (*version control*) dan rawan menimpa kolom teman satu tim.
 
-Java menyediakan dua struktur kontrol utama: **Percabangan** (`if-else`, modern `switch`) dan **Perulangan** (`for`, enhanced `for-each`, `while`).
+**Database Migrations** bertindak seperti *Version Control (Git)* khusus untuk skema database kamu: setiap perubahan struktur tabel dicatat dalam file migration bertanggal yang dapat dijalankan (*migrate*) atau dibatalkan (*rollback*) secara konsisten di seluruh komputer tim dan server produksi.
 
 ```mermaid
-flowchart TD
-  Start["Input Nilai Ujian"] --> Cond{"nilai >= 75 ?"}
-  Cond -- Ya --> Lulus["Status: LULUS"]
-  Cond -- Tidak --> Remidi["Status: REMIDI"]
-  Lulus --> Loop["Loop for-each cetak daftar siswa"]
-  Remidi --> Loop
+flowchart LR
+  Dev["php artisan make:migration"] --> File["File Migration Berkas:<br/>database/migrations/2026_..._create_produks_table.php"]
+  File --> Artisan["php artisan migrate"]
+  Artisan --> DB["Tabel ''produks'' Dibuat di Database"]
+  Artisan --> Log["Tercatat di tabel riwayat ''migrations''"]
 ```
 
-Contoh percabangan modern dan perulangan:
+Membuat Migration dan Menjalankannya:
 
-```java
-public class KontrolDemo {
-    public static void main(String[] args) {
-        int skor = 85;
+```bash
+# 1. Membuat migration untuk tabel baru ''produks''
+php artisan make:migration create_produks_table
+```
 
-        // 1. Percabangan if - else if - else
-        if (skor >= 90) {
-            System.out.println("Grade: A");
-        } else if (skor >= 75) {
-            System.out.println("Grade: B");
-        } else {
-            System.out.println("Grade: C");
-        }
+Kode di dalam berkas migration yang dihasilkan (`database/migrations/..._create_produks_table.php`):
 
-        // 2. Modern Switch Expression (Java 14+) — mengembalikan nilai langsung
-        String peran = "ADMIN";
-        String hakAkses = switch (peran) {
-            case "ADMIN" -> "Akses Penuh";
-            case "EDITOR" -> "Akses Tulis";
-            default -> "Akses Baca Saja";
-        };
-        System.out.println("Hak akses: " + hakAkses);
+```php
+<?php
 
-        // 3. Enhanced for-each loop (cara paling elegan membaca isi array)
-        String[] daftarHobi = { "Membaca", "Coding", "Bermain Musik" };
-        System.out.println("
-Daftar Hobi:");
-        for (String hobi : daftarHobi) {
-            System.out.println("- " + hobi);
-        }
+use IlluminateDatabaseMigrationsMigration;
+use IlluminateDatabaseSchemaBlueprint;
+use IlluminateSupportFacadesSchema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create(''produks'', function (Blueprint $table) {
+            $table->id(); // BigIncrements Primary Key
+            $table->string(''nama'', 100);
+            $table->text(''deskripsi'')->nullable();
+            $table->decimal(''harga'', 10, 2);
+            $table->boolean(''is_tersedia'')->default(true);
+            $table->timestamps(); // Otomatis membuat created_at dan updated_at!
+        });
     }
-}
+
+    public function down(): void
+    {
+        Schema::dropIfExists(''produks'');
+    }
+};
+```
+
+Perintah eksekusi di terminal:
+
+```bash
+# Menjalankan seluruh migration yang belum pernah dieksekusi
+php artisan migrate
+
+# Membatalkan batch migration paling terakhir (undo)
+php artisan migrate:rollback
+
+# Mereset dan menjalankan ulang seluruh migration dari nol (hati-hati: menghapus data!)
+php artisan migrate:fresh
+```
+
+Membuat Seeder untuk Mengisi Data Awal (`database/seeders/DatabaseSeeder.php`):
+
+```php
+// Menjalankan seeder untuk mengisi data dummy otomatis
+php artisan db:seed
 ```
 
 Poin penting:
 
-- Operator pembanding di Java: `==` (sama dengan), `!=` (tidak sama), `>`, `<`, `>=`, `<=`.
-- Perhatian khusus: untuk membandingkan isi teks `String`, **selalu gunakan `.equals()`** (`teks.equals("ADMIN")`), JANGAN gunakan `==` karena `==` membandingkan alamat memori objek, bukan isi teksnya.
-- Switch expression modern dengan operator panah (`->`) tidak memerlukan kata kunci `break` manual dan tidak memiliki celah bug *fall-through*.
-- Gunakan perulangan `for-each` ketika hanya ingin membaca semua elemen array tanpa membutuhkan nomor indeksnya.', '[{"url":"https://docs.oracle.com/javase/tutorial/java/nutsandbolts/flow.html","label":"Oracle Java Tutorial — Control Flow Statements"},{"url":"https://docs.oracle.com/en/java/javase/21/language/switch-expressions.html","label":"Oracle Documentation — Switch Expressions"}]'::jsonb, '[]'::jsonb, 'Di file latihan kamu:
-1. Buat array angka: `int[] nilaiList = { 65, 80, 92, 55, 78 };`.
-2. Gunakan perulangan `for-each` untuk memeriksa setiap angka.
-3. Di dalam perulangan, gunakan `if-else` untuk mencetak apakah angka tersebut lulus (>= 75) atau tidak.
-4. Hitung total nilai yang lulus menggunakan variabel counter `int jumlahLulus = 0;`.
-5. Cetak jumlah siswa yang lulus di akhir program.', 2, 'published', '2026-09-22 14:14:30.823971+00', '2026-09-22 14:24:50.784+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Konvensi nama tabel di Laravel selalu dalam bentuk **jamak bahasa Inggris (*plural*)**, misalnya model `Produk` berpasangan dengan tabel `produks`, model `User` dengan tabel `users`.
+- Kolom `$table->timestamps()` secara otomatis mengelola pencatatan waktu kapan baris dibuat dan terakhir diubah.
+- Perintah `php artisan migrate:status` menampilkan daftar file migration mana saja yang sudah atau belum dijalankan di database.', '[{"url":"https://laravel.com/docs/11.x/migrations","label":"Laravel Documentation — Database: Migrations"},{"url":"https://laravel.com/docs/11.x/seeding","label":"Laravel Documentation — Database: Seeding"}]'::jsonb, '[]'::jsonb, 'Di project Laravel kamu:
+1. Buat migration baru: `php artisan make:migration create_kategoris_table`.
+2. Buka file migration tersebut dan tambahkan kolom `$table->string(''nama'');` dan `$table->string(''slug'')->unique();`.
+3. Jalankan `php artisan migrate` di terminal.
+4. Buka database (misal via SQLite viewer atau `php artisan tinker`) dan pastikan tabel `kategoris` telah terbentuk sempurna.', 3, 'published', '2026-09-22 14:30:07.176663+00', '2026-09-22 14:30:06.857+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('19459386-eb59-4398-9111-0bff06aa4a7e', '3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Concurrency Dasar hingga Virtual Threads (Java 21)', 'concurrency-dan-virtual-threads', 'Catatan sebelumnya melengkapi teknik null-safety dan exception modern. **Masalah yang diselesaikan sekarang (dan menutup roadmap Java Advance):** aplikasi web modern harus melayani ribuan request pengguna secara bersamaan. Di Java konvensional, satu thread Java dipetakan 1-ke-1 ke **Platform Thread (OS Thread)**. Masalahnya: OS thread sangat mahal (memakan memori ~1MB per thread dan terbatas beberapa ribu thread sebelum server kehabisan memori). Saat thread menunggu respon database (*blocking I/O*), OS thread itu menganggur dan terbuang sia-sia.
 
 Java 21 merevolusi ini lewat **Virtual Threads** (Project Loom): thread super ringan yang dikelola langsung oleh JVM (bukan kernel OS). Satu aplikasi Java kini bisa menjalankan **jutaan virtual thread** secara bersamaan dengan memori hanya beberapa kilobyte!
@@ -3083,7 +3319,7 @@ Poin penting:
 1. Buat program yang menjalankan 1.000 task menggunakan `Executors.newVirtualThreadPerTaskExecutor()`.
 2. Di dalam setiap task, cetak nama thread dan lakukan simulasi jeda `Thread.sleep(Duration.ofMillis(200))`.
 3. Hitung waktu total eksekusi menggunakan `System.currentTimeMillis()`.
-4. Amati bahwa 1.000 task tersebut selesai dalam waktu kurang dari 1 detik. Ini menutup roadmap Java Lanjutan!', 5, 'published', '2026-09-22 14:14:32.518507+00', '2026-09-22 14:24:52.363+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Amati bahwa 1.000 task tersebut selesai dalam waktu kurang dari 1 detik. Ini menutup roadmap Java Lanjutan!', 5, 'published', '2026-09-22 14:14:32.518507+00', '2026-09-22 14:30:12.68+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('a776f033-d9c1-4a09-8f23-bf42e21b52fe', '9edf40dd-0158-4e70-b0e6-1e64c4282cb0', 'Dependency Injection dengan ArC (Jakarta CDI)', 'dependency-injection-arc', 'Catatan sebelumnya membahas pembuatan endpoint REST. **Masalah yang diselesaikan sekarang:** logika bisnis tidak boleh ditumpuk langsung di dalam class Resource/Controller. Menulis `new ProdukService()` di dalam controller membuat kode terikat mati (*tightly coupled*) dan sulit diuji (*mocking unit test*).
 
 Quarkus menggunakan **ArC**: implementasi standar **Jakarta CDI (Contexts and Dependency Injection)** berbasis *build-time*:
@@ -3152,7 +3388,7 @@ Poin penting:
 1. Buat class `@ApplicationScoped public class SalamService`.
 2. Tambahkan method `public String sapa(String nama) { return "Halo, " + nama + "! Selamat belajar Quarkus."; }`.
 3. Di dalam `GreetingResource.java`, gunakan `@Inject SalamService salamService;`.
-4. Panggil `salamService.sapa(nama)` dari endpoint REST dan uji hasilnya di browser.', 2, 'published', '2026-09-22 14:14:33.132101+00', '2026-09-22 14:24:52.919+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Panggil `salamService.sapa(nama)` dari endpoint REST dan uji hasilnya di browser.', 2, 'published', '2026-09-22 14:14:33.132101+00', '2026-09-22 14:30:13.384+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('d2e61558-75c1-4704-87ef-ef56220afdb8', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Instalasi & Membuat Project React (Vite)', 'instalasi-dan-membuat-project', '**Masalah yang diselesaikan:** dulu, memulai project React dari nol berarti setup manual: install Babel buat transpile JSX, konfigurasi Webpack buat bundling, atur dev server sendiri — semua sebelum baris kode UI pertama ditulis. Create React App (CRA) sempat jadi solusi standar, tapi sekarang sudah tidak direkomendasikan lagi oleh tim React sendiri karena lambat dan tidak lagi dikembangkan aktif. **Vite** jadi pilihan modern: scaffold project React siap pakai dalam hitungan detik, dev server sangat cepat (pakai native ES modules, bukan bundling penuh tiap kali save).
 
 React sendiri adalah library JavaScript untuk membangun antarmuka (UI) berbasis komponen — potongan UI yang bisa dipakai ulang dan disusun jadi halaman lengkap.
@@ -3267,79 +3503,6 @@ function Form() {
 1. Buat tombol "Klik Saya" dengan prop `onClick={handleClick}` yang memunculkan `alert("Tombol diklik!")`.
 2. Buat tombol kedua yang mengirim argumen ke handler menggunakan inline arrow function: `onClick={() => handlePilih("React")}`.
 3. Tambahkan tag `<input placeholder="Ketik sesuatu..." />` dan pasang event listener `onChange={(e) => console.log(e.target.value)}`. Buka tab Console di DevTools browser dan lihat nilainya tercetak setiap kali kamu mengetik karakter baru.', 3, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-22 13:32:05.279+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('e80af964-92d0-41ad-84eb-56d9b247f9cb', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Relasi Antar-Tabel & Relational Queries', 'relasi-dan-foreign-key', 'Catatan sebelumnya membahas cara melakukan operasi CRUD pada satu tabel mandiri. **Masalah yang diselesaikan sekarang:** data di dunia nyata hampir tidak pernah berdiri sendiri dalam satu tabel datar. Sebuah artikel blog terikat ke satu kategori (*one-to-many*), dan satu catatan bisa memiliki banyak komentar. Di SQL tradisional, kita harus menulis query `JOIN` yang panjang. Bagaimana cara Supabase mengambil data relasional secara efisien dalam satu panggilan API?
-
-Karena Supabase dibangun di atas PostgreSQL, hubungan antar-tabel didefinisikan menggunakan **Foreign Key (kunci asing)**. Hebatnya, PostgREST secara otomatis mendeteksi relasi ini, memungkinkan kita mengambil data dari beberapa tabel sekaligus hanya dengan menyebutkan nama tabel relasinya di dalam method `.select()`.
-
-```mermaid
-erDiagram
-  CATEGORIES ||--o{ NOTES : "memiliki banyak"
-  CATEGORIES {
-    uuid id PK
-    text name
-    text slug
-  }
-  NOTES {
-    uuid id PK
-    uuid category_id FK
-    text title
-    text slug
-  }
-```
-
-Mendefinisikan Foreign Key di SQL dan mengambil datanya lewat JavaScript:
-
-```sql
--- 1. Definisi relasi di database lewat Foreign Key
-CREATE TABLE categories (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  name text NOT NULL
-);
-
-CREATE TABLE notes (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  category_id uuid NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
-  title text NOT NULL
-);
-```
-
-```ts
-import { supabase } from "./lib/supabase";
-
-// 2. Query 1-ke-1 atau N-ke-1: Ambil catatan beserta info kategorinya (JOIN otomatis)
-const { data: catatanDenganKategori, error: err1 } = await supabase
-  .from("notes")
-  .select(`
-    id,
-    title,
-    categories (
-      id,
-      name
-    )
-  `);
-
-// 3. Query 1-ke-N: Ambil kategori beserta daftar semua catatan di dalamnya (Nested Array)
-const { data: kategoriDenganNotes, error: err2 } = await supabase
-  .from("categories")
-  .select(`
-    name,
-    notes (
-      id,
-      title
-    )
-  `)
-  .eq("name", "TypeScript");
-```
-
-Poin penting:
-
-- Relasi otomatis di Supabase **wajib** memiliki constraint `REFERENCES tabel_tujuan(id)` di tingkat database PostgreSQL agar PostgREST dapat mendeteksinya.
-- Mengambil relasi induk (*parent*) mengembalikan objek tunggal (misal `categories: { id, name }`).
-- Mengambil relasi anak (*children*) mengembalikan array objek (misal `notes: [{ id, title }, ...]`).
-- Dengan nested select ini, kamu tidak perlu melakukan query bertingkat (*waterfall fetch*), menghemat round-trip jaringan dan meningkatkan performa aplikasi secara drastis.', '[{"url":"https://supabase.com/docs/guides/database/joins-and-nesting","label":"Supabase Docs — Querying Joins and Nested Tables"},{"url":"https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK","label":"PostgreSQL Docs — Foreign Keys"}]'::jsonb, '[]'::jsonb, 'Di project Supabase kamu (atau SQL Editor dashboard):
-1. Periksa skema tabel `categories` dan `notes` yang ada di database proyek ini.
-2. Buat skrip node sederhana atau coba query: ambil 3 baris dari tabel `notes` dengan menyertakan nama kategorinya: `.from("notes").select("title, categories(name)").limit(3)`.
-3. Cetak hasilnya ke console dan perhatikan bagaimana Supabase otomatis menyusun objek kategori di dalam tiap objek catatan tanpa kamu perlu menulis perintah SQL `INNER JOIN` manual.', 2, 'published', '2026-09-22 13:53:07.758005+00', '2026-09-22 14:25:03.273+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('bdf935e3-96ea-405e-a2b7-5a5491531515', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Dasar Row Level Security (RLS)', 'rls-dasar', 'Sekarang kamu punya cara mengenali user yang login (`auth.uid()`, dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana memastikan user A tidak bisa membaca/mengubah data milik user B, padahal keduanya memakai publishable key yang sama dan bisa langsung memanggil database dari browser?
 
 **Row Level Security (RLS)** adalah fitur keamanan bawaan PostgreSQL yang membatasi baris data mana saja yang boleh dibaca (*SELECT*), ditambah (*INSERT*), diubah (*UPDATE*), atau dihapus (*DELETE*) oleh pengguna tertentu.
@@ -3388,66 +3551,238 @@ Poin penting:
 - Klausa `USING` digunakan untuk memeriksa baris yang sudah ada di database (cocok untuk `SELECT`, `UPDATE`, `DELETE`).
 - Klausa `WITH CHECK` digunakan untuk memvalidasi baris data baru yang akan ditulis ke database (cocok untuk `INSERT`, `UPDATE`).
 - Fungsi pembantu `auth.uid()` mengembalikan UUID pengguna yang sedang login berdasarkan token JWT sesi saat ini.', '[{"url":"https://supabase.com/docs/guides/database/postgres/row-level-security","label":"Supabase Docs — Row Level Security"},{"url":"https://www.postgresql.org/docs/current/ddl-rowsecurity.html","label":"PostgreSQL Docs — Row Security Policies"}]'::jsonb, '[]'::jsonb, 'Di tabel `produk` dari latihan sebelumnya, aktifkan RLS (`ALTER TABLE produk ENABLE ROW LEVEL SECURITY`) TANPA membuat policy apa pun dulu — coba `select` dari client, harus mendapat data kosong (default deny). Lalu tambahkan kolom `user_id uuid` ke tabel itu, buat policy SELECT & INSERT seperti contoh di atas berdasarkan `auth.uid()`. Terakhir, tes dengan dua akun berbeda: pastikan tiap akun cuma bisa melihat produk yang dia insert sendiri. Ini menutup roadmap Supabase: dari setup client sampai data yang benar-benar aman per user.', 4, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-22 13:53:07.908+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4b52e187-cf67-48d5-bf4f-4cd16715acb3', '3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Generics: Type Safety Tanpa Type Casting Manual', 'generics-dasar', 'Catatan di roadmap Java Dasar mengajarkan cara membuat class dan interface. **Masalah yang diselesaikan sekarang:** sebelum Java 5, untuk membuat wadah penampung serbaguna (seperti kotak penyimpanan), developer harus menggunakan tipe `Object` (`class Kotak { Object isi; }`). Masalahnya: semua tipe data bisa masuk, tapi saat mengambilnya kamu harus melakukan *type casting* manual `(String) kotak.getIsi()`. Jika tipe aslinya salah, aplikasi akan crash seketika di runtime dengan error `ClassCastException`!
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('df2bcedf-f129-48a5-9251-5979524e34be', '8d1b066d-2a4b-429c-ab92-be5a7f37e392', 'Request Validation & Middleware di Laravel 11', 'form-request-validation-dan-middleware', 'Catatan sebelumnya melengkapi operasi database dengan Eloquent. **Masalah yang diselesaikan sekarang (dan menutup roadmap Laravel 11):** jangan pernah percaya data yang dikirimkan oleh pengguna (user input). Pengguna bisa saja mengosongkan form, mengirim email berformat salah, atau mencoba menyusupkan skrip berbahaya. Selain itu, bagaimana cara membatasi agar halaman admin hanya bisa dibuka oleh pengguna yang sudah login?
 
-**Generics** memungkinkan kita membuat class, interface, dan method dengan parameter tipe placeholder (`<T>`). Pemeriksaan tipe dilakukan saat kompilasi (*compile-time type safety*), menghilangkan kebutuhan casting manual.
+Laravel menyediakan dua lapisan pertahanan utama:
+1. **Form Request Validation:** Memisahkan aturan validasi input ke dalam class terpisah yang otomatis menghentikan request dan mengembalikan pesan error ramah jika data tidak valid.
+2. **Middleware:** Lapisan penyaring (*HTTP filter*) yang memeriksa setiap request yang masuk sebelum diizinkan mencapai Controller.
 
 ```mermaid
 flowchart LR
-  subgraph NonGeneric["Sebelum Generics (Raw Object)"]
-    O1["Kotak.set(''Teks'')"] --> O2["(Integer) Kotak.get()"]
-    O2 --> Crash["Runtime CRASH: ClassCastException!"]
-  end
-  subgraph Generic["Dengan Generics (<T>)"]
-    G1["Kotak<String> k = new Kotak<>()"] --> G2["k.set(123)"]
-    G2 --> Alert["Compiler Langsung Tolak saat Ngetik:<br/>Tipe tidak cocok!"]
-  end
+  Request["Request Form HTTP POST"] --> Middleware["Middleware: auth<br/>(Cek Status Login)"]
+  Middleware -- Belum Login --> Redirect["Redirect ke Halaman /login"]
+  Middleware -- Sudah Login --> Validator["Form Request Validation<br/>(nama: required, harga: numeric)"]
+  Validator -- Data Gagal --> Back["Kembali ke Form + Pesan Error Merah"]
+  Validator -- Lolos Validasi --> Controller["Controller Eksekusi Logika Simpan"]
 ```
 
-Contoh Generic Class dan Method:
+Membuat Form Request Validation Khusus:
 
-```java
-// 1. Generic Class: ''T'' adalah placeholder tipe (Type Parameter)
-public class Kotak<T> {
-    private T isi;
+```bash
+php artisan make:request SimpanProdukRequest
+```
 
-    public void simpan(T isi) {
-        this.isi = isi;
+Kode di `app/Http/Requests/SimpanProdukRequest.php`:
+
+```php
+<?php
+
+namespace AppHttpRequests;
+
+use IlluminateFoundationHttpFormRequest;
+
+class SimpanProdukRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true; // Set true agar diizinkan dieksekusi
     }
 
-    public T ambil() {
-        return this.isi;
+    public function rules(): array
+    {
+        return [
+            ''nama'' => ''required|string|min:3|max:100'',
+            ''harga'' => ''required|numeric|min:1000'',
+            ''kategori_id'' => ''required|exists:kategoris,id'',
+        ];
     }
 }
+```
 
-// 2. Penggunaan di Main
-public class Main {
-    public static void main(String[] args) {
-        // Kotak yang secara ketat hanya menampung String
-        Kotak<String> kotakTeks = new Kotak<>();
-        kotakTeks.simpan("Dokumen Rahasia");
-        String hasilTeks = kotakTeks.ambil(); // Tidak butuh casting (String) lagi!
-        System.out.println("Isi kotak: " + hasilTeks);
+Memakai Form Request di Controller dan Menampilkan Error di Blade:
 
-        // Kotak yang khusus menampung Integer
-        Kotak<Integer> kotakAngka = new Kotak<>();
-        kotakAngka.simpan(100);
-        // kotakAngka.simpan("Salah"); // Error kompilasi langsung tertangkap!
-        System.out.println("Nilai angka: " + kotakAngka.ambil());
-    }
+```php
+// app/Http/Controllers/ProdukController.php
+use AppHttpRequestsSimpanProdukRequest;
+use AppModelsProduk;
+
+public function store(SimpanProdukRequest $request)
+{
+    // Hanya data yang sudah lolos validasi yang diambil (sangat aman!)
+    $dataValid = $request->validated();
+    Produk::create($dataValid);
+
+    return redirect(''/produk'')->with(''sukses'', ''Produk berhasil ditambahkan!'');
 }
+```
+
+Menampilkan Error di Form Blade (`create.blade.php`):
+
+```html
+<form action="/produk" method="POST">
+    @csrf <!-- Token proteksi Cross-Site Request Forgery WAJIB ada di setiap form POST -->
+
+    <div>
+        <label>Nama Produk:</label>
+        <input type="text" name="nama" value="{{ old(''nama'') }}">
+        @error(''nama'')
+            <p style="color: red;">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <button type="submit">Simpan</button>
+</form>
+```
+
+Pendaftaran Middleware di Laravel 11 (`bootstrap/app.php`):
+
+```php
+// Mendaftarkan alias middleware di bootstrap/app.php
+->withMiddleware(function (Middleware $middleware) {
+    $middleware->alias([
+        ''admin'' => AppHttpMiddlewarePastikanUserAdmin::class,
+    ]);
+})
 ```
 
 Poin penting:
 
-- Konvensi penamaan type parameter umum: `T` (Type), `E` (Element koleksi), `K` (Key), `V` (Value).
-- Generics di Java hanya bekerja dengan tipe Object (Reference), bukan tipe primitif langsung — gunakan wrapper class seperti `Integer` alih-alih `int`, `Double` alih-alih `double`.
-- Java menerapkan **Type Erasure**: informasi tipe generic diperiksa ketat oleh compiler, lalu dihapus saat kompilasi ke bytecode agar kompatibel dengan versi JVM terdahulu.', '[{"url":"https://docs.oracle.com/javase/tutorial/java/generics/index.html","label":"Oracle Java Tutorial — Generics"},{"url":"https://docs.oracle.com/javase/tutorial/java/generics/methods.html","label":"Oracle Java Tutorial — Generic Methods"}]'::jsonb, '[{"url":"/kategori/java-dasar","label":"Familiar dengan konsep Class dan Object dari roadmap Java Dasar"}]'::jsonb, 'Di project latihan kamu:
-1. Buat generic class `Pasangan<K, V>` dengan dua atribut: `K kunci` dan `V nilai`.
-2. Buat constructor dan method getter untuk kedua atribut tersebut.
-3. Di method `main`, buat objek `Pasangan<String, Integer> skor = new Pasangan<>("Budi", 95);`.
-4. Cetak kunci dan nilainya: `System.out.println(skor.getKunci() + ": " + skor.getNilai());`.
-5. Coba buat pasangan lain dengan tipe data berbeda, misal `Pasangan<Integer, String> idUser`.', 0, 'published', '2026-09-22 14:14:31.595637+00', '2026-09-22 14:24:51.485+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Directive `@csrf` wajib disertakan pada setiap formulir HTML berbasis `POST`, `PUT`, atau `DELETE` di Laravel untuk mencegah serangan penipuan request lintas situs.
+- Method `$request->validated()` hanya mengembalikan data yang terdaftar di `rules()`, melindungi aplikasi dari field ilegal yang disusupkan pihak luar.
+- Fungsi helper `old(''field'')` mempertahankan teks yang sudah diketik user di form jika validasi gagal, sehingga user tidak perlu mengetik ulang dari awal. Ini menutup roadmap Laravel 11!', '[{"url":"https://laravel.com/docs/11.x/validation","label":"Laravel Documentation — Validation"},{"url":"https://laravel.com/docs/11.x/middleware","label":"Laravel Documentation — Middleware"}]'::jsonb, '[]'::jsonb, 'Di project Laravel kamu:
+1. Buat form request baru: `php artisan make:request KontakRequest`.
+2. Tentukan aturan: `''email'' => ''required|email''`, `''pesan'' => ''required|min:10''`.
+3. Buat form di Blade dengan tag `@csrf` dan masukkan input email dan pesan.
+4. Coba submit form dengan format email yang salah dan kosongkan pesan.
+5. Amati bagaimana Laravel secara otomatis menolak request dan menampilkan pesan error merah tanpa menulis satu baris pun logika `if/else` manual di controller!', 5, 'published', '2026-09-22 14:30:07.582001+00', '2026-09-22 14:30:07.272+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5555bed3-f021-4ed5-9544-5da0aeb1d4c5', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'Relasi Tabel, Foreign Keys, & Ragam JOIN', 'relasi-foreign-key-dan-join', 'Catatan sebelumnya membahas pembuatan satu tabel terisolasi. **Masalah yang diselesaikan sekarang:** di aplikasi nyata, entitas selalu saling terhubung — satu kategori memayungi banyak produk (*one-to-many*). Jika kita menyimpan nama kategori langsung di setiap baris produk, ketika nama kategori diganti kita harus mengupdate ribuan baris, dan risiko inkonsistensi data sangat tinggi (*data redundancy*).
+
+Solusinya adalah **Normalisasi Database**: memisahkan data ke tabel berbeda dan menghubungkannya menggunakan **Foreign Key (Kunci Asing)**. Saat data ingin dibaca bersamaan, kita menggabungkannya kembali lewat operasi **JOIN**.
+
+```mermaid
+flowchart LR
+  subgraph Kategori["Tabel Kategori"]
+    K1["id: 1, nama: ''Elektronik''"]
+    K2["id: 2, nama: ''Buku''"]
+  end
+  subgraph Produk["Tabel Produk"]
+    P1["Laptop (kategori_id: 1)"]
+    P2["Mouse (kategori_id: 1)"]
+    P3["Novel (kategori_id: 2)"]
+  end
+  K1 --- P1 & P2
+  K2 --- P3
+```
+
+Skema Foreign Key dan Ragam Operasi JOIN:
+
+```sql
+-- 1. Tabel Induk (Parent)
+CREATE TABLE kategori (
+    id SERIAL PRIMARY KEY,
+    nama VARCHAR(50) NOT NULL
+);
+
+-- 2. Tabel Anak (Child) dengan Foreign Key
+CREATE TABLE produk (
+    id SERIAL PRIMARY KEY,
+    kategori_id INT NOT NULL REFERENCES kategori(id) ON DELETE CASCADE,
+    nama VARCHAR(100) NOT NULL,
+    harga INT NOT NULL
+);
+
+-- Mengisi data contoh
+INSERT INTO kategori (nama) VALUES (''Elektronik''), (''Pakaian'');
+INSERT INTO produk (kategori_id, nama, harga) VALUES
+(1, ''Laptop Gaming'', 15000000),
+(1, ''Keyboard Mekanikal'', 800000);
+```
+
+Membaca data terhubung dengan JOIN:
+
+```sql
+-- INNER JOIN: Hanya mengambil baris yang memiliki pasangan cocok di kedua tabel
+SELECT 
+    p.nama AS nama_produk,
+    p.harga,
+    k.nama AS nama_kategori
+FROM produk p
+INNER JOIN kategori k ON p.kategori_id = k.id;
+
+-- LEFT JOIN: Mengambil SEMUA kategori, meskipun belum ada produknya
+SELECT 
+    k.nama AS nama_kategori,
+    COUNT(p.id) AS total_produk
+FROM kategori k
+LEFT JOIN produk p ON k.id = p.kategori_id
+GROUP BY k.id, k.nama;
+```
+
+Poin penting:
+
+- `ON DELETE CASCADE`: Jika baris kategori dihapus, seluruh produk di bawah kategori tersebut otomatis terhapus, mencegah data yatim piatu (*orphaned records*).
+- `ON DELETE RESTRICT` / `NO ACTION`: Menolak penghapusan kategori jika masih ada produk yang merujuk kepadanya.
+- `INNER JOIN` menghasilkan irisan dua tabel; `LEFT JOIN` menjamin seluruh baris dari tabel kiri selalu tampil (kolom tabel kanan akan bernilai `NULL` jika belum ada pasangannya).', '[{"url":"https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK","label":"PostgreSQL Documentation — Foreign Keys"},{"url":"https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-FROM","label":"PostgreSQL Documentation — Table Expressions (Joins)"}]'::jsonb, '[]'::jsonb, 'Di terminal psql kamu:
+1. Buat tabel `kategori` dan `produk` seperti contoh di atas.
+2. Tambahkan kategori baru ke-3: `INSERT INTO kategori (nama) VALUES (''Otomotif'');` (tanpa membuat produknya).
+3. Jalankan query `INNER JOIN` dan perhatikan bahwa kategori ''Otomotif'' tidak muncul.
+4. Jalankan query `LEFT JOIN` dan amati bagaimana kategori ''Otomotif'' tetap muncul dengan kolom produk bernilai `NULL` (atau count 0).', 2, 'published', '2026-09-22 14:24:48.107643+00', '2026-09-22 14:30:07.899+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1dc3a453-b286-4ad1-84f3-37af9ce54c5f', '94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Pengenalan Redis, In-Memory Storage, & redis-cli', 'pengenalan-redis-dan-redis-cli', '**Masalah yang diselesaikan:** database relasional tradisional (seperti PostgreSQL atau MariaDB) menyimpan datanya di piringan disk (HDD/SSD). Mengambil data dari disk membutuhkan latensi milidetik. Ketika jutaan pengunjung mengakses halaman yang sama secara serentak (misal: halaman flash sale produk populer), jutaan query SQL membanjiri disk server, membuat response time melonjak dari 50 ms menjadi 10 detik, bahkan menumbangkan server database.
+
+**Redis (Remote Dictionary Server)** memecahkan masalah ini dengan menyimpan seluruh datanya langsung di **RAM (Random Access Memory)**. Mengambil data dari memori RAM hanya membutuhkan latensi **sub-milidetik (< 1 ms)**, ratusan kali lebih cepat dibanding disk!
+
+```mermaid
+flowchart TD
+  subgraph Tradisional["Database Disk (Postgres / MariaDB)"]
+    D1["Query SQL"] --> D2["Baca Disk I/O (HDD/SSD)"]
+    D2 --> D3["Latensi: 10 - 50 milidetik"]
+  end
+  subgraph InMem["In-Memory Redis"]
+    R1["Perintah Key-Value"] --> R2["Baca RAM Langsung (Memory Bus)"]
+    R2 --> R3["Latensi: < 0.5 milidetik (Kilat!)"]
+  end
+```
+
+Menjalankan Redis menggunakan Docker:
+
+```bash
+# 1. Jalankan container Redis di background (port 6379)
+docker run --name redis-belajar -p 6379:6379 -d redis:7-alpine
+
+# 2. Masuk ke terminal interaktif redis-cli
+docker exec -it redis-belajar redis-cli
+```
+
+Perintah dasar paling penting di `redis-cli`:
+
+```text
+# 1. Menguji koneksi server (merespon PONG jika sehat)
+PING
+
+# 2. Menyimpan data string sederhana (Key-Value)
+SET nama "Budi Santoso"
+
+# 3. Mengambil data berdasarkan kunci
+GET nama
+
+# 4. Memeriksa apakah suatu kunci ada di memori (mengembalikan 1 jika ada, 0 jika tidak)
+EXISTS nama
+
+# 5. Menghapus kunci
+DEL nama
+```
+
+Poin penting:
+
+- Redis menggunakan port default **6379**.
+- Arsitektur inti Redis dirancang dengan *single-threaded event loop* yang sangat teroptimasi, menghindari overhead penguncian thread (*lock contention*) dan mampu menangani lebih dari 100.000 operasi per detik pada perangkat keras standar.
+- Meskipun berbasis RAM, Redis memiliki mekanisme persistensi berkala ke disk (RDB snapshot & Append-Only File / AOF) sehingga data tidak hilang saat server di-restart.', '[{"url":"https://redis.io/docs/latest/get-started/","label":"Redis Official Documentation — Introduction to Redis"},{"url":"https://hub.docker.com/_/redis","label":"Docker Hub Official Redis Image"}]'::jsonb, '[{"url":"https://www.docker.com/","label":"Docker sudah terpasang di komputermu (atau Redis native CLI)"}]'::jsonb, 'Buka terminal:
+1. Jalankan container Redis via Docker seperti contoh di atas.
+2. Masuk ke terminal `redis-cli`.
+3. Ketik `PING` dan pastikan server membalas `PONG`.
+4. Simpan kunci baru: `SET situs "Catatan Belajar"`.
+5. Ambil nilainya dengan `GET situs`.
+6. Keluar dari redis-cli dengan mengetik `exit`.', 0, 'published', '2026-09-22 14:24:49.784274+00', '2026-09-22 14:30:09.589+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('56c3d5ea-8918-4190-815b-4ba6202386ba', '9edf40dd-0158-4e70-b0e6-1e64c4282cb0', 'Kompilasi Native Image dengan GraalVM', 'graalvm-native-image', 'Catatan sebelumnya melengkapi operasi REST dan database di Quarkus. **Masalah yang diselesaikan sekarang (dan menjadi puncak kekuatan Quarkus):** aplikasi Java biasa membutuhkan JVM untuk berjalan. Saat aplikasi dikemas ke dalam container Docker, ukuran image menjadi ratusan megabyte dan butuh waktu 1-5 detik untuk mulai melayani request. Di arsitektur Serverless (seperti AWS Lambda atau Google Cloud Run), keterlambatan ini disebut **Cold Start** dan membuat pengguna harus menunggu.
 
 Quarkus terintegrasi mendalam dengan **GraalVM Native Image**: aplikasi Java dikompilasi langsung menjadi **file binary biner native OS** (seperti file executable C/Go). Hasilnya: tidak butuh JVM lagi saat dijalankan di server!
@@ -3499,7 +3834,7 @@ Poin penting:
 2. Tunggu proses AOT compilation selesai (memerlukan waktu beberapa menit).
 3. Buka folder `target/` dan temukan file executable binary bernama `*-runner`.
 4. Jalankan binary tersebut secara langsung di terminal: `./target/*-runner`.
-5. Perhatikan log banner startup Quarkus: kamu akan melihat aplikasi menyala dalam 10-30 milidetik! Ini menutup roadmap Quarkus.', 4, 'published', '2026-09-22 14:14:33.61627+00', '2026-09-22 14:24:53.275+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Perhatikan log banner startup Quarkus: kamu akan melihat aplikasi menyala dalam 10-30 milidetik! Ini menutup roadmap Quarkus.', 4, 'published', '2026-09-22 14:14:33.61627+00', '2026-09-22 14:30:13.76+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('97bae629-d766-42d8-b52f-72403968fe7e', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Conditional Rendering Dasar', 'conditional-rendering-dasar', 'Catatan sebelumnya membahas state untuk menyimpan memori dan merender ulang tampilan. **Masalah yang diselesaikan sekarang:** UI jarang statis — kadang perlu tampil beda tergantung kondisi: pesan error cuma muncul kalau ada error, tombol "Login" berubah jadi "Logout" kalau user sudah masuk. Karena JSX cuma ekspresi (tidak bisa langsung menulis `if`/`else` di tengah markup seperti template engine lain), React memakai fitur JavaScript biasa yang **menghasilkan nilai** — ekspresi ternary dan operator `&&` — bukan sintaks khusus baru.
 
 ```mermaid
@@ -3646,54 +3981,147 @@ Poin penting:
 - Bucket dibuat lewat dashboard (Storage → New bucket) atau API, dan bisa ditandai *public* atau *private* saat pembuatan.
 - Penamaan path yang menyertakan `userId/` (seperti contoh di atas) memudahkan penulisan RLS policy storage berdasarkan pemilik file.
 - Storage juga punya RLS sendiri (tabel `storage.objects`) — bucket private tanpa policy akan menolak semua akses, sama seperti tabel biasa tanpa policy.', '[{"url":"https://supabase.com/docs/guides/storage","label":"Supabase Docs — Storage"},{"url":"https://supabase.com/docs/reference/javascript/storage-from-upload","label":"Supabase Docs — Storage Upload Reference"}]'::jsonb, '[]'::jsonb, 'Buat bucket baru bernama `avatars` lewat dashboard Supabase (Storage → New bucket), tandai sebagai *public*. Di project kamu, buat form upload sederhana (`<input type="file">`), upload file yang dipilih user ke bucket itu memakai `uploadAvatar()` di atas, lalu tampilkan hasilnya lewat tag `<img src={url} />` memakai `ambilUrlAvatar()`. Setelah berhasil, buat bucket KEDUA yang privat, upload file yang sama ke sana, dan buktikan `getPublicUrl()`-nya tidak bisa diakses langsung (403) sementara `createSignedUrl()` bisa.', 5, 'published', '2026-09-18 23:46:50.864953+00', '2026-09-22 13:53:08.099+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('48451c66-e6fb-4d18-8ffe-92db70b69ad6', '3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Stream API: Pemrosesan Data Deklaratif', 'stream-api', 'Catatan sebelumnya membahas Lambda Expressions. **Masalah yang diselesaikan sekarang:** memanipulasi koleksi data secara imperatif membutuhkan perulangan `for` bersarang dan variabel penampung sementara di mana-mana — misal: *"ambil daftar user, filter yang usianya > 18 tahun, ubah namanya jadi huruf kapital, lalu urutkan berdasarkan nama"*. Menulis ini secara imperatif memakan belasan baris kode dan gampang terselip bug mutasi state.
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('9eb21fa5-b6a3-49c8-9c17-1f53393c22a7', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'Pengenalan PostgreSQL, Arsitektur, & psql CLI', 'pengenalan-postgresql-dan-instalasi', '**Masalah yang diselesaikan:** menyimpan data aplikasi di dalam file teks mentah (seperti CSV atau JSON) rentan terhadap kerusakan data saat crash (*data corruption*), tidak mendukung banyak pengguna yang menulis bersamaan (*concurrent write*), dan pencarian data menjadi lambat saat ukuran file membesar. PostgreSQL adalah sistem manajemen database relasional (**RDBMS**) open-source tingkat enterprise yang menjamin integritas data secara mutlak.
 
-**Stream API** menyediakan cara deklaratif untuk memproses koleksi data seperti saluran pipa (*pipeline*): kamu menentukan *apa* yang ingin dicapai, bukan mendikte langkah *bagaimana* perulangannya.
+PostgreSQL beroperasi dengan model proses client-server: setiap koneksi dari aplikasi dilayani oleh proses terpisah di server yang berkomunikasi dengan memori bersama (*shared memory*) dan mencatat perubahan ke berkas **Write-Ahead Log (WAL)** sebelum ditulis permanen ke disk.
 
 ```mermaid
 flowchart LR
-  Source["List Asli: [1, 2, 3, 4, 5, 6]"] --> Filter[".filter(n -> n % 2 == 0)"]
-  Filter --> Map[".map(n -> n * 10)"]
-  Map --> Collect[".toList()"]
-  Collect --> Result["Hasil Baru: [20, 40, 60]"]
+  Client["Klien (psql CLI / Backend App)"] -->|Koneksi Port 5432| Postmaster["Postgres Server Process"]
+  Postmaster --> SharedBuffer["Shared Memory Buffer (RAM)"]
+  SharedBuffer --> WAL["Write-Ahead Log (WAL) Disk"]
+  SharedBuffer --> DataFiles["Tabel & Data Disk (Permanen)"]
 ```
 
-Contoh pemrosesan data dengan Stream API:
+Cara paling cepat menjalankan PostgreSQL menggunakan Docker:
 
-```java
-import java.util.List;
+```bash
+# 1. Jalankan container PostgreSQL 16 di background
+docker run --name postgres-belajar -e POSTGRES_PASSWORD=rahasia -p 5432:5432 -d postgres:16
 
-public class StreamDemo {
-    public static void main(String[] args) {
-        List<String> daftarNama = List.of("Budi", "Ani", "Bambang", "Joko", "Bayu");
+# 2. Masuk ke terminal interaktif psql di dalam container
+docker exec -it postgres-belajar psql -U postgres
+```
 
-        // Pipeline Stream: Source -> Intermediate Operations -> Terminal Operation
-        List<String> hasilFilter = daftarNama.stream()
-                // 1. Filter: Hanya ambil nama yang berawalan ''B''
-                .filter(nama -> nama.startsWith("B"))
-                // 2. Map: Transformasi setiap nama menjadi huruf kapital
-                .map(String::toUpperCase)
-                // 3. Sorted: Urutkan secara alfabetis
-                .sorted()
-                // 4. Terminal: Kumpulkan hasil akhirnya menjadi List baru (Java 16+)
-                .toList();
+Perintah navigasi paling penting di dalam `psql`:
 
-        System.out.println("Hasil akhir: " + hasilFilter);
-        // Output: [BAMBANG, BAYU, BUDI]
-    }
-}
+```sql
+-- Melihat daftar database yang ada
+l
+
+-- Membuat database baru
+CREATE DATABASE belajar_db;
+
+-- Pindah koneksi ke database tertentu
+c belajar_db
+
+-- Melihat daftar tabel di database saat ini
+dt
+
+-- Keluar dari psql
+q
 ```
 
 Poin penting:
 
-- **Stream tidak mengubah data sumber aslinya**: data `daftarNama` tetap utuh; operasi stream menghasilkan list baru.
-- **Lazy Evaluation (Evaluasi Tertunda)**: Operasi perantara (*intermediate operations* seperti `filter`, `map`) tidak akan dieksekusi sebelum ada *terminal operation* (seperti `toList()`, `count()`, `findFirst()`).
-- Terdapat fungsi reduksi matematika siap pakai: `.mapToInt(...).sum()`, `.average()`, `.max()`.
-- Untuk pemrosesan data sangat besar, kamu bisa mengubah `.stream()` menjadi `.parallelStream()` untuk membagi komputasi ke banyak core CPU secara otomatis.', '[{"url":"https://docs.oracle.com/javase/tutorial/collections/streams/index.html","label":"Oracle Java Tutorial — Aggregate Operations (Streams)"},{"url":"https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/package-summary.html","label":"Oracle Documentation — java.util.stream Package"}]'::jsonb, '[]'::jsonb, 'Di project latihan kamu:
-1. Buat record produk: `record Produk(String nama, double harga) {}`.
-2. Buat `List<Produk> katalog` berisi 5 produk dengan harga bervariasi.
-3. Buat pipeline stream untuk menyaring produk dengan harga > 50.000, ambil namanya saja (`.map(Produk::nama)`), lalu cetak dengan `.forEach(System.out::println)`.
-4. Hitung rata-rata harga seluruh produk menggunakan `.mapToDouble(Produk::harga).average().orElse(0.0)`.', 3, 'published', '2026-09-22 14:14:32.142175+00', '2026-09-22 14:24:52.02+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- PostgreSQL menggunakan port default **5432**.
+- Format perintah SQL selalu diakhiri dengan titik koma (`;`), sedangkan perintah internal `psql` diawali garis miring terbalik (misal `l`, `dt`, `q`).
+- Menjalankan PostgreSQL via Docker adalah standar industri untuk lingkungan pengembangan karena menjaga sistem operasi host tetap bersih tanpa instalasi service latar belakang.', '[{"url":"https://www.postgresql.org/docs/current/intro-whatis.html","label":"PostgreSQL Official Documentation — What is PostgreSQL?"},{"url":"https://hub.docker.com/_/postgres","label":"Docker Hub Official PostgreSQL Image"}]'::jsonb, '[{"url":"https://www.docker.com/","label":"Docker sudah terinstall di komputermu (atau PostgreSQL native)"}]'::jsonb, 'Buka terminal komputermu:
+1. Jalankan PostgreSQL lewat Docker seperti contoh perintah di atas.
+2. Masuk ke terminal `psql -U postgres`.
+3. Buat database baru: `CREATE DATABASE toko_online;`.
+4. Hubungkan ke database tersebut dengan perintah `c toko_online`.
+5. Keluar dari psql dengan `q` dan coba jalankan kembali untuk membuktikan database `toko_online` tetap tersimpan.', 0, 'published', '2026-09-22 14:24:47.745107+00', '2026-09-22 14:30:07.473+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('7aebd158-43a3-4d15-af68-f248654d812d', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'Indexing & Optimasi Query dengan EXPLAIN ANALYZE', 'indexing-dan-query-performance', 'Catatan sebelumnya membahas relasi dan join. **Masalah yang diselesaikan sekarang:** saat tabel hanya berisi 100 baris, semua query terasa instan. Namun ketika tabel berkembang menjadi 1 juta baris, query `SELECT * FROM transaksi WHERE nomor_resi = ''XYZ''` bisa memakan waktu 3 hingga 10 detik dan membuat CPU server 100% karena database harus membaca seluruh baris dari awal sampai akhir (**Sequential Scan / Full Table Scan**).
+
+**Index** adalah struktur data khusus (paling umum berupa **B-Tree**) yang bertindak seperti indeks di buku belakang: alih-alih membaca seluruh halaman buku, database langsung melompat ke lokasi nomor baris yang dituju dalam kompleksitas waktu $O(log N)$.
+
+```mermaid
+flowchart TD
+  subgraph TanpaIndex["Tanpa Index: Sequential Scan (Lambat)"]
+    S["Cari resi ''RESI-999''"] --> B1["Baris 1"] --> B2["Baris 2"] --> B3["... Scan 1.000.000 baris ..."] --> Found1["Ditemukan setelah 3 detik"]
+  end
+  subgraph DenganIndex["Dengan B-Tree Index (Sangat Cepat)"]
+    I["Cari resi ''RESI-999''"] --> Root["Root B-Tree Node"]
+    Root --> Branch["Branch Node"]
+    Branch --> Leaf["Leaf Node (Langsung dapat pointer memori)"]
+    Leaf --> Found2["Ditemukan dalam 0.5 milidetik!"]
+  end
+```
+
+Membuat Index dan Menganalisis Performa:
+
+```sql
+-- 1. Membuat index B-Tree pada kolom yang sering dicari / difilter
+CREATE INDEX idx_pengguna_email ON pengguna (email);
+
+-- 2. Index komposit (dua kolom yang sering dicari bersamaan)
+CREATE INDEX idx_produk_kategori_harga ON produk (kategori_id, harga);
+
+-- 3. Menguji rencana eksekusi query sebelum dan sesudah index
+EXPLAIN ANALYZE 
+SELECT * FROM pengguna WHERE email = ''budi@gmail.com'';
+```
+
+Hasil analisis dari `EXPLAIN ANALYZE`:
+```text
+Index Scan using idx_pengguna_email on pengguna  (cost=0.28..8.29 rows=1 width=128) (actual time=0.042..0.044 rows=1 loops=1)
+  Index Cond: ((email)::text = ''budi@gmail.com''::text)
+Planning Time: 0.112 ms
+Execution Time: 0.065 ms
+```
+
+Poin penting:
+
+- Kolom yang memiliki constraint `PRIMARY KEY` dan `UNIQUE` secara otomatis dibuatkan index B-Tree oleh PostgreSQL di belakang layar.
+- Perintah `EXPLAIN ANALYZE` wajib dipelajari setiap developer: perintah ini benar-benar mengeksekusi query dan menampilkan waktu eksekusi riil (*actual execution time*) serta metode pencarian yang dipilih database.
+- **Jangan mengindeks semua kolom:** setiap index mempercepat operasi `SELECT`, tetapi sedikit memperlambat operasi `INSERT`, `UPDATE`, dan `DELETE` karena pohon index harus diatur ulang setiap kali data berubah.', '[{"url":"https://www.postgresql.org/docs/current/indexes.html","label":"PostgreSQL Documentation — Indexes"},{"url":"https://www.postgresql.org/docs/current/using-explain.html","label":"PostgreSQL Documentation — Using EXPLAIN"}]'::jsonb, '[]'::jsonb, 'Di terminal psql kamu:
+1. Buat tabel uji berisi angka acak: `CREATE TABLE angka_test AS SELECT generate_series(1, 100000) AS angka;`.
+2. Jalankan `EXPLAIN ANALYZE SELECT * FROM angka_test WHERE angka = 75432;` dan catat metode (`Seq Scan`) serta waktu eksekusinya.
+3. Buat index: `CREATE INDEX idx_angka ON angka_test (angka);`.
+4. Jalankan kembali `EXPLAIN ANALYZE` yang sama dan amati perubahan metode menjadi `Index Scan` dengan waktu eksekusi yang turun drastis.', 3, 'published', '2026-09-22 14:24:48.289256+00', '2026-09-22 14:30:08.104+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('79793930-5234-4da9-9a55-6aa81e54911f', '94331b9c-fe70-4f7c-be9b-742a1996b9e1', 'Struktur Data String & Key Expiration (TTL)', 'struktur-data-string-dan-key-expiration', 'Catatan sebelumnya mengenalkan dasar Redis. **Masalah yang diselesaikan sekarang:** bagaimana cara mengelola data yang hanya boleh hidup sementara — seperti kode OTP SMS yang kedaluwarsa dalam 5 menit, sesi login token pengguna yang hangus setelah 24 jam, atau pembatas jumlah request API (*rate limiter*)? Di database SQL biasa, kamu harus membuat kolom `expired_at` dan menjalankan cronjob pembersihan data basi secara berkala yang membebani server.
+
+Redis memiliki fitur bawaan **Key Expiration (TTL - Time To Live)**: kamu bisa menyetel masa aktif kunci, dan Redis akan menghapus data tersebut secara otomatis dari RAM begitu waktunya habis! Selain itu, tipe String di Redis mendukung operasi aritmatika atomik (`INCR`).
+
+```mermaid
+flowchart LR
+  Set["SET otp:user123 ''88421'' EX 300<br/>(Masa hidup 300 detik)"] --> Wait["Waktu Berjalan (Countdown TTL)"]
+  Wait -->|Setelah 5 Menit Habis| Expired["Otomatis Dihapus dari RAM!<br/>GET mengembalikan (nil)"]
+```
+
+Sintaks TTL dan Operasi Hitungan Atomik:
+
+```text
+# 1. Menyimpan kunci dengan masa kedaluwarsa otomatis (EX = detik)
+# Contoh: Token sesi login user aktif selama 60 detik
+SET sesi:token_abc "user_id_42" EX 60
+
+# 2. Memeriksa sisa masa aktif suatu kunci (dalam satuan detik)
+TTL sesi:token_abc
+# Mengembalikan angka sisa detik (misal: 45)
+# Mengembalikan -2 jika kunci sudah hangus/tidak ada
+# Mengembalikan -1 jika kunci bersifat permanen (tanpa batas waktu)
+
+# 3. Menambahkan TTL ke kunci yang sudah terlanjur dibuat
+SET kupon_diskon "HEMAT10"
+EXPIRE kupon_diskon 120
+
+# 4. Operator Penambah Atomik (Sangat berguna untuk Counter / Hit / Rate Limiting)
+SET jumlah_kunjungan 100
+INCR jumlah_kunjungan
+# Mengembalikan 101 secara instan dan aman dari race-condition!
+```
+
+Poin penting:
+
+- Operasi `INCR` dan `DECR` bersifat **atomic**: bahkan jika ada 10.000 request bersamaan menaikkan counter counter, tidak akan pernah ada nilai yang hilang (*zero race-condition*).
+- Manfaatkan konvensi penamaan kunci dengan titik dua (`:`) sebagai pemisah namespace logis: `user:1001:profile`, `session:token_xyz`.
+- Jika memori RAM server penuh, Redis menerapkan algoritma penggusuran (*eviction policy*) seperti LRU (Least Recently Used) untuk menghapus data lama yang jarang diakses.', '[{"url":"https://redis.io/docs/latest/develop/data-types/strings/","label":"Redis Documentation — Strings"},{"url":"https://redis.io/docs/latest/commands/expire/","label":"Redis Documentation — EXPIRE Command"}]'::jsonb, '[]'::jsonb, 'Di terminal redis-cli kamu:
+1. Simpan kode OTP sementara dengan masa aktif 10 detik: `SET kode_otp 123456 EX 10`.
+2. Periksa sisa waktunya dengan mengetik `TTL kode_otp` berulang kali dan perhatikan hitungan mundurnya.
+3. Tunggu hingga 10 detik, lalu jalankan `GET kode_otp` dan pastikan nilainya berubah menjadi `(nil)` (kosong).
+4. Buat counter hitung: `SET counter 0`, lalu jalankan `INCR counter` tiga kali.', 1, 'published', '2026-09-22 14:24:49.951467+00', '2026-09-22 14:30:09.784+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('9a92a461-d749-4162-b5ad-f9006c18b600', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'React dengan TypeScript Dasar', 'react-dengan-typescript', 'Catatan sebelumnya melengkapi semua fitur dasar React: dari JSX, interaksi, state, sampai efek samping. **Masalah yang diselesaikan sekarang:** saat aplikasi React berkembang besar, komponen menerima belasan props. Di JavaScript murni, salah mengetik nama prop (`onClick` vs `onclick`, atau `user.name` vs `user.nama`) baru ketahuan saat halaman error di browser.
 
 Menggunakan TypeScript bersama React memberikan *autocomplete* dan pemeriksaan tipe instan: TypeScript memastikan bahwa komponen menerima props dengan tipe yang tepat, dan hooks (`useState`, `useRef`) terjaga tipe nilainya.
@@ -3772,7 +4200,7 @@ Poin penting:
 2. Tulis interface `interface KartuProps { judul: string; harga: number; aktif?: boolean; }`.
 3. Buat komponen `Kartu` yang menerima props tersebut dan menampilkannya.
 4. Coba panggil komponen tersebut di `App.tsx` dengan sengaja memberikan string pada harga (`harga="gratis"`).
-5. Amati error kompilasi yang muncul di terminal dan garis merah di editor kode sebelum kode dijalankan.', 10, 'published', '2026-09-22 13:32:06.890242+00', '2026-09-22 14:24:55.252+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+5. Amati error kompilasi yang muncul di terminal dan garis merah di editor kode sebelum kode dijalankan.', 10, 'published', '2026-09-22 13:32:06.890242+00', '2026-09-22 14:30:16.227+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('2dfd1c5a-2b5b-4cab-a63d-01afaeec9ab2', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Setup Supabase Client', 'setup-client', '**Masalah yang diselesaikan:** membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya.
 
 Supabase adalah backend siap pakai (database Postgres, auth, storage, dst) yang diakses lewat library `@supabase/supabase-js` di sisi aplikasi.
@@ -3810,7 +4238,7 @@ Poin penting:
 - `supabaseUrl` dan `supabaseKey` didapat dari dashboard project Supabase (Project Settings → API Keys).
 - Key ini disebut **publishable key** (`sb_publishable_...`) — pengganti "anon key" lama, karena Supabase sedang memensiunkan anon/service_role key. Kedua jenis key masih berfungsi untuk sementara, tapi project baru sebaiknya pakai publishable key.
 - Publishable key aman dipakai di sisi client/browser karena akses datanya tetap dibatasi oleh Row Level Security (RLS) di database, bukan oleh key itu sendiri.
-- Client (`supabase`) yang dibuat sekali ini dipakai ulang di seluruh aplikasi untuk query, auth, dan storage.', '[{"url":"https://supabase.com/docs/reference/javascript/introduction","label":"Supabase Docs — JavaScript Client Reference"},{"url":"https://supabase.com/docs/guides/getting-started/migrating-to-new-api-keys","label":"Supabase Docs — Migrating to publishable and secret API keys"}]'::jsonb, '[{"url":"https://supabase.com/dashboard","label":"Akun & project Supabase sudah dibuat (gratis)"},{"url":"https://nodejs.org","label":"Node.js & npm sudah terinstall"}]'::jsonb, 'Buat project baru di dashboard Supabase (kalau belum ada), install `@supabase/supabase-js`, lalu buat file `lib/supabase.ts` seperti contoh di atas dengan URL & key project kamu sendiri (dari Project Settings → API Keys). Panggil `await supabase.auth.getSession()` dari mana saja di project untuk memastikan client-nya berhasil terhubung — harus return object tanpa error, walau sesinya masih `null` karena belum ada yang login.', 0, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:25:02.897+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Client (`supabase`) yang dibuat sekali ini dipakai ulang di seluruh aplikasi untuk query, auth, dan storage.', '[{"url":"https://supabase.com/docs/reference/javascript/introduction","label":"Supabase Docs — JavaScript Client Reference"},{"url":"https://supabase.com/docs/guides/getting-started/migrating-to-new-api-keys","label":"Supabase Docs — Migrating to publishable and secret API keys"}]'::jsonb, '[{"url":"https://supabase.com/dashboard","label":"Akun & project Supabase sudah dibuat (gratis)"},{"url":"https://nodejs.org","label":"Node.js & npm sudah terinstall"}]'::jsonb, 'Buat project baru di dashboard Supabase (kalau belum ada), install `@supabase/supabase-js`, lalu buat file `lib/supabase.ts` seperti contoh di atas dengan URL & key project kamu sendiri (dari Project Settings → API Keys). Panggil `await supabase.auth.getSession()` dari mana saja di project untuk memastikan client-nya berhasil terhubung — harus return object tanpa error, walau sesinya masih `null` karena belum ada yang login.', 0, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:24.005+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('0769c792-0dde-47ba-bc93-f4e5da16e884', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Tipe Dasar & Type Annotation', 'tipe-dasar', '**Masalah yang diselesaikan:** JavaScript murni tidak mendeteksi kesalahan tipe data sampai program benar-benar dijalankan — kirim string ke tempat yang harusnya angka baru ketahuan saat aplikasi sudah jalan (bahkan mungkin sudah di production), bukan saat menulis kode.
 
 TypeScript menambahkan sistem tipe di atas JavaScript, dicek SEBELUM kode dijalankan (compile time). Tipe bisa ditulis manual (annotation) atau otomatis ditebak oleh compiler (inference).
@@ -3863,7 +4291,7 @@ Poin penting:
 - File TypeScript berekstensi `.ts` (atau `.tsx` untuk JSX/React).', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/everyday-types.html","label":"TypeScript Handbook — Everyday Types"}]'::jsonb, '[{"url":"https://nodejs.org","label":"Node.js & npm sudah terinstall"},{"label":"TypeScript compiler tersedia (`npm install -g typescript`, atau lewat project yang sudah menyertakannya seperti Next.js)"}]'::jsonb, 'Buat file `coba.ts`, isi dengan variabel beranotasi tipe (`string`, `number`, `boolean`) dan satu function bertipe seperti contoh di atas. Jalankan `npx tsc coba.ts --noEmit` di terminal — perintah ini cuma mengecek tipe tanpa menghasilkan file `.js`. Lalu:
 
 1. Ubah salah satu nilai supaya tipenya salah (mis. `let umur: number = "dua puluh";`), jalankan lagi `npx tsc` — baca pesan error yang muncul.
-2. Kembalikan ke benar, lalu coba panggil `tambah("1", 2)` seperti komentar di atas — pastikan compiler menolaknya sebelum kode itu sempat dijalankan.', 0, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:25:04.193+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+2. Kembalikan ke benar, lalu coba panggil `tambah("1", 2)` seperti komentar di atas — pastikan compiler menolaknya sebelum kode itu sempat dijalankan.', 0, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:25.365+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('a713b2f2-d7be-439b-b97f-178a455a3416', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Interface & Type Alias', 'interface-dan-type-alias', 'Catatan sebelumnya membahas tipe untuk nilai tunggal (`string`, `number`, dst). **Masalah yang diselesaikan sekarang:** bagaimana kalau yang perlu diberi tipe adalah *object* dengan banyak properti — misalnya data user dengan `id`, `nama`, `email`? Menuliskan ulang bentuk object yang sama di setiap fungsi yang memakainya itu berulang dan gampang tidak konsisten kalau salah satu lupa di-update.
 
 `interface` dan `type` sama-sama dipakai untuk mendefinisikan bentuk (shape) sebuah object, supaya TypeScript bisa memeriksa strukturnya.
@@ -3909,84 +4337,166 @@ Perbedaan singkat:
 
 - `interface` bisa di-*extend* (`interface Admin extends User {}`) dan bisa digabung otomatis kalau dideklarasikan dua kali (declaration merging).
 - `type` lebih fleksibel: bisa dipakai untuk union (`type Status = "aktif" | "nonaktif"`), bukan hanya bentuk object.
-- Untuk mendefinisikan bentuk object biasa, keduanya bisa dipakai — pilih salah satu dan konsisten dalam satu project.', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/objects.html","label":"TypeScript Handbook — Object Types (Interfaces)"}]'::jsonb, '[]'::jsonb, 'Buat `interface Buku { judul: string; penulis: string; tahun?: number }`. Tulis fungsi `cetakInfo(buku: Buku)` yang menampilkan info buku (tahun opsional, tampilkan "Tahun tidak diketahui" kalau tidak diisi). Lalu buat ULANG hal yang sama pakai `type` alih-alih `interface` — bandingkan, apa bedanya secara sintaks? Terakhir, coba `interface Buku { penerbit: string }` sekali lagi dengan nama yang sama — perhatikan declaration merging (TypeScript menggabungkan otomatis), lalu coba hal yang sama dengan `type` — harus muncul error "duplicate identifier".', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:25:04.389+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4b0e3151-1091-4399-806d-0312b94d7f6d', '9edf40dd-0158-4e70-b0e6-1e64c4282cb0', 'Membangun REST API dengan RESTEasy Reactive', 'rest-api-resteasy-reactive', 'Catatan sebelumnya mengenalkan Quarkus dan Dev Mode. **Masalah yang diselesaikan sekarang:** bagaimana cara membangun REST API endpoint yang mampu menangani ribuan request secara bersamaan tanpa menghabiskan thread server?
+- Untuk mendefinisikan bentuk object biasa, keduanya bisa dipakai — pilih salah satu dan konsisten dalam satu project.', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/objects.html","label":"TypeScript Handbook — Object Types (Interfaces)"}]'::jsonb, '[]'::jsonb, 'Buat `interface Buku { judul: string; penulis: string; tahun?: number }`. Tulis fungsi `cetakInfo(buku: Buku)` yang menampilkan info buku (tahun opsional, tampilkan "Tahun tidak diketahui" kalau tidak diisi). Lalu buat ULANG hal yang sama pakai `type` alih-alih `interface` — bandingkan, apa bedanya secara sintaks? Terakhir, coba `interface Buku { penerbit: string }` sekali lagi dengan nama yang sama — perhatikan declaration merging (TypeScript menggabungkan otomatis), lalu coba hal yang sama dengan `type` — harus muncul error "duplicate identifier".', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:25.611+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('63c78c0f-8d29-4212-bc3e-e0e9b4615465', 'c397eb64-1f60-4364-b6c2-ad628083b315', 'DDL, Tipe Data Modern, & Constraints', 'ddl-dan-tipe-data-lanjutan', 'Catatan sebelumnya mengenalkan cara terhubung ke PostgreSQL lewat psql. **Masalah yang diselesaikan sekarang:** bagaimana cara merancang wadah penyimpanan tabel yang menjamin data tidak mungkin salah format — misal mencegah harga bernilai negatif, memastikan email tidak kosong dan tidak duplikat, serta menghasilkan ID unik secara otomatis?
 
-Quarkus menyediakan **RESTEasy Reactive**: implementasi standar Jakarta REST yang berjalan di atas arsitektur non-blocking Netty. Hebatnya, kamu bisa menulis kode bergaya imperatif biasa yang mudah dipahami, tetapi Quarkus mengeksekusinya secara reaktif di belakang layar dengan serialisasi JSON otomatis (Jackson).
+**DDL (Data Definition Language)** digunakan untuk membuat dan mengubah struktur tabel. PostgreSQL menyediakan sistem tipe data dan batasan (*constraints*) yang sangat ketat untuk memvalidasi data di tingkat database sebelum baris data disimpan.
 
 ```mermaid
-sequenceDiagram
-  autonumber
-  participant C as Client (Frontend / Curl)
-  participant R as RESTEasy Reactive Endpoint
-  participant S as Jackson JSON Serializer
-  C->>R: GET /api/produk
-  R->>R: Ambil daftar data Produk
-  R->>S: Konversi List<Produk> ke JSON
-  S-->>C: HTTP 200 OK + JSON Payload
+flowchart TD
+  Input["Input Data Baru:<br/>{ id: uuid, email: ''budi@mail.com'', harga: -5000 }"]
+  Input --> CheckNull{"NOT NULL?<br/>Email terisi?"}
+  CheckNull -- Ya --> CheckUnique{"UNIQUE?<br/>Email belum terdaftar?"}
+  CheckUnique -- Ya --> CheckValidation{"CHECK constraint:<br/>harga > 0?"}
+  CheckValidation -- Gagal (harga minus) --> Reject["Ditolak Database:<br/>CHECK constraint violation!"]
+  CheckValidation -- Lolos --> Save["Data Disimpan Aman"]
 ```
 
-Contoh pembuatan REST Controller endpoint lengkap:
+Contoh pembuatan tabel dengan tipe data modern dan constraints:
+
+```sql
+-- Mengaktifkan ekstensi pgcrypto untuk fungsi generate UUID bawaan
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE pengguna (
+    -- ID unik berbasis UUID (sangat aman untuk sistem terdistribusi)
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    
+    -- Teks nama dengan batas karakter yang wajib diisi
+    nama VARCHAR(100) NOT NULL,
+    
+    -- Email wajib unik, ditolak jika duplikat
+    email VARCHAR(255) UNIQUE NOT NULL,
+    
+    -- Angka saldo desimal presisi tinggi dengan validasi nilai tidak boleh minus
+    saldo NUMERIC(12, 2) NOT NULL DEFAULT 0.00 CHECK (saldo >= 0),
+    
+    -- Status aktif
+    is_aktif BOOLEAN NOT NULL DEFAULT true,
+    
+    -- Timestamp otomatis mencatat waktu zona waktu lengkap
+    dibuat_pada TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+```
+
+Perintah manipulasi data dasar:
+
+```sql
+-- Memasukkan data valid
+INSERT INTO pengguna (nama, email, saldo)
+VALUES (''Budi Santoso'', ''budi@gmail.com'', 500000.00);
+
+-- Query membaca data
+SELECT id, nama, email, saldo, dibuat_pada FROM pengguna;
+```
+
+Poin penting:
+
+- Gunakan `UUID` (Universally Unique Identifier) sebagai Primary Key jika tidak ingin ID berurutan yang mudah ditebak oleh pihak luar (`1, 2, 3...`).
+- Gunakan `NUMERIC` atau `DECIMAL` untuk nilai uang, **jangan pernah gunakan `FLOAT` atau `DOUBLE`** karena floating-point memiliki masalah pembulatan biner.
+- Gunakan `TIMESTAMPTZ` (Timestamp with time zone) alih-alih `TIMESTAMP` biasa agar waktu akurat lintas zona waktu internasional.
+- Batasan `CHECK (kondisi)` adalah filter pertahanan terakhir di database: bila backend aplikasi memiliki celah bug, database tetap menolak data yang tidak valid.', '[{"url":"https://www.postgresql.org/docs/current/datatype.html","label":"PostgreSQL Documentation — Data Types"},{"url":"https://www.postgresql.org/docs/current/ddl-constraints.html","label":"PostgreSQL Documentation — Constraints"}]'::jsonb, '[]'::jsonb, 'Di database latihan kamu (`psql`):
+1. Salin dan jalankan skrip `CREATE TABLE pengguna` di atas.
+2. Coba masukkan satu baris data valid.
+3. Coba sengaja masukkan data dengan saldo minus: `INSERT INTO pengguna (nama, email, saldo) VALUES (''Hacker'', ''hack@mail.com'', -100);`.
+4. Amati pesan error penolakan dari constraint: `violates check constraint "pengguna_saldo_check"`.
+5. Periksa struktur tabel dengan mengetik `d pengguna`.', 1, 'published', '2026-09-22 14:24:47.929868+00', '2026-09-22 14:30:07.692+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1831001a-c2c3-4404-8572-f972ee9f7df0', 'a6e9d866-c1b5-4e38-a511-d27a0fed6caa', 'Backup & Restore Database dengan mariadb-dump', 'backup-dan-restore-mariadb-dump', 'Catatan sebelumnya melengkapi konfigurasi hak akses user. **Masalah yang diselesaikan sekarang (dan menutup roadmap MariaDB):** perangkat keras server bisa rusak, disk bisa penuh, atau ada rekan tim yang tidak sengaja menghapus tabel produksi. Tanpa salinan cadangan (*backup*) otomatis, perusahaan bisa kehilangan seluruh data bisnisnya secara permanen. Bagaimana cara mencadangkan database secara konsisten tanpa mematikan aplikasi yang sedang berjalan?
+
+MariaDB menyertakan tool CLI resmi bernama **`mariadb-dump`** (sebelumnya dikenal sebagai `mysqldump`). Tool ini membaca struktur skema dan baris data, lalu mengubahnya menjadi berkas teks SQL yang dapat dieksekusi ulang di server mana pun.
+
+```mermaid
+flowchart LR
+  DB["Database Aktif (MariaDB)"] -->|mariadb-dump --single-transaction| Dump["File Backup (.sql.gz)<br/>CREATE TABLE...<br/>INSERT INTO..."]
+  Dump -->|Kirim ke Server Baru / Disaster Recovery| Restore["mariadb -u root target_db < backup.sql"]
+  Restore --> TargetDB["Database Pulih 100%!"]
+```
+
+Perintah Backup dan Restore di Terminal OS:
+
+```bash
+# 1. Melakukan Backup satu database secara konsisten tanpa mengunci tabel (InnoDB)
+mariadb-dump -u root -prahasia --single-transaction portal_berita > backup_portal.sql
+
+# 2. Backup dengan kompresi gzip langsung (menghemat ukuran disk hingga 80%)
+mariadb-dump -u root -prahasia --single-transaction portal_berita | gzip > backup_portal.sql.gz
+
+# 3. Restore / Memulihkan data dari file backup SQL
+# Pastikan database target sudah dibuat terlebih dahulu:
+mariadb -u root -prahasia -e "CREATE DATABASE IF NOT EXISTS portal_pulih;"
+mariadb -u root -prahasia portal_pulih < backup_portal.sql
+```
+
+Poin penting:
+
+- **Flag `--single-transaction` WAJIB disertakan:** opsi ini memanfaatkan sifat transaksional InnoDB untuk membuat snapshot data yang konsisten pada satu titik waktu tanpa mengunci (*lock*) pembacaan dan penulisan aplikasi web.
+- Berkas dump berisi perintah DDL (`CREATE TABLE`) dan DML (`INSERT INTO`), sehingga mudah dibaca manusia dan kompatibel lintas versi MariaDB/MySQL.
+- Di lingkungan produksi, proses backup ini biasanya dijadwalkan otomatis setiap malam menggunakan Cronjob dan diunggah ke penyimpanan cloud aman (seperti AWS S3).', '[{"url":"https://mariadb.com/kb/en/mariadb-dump/","label":"MariaDB Knowledge Base — mariadb-dump / mysqldump"},{"url":"https://mariadb.com/kb/en/backup-and-restore-overview/","label":"MariaDB Knowledge Base — Backup and Restore Overview"}]'::jsonb, '[]'::jsonb, 'Buka terminal komputermu:
+1. Jalankan `mariadb-dump` untuk mencadangkan database latihanmu ke file `backup.sql`.
+2. Buka file `backup.sql` di editor teks dan lihat bagaimana tabel dan datamu dituliskan sebagai kumpulan query SQL.
+3. Buat database baru `mariadb -u root -p -e "CREATE DATABASE db_kembar;"`.
+4. Restore data tersebut ke database baru dengan `mariadb -u root -p db_kembar < backup.sql`.
+5. Masuk ke `db_kembar` dan pastikan seluruh tabel dan data telah berhasil disalin sempurna. Ini menutup roadmap MariaDB!', 4, 'published', '2026-09-22 14:24:49.581025+00', '2026-09-22 14:30:09.414+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4b52e187-cf67-48d5-bf4f-4cd16715acb3', '3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Generics: Type Safety Tanpa Type Casting Manual', 'generics-dasar', 'Catatan di roadmap Java Dasar mengajarkan cara membuat class dan interface. **Masalah yang diselesaikan sekarang:** sebelum Java 5, untuk membuat wadah penampung serbaguna (seperti kotak penyimpanan), developer harus menggunakan tipe `Object` (`class Kotak { Object isi; }`). Masalahnya: semua tipe data bisa masuk, tapi saat mengambilnya kamu harus melakukan *type casting* manual `(String) kotak.getIsi()`. Jika tipe aslinya salah, aplikasi akan crash seketika di runtime dengan error `ClassCastException`!
+
+**Generics** memungkinkan kita membuat class, interface, dan method dengan parameter tipe placeholder (`<T>`). Pemeriksaan tipe dilakukan saat kompilasi (*compile-time type safety*), menghilangkan kebutuhan casting manual.
+
+```mermaid
+flowchart LR
+  subgraph NonGeneric["Sebelum Generics (Raw Object)"]
+    O1["Kotak.set(''Teks'')"] --> O2["(Integer) Kotak.get()"]
+    O2 --> Crash["Runtime CRASH: ClassCastException!"]
+  end
+  subgraph Generic["Dengan Generics (<T>)"]
+    G1["Kotak<String> k = new Kotak<>()"] --> G2["k.set(123)"]
+    G2 --> Alert["Compiler Langsung Tolak saat Ngetik:<br/>Tipe tidak cocok!"]
+  end
+```
+
+Contoh Generic Class dan Method:
 
 ```java
-package com.example;
+// 1. Generic Class: ''T'' adalah placeholder tipe (Type Parameter)
+public class Kotak<T> {
+    private T isi;
 
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
-
-// Record model data DTO
-record Produk(int id, String nama, double harga) {}
-
-@Path("/api/produk")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-public class ProdukResource {
-
-    private static List<Produk> database = new ArrayList<>(List.of(
-        new Produk(1, "Kopi Arabika", 35000.0),
-        new Produk(2, "Teh Hijau", 20000.0)
-    ));
-
-    // 1. GET: Ambil semua produk
-    @GET
-    public List<Produk> ambilSemua() {
-        return database;
+    public void simpan(T isi) {
+        this.isi = isi;
     }
 
-    // 2. GET by ID dengan PathParam
-    @GET
-    @Path("/{id}")
-    public Response ambilById(@PathParam("id") int id) {
-        return database.stream()
-                .filter(p -> p.id() == id)
-                .findFirst()
-                .map(p -> Response.ok(p).build())
-                .orElse(Response.status(Response.Status.NOT_FOUND).build());
+    public T ambil() {
+        return this.isi;
     }
+}
 
-    // 3. POST: Tambah produk baru
-    @POST
-    public Response tambahProduk(Produk input) {
-        database.add(input);
-        return Response.status(Response.Status.CREATED).entity(input).build();
+// 2. Penggunaan di Main
+public class Main {
+    public static void main(String[] args) {
+        // Kotak yang secara ketat hanya menampung String
+        Kotak<String> kotakTeks = new Kotak<>();
+        kotakTeks.simpan("Dokumen Rahasia");
+        String hasilTeks = kotakTeks.ambil(); // Tidak butuh casting (String) lagi!
+        System.out.println("Isi kotak: " + hasilTeks);
+
+        // Kotak yang khusus menampung Integer
+        Kotak<Integer> kotakAngka = new Kotak<>();
+        kotakAngka.simpan(100);
+        // kotakAngka.simpan("Salah"); // Error kompilasi langsung tertangkap!
+        System.out.println("Nilai angka: " + kotakAngka.ambil());
     }
 }
 ```
 
 Poin penting:
 
-- Anotasi `@Path("/api/produk")` menentukan rute URL dasar resource ini.
-- `@Produces(MediaType.APPLICATION_JSON)` otomatis mengonversi return type Java (seperti `List<Produk>`) menjadi respons JSON valid.
-- Objek `Response` dari `jakarta.ws.rs.core` memberi kontrol penuh atas HTTP Status Code (`200 OK`, `201 Created`, `404 Not Found`).
-- RESTEasy Reactive jauh lebih cepat dan hemat memori dibanding RESTEasy klasik karena routing dipetakan saat *build-time*.', '[{"url":"https://quarkus.io/guides/resteasy-reactive","label":"Quarkus Guides — Writing REST Services with RESTEasy Reactive"},{"url":"https://jakarta.ee/specifications/restful-ws/","label":"Jakarta RESTful Web Services Specification"}]'::jsonb, '[]'::jsonb, 'Di project Quarkus latihan kamu:
-1. Buat class `TugasResource.java` di dalam folder `src/main/java/com/example/`.
-2. Pasang anotasi `@Path("/api/tugas")`.
-3. Buat endpoint `@GET` yang mengembalikan daftar to-do sederhana dalam bentuk list string.
-4. Buat endpoint `@GET @Path("/{index}")` yang mengembalikan satu item berdasarkan indeks.
-5. Uji kedua endpoint tersebut lewat browser atau `curl http://localhost:8080/api/tugas`.', 1, 'published', '2026-09-22 14:14:32.931334+00', '2026-09-22 14:24:52.703+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Konvensi penamaan type parameter umum: `T` (Type), `E` (Element koleksi), `K` (Key), `V` (Value).
+- Generics di Java hanya bekerja dengan tipe Object (Reference), bukan tipe primitif langsung — gunakan wrapper class seperti `Integer` alih-alih `int`, `Double` alih-alih `double`.
+- Java menerapkan **Type Erasure**: informasi tipe generic diperiksa ketat oleh compiler, lalu dihapus saat kompilasi ke bytecode agar kompatibel dengan versi JVM terdahulu.', '[{"url":"https://docs.oracle.com/javase/tutorial/java/generics/index.html","label":"Oracle Java Tutorial — Generics"},{"url":"https://docs.oracle.com/javase/tutorial/java/generics/methods.html","label":"Oracle Java Tutorial — Generic Methods"}]'::jsonb, '[{"url":"/kategori/java-dasar","label":"Familiar dengan konsep Class dan Object dari roadmap Java Dasar"}]'::jsonb, 'Di project latihan kamu:
+1. Buat generic class `Pasangan<K, V>` dengan dua atribut: `K kunci` dan `V nilai`.
+2. Buat constructor dan method getter untuk kedua atribut tersebut.
+3. Di method `main`, buat objek `Pasangan<String, Integer> skor = new Pasangan<>("Budi", 95);`.
+4. Cetak kunci dan nilainya: `System.out.println(skor.getKunci() + ": " + skor.getNilai());`.
+5. Coba buat pasangan lain dengan tipe data berbeda, misal `Pasangan<Integer, String> idUser`.', 0, 'published', '2026-09-22 14:14:31.595637+00', '2026-09-22 14:30:11.765+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('84cd2ce8-0875-4959-8c6c-a5ff5079b9d1', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Membatalkan Perubahan: restore, reset, dan revert', 'membatalkan-perubahan-dasar', 'Sekarang kamu paham tiga area Git — Working Directory, Staging Area, dan Local Repository (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kadang perubahan yang kamu buat ternyata salah atau tidak jadi dipakai — tapi cara membatalkannya BEDA-BEDA tergantung perubahan itu sudah sejauh mana: baru diedit, sudah di-`add`, atau sudah di-`commit`. Pakai command yang salah bisa kehilangan pekerjaan yang sebenarnya masih ingin disimpan.
 
 ```mermaid
@@ -4126,7 +4636,7 @@ Poin penting:
 - `origin` adalah nama alias standar untuk URL repository remote utama.
 - `git fetch` hanya mengunduh data riwayat baru dari remote; file lokalmu belum berubah sebelum kamu menjalankan `git merge`.
 - `git pull` merupakan kombinasi otomatis dari `git fetch` diikuti dengan `git merge`.
-- Sebelum melakukan `git push`, pastikan branch lokal sudah sinkron dengan versi remote untuk menghindari penolakan (non-fast-forward reject).', '[{"url":"https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes","label":"Git Basics - Working with Remotes — Pro Git Book"}]'::jsonb, '[{"url":"https://github.com/signup","label":"Akun GitHub (atau GitLab/Bitbucket) sudah dibuat"}]'::jsonb, 'Buat repository baru di GitHub (kosong, tanpa README). Di project lokal dari latihan sebelumnya, jalankan `git remote add origin <url-repo-kamu>`, lalu `git push origin main` (atau `master`, tergantung nama branch default-nya). Refresh halaman GitHub — pastikan commit-commit kamu muncul di sana. Coba juga `git clone <url-yang-sama>` ke folder lain untuk simulasi "komputer lain" yang mengambil kode itu.', 2, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-22 14:24:56.193+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Sebelum melakukan `git push`, pastikan branch lokal sudah sinkron dengan versi remote untuk menghindari penolakan (non-fast-forward reject).', '[{"url":"https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes","label":"Git Basics - Working with Remotes — Pro Git Book"}]'::jsonb, '[{"url":"https://github.com/signup","label":"Akun GitHub (atau GitLab/Bitbucket) sudah dibuat"}]'::jsonb, 'Buat repository baru di GitHub (kosong, tanpa README). Di project lokal dari latihan sebelumnya, jalankan `git remote add origin <url-repo-kamu>`, lalu `git push origin main` (atau `master`, tergantung nama branch default-nya). Refresh halaman GitHub — pastikan commit-commit kamu muncul di sana. Coba juga `git clone <url-yang-sama>` ke folder lain untuk simulasi "komputer lain" yang mengambil kode itu.', 2, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-22 14:30:17.263+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('fe513fea-0ef9-4593-84f9-9185358f940a', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Variabel & Scope: let, const, dan var', 'variabel-dan-scope', '**Masalah yang diselesaikan:** `var` (satu-satunya cara deklarasi variabel sebelum ES6) punya scope di level FUNGSI, bukan di level BLOK (`if`, `for`, `{}`) — variabel yang harusnya cuma dipakai sementara di dalam satu blok malah "bocor" ke luar dan bisa tertimpa nilai lain tanpa sadar. `var` juga boleh di-deklarasi ulang dengan nama sama tanpa error, membuat bug penimpaan variabel susah dilacak.
 
 ```js
@@ -4224,57 +4734,66 @@ Poin penting:
 - Semua utility type ini bawaan TypeScript (*global*), tidak perlu di-`import` dari mana pun.
 - `Pick`/`Omit` tidak membuat properti yang tersisa jadi opsional — kalau properti itu wajib di tipe asli, tetap wajib di hasil `Pick`/`Omit`.
 - Utility type bisa dikombinasikan, mis. `Partial<Pick<Produk, "harga" | "deskripsi">>` untuk "sebagian properti, dan itu pun opsional".', '[{"url":"https://www.typescriptlang.org/docs/handbook/utility-types.html","label":"TypeScript Handbook — Utility Types"}]'::jsonb, '[]'::jsonb, 'Dari `interface Produk` di atas (atau buat versi kamu sendiri), buat 4 variasi tipe: `ProdukUpdate` (`Partial`), `ProdukPreview` (`Pick` id+nama), `ProdukTanpaHarga` (`Omit`), dan `DaftarStok` (`Record<string, number>` memetakan nama produk ke jumlah stoknya). Isi masing-masing dengan data valid. Lalu SENGAJA hilangkan satu field wajib di `ProdukPreview` — pastikan compiler menolaknya, membuktikan `Pick` tidak membuat field jadi opsional, cuma memilih subset dari tipe aslinya.', 6, 'published', '2026-09-18 23:46:50.864953+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('ef237ccd-12be-46e1-af47-198a937b5a2a', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'JSX Dasar', 'jsx-dasar', '**Masalah yang diselesaikan:** catatan sebelumnya bikin project React jalan, tapi belum menyentuh cara nulis UI-nya. Sebelum JSX, membangun UI di JavaScript murni berarti manggil `React.createElement()` berulang-ulang — untuk UI sederhana pun kodenya jadi panjang dan susah dibayangkan bentuk akhirnya:
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('634ff80b-2f11-4e95-a49e-03dcc6a6f2b8', '651e63fd-70f5-4611-9727-7181eb577a4c', 'Struktur Kontrol: Percabangan & Perulangan', 'struktur-kontrol-percabangan-perulangan', 'Catatan sebelumnya membahas tipe data dan variabel. **Masalah yang diselesaikan sekarang:** program tidak selalu berjalan lurus dari baris atas ke bawah. Kamu perlu membuat keputusan (misal: jika nilai >= 75 lulus, jika tidak maka remidi) dan mengulang pekerjaan tanpa menyalin baris kode yang sama berulang-ulang.
 
-```js
-React.createElement(''h1'', null, ''Halo, Dunia'')
-```
-
-JSX menyelesaikan ini dengan sintaks mirip HTML langsung di dalam JavaScript, yang di-compile Vite/Babel jadi `createElement()` di balik layar — kamu tulis yang mirip HTML, hasilnya tetap JavaScript biasa.
+Java menyediakan dua struktur kontrol utama: **Percabangan** (`if-else`, modern `switch`) dan **Perulangan** (`for`, enhanced `for-each`, `while`).
 
 ```mermaid
-flowchart LR
-    JSX["&lt;h1&gt;Halo&lt;/h1&gt;"] -->|dikompilasi Babel/Vite| CE["React.createElement(''h1'', null, ''Halo'')"]
-    CE --> DOM["Elemen DOM nyata di browser"]
+flowchart TD
+  Start["Input Nilai Ujian"] --> Cond{"nilai >= 75 ?"}
+  Cond -- Ya --> Lulus["Status: LULUS"]
+  Cond -- Tidak --> Remidi["Status: REMIDI"]
+  Lulus --> Loop["Loop for-each cetak daftar siswa"]
+  Remidi --> Loop
 ```
 
-### 1. Menulis JSX
+Contoh percabangan modern dan perulangan:
 
-```jsx
-function Sapaan() {
-  const nama = ''Budi''
-  return <h1>Halo, {nama}!</h1>
+```java
+public class KontrolDemo {
+    public static void main(String[] args) {
+        int skor = 85;
+
+        // 1. Percabangan if - else if - else
+        if (skor >= 90) {
+            System.out.println("Grade: A");
+        } else if (skor >= 75) {
+            System.out.println("Grade: B");
+        } else {
+            System.out.println("Grade: C");
+        }
+
+        // 2. Modern Switch Expression (Java 14+) — mengembalikan nilai langsung
+        String peran = "ADMIN";
+        String hakAkses = switch (peran) {
+            case "ADMIN" -> "Akses Penuh";
+            case "EDITOR" -> "Akses Tulis";
+            default -> "Akses Baca Saja";
+        };
+        System.out.println("Hak akses: " + hakAkses);
+
+        // 3. Enhanced for-each loop (cara paling elegan membaca isi array)
+        String[] daftarHobi = { "Membaca", "Coding", "Bermain Musik" };
+        System.out.println("
+Daftar Hobi:");
+        for (String hobi : daftarHobi) {
+            System.out.println("- " + hobi);
+        }
+    }
 }
 ```
 
-- Kurung kurawal `{}` membungkus ekspresi JavaScript apa pun (variabel, pemanggilan fungsi, operasi matematika) di dalam JSX.
-- JSX **wajib** punya satu root element pembungkus. Kalau butuh banyak elemen tanpa tag pembungkus tambahan di DOM, pakai Fragment (`<>...</>`):
+Poin penting:
 
-```jsx
-function Profil() {
-  return (
-    <>
-      <h1>Budi</h1>
-      <p>Software Engineer</p>
-    </>
-  )
-}
-```
-
-### 2. Perbedaan dari HTML Biasa
-
-| HTML | JSX | Alasan |
-| --- | --- | --- |
-| `class="btn"` | `className="btn"` | `class` adalah keyword reserved di JavaScript. |
-| `<input>` (self-closing opsional) | `<input />` | Tag tanpa children wajib ditutup sendiri. |
-| `onclick="..."` (string) | `onClick={fungsi}` | Event handler JSX menerima fungsi JavaScript, bukan string; nama event pakai camelCase. |
-
-- JSX bukan HTML — ekspresi `{kondisi ? <A/> : <B/>}` valid, tapi kontrol alur penuh (`if`/`for` langsung di dalam markup) tidak, karena JSX cuma ekspresi, bukan statement.', '[{"url":"https://react.dev/learn/writing-markup-with-jsx","label":"React – Writing Markup with JSX"}]'::jsonb, '[]'::jsonb, 'Di project Vite yang dibuat di langkah sebelumnya:
-1. Buka `src/App.jsx`.
-2. Tambahkan variabel `const judul = "Belajar React"` dan `const tahun = 2026`.
-3. Tampilkan kedua nilai tersebut di dalam elemen JSX menggunakan kurung kurawal `{judul}` dan `{tahun}`.
-4. Tambahkan atribut `className="container"` dan inline style `style={{ padding: "16px", backgroundColor: "#f3f4f6" }}` pada elemen pembungkus utama.
-5. Jalankan `npm run dev`, buka browser, dan amati bahwa teks serta gaya tampilan muncul sesuai kode JSX yang kamu tulis.', 1, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-22 13:32:04.843+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Operator pembanding di Java: `==` (sama dengan), `!=` (tidak sama), `>`, `<`, `>=`, `<=`.
+- Perhatian khusus: untuk membandingkan isi teks `String`, **selalu gunakan `.equals()`** (`teks.equals("ADMIN")`), JANGAN gunakan `==` karena `==` membandingkan alamat memori objek, bukan isi teksnya.
+- Switch expression modern dengan operator panah (`->`) tidak memerlukan kata kunci `break` manual dan tidak memiliki celah bug *fall-through*.
+- Gunakan perulangan `for-each` ketika hanya ingin membaca semua elemen array tanpa membutuhkan nomor indeksnya.', '[{"url":"https://docs.oracle.com/javase/tutorial/java/nutsandbolts/flow.html","label":"Oracle Java Tutorial — Control Flow Statements"},{"url":"https://docs.oracle.com/en/java/javase/21/language/switch-expressions.html","label":"Oracle Documentation — Switch Expressions"}]'::jsonb, '[]'::jsonb, 'Di file latihan kamu:
+1. Buat array angka: `int[] nilaiList = { 65, 80, 92, 55, 78 };`.
+2. Gunakan perulangan `for-each` untuk memeriksa setiap angka.
+3. Di dalam perulangan, gunakan `if-else` untuk mencetak apakah angka tersebut lulus (>= 75) atau tidak.
+4. Hitung total nilai yang lulus menggunakan variabel counter `int jumlahLulus = 0;`.
+5. Cetak jumlah siswa yang lulus di akhir program.', 2, 'published', '2026-09-22 14:14:30.823971+00', '2026-09-22 14:30:10.931+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1b98495b-e72f-45a2-8f71-85c8abc53bad', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Dasar Commit & Staging di Git', 'commit-dan-staging', '**Masalah yang diselesaikan:** sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (`script_v2_final.js`, `script_v2_REVISI.js`) — tidak ada riwayat yang jelas, dan susah tahu apa saja yang sebenarnya berubah antar versi.
 
 Git bekerja dengan melacak perubahan file melalui tiga area utama: **Working Directory** (tempat kita mengedit file), **Staging Area** (area persiapan sebelum disimpan permanen), dan **Local Repository** (tempat riwayat commit tersimpan).
@@ -4309,44 +4828,7 @@ Poin penting:
 
 - Memisahkan `git add` dan `git commit` memberi kontrol penuh: kita bisa memilih file mana saja yang ingin digabungkan dalam satu commit logis, tanpa harus mencampur semua file yang sedang kita edit.
 - Pesan commit sebaiknya ringkas, jelas, dan menjelaskan *mengapa* atau *apa* perubahan yang dilakukan.
-- File baru yang belum pernah di-`git add` berstatus *untracked* (belum dilacak oleh Git).', '[{"url":"https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository","label":"Git Basics - Recording Changes to the Repository — Pro Git Book"}]'::jsonb, '[{"url":"https://git-scm.com/downloads","label":"Git sudah terinstall (cek dengan `git --version`)"},{"label":"Familiar dengan perintah dasar terminal/command line"}]'::jsonb, 'Buat folder baru, jalankan `git init` di dalamnya. Buat file `catatan.txt` berisi satu baris teks, jalankan `git status` — harus muncul sebagai *untracked*. Jalankan `git add catatan.txt`, cek `git status` lagi (sekarang *staged*). Commit dengan `git commit -m "..."`. Ubah lagi isi file itu dan jalankan `git status` sekali lagi — perhatikan Git membedakan status "modified" dari "untracked". Lihat riwayatnya dengan `git log --oneline`.', 0, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-22 14:24:55.422+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('479d2b80-51c8-4203-b114-7e0c45cd24ff', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Dasar Branching di Git', 'branching', 'Sekarang kamu bisa commit perubahan secara berurutan di satu garis riwayat (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau coba-coba fitur baru atau perbaikan, tapi tidak mau kode `main` yang sudah stabil ikut berubah/rusak selama proses coba-coba itu?
-
-Branch memungkinkan kita bekerja pada fitur/perbaikan tanpa mengganggu kode di branch utama.
-
-```mermaid
-gitGraph
-   commit id: "A"
-   commit id: "B"
-   branch fitur-baru
-   checkout fitur-baru
-   commit id: "C"
-   commit id: "D"
-   checkout main
-   merge fitur-baru id: "E"
-   commit id: "F"
-```
-
-Branch `fitur-baru` bercabang dari commit `B` di `main`, berkembang sendiri lewat commit `C` dan `D`, lalu digabungkan (merge) kembali jadi commit `E` di `main` — sepanjang itu, isi `main` (`A`, `B`) tidak berubah sama sekali.
-
-```bash
-# membuat branch baru sekaligus pindah ke branch itu
-git checkout -b fitur-baru
-
-# melihat semua branch
-git branch
-
-# pindah branch
-git checkout main
-
-# menggabungkan branch ke branch aktif saat ini
-git merge fitur-baru
-
-# menghapus branch yang sudah tidak dipakai
-git branch -d fitur-baru
-```
-
-Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang jelas, dan gabungkan (merge) setelah selesai direview.', '[{"url":"https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell","label":"Git Branching - Branches in a Nutshell — Pro Git Book"}]'::jsonb, '[]'::jsonb, 'Di repository dari latihan sebelumnya, buat branch baru `git checkout -b fitur-baru`, edit `catatan.txt`, commit perubahannya. Pindah balik ke `main` (`git checkout main`) — perhatikan isi `catatan.txt` kembali ke versi sebelum diedit di branch `fitur-baru`. Jalankan `git merge fitur-baru` dari `main`, cek isinya lagi (sekarang harus dapat perubahan dari branch itu). Terakhir hapus branch-nya: `git branch -d fitur-baru`.', 3, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:24:55.801+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- File baru yang belum pernah di-`git add` berstatus *untracked* (belum dilacak oleh Git).', '[{"url":"https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository","label":"Git Basics - Recording Changes to the Repository — Pro Git Book"}]'::jsonb, '[{"url":"https://git-scm.com/downloads","label":"Git sudah terinstall (cek dengan `git --version`)"},{"label":"Familiar dengan perintah dasar terminal/command line"}]'::jsonb, 'Buat folder baru, jalankan `git init` di dalamnya. Buat file `catatan.txt` berisi satu baris teks, jalankan `git status` — harus muncul sebagai *untracked*. Jalankan `git add catatan.txt`, cek `git status` lagi (sekarang *staged*). Commit dengan `git commit -m "..."`. Ubah lagi isi file itu dan jalankan `git status` sekali lagi — perhatikan Git membedakan status "modified" dari "untracked". Lihat riwayatnya dengan `git log --oneline`.', 0, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-22 14:30:16.391+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('fdfb1012-c109-44b1-8610-142b51d9fed2', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Destructuring Object & Array', 'destructuring-dasar', 'Sekarang kamu bisa mendefinisikan fungsi, termasuk arrow function (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** mengambil beberapa nilai dari object atau array biasanya berarti menulis `obj.properti` berulang kali baris demi baris — repetitif, apalagi kalau properti itu langsung mau dipakai sebagai variabel terpisah.
 
 **Destructuring** membongkar object/array langsung jadi variabel-variabel terpisah dalam satu baris.
@@ -4559,49 +5041,130 @@ Poin penting:
 - Promise cuma punya TIGA state: `pending` (belum selesai), `fulfilled` (berhasil, sudah `resolve`), `rejected` (gagal, sudah `reject`) — begitu pindah dari `pending` ke salah satu state lain, state-nya PERMANEN, tidak bisa berubah lagi.
 - `.then()` yang me-`return` Promise lain memungkinkan chaining berurutan tanpa nesting callback — inilah yang menyelesaikan masalah "callback hell".
 - `.catch()` menangkap error dari SEMUA `.then()` sebelumnya di rantai yang sama, tidak perlu `.catch()` di tiap langkah.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises","label":"Using Promises — MDN Web Docs"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise","label":"Promise — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `tunggu(ms)` persis seperti contoh di atas. Panggil `tunggu(1000).then(console.log)` — buktikan pesannya muncul setelah kira-kira 1 detik. Panggil `tunggu(-100).catch(console.error)` — buktikan `.catch()` menangkap error dari `reject()`. Buat CHAIN tiga `tunggu()` berurutan (masing-masing 500ms) memakai `.then()` bersambung — bandingkan keterbacaannya dengan kalau itu ditulis pakai callback `setTimeout` bersarang tiga level.', 7, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-22 13:53:03.195+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('f630317b-981e-41b2-b3fb-b80b1cc345d7', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Component & Props Dasar', 'component-dan-props-dasar', '**Masalah yang diselesaikan:** setelah tahu cara menulis markup dengan JSX di catatan sebelumnya, masalah berikutnya adalah duplikasi. Bayangkan halaman yang menampilkan 20 kartu produk — copy-paste blok JSX yang sama 20 kali bikin kode panjang dan susah di-maintain (ubah satu style, harus ubah di 20 tempat). Component menyelesaikan ini: definisikan struktur UI SEKALI sebagai fungsi, lalu pakai berkali-kali dengan data berbeda-beda lewat **props**.
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('25f62e53-78ac-42fe-b8ad-f5d2fc696266', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Fungsi Dasar: def, Parameter, dan Return', 'fungsi-dasar', 'Sekarang kamu bisa membuat keputusan, mengulang, dan menyimpan koleksi data (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** logic yang sama (misalnya menghitung diskon) sering dibutuhkan di banyak tempat berbeda dalam program — menyalin-tempel kode yang sama berkali-kali bikin susah dipelihara (kalau ada bug, harus diperbaiki di SEMUA tempat yang menyalinnya).
+
+```python
+def hitung_diskon(harga, persen=10):
+    """Menghitung harga setelah diskon. Default diskon 10%."""
+    potongan = harga * (persen / 100)
+    return harga - potongan
+
+print(hitung_diskon(100000))       # pakai default 10%: 90000.0
+print(hitung_diskon(100000, 25))   # override jadi 25%: 75000.0
+```
 
 ```mermaid
-flowchart TD
-    App["App"] --> Kartu1["KartuProduk nama=''Sepatu'' harga=200000"]
-    App --> Kartu2["KartuProduk nama=''Tas'' harga=350000"]
-    App --> Kartu3["KartuProduk nama=''Topi'' harga=75000"]
+flowchart LR
+  Call["hitung_diskon(100000, 25)"] --> Fn["def hitung_diskon(harga, persen=10)"]
+  Fn --> Body["potongan = harga * (persen / 100)"]
+  Body --> Return["return harga - potongan"]
+  Return --> Result["75000.0 dikembalikan ke pemanggil"]
 ```
 
-### 1. Component adalah Fungsi
+Poin penting:
+
+- Parameter dengan nilai default (`persen=10`) bersifat OPSIONAL saat memanggil fungsi — kalau tidak diisi, nilai default itu yang dipakai.
+- Fungsi TANPA `return` eksplisit otomatis mengembalikan `None` — beda dengan fungsi yang memang sengaja `return None`.
+- Argumen bisa dikirim berdasarkan POSISI (`hitung_diskon(100000, 25)`) atau berdasarkan NAMA (`hitung_diskon(harga=100000, persen=25)`) — cara kedua lebih jelas dibaca kalau parameternya banyak.', '[{"url":"https://docs.python.org/3/tutorial/controlflow.html#defining-functions","label":"Defining Functions — Python Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `cek_kelulusan(nilai, batas=60)` yang mengembalikan `"Lulus"` kalau `nilai >= batas`, atau `"Tidak Lulus"` kalau tidak — dengan `batas` bernilai default 60. Panggil tanpa argumen kedua (pakai default), lalu panggil lagi dengan `batas=75` untuk kasus yang lebih ketat. Tulis fungsi kedua `rata_rata(daftar_nilai)` yang menerima sebuah `list` angka dan mengembalikan rata-ratanya — gunakan bersama fungsi `cek_kelulusan` untuk mengecek apakah rata-rata itu lulus atau tidak.', 3, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('48451c66-e6fb-4d18-8ffe-92db70b69ad6', '3a7e2da4-7876-4fe7-9cab-4d1e3dd1c902', 'Stream API: Pemrosesan Data Deklaratif', 'stream-api', 'Catatan sebelumnya membahas Lambda Expressions. **Masalah yang diselesaikan sekarang:** memanipulasi koleksi data secara imperatif membutuhkan perulangan `for` bersarang dan variabel penampung sementara di mana-mana — misal: *"ambil daftar user, filter yang usianya > 18 tahun, ubah namanya jadi huruf kapital, lalu urutkan berdasarkan nama"*. Menulis ini secara imperatif memakan belasan baris kode dan gampang terselip bug mutasi state.
+
+**Stream API** menyediakan cara deklaratif untuk memproses koleksi data seperti saluran pipa (*pipeline*): kamu menentukan *apa* yang ingin dicapai, bukan mendikte langkah *bagaimana* perulangannya.
+
+```mermaid
+flowchart LR
+  Source["List Asli: [1, 2, 3, 4, 5, 6]"] --> Filter[".filter(n -> n % 2 == 0)"]
+  Filter --> Map[".map(n -> n * 10)"]
+  Map --> Collect[".toList()"]
+  Collect --> Result["Hasil Baru: [20, 40, 60]"]
+```
+
+Contoh pemrosesan data dengan Stream API:
+
+```java
+import java.util.List;
+
+public class StreamDemo {
+    public static void main(String[] args) {
+        List<String> daftarNama = List.of("Budi", "Ani", "Bambang", "Joko", "Bayu");
+
+        // Pipeline Stream: Source -> Intermediate Operations -> Terminal Operation
+        List<String> hasilFilter = daftarNama.stream()
+                // 1. Filter: Hanya ambil nama yang berawalan ''B''
+                .filter(nama -> nama.startsWith("B"))
+                // 2. Map: Transformasi setiap nama menjadi huruf kapital
+                .map(String::toUpperCase)
+                // 3. Sorted: Urutkan secara alfabetis
+                .sorted()
+                // 4. Terminal: Kumpulkan hasil akhirnya menjadi List baru (Java 16+)
+                .toList();
+
+        System.out.println("Hasil akhir: " + hasilFilter);
+        // Output: [BAMBANG, BAYU, BUDI]
+    }
+}
+```
+
+Poin penting:
+
+- **Stream tidak mengubah data sumber aslinya**: data `daftarNama` tetap utuh; operasi stream menghasilkan list baru.
+- **Lazy Evaluation (Evaluasi Tertunda)**: Operasi perantara (*intermediate operations* seperti `filter`, `map`) tidak akan dieksekusi sebelum ada *terminal operation* (seperti `toList()`, `count()`, `findFirst()`).
+- Terdapat fungsi reduksi matematika siap pakai: `.mapToInt(...).sum()`, `.average()`, `.max()`.
+- Untuk pemrosesan data sangat besar, kamu bisa mengubah `.stream()` menjadi `.parallelStream()` untuk membagi komputasi ke banyak core CPU secara otomatis.', '[{"url":"https://docs.oracle.com/javase/tutorial/collections/streams/index.html","label":"Oracle Java Tutorial — Aggregate Operations (Streams)"},{"url":"https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/package-summary.html","label":"Oracle Documentation — java.util.stream Package"}]'::jsonb, '[]'::jsonb, 'Di project latihan kamu:
+1. Buat record produk: `record Produk(String nama, double harga) {}`.
+2. Buat `List<Produk> katalog` berisi 5 produk dengan harga bervariasi.
+3. Buat pipeline stream untuk menyaring produk dengan harga > 50.000, ambil namanya saja (`.map(Produk::nama)`), lalu cetak dengan `.forEach(System.out::println)`.
+4. Hitung rata-rata harga seluruh produk menggunakan `.mapToDouble(Produk::harga).average().orElse(0.0)`.', 3, 'published', '2026-09-22 14:14:32.142175+00', '2026-09-22 14:30:12.321+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('ef237ccd-12be-46e1-af47-198a937b5a2a', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'JSX Dasar', 'jsx-dasar', '**Masalah yang diselesaikan:** catatan sebelumnya bikin project React jalan, tapi belum menyentuh cara nulis UI-nya. Sebelum JSX, membangun UI di JavaScript murni berarti manggil `React.createElement()` berulang-ulang — untuk UI sederhana pun kodenya jadi panjang dan susah dibayangkan bentuk akhirnya:
+
+```js
+React.createElement(''h1'', null, ''Halo, Dunia'')
+```
+
+JSX menyelesaikan ini dengan sintaks mirip HTML langsung di dalam JavaScript, yang di-compile Vite/Babel jadi `createElement()` di balik layar — kamu tulis yang mirip HTML, hasilnya tetap JavaScript biasa.
+
+```mermaid
+flowchart LR
+    JSX["&lt;h1&gt;Halo&lt;/h1&gt;"] -->|dikompilasi Babel/Vite| CE["React.createElement(''h1'', null, ''Halo'')"]
+    CE --> DOM["Elemen DOM nyata di browser"]
+```
+
+### 1. Menulis JSX
 
 ```jsx
-function KartuProduk({ nama, harga }) {
+function Sapaan() {
+  const nama = ''Budi''
+  return <h1>Halo, {nama}!</h1>
+}
+```
+
+- Kurung kurawal `{}` membungkus ekspresi JavaScript apa pun (variabel, pemanggilan fungsi, operasi matematika) di dalam JSX.
+- JSX **wajib** punya satu root element pembungkus. Kalau butuh banyak elemen tanpa tag pembungkus tambahan di DOM, pakai Fragment (`<>...</>`):
+
+```jsx
+function Profil() {
   return (
-    <div className="kartu">
-      <h2>{nama}</h2>
-      <p>Rp {harga.toLocaleString(''id-ID'')}</p>
-    </div>
+    <>
+      <h1>Budi</h1>
+      <p>Software Engineer</p>
+    </>
   )
 }
 ```
 
-- Nama component **wajib** diawali huruf kapital (`KartuProduk`, bukan `kartuProduk`) — React memakai ini untuk membedakan component (`<KartuProduk />`) dari tag HTML biasa (`<div />`).
-- `{ nama, harga }` adalah destructuring dari objek `props` yang dikirim parent — sama dengan menulis `function KartuProduk(props) { const { nama, harga } = props; ... }`.
+### 2. Perbedaan dari HTML Biasa
 
-### 2. Mengirim Props dari Parent
+| HTML | JSX | Alasan |
+| --- | --- | --- |
+| `class="btn"` | `className="btn"` | `class` adalah keyword reserved di JavaScript. |
+| `<input>` (self-closing opsional) | `<input />` | Tag tanpa children wajib ditutup sendiri. |
+| `onclick="..."` (string) | `onClick={fungsi}` | Event handler JSX menerima fungsi JavaScript, bukan string; nama event pakai camelCase. |
 
-```jsx
-function App() {
-  return (
-    <div>
-      <KartuProduk nama="Sepatu" harga={200000} />
-      <KartuProduk nama="Tas" harga={350000} />
-    </div>
-  )
-}
-```
-
-Tiap atribut di JSX (`nama="Sepatu"`) jadi satu key di objek `props` yang diterima component. Nilai non-string (angka, boolean, objek, fungsi) ditulis di dalam `{}`.
-
-### 3. Props Bersifat Read-Only
-
-Component **tidak boleh** mengubah props yang diterimanya sendiri — data mengalir satu arah, dari parent ke child (disebut *one-way data flow*). Kalau child perlu mengubah sesuatu, parent yang menyediakan fungsi lewat props (dibahas lebih detail waktu masuk ke state).', '[{"url":"https://react.dev/learn/your-first-component","label":"React – Your First Component"},{"url":"https://react.dev/learn/passing-props-to-a-component","label":"React – Passing Props to a Component"}]'::jsonb, '[]'::jsonb, 'Buat component `KartuProduk` seperti contoh di atas, pakai 3x dengan data produk berbeda-beda. Lalu coba tambahkan baris yang mengubah `nama` di dalam component itu sendiri (`nama = ''lainnya''`) dan amati warning yang muncul di console browser.', 2, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- JSX bukan HTML — ekspresi `{kondisi ? <A/> : <B/>}` valid, tapi kontrol alur penuh (`if`/`for` langsung di dalam markup) tidak, karena JSX cuma ekspresi, bukan statement.', '[{"url":"https://react.dev/learn/writing-markup-with-jsx","label":"React – Writing Markup with JSX"}]'::jsonb, '[]'::jsonb, 'Di project Vite yang dibuat di langkah sebelumnya:
+1. Buka `src/App.jsx`.
+2. Tambahkan variabel `const judul = "Belajar React"` dan `const tahun = 2026`.
+3. Tampilkan kedua nilai tersebut di dalam elemen JSX menggunakan kurung kurawal `{judul}` dan `{tahun}`.
+4. Tambahkan atribut `className="container"` dan inline style `style={{ padding: "16px", backgroundColor: "#f3f4f6" }}` pada elemen pembungkus utama.
+5. Jalankan `npm run dev`, buka browser, dan amati bahwa teks serta gaya tampilan muncul sesuai kode JSX yang kamu tulis.', 1, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-22 13:32:04.843+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('098092c7-34cf-4366-9ae8-9b3167714015', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Forms & Controlled Input Dasar', 'forms-dan-controlled-input-dasar', '**Masalah yang diselesaikan:** di HTML biasa, elemen form (`<input>`, `<textarea>`, `<select>`) menyimpan nilainya sendiri secara internal di DOM — JavaScript cuma "membaca" nilai itu saat dibutuhkan (misalnya waktu submit). Ini bertentangan dengan cara React bekerja, yang idealnya punya satu sumber kebenaran (*single source of truth*) untuk tiap data, supaya UI selalu konsisten dengan state. Kalau tidak terkontrol, sulit misalnya memvalidasi input secara real-time atau me-reset form dari kode.
 
 React menyelesaikan ini lewat pola **controlled component**: nilai input disimpan di state (`useState`), bukan di DOM, dan tiap perubahan disinkronkan lewat `onChange`.
@@ -4664,6 +5227,43 @@ function FormRegistrasi() {
 ```
 
 `{...data, [e.target.name]: e.target.value}` men-spread state lama lalu menimpa satu key sesuai `name` input yang berubah — pola umum update state objek tanpa memutasi objek lamanya langsung.', '[{"url":"https://react.dev/reference/react-dom/components/input","label":"React – Reference: <input>"}]'::jsonb, '[]'::jsonb, 'Buat form registrasi dengan 2 field (nama, email) pakai pola objek state di atas, lalu tambahkan tampilan pratinjau live di bawah form yang menampilkan nilai form saat diketik (tanpa perlu submit).', 8, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-22 13:32:06.233+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('479d2b80-51c8-4203-b114-7e0c45cd24ff', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Dasar Branching di Git', 'branching', 'Sekarang kamu bisa commit perubahan secara berurutan di satu garis riwayat (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau coba-coba fitur baru atau perbaikan, tapi tidak mau kode `main` yang sudah stabil ikut berubah/rusak selama proses coba-coba itu?
+
+Branch memungkinkan kita bekerja pada fitur/perbaikan tanpa mengganggu kode di branch utama.
+
+```mermaid
+gitGraph
+   commit id: "A"
+   commit id: "B"
+   branch fitur-baru
+   checkout fitur-baru
+   commit id: "C"
+   commit id: "D"
+   checkout main
+   merge fitur-baru id: "E"
+   commit id: "F"
+```
+
+Branch `fitur-baru` bercabang dari commit `B` di `main`, berkembang sendiri lewat commit `C` dan `D`, lalu digabungkan (merge) kembali jadi commit `E` di `main` — sepanjang itu, isi `main` (`A`, `B`) tidak berubah sama sekali.
+
+```bash
+# membuat branch baru sekaligus pindah ke branch itu
+git checkout -b fitur-baru
+
+# melihat semua branch
+git branch
+
+# pindah branch
+git checkout main
+
+# menggabungkan branch ke branch aktif saat ini
+git merge fitur-baru
+
+# menghapus branch yang sudah tidak dipakai
+git branch -d fitur-baru
+```
+
+Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang jelas, dan gabungkan (merge) setelah selesai direview.', '[{"url":"https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell","label":"Git Branching - Branches in a Nutshell — Pro Git Book"}]'::jsonb, '[]'::jsonb, 'Di repository dari latihan sebelumnya, buat branch baru `git checkout -b fitur-baru`, edit `catatan.txt`, commit perubahannya. Pindah balik ke `main` (`git checkout main`) — perhatikan isi `catatan.txt` kembali ke versi sebelum diedit di branch `fitur-baru`. Jalankan `git merge fitur-baru` dari `main`, cek isinya lagi (sekarang harus dapat perubahan dari branch itu). Terakhir hapus branch-nya: `git branch -d fitur-baru`.', 3, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:16.906+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('cb292ff3-aed8-4f22-86b6-7683cbb957ed', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Modules Dasar: import dan export', 'modules-dasar', 'Sekarang kamu sudah menguasai variabel, fungsi, closure, error handling, sampai async/await (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** sebelum module, semua kode JS di satu file besar — atau digabung lewat banyak tag `<script>` di HTML — berbagi SATU scope global yang sama. Variabel/fungsi dengan nama sama di file berbeda saling menimpa (*naming collision*), dan urutan `<script>` di HTML harus manual diatur sesuai dependency-nya.
 
 **ES Modules** membuat tiap file JS punya scope-nya SENDIRI — variabel/fungsi cuma bisa diakses file lain kalau di-`export` secara eksplisit, dan dipakai lewat `import`.
@@ -4725,50 +5325,6 @@ Poin penting:
 - Variabel/fungsi di dalam module TIDAK otomatis jadi global — kalau tidak di-`export`, dia betul-betul privat ke file itu, tidak bisa diakses file lain sama sekali.
 - Named export bisa banyak per file, default export maksimal SATU — pilih named kalau file punya beberapa hal yang mau di-export sekaligus (seperti `math.js` di atas).
 - Module HANYA dieksekusi SEKALI meski di-`import` dari banyak file berbeda — hasilnya di-cache dan dipakai bersama, bukan dijalankan ulang tiap `import`.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules","label":"JavaScript modules — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Buat dua file: `math.js` berisi dua named export (`tambah`, `kurang`) dan satu default export (`kali`), lalu `main.js` yang meng-`import` ketiganya dan memanggilnya, cetak hasilnya ke console. Jalankan lewat `<script type="module" src="main.js"></script>` di file HTML kosong, buka di browser, cek hasilnya di DevTools console. Coba HAPUS `type="module"` dari tag script-nya — perhatikan muncul error `Cannot use import statement outside a module`, membuktikan `type="module"` memang wajib. Ini menutup roadmap JavaScript: dari variabel dasar sampai memecah kode jadi file-file yang terorganisir.', 10, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-22 13:53:03.666+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('e55690f6-12cc-415f-8c52-ff154e3ca548', '4e1efab5-9672-4b24-bdd9-5951a9a18a9d', 'Pengenalan Ansible & Instalasi', 'pengenalan-ansible-dan-instalasi', '**Masalah yang diselesaikan:** kalau kamu punya 20 server yang butuh package sama ter-install dan config sama ter-apply, cara manual (SSH satu-satu, jalankan command yang sama berulang) itu lambat dan rawan salah — gampang lupa jalankan di satu server, atau versi command yang dijalankan sedikit beda tanpa sadar, sehingga tiap server jadi tidak identik lagi (*configuration drift*).
-
-**Ansible** adalah tool otomasi IT yang bersifat *agentless* — tidak perlu install software tambahan apa pun di server yang dikelola (*managed node*), cukup akses SSH dan Python sudah terinstall di sana (biasanya sudah ada secara default di distro Linux modern). Konfigurasi didefinisikan secara *declarative* dalam YAML: kamu bilang *state* seperti apa yang diinginkan ("nginx harus ter-install dan running"), bukan langkah-langkah imperatif ("jalankan apt install, lalu systemctl start").
-
-```mermaid
-flowchart LR
-  subgraph Control["Control Node (komputer kamu)"]
-    Ansible["Ansible + Inventory + Playbook"]
-  end
-
-  Ansible -->|SSH| S1["Managed Node 1"]
-  Ansible -->|SSH| S2["Managed Node 2"]
-  Ansible -->|SSH| S3["Managed Node 3"]
-```
-
-Tidak ada agent/daemon yang jalan terus-menerus di managed node — Ansible cuma "mampir" lewat SSH saat dijalankan, mengeksekusi task-nya, lalu selesai.
-
-### Instalasi (di Control Node)
-```bash
-# Lewat pip (disarankan, cross-platform)
-python3 -m pip install --user ansible
-
-# Atau lewat package manager (Ubuntu/Debian)
-sudo apt update && sudo apt install ansible -y
-
-# Cek versi terinstall
-ansible --version
-```
-
-### Tes Koneksi Pertama
-Modul `ping` (bukan ICMP ping biasa) memastikan Ansible bisa connect & menjalankan Python di target:
-
-```bash
-# Tes ke localhost (mesin kamu sendiri) tanpa perlu server lain dulu
-ansible localhost -m ping
-```
-
-Kalau berhasil, akan muncul respons `"ping": "pong"` — tandanya Ansible siap dipakai untuk mengelola server sungguhan.
-
-Poin penting:
-
-- *Agentless* berarti tidak ada proses tambahan yang jalan di background managed node — bedanya dengan tool seperti Puppet/Chef yang butuh agent ter-install permanen di tiap server.
-- *Idempotent* adalah sifat penting Ansible: menjalankan playbook yang sama berkali-kali menghasilkan state akhir yang sama, tidak menduplikasi efek (misalnya, "pastikan package X ter-install" tidak akan error atau install ulang kalau X sudah ada).
-- Managed node cukup punya Python terinstall (untuk generasi modern Ansible tidak lagi butuh Python di control node vs managed node versi tertentu — cek dokumentasi kalau target-nya sistem lama).', '[{"url":"https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html","label":"Ansible Docs — Installation Guide"},{"url":"https://docs.ansible.com/ansible/latest/getting_started/index.html","label":"Ansible Docs — Getting Started"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python 3 sudah terinstall di control node"},{"label":"Familiar dengan command line/terminal dan SSH dasar"},{"label":"Minimal satu mesin Linux untuk dipraktikkan (VM lokal seperti VirtualBox/Vagrant, atau VPS murah) — kalau belum ada, catatan ini tetap bisa dipraktikkan ke localhost"}]'::jsonb, 'Install Ansible lewat `pip` atau package manager sesuai OS kamu, lalu cek dengan `ansible --version`. Jalankan `ansible localhost -m ping` — pastikan hasilnya `"pong"`. Kalau kamu punya akses SSH ke server lain (VM lokal atau VPS), coba juga `ansible <ip-server> -m ping -u <username> --private-key <path-ke-ssh-key>` untuk membuktikan Ansible bisa connect ke server sungguhan, bukan cuma localhost.', 0, 'published', '2026-09-19 10:15:28.833636+00', '2026-09-22 14:25:07.504+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8ad90324-94ac-45f4-a651-ec784b0f3e95', 'b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'MCP: Menghubungkan Tool Eksternal', 'mcp-menghubungkan-tool-eksternal', 'Sekarang agent bisa eksekusi tool bawaan, ingat konteks, dan pakai ulang skill (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana kalau kamu butuh agent bisa akses tool yang TIDAK dibawa bawaan Hermes — API internal perusahaan, database tertentu, atau service pihak ketiga seperti GitHub/Linear?
 
 **MCP (Model Context Protocol)** adalah protokol standar yang menghubungkan Hermes Agent ke *tool server* eksternal, tanpa perlu membangun integrasi native satu-satu untuk tiap service.
@@ -4838,64 +5394,83 @@ Poin penting:
 - `tools.include` (atau `exclude`) membatasi tool mana saja dari satu MCP server yang boleh dipakai agent — berguna untuk membatasi akses (misalnya cuma boleh baca issue, tidak boleh hapus repo).
 - `hermes mcp catalog` berisi server yang sudah direkomendasikan/diverifikasi Nous — titik awal paling aman dibanding menulis config MCP server pihak ketiga secara manual.
 - MCP membuat Hermes Agent bisa terus diperluas kapabilitasnya tanpa update aplikasi Hermes itu sendiri — cukup tambah entri di `mcp_servers`.', '[{"url":"https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp","label":"Hermes Agent Docs — MCP Integration"}]'::jsonb, '[]'::jsonb, 'Jalankan `hermes mcp catalog` untuk lihat server yang tersedia, lalu `hermes mcp install <salah satu nama dari katalog>` (atau tambahkan server `filesystem` secara manual ke `~/.hermes/config.yaml` seperti contoh di atas kalau mau coba tanpa akun pihak ketiga). Mulai sesi baru, minta agent melakukan sesuatu yang HANYA bisa dikerjakan lewat tool dari MCP server itu (bukan tool bawaan) — verifikasi dari responsnya bahwa dia benar-benar memanggil tool eksternal itu, bukan tool bawaan Hermes. Ini menutup roadmap Agentic AI: dari instalasi dasar sampai agent yang bisa diperluas kapabilitasnya ke sistem eksternal apa pun.', 4, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('2c353801-6cec-4671-a4a3-d29eced08c1b', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Layout & Nested Layout Dasar', 'layout-dan-nested-layout', '**Masalah yang diselesaikan:** makin banyak halaman yang kamu buat dan navigasikan (seperti di catatan sebelumnya), makin banyak juga elemen UI yang berulang di tiap halaman — navbar, footer, sidebar. Copy-paste elemen itu ke tiap `page.tsx` bikin kode duplikat dan gampang jadi tidak konsisten kalau salah satu lupa di-update.
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4b0e3151-1091-4399-806d-0312b94d7f6d', '9edf40dd-0158-4e70-b0e6-1e64c4282cb0', 'Membangun REST API dengan RESTEasy Reactive', 'rest-api-resteasy-reactive', 'Catatan sebelumnya mengenalkan Quarkus dan Dev Mode. **Masalah yang diselesaikan sekarang:** bagaimana cara membangun REST API endpoint yang mampu menangani ribuan request secara bersamaan tanpa menghabiskan thread server?
 
-Layout adalah komponen UI yang dibagikan ke beberapa halaman anak. Ketika berpindah halaman di dalam layout yang sama, layout tetap bertahan (*persisted state*) dan tidak di-render ulang dari awal.
+Quarkus menyediakan **RESTEasy Reactive**: implementasi standar Jakarta REST yang berjalan di atas arsitektur non-blocking Netty. Hebatnya, kamu bisa menulis kode bergaya imperatif biasa yang mudah dipahami, tetapi Quarkus mengeksekusinya secara reaktif di belakang layar dengan serialisasi JSON otomatis (Jackson).
 
 ```mermaid
-flowchart TD
-    subgraph RootLayout ["app/layout.tsx (Root Layout: Navbar + Footer Global)"]
-        subgraph DashboardLayout ["app/dashboard/layout.tsx (Sidebar Dashboard)"]
-            P1["app/dashboard/page.tsx (Ringkasan)"]
-            P2["app/dashboard/settings/page.tsx (Pengaturan)"]
-        end
-    end
+sequenceDiagram
+  autonumber
+  participant C as Client (Frontend / Curl)
+  participant R as RESTEasy Reactive Endpoint
+  participant S as Jackson JSON Serializer
+  C->>R: GET /api/produk
+  R->>R: Ambil daftar data Produk
+  R->>S: Konversi List<Produk> ke JSON
+  S-->>C: HTTP 200 OK + JSON Payload
 ```
 
-### 1. Root Layout (`app/layout.tsx`)
-Setiap aplikasi Next.js App Router wajib memiliki satu Root Layout untuk membungkus elemen dasar dokumen HTML:
+Contoh pembuatan REST Controller endpoint lengkap:
 
-```tsx
-// app/layout.tsx
-import "./globals.css";
+```java
+package com.example;
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="id">
-      <body>
-        <header className="p-4 border-b">Navbar Global</header>
-        <main>{children}</main>
-      </body>
-    </html>
-  );
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
+
+// Record model data DTO
+record Produk(int id, String nama, double harga) {}
+
+@Path("/api/produk")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class ProdukResource {
+
+    private static List<Produk> database = new ArrayList<>(List.of(
+        new Produk(1, "Kopi Arabika", 35000.0),
+        new Produk(2, "Teh Hijau", 20000.0)
+    ));
+
+    // 1. GET: Ambil semua produk
+    @GET
+    public List<Produk> ambilSemua() {
+        return database;
+    }
+
+    // 2. GET by ID dengan PathParam
+    @GET
+    @Path("/{id}")
+    public Response ambilById(@PathParam("id") int id) {
+        return database.stream()
+                .filter(p -> p.id() == id)
+                .findFirst()
+                .map(p -> Response.ok(p).build())
+                .orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+
+    // 3. POST: Tambah produk baru
+    @POST
+    public Response tambahProduk(Produk input) {
+        database.add(input);
+        return Response.status(Response.Status.CREATED).entity(input).build();
+    }
 }
 ```
 
-### 2. Nested Layout (`app/dashboard/layout.tsx`)
-Layout bersarang hanya membungkus semua rute di dalam subfolder tersebut:
+Poin penting:
 
-```tsx
-// app/dashboard/layout.tsx
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex">
-      <aside className="w-64 p-4 bg-gray-100">Menu Sidebar</aside>
-      <section className="flex-1 p-6">{children}</section>
-    </div>
-  );
-}
-```
-
-- **Re-render Efisien**: Mengubah rute dari `/dashboard` ke `/dashboard/settings` hanya me-render ulang `children`, sedangkan Sidebar dan Navbar tetap utuh.
-- **Data Sharing**: Layout cocok untuk meletakkan konteks state bersama atau navigasi lokal.', '[{"url":"https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts","label":"Next.js Docs — Pages and Layouts"}]'::jsonb, '[]'::jsonb, 'Di project latihan, tambahkan `app/dashboard/layout.tsx` dengan sidebar sederhana (seperti contoh di atas), lalu buat dua halaman di dalamnya: `app/dashboard/page.tsx` dan `app/dashboard/pengaturan/page.tsx`. Navigasi antar keduanya (pakai `<Link>` dari catatan sebelumnya) dan amati lewat DevTools Elements/Inspector: apakah sidebar ikut ter-render ulang tiap pindah halaman, atau tetap diam?', 4, 'published', '2026-09-18 09:12:01.736924+00', '2026-09-22 13:32:10.867+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Anotasi `@Path("/api/produk")` menentukan rute URL dasar resource ini.
+- `@Produces(MediaType.APPLICATION_JSON)` otomatis mengonversi return type Java (seperti `List<Produk>`) menjadi respons JSON valid.
+- Objek `Response` dari `jakarta.ws.rs.core` memberi kontrol penuh atas HTTP Status Code (`200 OK`, `201 Created`, `404 Not Found`).
+- RESTEasy Reactive jauh lebih cepat dan hemat memori dibanding RESTEasy klasik karena routing dipetakan saat *build-time*.', '[{"url":"https://quarkus.io/guides/resteasy-reactive","label":"Quarkus Guides — Writing REST Services with RESTEasy Reactive"},{"url":"https://jakarta.ee/specifications/restful-ws/","label":"Jakarta RESTful Web Services Specification"}]'::jsonb, '[]'::jsonb, 'Di project Quarkus latihan kamu:
+1. Buat class `TugasResource.java` di dalam folder `src/main/java/com/example/`.
+2. Pasang anotasi `@Path("/api/tugas")`.
+3. Buat endpoint `@GET` yang mengembalikan daftar to-do sederhana dalam bentuk list string.
+4. Buat endpoint `@GET @Path("/{index}")` yang mengembalikan satu item berdasarkan indeks.
+5. Uji kedua endpoint tersebut lewat browser atau `curl http://localhost:8080/api/tugas`.', 1, 'published', '2026-09-22 14:14:32.931334+00', '2026-09-22 14:30:13.194+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b38b67fc-0349-4842-a63d-3ea5cf6cdd1a', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Server Component vs Client Component', 'server-client-components', 'Sekarang kamu sudah bisa bikin routing, navigasi antar halaman, dan berbagi layout UI. Pertanyaan berikutnya: **kode apa saja yang sebenarnya dikirim ke browser** waktu halaman itu diakses? Sebelum React Server Components, jawabannya selalu sama — semua kode komponennya, bahkan kalau komponen itu cuma menampilkan teks statis dari database dan tidak butuh interaktivitas sama sekali. Ini boros: bundle JavaScript makin besar, waktu render pertama makin lambat, terutama di HP dengan koneksi lambat.
 
 Di App Router, semua komponen di dalam folder `app/` adalah **Server Component** secara default — dirender di server, tidak mengirim JavaScript komponennya ke browser. Untuk komponen yang butuh interaktivitas (state, event handler, hooks), harus ditandai sebagai **Client Component**.
@@ -4939,7 +5514,7 @@ Poin penting:
 
 1. Tambahkan komponen counter interaktif (`"use client"` + `useState`, seperti contoh di atas) ke halaman `app/kontak/page.tsx`.
 2. Reload halaman, filter Network berdasarkan JS, lalu bandingkan ukuran JS yang di-download sebelum dan sesudah kamu tambahkan counter itu.
-3. Coba hapus baris `"use client"` dari komponen counter itu — Next.js akan menolak build karena kamu masih pakai `useState` di Server Component. Baca pesan errornya sampai habis; itu cara Next.js memaksa kamu sadar batas antara Server dan Client Component.', 2, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:24:59.883+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+3. Coba hapus baris `"use client"` dari komponen counter itu — Next.js akan menolak build karena kamu masih pakai `useState` di Server Component. Baca pesan errornya sampai habis; itu cara Next.js memaksa kamu sadar batas antara Server dan Client Component.', 2, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:20.978+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('0bd6b9e8-c329-4078-a066-f00213688aee', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Metadata Dasar untuk SEO di Next.js', 'metadata-seo-dasar', '**Masalah yang diselesaikan:** semua yang sudah kamu bangun sejauh ini fungsional, tapi bagaimana orang lain (dan mesin pencari seperti Google) tahu halaman kamu ini tentang apa sebelum mereka klik? Tanpa metadata yang benar, link yang dibagikan ke sosial media cuma menampilkan URL polos, dan Google kesulitan mengindeks halaman dengan judul yang relevan.
 
 Next.js App Router menyediakan API Metadata untuk mendefinisikan informasi `<head>` HTML (seperti title, description, favicon, dan OpenGraph tag untuk media sosial) baik secara statis maupun dinamis.
@@ -5013,75 +5588,122 @@ export default function NoteDetailPage({ params }: Props) {
 1. Lihat tab browser — judulnya harus berubah sesuai `metadata.title`.
 2. View page source (Ctrl+U / klik kanan → View Page Source), cari tag `<meta name="description">` di `<head>` — pastikan isinya sesuai yang kamu tulis.
 3. Kalau sempat, coba `generateMetadata` dinamis untuk halaman `app/produk/[id]/page.tsx` yang title-nya berbeda tergantung `id`-nya — ini menutup roadmap Next.js: dari struktur project sampai halaman yang siap ditemukan orang lain.', 9, 'published', '2026-09-18 09:12:04.314568+00', '2026-09-22 13:32:12.088+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('bc2d0543-327c-445a-8641-b59c1a092feb', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Virtual Environment (venv)', 'virtual-environment', 'Sekarang kamu bisa `import` module dan package pihak ketiga lewat `pip` (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau semua dependency Python diinstall secara global (satu Python untuk semua proyek), proyek A yang butuh `django==4` dan proyek B yang butuh `django==3` akan bertabrakan — cuma bisa ada satu versi terinstall global di satu waktu.
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('e80af964-92d0-41ad-84eb-56d9b247f9cb', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Relasi Antar-Tabel & Relational Queries', 'relasi-dan-foreign-key', 'Catatan sebelumnya membahas cara melakukan operasi CRUD pada satu tabel mandiri. **Masalah yang diselesaikan sekarang:** data di dunia nyata hampir tidak pernah berdiri sendiri dalam satu tabel datar. Sebuah artikel blog terikat ke satu kategori (*one-to-many*), dan satu catatan bisa memiliki banyak komentar. Di SQL tradisional, kita harus menulis query `JOIN` yang panjang. Bagaimana cara Supabase mengambil data relasional secara efisien dalam satu panggilan API?
 
-Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
-
-```mermaid
-graph TD
-  subgraph A["Proyek A"]
-    A1[".venv A"] --> A2["django==4, requests==2.1"]
-  end
-  subgraph B["Proyek B"]
-    B1[".venv B"] --> B2["flask==3, requests==2.31"]
-  end
-```
-
-```bash
-# membuat venv
-python -m venv .venv
-
-# mengaktifkan (Linux/Mac)
-source .venv/bin/activate
-
-# mengaktifkan (Windows)
-.venv\Scripts\activate
-
-# menginstal dependency
-pip install -r requirements.txt
-
-# keluar dari venv
-deactivate
-```
-
-Tips:
-
-- Tambahkan folder `.venv/` ke `.gitignore` agar tidak ikut ter-commit.
-- Simpan daftar dependency dengan `pip freeze > requirements.txt`.', '[{"url":"https://docs.python.org/3/library/venv.html","label":"venv — Creation of virtual environments — Python Docs"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python sudah terinstall (cek dengan `python --version`)"}]'::jsonb, 'Buat dua folder proyek berbeda. Di masing-masing, buat venv terpisah (`python -m venv .venv`), aktifkan, lalu install versi `requests` yang BERBEDA di tiap proyek (mis. `pip install requests==2.31.0` di satu, `pip install requests==2.28.0` di lainnya). Jalankan `pip freeze` di kedua venv untuk membuktikan versinya benar-benar berbeda dan tidak saling memengaruhi satu sama lain. Ini menutup roadmap Python: dari sintaks dasar sampai mengelola dependency proyek secara terisolasi.', 8, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:25:02.556+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1065af1e-2c02-4a29-878a-0523e4f7b2c6', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Memahami Closure', 'closure', 'Sekarang kamu paham cara mendefinisikan fungsi dan konsep scope (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana membuat variabel yang privat ke satu fungsi, tapi tetap bisa diakses/diubah oleh fungsi lain yang terkait dengannya — tanpa membuat variabel itu global (yang berisiko tertimpa atau diubah kode lain secara tidak sengaja)? Sebelum closure dipahami, satu-satunya cara menyimpan state antar pemanggilan fungsi terasa seperti harus pakai variabel global.
-
-Closure adalah fungsi yang "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar sudah selesai dieksekusi.
-
-```js
-function buatCounter() {
-  let jumlah = 0;
-  return function () {
-    jumlah++;
-    return jumlah;
-  };
-}
-
-const counter = buatCounter();
-console.log(counter()); // 1
-console.log(counter()); // 2
-```
+Karena Supabase dibangun di atas PostgreSQL, hubungan antar-tabel didefinisikan menggunakan **Foreign Key (kunci asing)**. Hebatnya, PostgREST secara otomatis mendeteksi relasi ini, memungkinkan kita mengambil data dari beberapa tabel sekaligus hanya dengan menyebutkan nama tabel relasinya di dalam method `.select()`.
 
 ```mermaid
-graph TD
-  subgraph luar["buatCounter() — scope luar, dijalankan sekali"]
-    j["jumlah = 0"]
-    subgraph dalam["function() — closure (scope dalam)"]
-      c["jumlah++ dan return jumlah"]
-    end
-  end
-  j -. "tetap bisa diakses walau buatCounter() sudah selesai" .-> c
+erDiagram
+  CATEGORIES ||--o{ NOTES : "memiliki banyak"
+  CATEGORIES {
+    uuid id PK
+    text name
+    text slug
+  }
+  NOTES {
+    uuid id PK
+    uuid category_id FK
+    text title
+    text slug
+  }
+```
+
+Mendefinisikan Foreign Key di SQL dan mengambil datanya lewat JavaScript:
+
+```sql
+-- 1. Definisi relasi di database lewat Foreign Key
+CREATE TABLE categories (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL
+);
+
+CREATE TABLE notes (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id uuid NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  title text NOT NULL
+);
+```
+
+```ts
+import { supabase } from "./lib/supabase";
+
+// 2. Query 1-ke-1 atau N-ke-1: Ambil catatan beserta info kategorinya (JOIN otomatis)
+const { data: catatanDenganKategori, error: err1 } = await supabase
+  .from("notes")
+  .select(`
+    id,
+    title,
+    categories (
+      id,
+      name
+    )
+  `);
+
+// 3. Query 1-ke-N: Ambil kategori beserta daftar semua catatan di dalamnya (Nested Array)
+const { data: kategoriDenganNotes, error: err2 } = await supabase
+  .from("categories")
+  .select(`
+    name,
+    notes (
+      id,
+      title
+    )
+  `)
+  .eq("name", "TypeScript");
 ```
 
 Poin penting:
 
-- Setiap pemanggilan `buatCounter()` menghasilkan closure baru dengan `jumlah` masing-masing.
-- Variabel `jumlah` tetap hidup di memori selama closure-nya masih dipakai.
-- Sering dipakai untuk membuat data privat, seperti pola module.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures","label":"Closures — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Modifikasi `buatCounter()` supaya mengembalikan object berisi dua fungsi sekaligus: `tambah()` dan `kurang()`, keduanya berbagi variabel `jumlah` yang sama lewat closure. Buat dua instance counter berbeda (`counterA` dan `counterB`) dari `buatCounter()` yang sama, lalu buktikan variabel `jumlah` masing-masing independen — mengubah `counterA` tidak memengaruhi `counterB` sama sekali.', 5, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:24:57.589+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Relasi otomatis di Supabase **wajib** memiliki constraint `REFERENCES tabel_tujuan(id)` di tingkat database PostgreSQL agar PostgREST dapat mendeteksinya.
+- Mengambil relasi induk (*parent*) mengembalikan objek tunggal (misal `categories: { id, name }`).
+- Mengambil relasi anak (*children*) mengembalikan array objek (misal `notes: [{ id, title }, ...]`).
+- Dengan nested select ini, kamu tidak perlu melakukan query bertingkat (*waterfall fetch*), menghemat round-trip jaringan dan meningkatkan performa aplikasi secara drastis.', '[{"url":"https://supabase.com/docs/guides/database/joins-and-nesting","label":"Supabase Docs — Querying Joins and Nested Tables"},{"url":"https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK","label":"PostgreSQL Docs — Foreign Keys"}]'::jsonb, '[]'::jsonb, 'Di project Supabase kamu (atau SQL Editor dashboard):
+1. Periksa skema tabel `categories` dan `notes` yang ada di database proyek ini.
+2. Buat skrip node sederhana atau coba query: ambil 3 baris dari tabel `notes` dengan menyertakan nama kategorinya: `.from("notes").select("title, categories(name)").limit(3)`.
+3. Cetak hasilnya ke console dan perhatikan bagaimana Supabase otomatis menyusun objek kategori di dalam tiap objek catatan tanpa kamu perlu menulis perintah SQL `INNER JOIN` manual.', 2, 'published', '2026-09-22 13:53:07.758005+00', '2026-09-22 14:30:24.438+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('f630317b-981e-41b2-b3fb-b80b1cc345d7', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Component & Props Dasar', 'component-dan-props-dasar', '**Masalah yang diselesaikan:** setelah tahu cara menulis markup dengan JSX di catatan sebelumnya, masalah berikutnya adalah duplikasi. Bayangkan halaman yang menampilkan 20 kartu produk — copy-paste blok JSX yang sama 20 kali bikin kode panjang dan susah di-maintain (ubah satu style, harus ubah di 20 tempat). Component menyelesaikan ini: definisikan struktur UI SEKALI sebagai fungsi, lalu pakai berkali-kali dengan data berbeda-beda lewat **props**.
+
+```mermaid
+flowchart TD
+    App["App"] --> Kartu1["KartuProduk nama=''Sepatu'' harga=200000"]
+    App --> Kartu2["KartuProduk nama=''Tas'' harga=350000"]
+    App --> Kartu3["KartuProduk nama=''Topi'' harga=75000"]
+```
+
+### 1. Component adalah Fungsi
+
+```jsx
+function KartuProduk({ nama, harga }) {
+  return (
+    <div className="kartu">
+      <h2>{nama}</h2>
+      <p>Rp {harga.toLocaleString(''id-ID'')}</p>
+    </div>
+  )
+}
+```
+
+- Nama component **wajib** diawali huruf kapital (`KartuProduk`, bukan `kartuProduk`) — React memakai ini untuk membedakan component (`<KartuProduk />`) dari tag HTML biasa (`<div />`).
+- `{ nama, harga }` adalah destructuring dari objek `props` yang dikirim parent — sama dengan menulis `function KartuProduk(props) { const { nama, harga } = props; ... }`.
+
+### 2. Mengirim Props dari Parent
+
+```jsx
+function App() {
+  return (
+    <div>
+      <KartuProduk nama="Sepatu" harga={200000} />
+      <KartuProduk nama="Tas" harga={350000} />
+    </div>
+  )
+}
+```
+
+Tiap atribut di JSX (`nama="Sepatu"`) jadi satu key di objek `props` yang diterima component. Nilai non-string (angka, boolean, objek, fungsi) ditulis di dalam `{}`.
+
+### 3. Props Bersifat Read-Only
+
+Component **tidak boleh** mengubah props yang diterimanya sendiri — data mengalir satu arah, dari parent ke child (disebut *one-way data flow*). Kalau child perlu mengubah sesuatu, parent yang menyediakan fungsi lewat props (dibahas lebih detail waktu masuk ke state).', '[{"url":"https://react.dev/learn/your-first-component","label":"React – Your First Component"},{"url":"https://react.dev/learn/passing-props-to-a-component","label":"React – Passing Props to a Component"}]'::jsonb, '[]'::jsonb, 'Buat component `KartuProduk` seperti contoh di atas, pakai 3x dengan data produk berbeda-beda. Lalu coba tambahkan baris yang mengubah `nama` di dalam component itu sendiri (`nama = ''lainnya''`) dan amati warning yang muncul di console browser.', 2, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4f1eb8ba-21ab-47ba-945e-6c99edce2bb3', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Union Type & Literal Type', 'union-dan-literal-type', 'Sekarang kamu bisa mendefinisikan bentuk object lewat interface/type alias di catatan sebelumnya. **Masalah yang diselesaikan sekarang:** bagaimana kalau sebuah nilai cuma boleh salah satu dari beberapa pilihan spesifik — misalnya status pesanan yang cuma boleh `"pending"`, `"success"`, atau `"failed"`? Kalau cuma dianotasi `string` biasa, TypeScript tidak akan komplain kalau ada yang salah ketik `"pendign"` atau mengirim status yang sama sekali tidak valid.
 
 Union type memungkinkan suatu variabel atau parameter memiliki lebih dari satu kemungkinan tipe data (menggunakan operator `|`). Literal type mempersempit tipe data ke nilai eksak tertentu (bukan sekadar `string` atau `number` umum).
@@ -5420,37 +6042,59 @@ flowchart TD
 | `skipLibCheck` | `true` | Melewati pemeriksaan tipe di file `.d.ts` pihak ketiga (`node_modules`) agar proses kompilasi jauh lebih cepat. |
 
 Menjaga `strict: true` sejak awal proyek membantu mencegah bug seperti `null pointer exception` sebelum kode sampai ke produksi.', '[{"url":"https://www.typescriptlang.org/docs/handbook/tsconfig-json.html","label":"TypeScript Handbook — What is a tsconfig.json"},{"url":"https://www.typescriptlang.org/tsconfig","label":"TSConfig Reference Guide"}]'::jsonb, '[]'::jsonb, 'Buka `tsconfig.json` di sebuah project TypeScript/Next.js yang sudah kamu punya (dari roadmap Next.js kalau sudah dikerjakan). Cek apakah `strict` bernilai `true`. Kalau belum, set jadi `true`, lalu jalankan ulang type-check (`npx tsc --noEmit` atau `npm run build`) — lihat apakah muncul error baru yang sebelumnya lolos karena strict mode belum aktif. Ini menutup roadmap TypeScript: dari sintaks tipe sampai konfigurasi compiler-nya sendiri.', 8, 'published', '2026-09-18 09:02:40.632265+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('96fdeed5-3947-4217-b466-7830060ce30b', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Async/Await di JavaScript', 'async-await', 'Promise dari catatan sebelumnya sudah menyelesaikan masalah callback bersarang, tapi rantai `.then().then().then()` yang panjang masih agak sulit dibaca urutannya sekilas mata. **Masalah yang diselesaikan sekarang:** bagaimana menulis kode asinkron yang TERLIHAT seperti kode sinkron biasa (baris demi baris), padahal di baliknya tetap non-blocking?
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('e7e76a81-a52f-4d08-9a86-dfc74fb4fe1d', '9deddb76-862f-4fce-83e4-57a0202df83b', 'DOM & Event Listener Dasar: Membuat Halaman Web Interaktif', 'dom-dan-event-listener-dasar', 'Catatan sebelumnya membahas cara memproses dan mentransformasi data array di memori. **Masalah yang diselesaikan sekarang:** semua kode yang kamu pelajari sejauh ini hanya berjalan dan mencetak teks di terminal console. Bagaimana cara JavaScript mengubah teks, warna, atau struktur halaman web di browser, serta merespons saat pengunjung mengklik tombol?
 
-`async/await` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.
+Browser merepresentasikan dokumen HTML sebagai pohon objek yang disebut **DOM (Document Object Model)**. Lewat JavaScript, kita bisa memilih elemen HTML (*query*), membaca atau mengubah isinya, dan memasang pendengar aksi (*event listener*).
 
 ```mermaid
-graph LR
-  subgraph sinkron["Sinkron (blocking)"]
-    s1["tugas1"] --> s2["tugas2"] --> s3["tugas3"]
+flowchart TD
+  subgraph Browser["Halaman Web di Browser"]
+    Btn["<button id=''tombol''>Klik Saya</button>"]
+    P["<p id=''pesan''>Teks Awal</p>"]
   end
-  subgraph asinkron["Async/Await (non-blocking)"]
-    a1["await fetch()"] -. "kode lain tetap jalan selagi menunggu" .-> a2["lanjut pakai data"]
+  subgraph JS["JavaScript DOM API"]
+    Sel["const btn = document.querySelector(''#tombol'');<br/>const pesan = document.querySelector(''#pesan'');"]
+    Ev["btn.addEventListener(''click'', () => {<br/>  pesan.textContent = ''Halo dari JavaScript!'';<br/>});"]
   end
+  Btn -.->|Dipilih oleh| Sel
+  P -.->|Dipilih oleh| Sel
+  Sel --> Ev
+  Ev -->|Memperbarui DOM saat diklik| P
 ```
 
-```js
-async function ambilData() {
-  try {
-    const res = await fetch("/api/data");
-    const data = await res.json();
-    console.log(data);
-  } catch (err) {
-    console.error("Gagal mengambil data:", err);
-  }
-}
+Contoh kode dasar manipulasi DOM dan Event:
+
+```html
+<!-- index.html -->
+<button id="btn-ubah">Ganti Salam</button>
+<p id="teks-salam">Selamat pagi!</p>
+
+<script>
+  // 1. Memilih elemen dari dokumen HTML berdasarkan selector CSS
+  const tombol = document.querySelector("#btn-ubah");
+  const teksSalam = document.querySelector("#teks-salam");
+
+  // 2. Memasang Event Listener: fungsi yang otomatis dipanggil saat aksi terjadi
+  tombol.addEventListener("click", function () {
+    // 3. Mengubah teks dan styling elemen secara dinamis
+    teksSalam.textContent = "Halo, selamat datang di dunia web!";
+    teksSalam.style.color = "#2563eb";
+    teksSalam.style.fontWeight = "bold";
+  });
+</script>
 ```
 
 Poin penting:
 
-- `await` hanya bisa dipakai di dalam fungsi `async`.
-- `await` menjeda eksekusi fungsi sampai Promise selesai, tanpa memblokir thread utama.
-- Gunakan `try/catch` untuk menangani error, menggantikan `.catch()` pada Promise biasa.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function","label":"async function — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `ambilDuaData()` yang memanggil dua endpoint berbeda (mis. `https://jsonplaceholder.typicode.com/users/1` dan `.../posts/1`) satu per satu pakai `await` berurutan, catat waktunya (`console.time`/`console.timeEnd`). Lalu tulis ulang supaya kedua `fetch` itu jalan bersamaan pakai `Promise.all([...])` — bandingkan waktunya, harus jauh lebih cepat karena tidak menunggu satu selesai dulu sebelum mulai yang lain.', 8, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:24:58.128+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- `document.querySelector(''selector'')` memilih elemen pertama yang cocok dengan selector CSS (misal `#id`, `.class`, atau nama tag seperti `button`).
+- `addEventListener(''event'', callback)` mendengarkan event tertentu seperti `''click''`, `''input''`, `''submit''`, atau `''keydown''` tanpa menimpa event listener lain.
+- Gunakan `textContent` (bukan `innerHTML`) untuk mengubah teks biasa agar aman dari celah keamanan Cross-Site Scripting (XSS).
+- Memahami manipulasi DOM langsung ini adalah fondasi penting sebelum beralih ke React, di mana manipulasi DOM diotomatisasi secara deklaratif.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction","label":"MDN Web Docs — Introduction to the DOM"},{"url":"https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener","label":"MDN Web Docs — EventTarget.addEventListener()"}]'::jsonb, '[{"url":"https://developer.mozilla.org","label":"Browser web modern (Chrome/Firefox/Edge) dan editor teks"}]'::jsonb, 'Buat file `index.html` sederhana di komputermu dan buka di browser:
+1. Buat tag `<input type="text" id="input-nama" placeholder="Ketik namamu..." />`.
+2. Buat tag `<h2 id="salam">Halo, Pengunjung!</h2>`.
+3. Di tag `<script>`, pilih input dan h2 tersebut dengan `document.querySelector`.
+4. Pasang event listener `''input''` pada tag input: setiap kali user mengetik, ubah teks h2 menjadi `Halo, ${input.value || "Pengunjung"}!`.
+5. Amati bagaimana tampilan halaman berubah secara live di browser tanpa reload setiap kali kamu menekan tuts keyboard.', 4, 'published', '2026-09-22 13:53:02.884132+00', '2026-09-22 14:30:18.752+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5dacd9a7-113a-4bbb-ac1c-73077beec662', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Instalasi & Struktur Project Next.js Dasar', 'instalasi-dan-struktur-project', '**Masalah yang diselesaikan:** dulu, memulai project React dari nol berarti setup manual — bundler, transpiler, routing, semua dikonfigurasi sendiri sebelum baris kode aplikasi pertama ditulis. `create-next-app` menyelesaikan ini dengan scaffold project siap pakai dalam satu perintah, lengkap dengan konvensi struktur folder yang dipakai di seluruh roadmap ini — terutama folder `app/` yang jadi topik utama catatan-catatan berikutnya.
 
 Membuat proyek Next.js baru paling mudah menggunakan CLI resmi `create-next-app` dengan konfigurasi standar TypeScript dan Tailwind CSS.
@@ -5494,54 +6138,84 @@ Struktur berbasis folder di `app/` secara otomatis memetakan folder menjadi rute
 
 1. Buka `app/page.tsx`, ubah teksnya, simpan, lihat halaman otomatis reload (Fast Refresh).
 2. Hapus file `app/page.tsx` sementara dan reload — perhatikan pesan error yang muncul, itu petunjuk kenapa `page.tsx` wajib ada di tiap folder route.
-3. Kembalikan filenya. Project ini akan dipakai untuk semua latihan di catatan-catatan Next.js berikutnya.', 0, 'published', '2026-09-18 09:12:01.180176+00', '2026-09-22 14:24:58.876+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b21bd33f-6b73-4703-a270-dbfbbd8de0a8', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Query Data Dasar (CRUD)', 'query-dasar', 'Client Supabase dari catatan sebelumnya sudah siap. **Masalah yang diselesaikan sekarang:** bagaimana benar-benar membaca dan mengubah data di database dari kode aplikasi, tanpa menulis query SQL manual satu per satu?
+3. Kembalikan filenya. Project ini akan dipakai untuk semua latihan di catatan-catatan Next.js berikutnya.', 0, 'published', '2026-09-18 09:12:01.180176+00', '2026-09-22 14:30:20.18+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('406e1717-fd7c-4e5d-a4ed-5af477abe8fc', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Pola DTO & Konfigurasi CORS di ASP.NET Core', 'dto-dan-cors-dotnet', 'Catatan sebelumnya membahas cara mengakses database menggunakan Entity Framework Core. **Masalah yang diselesaikan sekarang:** saat API ASP.NET Core dipanggil oleh aplikasi frontend (seperti React, Vue, atau mobile app), browser memblokir request karena kebijakan keamanan **CORS**. Selain itu, mengembalikan class model EF Core langsung ke JSON rentan terhadap *over-posting attack* (user memasukkan field yang tidak seharusnya) dan dapat memicu crash *cyclic references*.
 
-Setelah client Supabase siap, operasi dasar ke database (CRUD) dipanggil lewat method di atas nama tabel.
+Penyelesaiannya adalah menerapkan pola **DTO (Data Transfer Object)** menggunakan C# `record` serta mengaktifkan middleware **CORS** bawaan ASP.NET Core.
 
 ```mermaid
 flowchart LR
-  App["Aplikasi Web<br/>supabase.from(''produk'').select(''*'')"] --> PostgREST["Supabase PostgREST API"]
-  PostgREST --> DB["PostgreSQL Database<br/>SELECT * FROM produk;"]
-  DB --> PostgREST
-  PostgREST --> Res["Mengembalikan Objek JS<br/>{ data, error }"]
+  subgraph Frontend["Frontend Browser (Port 3000)"]
+    FE["Aplikasi Frontend"]
+  end
+  subgraph ASPNET["ASP.NET Core Backend (Port 5000)"]
+    CorsMiddleware["app.UseCors(''FrontendPolicy'')"]
+    Endpoint["app.MapGet(''/api/produk'', ...)"]
+    DTO["ProdukDto (C# record)<br/>id, nama, harga"]
+    DBModel["Model EF Core Produk<br/>(id, nama, harga, biayaRahasia, user_id)"]
+  end
+  FE -->|CORS Preflight / Request| CorsMiddleware
+  CorsMiddleware --> Endpoint
+  Endpoint --> DBModel
+  DBModel -->|Select projection| DTO
+  DTO -->|Kirim JSON Bersih| FE
 ```
 
-```ts
-import { supabase } from "./lib/supabase";
+Contoh implementasi DTO dan Middleware CORS di `Program.cs`:
 
-// SELECT — ambil semua baris
-const { data, error } = await supabase.from("produk").select("*");
+```csharp
+// 1. DTO Didefinisikan sebagai C# record yang ringkas dan immutable
+public record ProdukDto(int Id, string Nama, decimal Harga);
+public record BuatProdukDto(string Nama, decimal Harga);
 
-// SELECT dengan filter
-const { data: satu } = await supabase
-  .from("produk")
-  .select("*")
-  .eq("id", 1)
-  .single();
+// 2. Konfigurasi di Program.cs
+var builder = WebApplication.CreateBuilder(args);
 
-// INSERT — tambah baris baru
-await supabase.from("produk").insert({ nama: "Buku", harga: 50000 });
+// Daftarkan service CORS
+var corsPolicy = "IzinkanFrontend";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsPolicy, policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
-// UPDATE — ubah baris yang cocok filter
-await supabase.from("produk").update({ harga: 60000 }).eq("id", 1);
+var app = builder.Build();
 
-// DELETE — hapus baris yang cocok filter
-await supabase.from("produk").delete().eq("id", 1);
+// Aktifkan middleware CORS (wajib ditaruh sebelum endpoint mapping)
+app.UseCors(corsPolicy);
+
+// Endpoint menggunakan DTO untuk input dan output
+app.MapGet("/api/produk", async (AppDbContext db) =>
+    await db.Produk
+            .Select(p => new ProdukDto(p.Id, p.Nama, p.Harga))
+            .ToListAsync());
+
+app.MapPost("/api/produk", async (BuatProdukDto input, AppDbContext db) =>
+{
+    var produkBaru = new Produk { Nama = input.Nama, Harga = input.Harga };
+    db.Produk.Add(produkBaru);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/api/produk/{produkBaru.Id}", new ProdukDto(produkBaru.Id, produkBaru.Nama, produkBaru.Harga));
+});
+
+app.Run();
 ```
-
-| Method Supabase | Setara perintah SQL |
-| --- | --- |
-| `.select("*")` | `SELECT * FROM produk` |
-| `.insert({...})` | `INSERT INTO produk (...) VALUES (...)` |
-| `.update({...}).eq("id", 1)` | `UPDATE produk SET ... WHERE id = 1` |
-| `.delete().eq("id", 1)` | `DELETE FROM produk WHERE id = 1` |
 
 Poin penting:
 
-- Setiap query mengembalikan `{ data, error }` — selalu cek `error` sebelum memakai `data`, jangan asumsikan query selalu berhasil.
-- `.eq("kolom", nilai)` adalah filter kondisi `WHERE kolom = nilai`; ada filter lain seperti `.gt()`, `.lt()`, `.like()` untuk kondisi berbeda.
-- Query hanya akan berhasil kalau diizinkan oleh Row Level Security (RLS) tabel tersebut — kalau RLS aktif tapi belum ada policy, semua query dari client akan ditolak meskipun kodenya benar.', '[{"url":"https://supabase.com/docs/reference/javascript/introduction","label":"Supabase Docs — JavaScript Client Reference"}]'::jsonb, '[]'::jsonb, 'Di project Supabase kamu, buat tabel `produk` (kolom: `id`, `nama` text, `harga` numeric). Praktikkan keempat operasi CRUD di atas lewat client — insert 2-3 produk, select semuanya, update salah satu harganya, lalu delete satu. Cek tabel `produk` di dashboard Supabase (Table Editor) setiap habis satu operasi, untuk memastikan perubahannya benar-benar tersimpan di database.', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:25:03.087+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Penggunaan `.Select(p => new ProdukDto(...))` pada query LINQ EF Core melakukan *projection* langsung di query SQL (`SELECT Id, Nama, Harga FROM Produk`), bukan mengambil semua kolom baru difilter di memori.
+- `record` di C# secara bawaan memiliki *value equality* dan sintaks yang sangat ringkas, menjadikannya standar baku untuk DTO di .NET modern.
+- Selalu pastikan pemanggilan `app.UseCors()` diletakkan pada posisi pipeline middleware yang tepat (sebelum definisi routing endpoint).', '[{"url":"https://learn.microsoft.com/en-us/aspnet/core/security/cors","label":"Microsoft Learn — Enable Cross-Origin Requests (CORS) in ASP.NET Core"},{"url":"https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5","label":"Microsoft Learn — Create Data Transfer Objects (DTOs)"}]'::jsonb, '[]'::jsonb, 'Di project ASP.NET Core Minimal API kamu:
+1. Buat record `UserDto(int Id, string Username, string Email)`.
+2. Di `Program.cs`, tambahkan service `builder.Services.AddCors(...)` untuk mengizinkan `http://localhost:3000`.
+3. Pasang `app.UseCors(...)` sebelum endpoint.
+4. Ubah endpoint `GET /api/users` agar mengembalikan `UserDto` menggunakan proyeksi LINQ `.Select()`.
+5. Jalankan aplikasi (`dotnet run`) dan verifikasi melalui tab Network browser bahwa header respons `Access-Control-Allow-Origin: http://localhost:3000` berhasil disertakan.', 6, 'published', '2026-09-22 14:02:51.088271+00', '2026-09-22 14:30:28.524+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('634b3e76-a834-4d44-b13a-c1b91de1ab25', 'd68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Pengenalan Flutter & Instalasi', 'pengenalan-flutter-dan-instalasi', '**Masalah yang diselesaikan:** membangun aplikasi mobile yang jalan di Android DAN iOS secara tradisional berarti menulis DUA codebase terpisah dengan bahasa berbeda (Kotlin/Java untuk Android, Swift untuk iOS) — fitur yang sama harus diimplementasikan dua kali, dan bug yang diperbaiki di satu platform harus diperbaiki lagi manual di platform lainnya.
 
 **Flutter** adalah UI toolkit open-source dari Google — satu codebase Dart dikompilasi langsung jadi kode NATIVE (bukan berjalan di dalam WebView) untuk Android, iOS, web, dan desktop sekaligus.
@@ -5581,7 +6255,7 @@ Poin penting:
 
 - `flutter doctor` WAJIB dijalankan sebelum mulai — ini yang paling sering menyelesaikan masalah "kenapa app tidak bisa di-build" di awal setup.
 - Perlu minimal SATU target untuk menjalankan app: emulator Android (dibuat lewat Android Studio → Device Manager) atau device fisik dengan USB debugging aktif.
-- *Hot reload* (tekan `r` di terminal saat `flutter run` jalan, atau tombol petir di editor) menerapkan perubahan kode ke app yang sedang jalan dalam hitungan detik, TANPA restart aplikasi dari awal — ini yang bikin iterasi UI di Flutter terasa sangat cepat.', '[{"url":"https://docs.flutter.dev/get-started/install","label":"Flutter Docs — Install"},{"url":"https://docs.flutter.dev/platform-integration/android/setup","label":"Flutter Docs — Android Setup"}]'::jsonb, '[{"url":"https://developer.android.com/studio","label":"Android Studio terinstall (untuk Android SDK & emulator)"},{"url":"https://code.visualstudio.com/","label":"Editor kode — VS Code dengan ekstensi Flutter direkomendasikan"}]'::jsonb, 'Install Flutter SDK sesuai OS kamu, jalankan `flutter doctor` dan selesaikan semua item yang masih bertanda silang/peringatan. Buat emulator Android lewat Android Studio (Device Manager → Create Device). Jalankan `flutter create app_pertama`, masuk ke foldernya, jalankan `flutter run` — pastikan counter app default muncul di emulator. Ubah teks `''You have pushed the button this many times:''` di `lib/main.dart` jadi kalimat lain, simpan file, dan buktikan hot reload menerapkan perubahan itu TANPA restart app.', 0, 'published', '2026-09-19 12:19:14.593871+00', '2026-09-22 14:25:09.594+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- *Hot reload* (tekan `r` di terminal saat `flutter run` jalan, atau tombol petir di editor) menerapkan perubahan kode ke app yang sedang jalan dalam hitungan detik, TANPA restart aplikasi dari awal — ini yang bikin iterasi UI di Flutter terasa sangat cepat.', '[{"url":"https://docs.flutter.dev/get-started/install","label":"Flutter Docs — Install"},{"url":"https://docs.flutter.dev/platform-integration/android/setup","label":"Flutter Docs — Android Setup"}]'::jsonb, '[{"url":"https://developer.android.com/studio","label":"Android Studio terinstall (untuk Android SDK & emulator)"},{"url":"https://code.visualstudio.com/","label":"Editor kode — VS Code dengan ekstensi Flutter direkomendasikan"}]'::jsonb, 'Install Flutter SDK sesuai OS kamu, jalankan `flutter doctor` dan selesaikan semua item yang masih bertanda silang/peringatan. Buat emulator Android lewat Android Studio (Device Manager → Create Device). Jalankan `flutter create app_pertama`, masuk ke foldernya, jalankan `flutter run` — pastikan counter app default muncul di emulator. Ubah teks `''You have pushed the button this many times:''` di `lib/main.dart` jadi kalimat lain, simpan file, dan buktikan hot reload menerapkan perubahan itu TANPA restart app.', 0, 'published', '2026-09-19 12:19:14.593871+00', '2026-09-22 14:30:31.693+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('92683cfb-e250-4858-86dd-91aa7995d6e5', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Fetch API: Mengambil Data dari REST API', 'fetch-api-dasar', 'Catatan sebelumnya membahas sintaks `async` dan `await` untuk menangani Promise dengan gaya kode sinkron. **Masalah yang diselesaikan sekarang:** sebagian besar aplikasi modern tidak menyimpan seluruh datanya di dalam kode frontend — data produk, profil user, atau postingan blog disimpan di server database dan diambil lewat jaringan internet (*HTTP request*). Bagaimana cara JavaScript meminta dan menerima data dari server eksternal?
 
 Browser menyediakan fungsi bawaan **`fetch()`** berbasis Promise untuk mengirim HTTP request (GET, POST, PUT, DELETE) ke server dan menerima responsnya (biasanya dalam format JSON).
@@ -5637,7 +6311,7 @@ Poin penting:
 1. Panggil `fetch("https://jsonplaceholder.typicode.com/posts/1")`.
 2. Tunggu responsnya dan konversi dengan `.json()`.
 3. Cetak judul postingan (`data.title`) dan isinya (`data.body`) ke console.
-4. Coba sengaja ubah URL menjadi endpoint yang salah (`.../posts/999999`) dan amati bagaimana pengecekan `if (!response.ok)` mendeteksi status 404 Not Found secara anggun.', 9, 'published', '2026-09-22 13:53:03.724106+00', '2026-09-22 14:24:58.363+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+4. Coba sengaja ubah URL menjadi endpoint yang salah (`.../posts/999999`) dan amati bagaimana pengecekan `if (!response.ok)` mendeteksi status 404 Not Found secara anggun.', 9, 'published', '2026-09-22 13:53:03.724106+00', '2026-09-22 14:30:19.752+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('efbe7383-7963-47f3-b4fa-e29208d058d7', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Pengenalan Ekosistem .NET & CLI Dasar', 'pengenalan-dotnet-dan-cli', '**Masalah yang diselesaikan:** sebelum .NET Core (2016 ke atas), .NET Framework hanya berjalan di Windows — sulit dipakai untuk deployment modern yang mengandalkan server Linux dan container Docker, yang jadi standar industri sekarang.
 
 .NET adalah platform pengembangan perangkat lunak open-source dan cross-platform dari Microsoft untuk membangun berbagai jenis aplikasi (web, mobile, desktop, cloud, hingga IoT).
@@ -5694,7 +6368,7 @@ File `.csproj` (C# Project) berisi informasi SDK, target framework (.NET 8/9), d
 - **Cross-Platform**: Kode yang ditulis di C# dapat berjalan di Linux, macOS, dan Windows tanpa perubahan.', '[{"url":"https://learn.microsoft.com/en-us/dotnet/core/introduction","label":"Microsoft Learn — What is .NET?"},{"url":"https://learn.microsoft.com/en-us/dotnet/core/tools/","label":"Microsoft Learn — .NET CLI Overview"}]'::jsonb, '[{"url":"https://dotnet.microsoft.com/download","label":".NET SDK versi 8 atau lebih baru sudah terinstall (cek dengan `dotnet --version`)"},{"label":"Familiar dengan perintah dasar terminal/command line"}]'::jsonb, 'Jalankan `dotnet --version` untuk cek SDK yang terpasang. Buat console app baru (`dotnet new console -n HaloDunia`), masuk ke foldernya, jalankan (`dotnet run`) — harus muncul "Hello, World!". Lalu:
 
 1. Edit `Program.cs` supaya mencetak nama kamu sendiri, jalankan ulang.
-2. Jalankan `dotnet add package Newtonsoft.Json`, buka file `.csproj` — perhatikan baris `<PackageReference>` baru yang otomatis ditambahkan.', 0, 'published', '2026-09-18 09:10:06.40053+00', '2026-09-22 14:25:05.53+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+2. Jalankan `dotnet add package Newtonsoft.Json`, buka file `.csproj` — perhatikan baris `<PackageReference>` baru yang otomatis ditambahkan.', 0, 'published', '2026-09-18 09:10:06.40053+00', '2026-09-22 14:30:27.072+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('6a0f63e4-abff-4062-8fd4-0ec910e37b84', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Struktur Program C# & Tipe Data Dasar', 'csharp-dasar-dan-tipe-data', 'Project .NET kamu dari catatan sebelumnya sudah bisa jalan. **Masalah yang diselesaikan sekarang:** bagaimana menulis kode C# yang sebenarnya? Dulu, C# selalu butuh boilerplate `class Program` dan method `Main` sebelum baris kode aplikasi pertama ditulis — sejak C# 9/10, *Top-Level Statements* menghilangkan boilerplate itu.
 
 C# adalah bahasa pemrograman berorientasi objek yang bertipe statis (*statically typed*) dan *type-safe*. Sejak C# 9/10, kita bisa menggunakan *Top-Level Statements* untuk menulis kode yang sangat ringkas tanpa boilerplate class `Program`.
@@ -6412,7 +7086,7 @@ Poin penting:
 
 - Hermes Agent bisa jalan di macOS/Linux/Windows(WSL2), dan juga di infrastruktur cloud (VPS, Modal, Daytona) untuk task yang butuh jalan lama tanpa laptop kamu nyala terus.
 - `hermes setup --portal` adalah jalur setup paling cepat, tapi provider model lain (OpenAI-compatible endpoint, OpenRouter) juga didukung lewat `hermes model`.
-- Instalasi per-user menyimpan datanya di `~/.hermes/` — ini folder yang akan sering direferensikan di catatan-catatan berikutnya (memory, skills, config).', '[{"url":"https://hermes-agent.nousresearch.com/docs/getting-started/installation","label":"Hermes Agent Docs — Installation"},{"url":"https://hermes-agent.nousresearch.com/","label":"Hermes Agent — Homepage"}]'::jsonb, '[{"url":"https://git-scm.com/downloads","label":"Git sudah terinstall (cek dengan `git --version`)"},{"url":"https://hermes-agent.nousresearch.com/","label":"Akun untuk akses model — Nous Portal (langganan), atau API key provider lain yang kompatibel (OpenAI, OpenRouter)"},{"label":"Familiar dengan command line/terminal dasar"}]'::jsonb, 'Install Hermes Agent sesuai OS kamu, reload shell, lalu jalankan `hermes doctor` — pastikan tidak ada error dependency. Jalankan `hermes setup --portal` (atau `hermes model` kalau pakai provider lain) untuk autentikasi. Cek `hermes --version` berhasil menampilkan versi terinstall. Kalau semua langkah ini lolos tanpa error, instalasi kamu siap dipakai di catatan berikutnya.', 0, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-22 14:25:08.669+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- Instalasi per-user menyimpan datanya di `~/.hermes/` — ini folder yang akan sering direferensikan di catatan-catatan berikutnya (memory, skills, config).', '[{"url":"https://hermes-agent.nousresearch.com/docs/getting-started/installation","label":"Hermes Agent Docs — Installation"},{"url":"https://hermes-agent.nousresearch.com/","label":"Hermes Agent — Homepage"}]'::jsonb, '[{"url":"https://git-scm.com/downloads","label":"Git sudah terinstall (cek dengan `git --version`)"},{"url":"https://hermes-agent.nousresearch.com/","label":"Akun untuk akses model — Nous Portal (langganan), atau API key provider lain yang kompatibel (OpenAI, OpenRouter)"},{"label":"Familiar dengan command line/terminal dasar"}]'::jsonb, 'Install Hermes Agent sesuai OS kamu, reload shell, lalu jalankan `hermes doctor` — pastikan tidak ada error dependency. Jalankan `hermes setup --portal` (atau `hermes model` kalau pakai provider lain) untuk autentikasi. Cek `hermes --version` berhasil menampilkan versi terinstall. Kalau semua langkah ini lolos tanpa error, instalasi kamu siap dipakai di catatan berikutnya.', 0, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-22 14:30:30.496+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8de5fb40-428e-41c3-8372-12010a66d04b', 'b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'Menjalankan Task Pertama & CLI Dasar', 'task-pertama-dan-cli-dasar', 'Hermes Agent sekarang sudah terinstall dan terautentikasi (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana caranya kasih task ke agent dan memastikan dia BENAR-BENAR mengeksekusi tool (bukan cuma menjawab teks tebakan tanpa verifikasi)?
 
 ```mermaid
@@ -6538,31 +7212,50 @@ Poin penting:
 - Skill BEDA dari memory: memory itu fakta/preferensi singkat yang selalu aktif di context, skill itu prosedur lebih panjang yang cuma dimuat kalau relevan — supaya tidak membebani context dengan hal yang jarang dipakai.
 - Skill dari hub melewati security scanning (deteksi command berbahaya, prompt injection) sebelum dipakai — level trust-nya bertingkat dari `builtin` sampai `community`.
 - Beberapa skill bisa digabung jadi satu `bundle` (`~/.hermes/skill-bundles/`) dan dipanggil sekaligus lewat satu slash command.', '[{"url":"https://hermes-agent.nousresearch.com/docs/user-guide/features/skills","label":"Hermes Agent Docs — Skills"}]'::jsonb, '[]'::jsonb, 'Pilih satu prosedur berulang yang relevan buat kamu (mis. alur commit & PR project tertentu), lalu jalankan `/learn` sambil menunjukkan dokumentasinya ke agent (atau jelaskan prosedurnya langsung). Setelah skill terbentuk, cek isinya di `~/.hermes/skills/`. Buka sesi BARU, panggil skill itu lewat slash command (`/nama-skill <instruksi>`) — buktikan agent langsung mengikuti prosedur yang tersimpan tanpa kamu jelaskan ulang detailnya.', 3, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('25f62e53-78ac-42fe-b8ad-f5d2fc696266', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Fungsi Dasar: def, Parameter, dan Return', 'fungsi-dasar', 'Sekarang kamu bisa membuat keputusan, mengulang, dan menyimpan koleksi data (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** logic yang sama (misalnya menghitung diskon) sering dibutuhkan di banyak tempat berbeda dalam program — menyalin-tempel kode yang sama berkali-kali bikin susah dipelihara (kalau ada bug, harus diperbaiki di SEMUA tempat yang menyalinnya).
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('e55690f6-12cc-415f-8c52-ff154e3ca548', '4e1efab5-9672-4b24-bdd9-5951a9a18a9d', 'Pengenalan Ansible & Instalasi', 'pengenalan-ansible-dan-instalasi', '**Masalah yang diselesaikan:** kalau kamu punya 20 server yang butuh package sama ter-install dan config sama ter-apply, cara manual (SSH satu-satu, jalankan command yang sama berulang) itu lambat dan rawan salah — gampang lupa jalankan di satu server, atau versi command yang dijalankan sedikit beda tanpa sadar, sehingga tiap server jadi tidak identik lagi (*configuration drift*).
 
-```python
-def hitung_diskon(harga, persen=10):
-    """Menghitung harga setelah diskon. Default diskon 10%."""
-    potongan = harga * (persen / 100)
-    return harga - potongan
-
-print(hitung_diskon(100000))       # pakai default 10%: 90000.0
-print(hitung_diskon(100000, 25))   # override jadi 25%: 75000.0
-```
+**Ansible** adalah tool otomasi IT yang bersifat *agentless* — tidak perlu install software tambahan apa pun di server yang dikelola (*managed node*), cukup akses SSH dan Python sudah terinstall di sana (biasanya sudah ada secara default di distro Linux modern). Konfigurasi didefinisikan secara *declarative* dalam YAML: kamu bilang *state* seperti apa yang diinginkan ("nginx harus ter-install dan running"), bukan langkah-langkah imperatif ("jalankan apt install, lalu systemctl start").
 
 ```mermaid
 flowchart LR
-  Call["hitung_diskon(100000, 25)"] --> Fn["def hitung_diskon(harga, persen=10)"]
-  Fn --> Body["potongan = harga * (persen / 100)"]
-  Body --> Return["return harga - potongan"]
-  Return --> Result["75000.0 dikembalikan ke pemanggil"]
+  subgraph Control["Control Node (komputer kamu)"]
+    Ansible["Ansible + Inventory + Playbook"]
+  end
+
+  Ansible -->|SSH| S1["Managed Node 1"]
+  Ansible -->|SSH| S2["Managed Node 2"]
+  Ansible -->|SSH| S3["Managed Node 3"]
 ```
+
+Tidak ada agent/daemon yang jalan terus-menerus di managed node — Ansible cuma "mampir" lewat SSH saat dijalankan, mengeksekusi task-nya, lalu selesai.
+
+### Instalasi (di Control Node)
+```bash
+# Lewat pip (disarankan, cross-platform)
+python3 -m pip install --user ansible
+
+# Atau lewat package manager (Ubuntu/Debian)
+sudo apt update && sudo apt install ansible -y
+
+# Cek versi terinstall
+ansible --version
+```
+
+### Tes Koneksi Pertama
+Modul `ping` (bukan ICMP ping biasa) memastikan Ansible bisa connect & menjalankan Python di target:
+
+```bash
+# Tes ke localhost (mesin kamu sendiri) tanpa perlu server lain dulu
+ansible localhost -m ping
+```
+
+Kalau berhasil, akan muncul respons `"ping": "pong"` — tandanya Ansible siap dipakai untuk mengelola server sungguhan.
 
 Poin penting:
 
-- Parameter dengan nilai default (`persen=10`) bersifat OPSIONAL saat memanggil fungsi — kalau tidak diisi, nilai default itu yang dipakai.
-- Fungsi TANPA `return` eksplisit otomatis mengembalikan `None` — beda dengan fungsi yang memang sengaja `return None`.
-- Argumen bisa dikirim berdasarkan POSISI (`hitung_diskon(100000, 25)`) atau berdasarkan NAMA (`hitung_diskon(harga=100000, persen=25)`) — cara kedua lebih jelas dibaca kalau parameternya banyak.', '[{"url":"https://docs.python.org/3/tutorial/controlflow.html#defining-functions","label":"Defining Functions — Python Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `cek_kelulusan(nilai, batas=60)` yang mengembalikan `"Lulus"` kalau `nilai >= batas`, atau `"Tidak Lulus"` kalau tidak — dengan `batas` bernilai default 60. Panggil tanpa argumen kedua (pakai default), lalu panggil lagi dengan `batas=75` untuk kasus yang lebih ketat. Tulis fungsi kedua `rata_rata(daftar_nilai)` yang menerima sebuah `list` angka dan mengembalikan rata-ratanya — gunakan bersama fungsi `cek_kelulusan` untuk mengecek apakah rata-rata itu lulus atau tidak.', 3, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- *Agentless* berarti tidak ada proses tambahan yang jalan di background managed node — bedanya dengan tool seperti Puppet/Chef yang butuh agent ter-install permanen di tiap server.
+- *Idempotent* adalah sifat penting Ansible: menjalankan playbook yang sama berkali-kali menghasilkan state akhir yang sama, tidak menduplikasi efek (misalnya, "pastikan package X ter-install" tidak akan error atau install ulang kalau X sudah ada).
+- Managed node cukup punya Python terinstall (untuk generasi modern Ansible tidak lagi butuh Python di control node vs managed node versi tertentu — cek dokumentasi kalau target-nya sistem lama).', '[{"url":"https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html","label":"Ansible Docs — Installation Guide"},{"url":"https://docs.ansible.com/ansible/latest/getting_started/index.html","label":"Ansible Docs — Getting Started"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python 3 sudah terinstall di control node"},{"label":"Familiar dengan command line/terminal dan SSH dasar"},{"label":"Minimal satu mesin Linux untuk dipraktikkan (VM lokal seperti VirtualBox/Vagrant, atau VPS murah) — kalau belum ada, catatan ini tetap bisa dipraktikkan ke localhost"}]'::jsonb, 'Install Ansible lewat `pip` atau package manager sesuai OS kamu, lalu cek dengan `ansible --version`. Jalankan `ansible localhost -m ping` — pastikan hasilnya `"pong"`. Kalau kamu punya akses SSH ke server lain (VM lokal atau VPS), coba juga `ansible <ip-server> -m ping -u <username> --private-key <path-ke-ssh-key>` untuk membuktikan Ansible bisa connect ke server sungguhan, bukan cuma localhost.', 0, 'published', '2026-09-19 10:15:28.833636+00', '2026-09-22 14:30:29.208+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4af5aaed-92a1-4678-b07c-3746d4a4793a', 'b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'Memory: Ingatan Lintas Sesi', 'memory-lintas-sesi', 'Sekarang kamu bisa kasih task dan lanjutkan sesi yang sama (dari catatan sebelumnya) — tapi `--continue` cuma bekerja untuk sesi yang SAMA. **Masalah yang diselesaikan sekarang:** begitu kamu mulai sesi yang benar-benar BARU, agent (seperti chatbot biasa pada umumnya) kembali dari nol — kamu harus jelaskan ulang preferensi dan konteks project dari awal, setiap kali.
 
 **Memory** di Hermes Agent adalah dua file berukuran terbatas yang disimpan di `~/.hermes/memories/`: `MEMORY.md` (catatan lingkungan/konvensi/hal yang dipelajari) dan `USER.md` (profil preferensi & gaya komunikasi kamu).
@@ -6821,87 +7514,153 @@ Poin penting:
 - `FutureBuilder` otomatis rebuild widget-nya sesuai state `Future`: `waiting` (masih loading), `hasError` (gagal), atau `hasData` (berhasil) — kamu tidak perlu mengelola `setState()` manual untuk loading spinner.
 - Panggil fungsi `Future` (seperti `ambilDaftarPost()`) di `initState()` dan simpan hasilnya ke variabel, JANGAN dipanggil langsung di `build()` — kalau dipanggil di `build()`, request akan terkirim ULANG setiap kali widget di-*rebuild*.
 - Selalu cek `response.statusCode` sebelum memproses `response.body` — status selain 200 (seperti 404 atau 500) berarti request-nya gagal meski tidak melempar exception Dart secara otomatis.', '[{"url":"https://docs.flutter.dev/cookbook/networking/fetch-data","label":"Flutter Cookbook — Fetch Data from the Internet"}]'::jsonb, '[]'::jsonb, 'Tambahkan package `http` (`flutter pub add http`). Buat fungsi `ambilDaftarPost()` seperti contoh di atas, tampilkan hasilnya lewat `FutureBuilder` di sebuah halaman baru. Pastikan tampilan menunjukkan `CircularProgressIndicator` sesaat sebelum data muncul. SENGAJA salahkan URL-nya (mis. ganti jadi domain yang tidak ada) untuk memicu `hasError`, buktikan pesan error-nya tertampil alih-alih app crash. Ini menutup roadmap Flutter: dari instalasi sampai aplikasi yang menampilkan data sungguhan dari API.', 4, 'published', '2026-09-19 12:19:14.593871+00', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('af09f040-3187-4005-8da9-c2d2fe6f45ef', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Pengenalan Spring Boot & Instalasi', 'pengenalan-spring-boot-dan-instalasi', '**Masalah yang diselesaikan:** Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual yang panjang dan server aplikasi (Tomcat) yang harus di-setup terpisah — banyak boilerplate sebelum sempat menulis satu baris pun kode business logic.
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('0e690faf-177a-4f08-adb7-78813ad3b002', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Spring Data JPA Dasar: Akses Database', 'spring-data-jpa-dasar', 'REST Controller dari catatan sebelumnya sudah bisa menerima request dan balas response, tapi datanya cuma `List<Todo>` di memori — hilang total tiap aplikasi di-restart. **Masalah yang diselesaikan sekarang:** bagaimana menyimpan data ke database beneran yang bertahan lintas restart, tanpa menulis query SQL manual untuk tiap operasi CRUD?
 
-**Spring Boot** menyelesaikan ini lewat tiga hal: *auto-configuration* (Spring menebak konfigurasi yang masuk akal berdasarkan dependency yang ada), server *embedded* (Tomcat sudah termasuk di dalam aplikasi, tidak perlu instalasi terpisah), dan *starter dependency* (bundel dependency siap pakai per kebutuhan, misalnya `spring-boot-starter-web` untuk aplikasi web).
+**Spring Data JPA** adalah lapisan abstraksi di atas JPA/Hibernate — cukup definisikan *entity* dan *interface repository*, Spring OTOMATIS meng-generate implementasi CRUD-nya saat aplikasi jalan, tanpa kamu menulis satu baris SQL pun.
 
 ```mermaid
 flowchart TD
-  subgraph Tradisional["Spring Tradisional"]
-    X["Konfigurasi XML manual"] --> T["Install & config Tomcat terpisah"] --> Deploy["Deploy .war ke server"]
-  end
-  subgraph Boot["Spring Boot"]
-    Auto["Auto-configuration dari starter dependency"] --> Embed["Tomcat SUDAH ada di dalam aplikasi"] --> Run["java -jar app.jar — langsung jalan"]
-  end
+  Entity["Class Java + @Entity<br/>public class Todo { ... }"] --> Repo["interface TodoRepository<br/>extends JpaRepository&lt;Todo, Integer&gt;"]
+  Repo -->|"Spring generate otomatis saat runtime"| Impl["Implementasi CRUD lengkap<br/>(save, findById, findAll, delete, dst)"]
+  Impl --> DB[("Database")]
 ```
 
-### Membuat Project Lewat Spring Initializr
-Cara paling mudah: buka [start.spring.io](https://start.spring.io), pilih Maven, Java, versi Spring Boot terbaru, tambahkan dependency **Spring Web**, lalu generate & download project-nya.
-
+### 1. Dependency & Konfigurasi
 ```bash
-# Setelah project di-extract, jalankan lewat Maven wrapper (tidak perlu install Maven manual)
-./mvnw spring-boot:run
-
-# Windows
-mvnw.cmd spring-boot:run
+# Tambahkan di pom.xml (atau pilih saat generate di start.spring.io):
+# - spring-boot-starter-data-jpa
+# - com.h2database:h2 (database file-based, ringan untuk belajar)
 ```
 
-Buka `http://localhost:8080` — Spring Boot otomatis menjalankan server web di port itu, tanpa konfigurasi tambahan apa pun.
+```properties
+# src/main/resources/application.properties
+spring.datasource.url=jdbc:h2:file:./data/todos
+spring.jpa.hibernate.ddl-auto=update
+```
 
-### Anatomi Aplikasi Minimal
+### 2. Entity & Repository
 ```java
-// src/main/java/com/contoh/demo/DemoApplication.java
-package com.contoh.demo;
+@Entity
+public class Todo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String judul;
+    private boolean selesai;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+    // getter & setter (atau pakai Lombok @Data untuk generate otomatis)
+}
 
-@SpringBootApplication // gabungan @Configuration + @EnableAutoConfiguration + @ComponentScan
-public class DemoApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+// Cukup EXTENDS JpaRepository — TIDAK perlu menulis implementasi sama sekali
+public interface TodoRepository extends JpaRepository<Todo, Integer> {
+}
+```
+
+### 3. Pakai di Controller (Ganti List In-Memory)
+```java
+@RestController
+@RequestMapping("/api/todos")
+public class TodoController {
+    private final TodoRepository repository;
+
+    public TodoController(TodoRepository repository) { // DI dari catatan sebelumnya
+        this.repository = repository;
     }
+
+    @GetMapping
+    public List<Todo> semua() {
+        return repository.findAll();
+    }
+
+    @PostMapping
+    public Todo tambah(@RequestBody Todo todoBaru) {
+        return repository.save(todoBaru); // INSERT kalau id null, UPDATE kalau id sudah ada
+    }
+
+    @DeleteMapping("/{id}")
+    public void hapus(@PathVariable Integer id) {
+        repository.deleteById(id);
+    }
+}
+```
+
+| Method `JpaRepository` | Fungsi |
+| --- | --- |
+| `findAll()` | Ambil semua baris |
+| `findById(id)` | Ambil satu baris, mengembalikan `Optional<T>` |
+| `save(entity)` | INSERT (kalau `id` null) atau UPDATE (kalau `id` sudah ada) |
+| `deleteById(id)` | Hapus satu baris berdasarkan primary key |
+
+Poin penting:
+
+- `extends JpaRepository<Todo, Integer>` saja SUDAH CUKUP — Spring meng-generate implementasi lengkapnya secara otomatis saat aplikasi start, tanpa kamu menulis class implementasi manual.
+- H2 dipakai di sini karena paling sederhana untuk belajar (file database lokal, tanpa install server terpisah) — provider lain (PostgreSQL, MySQL) dipakai dengan pola KODE yang sama persis, cuma beda `spring.datasource.url` dan driver dependency-nya.
+- `spring.jpa.hibernate.ddl-auto=update` membuat Hibernate otomatis membuat/menyesuaikan struktur tabel dari class `@Entity` — praktis untuk belajar, tapi di production biasanya dipakai tool migration terpisah (Flyway/Liquibase) untuk kontrol lebih ketat.', '[{"url":"https://docs.spring.io/spring-data/jpa/reference/jpa.html","label":"Spring Data JPA — Reference Documentation"},{"url":"https://spring.io/guides/gs/accessing-data-jpa","label":"Spring Guides — Accessing Data with JPA"}]'::jsonb, '[]'::jsonb, 'Tambahkan dependency `spring-boot-starter-data-jpa` dan `h2` ke project dari catatan sebelumnya. Buat entity `Todo` dan interface `TodoRepository` seperti contoh di atas, ganti `TodoController` supaya pakai `TodoRepository` (bukan `List` in-memory lagi). Jalankan aplikasi, tambah beberapa todo lewat POST, lalu STOP aplikasinya (Ctrl+C) dan jalankan ulang — panggil `GET /api/todos` lagi dan buktikan data yang kamu tambahkan sebelumnya masih ada (karena `jdbc:h2:file:` menyimpan ke file, bukan cuma di memori).', 3, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1065af1e-2c02-4a29-878a-0523e4f7b2c6', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Memahami Closure', 'closure', 'Sekarang kamu paham cara mendefinisikan fungsi dan konsep scope (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana membuat variabel yang privat ke satu fungsi, tapi tetap bisa diakses/diubah oleh fungsi lain yang terkait dengannya — tanpa membuat variabel itu global (yang berisiko tertimpa atau diubah kode lain secara tidak sengaja)? Sebelum closure dipahami, satu-satunya cara menyimpan state antar pemanggilan fungsi terasa seperti harus pakai variabel global.
+
+Closure adalah fungsi yang "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar sudah selesai dieksekusi.
+
+```js
+function buatCounter() {
+  let jumlah = 0;
+  return function () {
+    jumlah++;
+    return jumlah;
+  };
+}
+
+const counter = buatCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+```
+
+```mermaid
+graph TD
+  subgraph luar["buatCounter() — scope luar, dijalankan sekali"]
+    j["jumlah = 0"]
+    subgraph dalam["function() — closure (scope dalam)"]
+      c["jumlah++ dan return jumlah"]
+    end
+  end
+  j -. "tetap bisa diakses walau buatCounter() sudah selesai" .-> c
+```
+
+Poin penting:
+
+- Setiap pemanggilan `buatCounter()` menghasilkan closure baru dengan `jumlah` masing-masing.
+- Variabel `jumlah` tetap hidup di memori selama closure-nya masih dipakai.
+- Sering dipakai untuk membuat data privat, seperti pola module.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures","label":"Closures — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Modifikasi `buatCounter()` supaya mengembalikan object berisi dua fungsi sekaligus: `tambah()` dan `kurang()`, keduanya berbagi variabel `jumlah` yang sama lewat closure. Buat dua instance counter berbeda (`counterA` dan `counterB`) dari `buatCounter()` yang sama, lalu buktikan variabel `jumlah` masing-masing independen — mengubah `counterA` tidak memengaruhi `counterB` sama sekali.', 5, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:18.922+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('96fdeed5-3947-4217-b466-7830060ce30b', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Async/Await di JavaScript', 'async-await', 'Promise dari catatan sebelumnya sudah menyelesaikan masalah callback bersarang, tapi rantai `.then().then().then()` yang panjang masih agak sulit dibaca urutannya sekilas mata. **Masalah yang diselesaikan sekarang:** bagaimana menulis kode asinkron yang TERLIHAT seperti kode sinkron biasa (baris demi baris), padahal di baliknya tetap non-blocking?
+
+`async/await` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.
+
+```mermaid
+graph LR
+  subgraph sinkron["Sinkron (blocking)"]
+    s1["tugas1"] --> s2["tugas2"] --> s3["tugas3"]
+  end
+  subgraph asinkron["Async/Await (non-blocking)"]
+    a1["await fetch()"] -. "kode lain tetap jalan selagi menunggu" .-> a2["lanjut pakai data"]
+  end
+```
+
+```js
+async function ambilData() {
+  try {
+    const res = await fetch("/api/data");
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.error("Gagal mengambil data:", err);
+  }
 }
 ```
 
 Poin penting:
 
-- `@SpringBootApplication` adalah SATU annotation yang menggabungkan tiga hal: menandai class ini sebagai sumber konfigurasi, mengaktifkan auto-configuration, dan memindai (*scan*) package ini serta sub-package-nya untuk menemukan component Spring lain secara otomatis.
-- `./mvnw` (Maven Wrapper) memastikan semua orang yang menjalankan project memakai versi Maven yang SAMA persis, tanpa perlu install Maven manual di komputernya masing-masing.
-- `src/main/resources/application.properties` (atau `.yml`) adalah tempat konfigurasi aplikasi (port, koneksi database, dst) — dibahas lebih lanjut di catatan-catatan berikutnya.', '[{"url":"https://spring.io/quickstart","label":"Spring — Quickstart Guide"},{"url":"https://spring.io/guides/gs/spring-boot","label":"Spring Guides — Building an Application with Spring Boot"}]'::jsonb, '[{"url":"https://adoptium.net/","label":"JDK (Java Development Kit) versi 17 atau lebih baru sudah terinstall"},{"url":"https://code.visualstudio.com/docs/languages/java","label":"IDE Java — IntelliJ IDEA atau VS Code dengan Java Extension Pack"}]'::jsonb, 'Buka [start.spring.io](https://start.spring.io), generate project baru dengan dependency "Spring Web", download dan extract. Jalankan `./mvnw spring-boot:run` (atau `mvnw.cmd spring-boot:run` di Windows) dari terminal di folder project itu. Buka `http://localhost:8080` di browser — akan muncul halaman error "Whitelabel Error Page" (ini NORMAL, karena belum ada endpoint yang didefinisikan). Buktikan servernya benar-benar jalan dengan melihat log `Tomcat started on port 8080` di terminal.', 0, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-22 14:25:10.7+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('127a7415-d02b-42af-a472-99b2385dfc30', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'List Comprehension', 'list-comprehension', 'Sekarang kamu paham `for` loop dan struktur data `list` (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** transformasi atau filter list yang sering dipakai (misalnya ambil elemen genap saja) biasanya butuh beberapa baris kode (deklarasi list kosong, loop, if, append) untuk operasi yang sebenarnya konsepnya sederhana.
-
-List comprehension adalah cara ringkas membuat list baru dari list/iterable lain.
-
-```mermaid
-graph TD
-  A["angka = [1, 2, 3, 4, 5, 6]"] --> B["for n in angka"]
-  B --> C{"n % 2 == 0 ?"}
-  C -- ya --> D["masuk ke hasil"]
-  C -- tidak --> E["dilewati"]
-  D --> F["[2, 4, 6]"]
-```
-
-```python
-angka = [1, 2, 3, 4, 5, 6]
-
-# cara biasa
-genap = []
-for n in angka:
-    if n % 2 == 0:
-        genap.append(n)
-
-# dengan list comprehension
-genap = [n for n in angka if n % 2 == 0]
-```
-
-Pola umum: `[ekspresi for item in iterable if kondisi]`.
-
-Bisa juga dipakai untuk dictionary comprehension:
-
-```python
-kuadrat = {n: n**2 for n in angka}
-```', '[{"url":"https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions","label":"List Comprehensions — Python Docs"}]'::jsonb, '[]'::jsonb, 'Diberikan `kata = [''apel'', ''jeruk'', ''kiwi'', ''nanas'', ''anggur'']`, buat list comprehension baru yang cuma mengambil kata dengan panjang lebih dari 4 huruf, dan sekaligus ubah semuanya jadi huruf besar (`.upper()`). Lalu buat dictionary comprehension `{kata: len(kata) for kata in kata}` untuk memetakan tiap kata ke panjangnya.', 4, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:25:01.839+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- `await` hanya bisa dipakai di dalam fungsi `async`.
+- `await` menjeda eksekusi fungsi sampai Promise selesai, tanpa memblokir thread utama.
+- Gunakan `try/catch` untuk menangani error, menggantikan `.catch()` pada Promise biasa.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function","label":"async function — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `ambilDuaData()` yang memanggil dua endpoint berbeda (mis. `https://jsonplaceholder.typicode.com/users/1` dan `.../posts/1`) satu per satu pakai `await` berurutan, catat waktunya (`console.time`/`console.timeEnd`). Lalu tulis ulang supaya kedua `fetch` itu jalan bersamaan pakai `Promise.all([...])` — bandingkan waktunya, harus jauh lebih cepat karena tidak menunggu satu selesai dulu sebelum mulai yang lain.', 8, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:19.564+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('02dfd4ed-3e64-4889-af20-33edb21dd807', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Dependency Injection (DI) Dasar di Spring', 'dependency-injection-dasar-spring', 'Sekarang aplikasi Spring Boot kamu sudah bisa jalan (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau satu class butuh instance dari class lain (misalnya `NotifikasiService` butuh `EmailService` untuk mengirim email), cara paling naif adalah `new EmailService()` langsung di dalam `NotifikasiService`. Ini membuat kedua class *tightly coupled* — susah dites (tidak bisa diganti versi palsu/mock saat testing) dan susah diganti implementasinya.
 
 **Dependency Injection (DI)** adalah pola di mana Spring (lewat *IoC Container*-nya) yang menyediakan instance yang dibutuhkan suatu class, bukan class itu yang membuat sendiri lewat `new`.
@@ -7086,88 +7845,227 @@ Poin penting:
 - `@RestControllerAdvice` (gabungan `@ControllerAdvice` + `@ResponseBody`) menangkap exception dari SEMUA controller di aplikasi secara terpusat — tidak perlu menulis `try/catch` berulang di tiap method controller.
 - `@ExceptionHandler(TipeException.class)` yang lebih SPESIFIK (seperti `MethodArgumentNotValidException`) didahulukan Spring dibanding yang generik (`Exception.class`) — urutan deklarasi di file tidak berpengaruh, yang penting kecocokan tipe exception-nya.
 - Anotasi Bean Validation umum lainnya: `@NotNull` (tidak boleh null), `@Min`/`@Max` (rentang angka), `@Email` (format email valid) — semuanya dari package `jakarta.validation.constraints`.', '[{"url":"https://docs.spring.io/spring-boot/reference/io/validation.html","label":"Spring Boot Docs — Validation"},{"url":"https://docs.spring.io/spring-boot/reference/web/servlet.html","label":"Spring Boot Docs — Servlet Web Applications (Error Handling)"}]'::jsonb, '[]'::jsonb, 'Tambahkan `@NotBlank` dan `@Size` ke field `judul` di entity `Todo`, tambahkan `@Valid` di parameter `@RequestBody` pada method `tambah()`. Coba `POST /api/todos` dengan `judul` kosong — pastikan responnya status 400. Buat `GlobalExceptionHandler` seperti contoh di atas, ulangi request yang sama — bandingkan response JSON-nya SEBELUM dan SESUDAH ada `@RestControllerAdvice` (harus jadi lebih rapi dan jelas field mana yang error). Ini menutup roadmap Java (Spring Boot): dari instalasi dasar sampai REST API yang datanya tersimpan permanen dan tervalidasi dengan aman.', 4, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
-INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('0e690faf-177a-4f08-adb7-78813ad3b002', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Spring Data JPA Dasar: Akses Database', 'spring-data-jpa-dasar', 'REST Controller dari catatan sebelumnya sudah bisa menerima request dan balas response, tapi datanya cuma `List<Todo>` di memori — hilang total tiap aplikasi di-restart. **Masalah yang diselesaikan sekarang:** bagaimana menyimpan data ke database beneran yang bertahan lintas restart, tanpa menulis query SQL manual untuk tiap operasi CRUD?
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('2c353801-6cec-4671-a4a3-d29eced08c1b', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Layout & Nested Layout Dasar', 'layout-dan-nested-layout', '**Masalah yang diselesaikan:** makin banyak halaman yang kamu buat dan navigasikan (seperti di catatan sebelumnya), makin banyak juga elemen UI yang berulang di tiap halaman — navbar, footer, sidebar. Copy-paste elemen itu ke tiap `page.tsx` bikin kode duplikat dan gampang jadi tidak konsisten kalau salah satu lupa di-update.
 
-**Spring Data JPA** adalah lapisan abstraksi di atas JPA/Hibernate — cukup definisikan *entity* dan *interface repository*, Spring OTOMATIS meng-generate implementasi CRUD-nya saat aplikasi jalan, tanpa kamu menulis satu baris SQL pun.
+Layout adalah komponen UI yang dibagikan ke beberapa halaman anak. Ketika berpindah halaman di dalam layout yang sama, layout tetap bertahan (*persisted state*) dan tidak di-render ulang dari awal.
 
 ```mermaid
 flowchart TD
-  Entity["Class Java + @Entity<br/>public class Todo { ... }"] --> Repo["interface TodoRepository<br/>extends JpaRepository&lt;Todo, Integer&gt;"]
-  Repo -->|"Spring generate otomatis saat runtime"| Impl["Implementasi CRUD lengkap<br/>(save, findById, findAll, delete, dst)"]
-  Impl --> DB[("Database")]
+    subgraph RootLayout ["app/layout.tsx (Root Layout: Navbar + Footer Global)"]
+        subgraph DashboardLayout ["app/dashboard/layout.tsx (Sidebar Dashboard)"]
+            P1["app/dashboard/page.tsx (Ringkasan)"]
+            P2["app/dashboard/settings/page.tsx (Pengaturan)"]
+        end
+    end
 ```
 
-### 1. Dependency & Konfigurasi
+### 1. Root Layout (`app/layout.tsx`)
+Setiap aplikasi Next.js App Router wajib memiliki satu Root Layout untuk membungkus elemen dasar dokumen HTML:
+
+```tsx
+// app/layout.tsx
+import "./globals.css";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="id">
+      <body>
+        <header className="p-4 border-b">Navbar Global</header>
+        <main>{children}</main>
+      </body>
+    </html>
+  );
+}
+```
+
+### 2. Nested Layout (`app/dashboard/layout.tsx`)
+Layout bersarang hanya membungkus semua rute di dalam subfolder tersebut:
+
+```tsx
+// app/dashboard/layout.tsx
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex">
+      <aside className="w-64 p-4 bg-gray-100">Menu Sidebar</aside>
+      <section className="flex-1 p-6">{children}</section>
+    </div>
+  );
+}
+```
+
+- **Re-render Efisien**: Mengubah rute dari `/dashboard` ke `/dashboard/settings` hanya me-render ulang `children`, sedangkan Sidebar dan Navbar tetap utuh.
+- **Data Sharing**: Layout cocok untuk meletakkan konteks state bersama atau navigasi lokal.', '[{"url":"https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts","label":"Next.js Docs — Pages and Layouts"}]'::jsonb, '[]'::jsonb, 'Di project latihan, tambahkan `app/dashboard/layout.tsx` dengan sidebar sederhana (seperti contoh di atas), lalu buat dua halaman di dalamnya: `app/dashboard/page.tsx` dan `app/dashboard/pengaturan/page.tsx`. Navigasi antar keduanya (pakai `<Link>` dari catatan sebelumnya) dan amati lewat DevTools Elements/Inspector: apakah sidebar ikut ter-render ulang tiap pindah halaman, atau tetap diam?', 4, 'published', '2026-09-18 09:12:01.736924+00', '2026-09-22 13:32:10.867+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('127a7415-d02b-42af-a472-99b2385dfc30', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'List Comprehension', 'list-comprehension', 'Sekarang kamu paham `for` loop dan struktur data `list` (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** transformasi atau filter list yang sering dipakai (misalnya ambil elemen genap saja) biasanya butuh beberapa baris kode (deklarasi list kosong, loop, if, append) untuk operasi yang sebenarnya konsepnya sederhana.
+
+List comprehension adalah cara ringkas membuat list baru dari list/iterable lain.
+
+```mermaid
+graph TD
+  A["angka = [1, 2, 3, 4, 5, 6]"] --> B["for n in angka"]
+  B --> C{"n % 2 == 0 ?"}
+  C -- ya --> D["masuk ke hasil"]
+  C -- tidak --> E["dilewati"]
+  D --> F["[2, 4, 6]"]
+```
+
+```python
+angka = [1, 2, 3, 4, 5, 6]
+
+# cara biasa
+genap = []
+for n in angka:
+    if n % 2 == 0:
+        genap.append(n)
+
+# dengan list comprehension
+genap = [n for n in angka if n % 2 == 0]
+```
+
+Pola umum: `[ekspresi for item in iterable if kondisi]`.
+
+Bisa juga dipakai untuk dictionary comprehension:
+
+```python
+kuadrat = {n: n**2 for n in angka}
+```', '[{"url":"https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions","label":"List Comprehensions — Python Docs"}]'::jsonb, '[]'::jsonb, 'Diberikan `kata = [''apel'', ''jeruk'', ''kiwi'', ''nanas'', ''anggur'']`, buat list comprehension baru yang cuma mengambil kata dengan panjang lebih dari 4 huruf, dan sekaligus ubah semuanya jadi huruf besar (`.upper()`). Lalu buat dictionary comprehension `{kata: len(kata) for kata in kata}` untuk memetakan tiap kata ke panjangnya.', 4, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:22.85+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('bc2d0543-327c-445a-8641-b59c1a092feb', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Virtual Environment (venv)', 'virtual-environment', 'Sekarang kamu bisa `import` module dan package pihak ketiga lewat `pip` (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau semua dependency Python diinstall secara global (satu Python untuk semua proyek), proyek A yang butuh `django==4` dan proyek B yang butuh `django==3` akan bertabrakan — cuma bisa ada satu versi terinstall global di satu waktu.
+
+Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
+
+```mermaid
+graph TD
+  subgraph A["Proyek A"]
+    A1[".venv A"] --> A2["django==4, requests==2.1"]
+  end
+  subgraph B["Proyek B"]
+    B1[".venv B"] --> B2["flask==3, requests==2.31"]
+  end
+```
+
 ```bash
-# Tambahkan di pom.xml (atau pilih saat generate di start.spring.io):
-# - spring-boot-starter-data-jpa
-# - com.h2database:h2 (database file-based, ringan untuk belajar)
+# membuat venv
+python -m venv .venv
+
+# mengaktifkan (Linux/Mac)
+source .venv/bin/activate
+
+# mengaktifkan (Windows)
+.venv\Scripts\activate
+
+# menginstal dependency
+pip install -r requirements.txt
+
+# keluar dari venv
+deactivate
 ```
 
-```properties
-# src/main/resources/application.properties
-spring.datasource.url=jdbc:h2:file:./data/todos
-spring.jpa.hibernate.ddl-auto=update
+Tips:
+
+- Tambahkan folder `.venv/` ke `.gitignore` agar tidak ikut ter-commit.
+- Simpan daftar dependency dengan `pip freeze > requirements.txt`.', '[{"url":"https://docs.python.org/3/library/venv.html","label":"venv — Creation of virtual environments — Python Docs"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python sudah terinstall (cek dengan `python --version`)"}]'::jsonb, 'Buat dua folder proyek berbeda. Di masing-masing, buat venv terpisah (`python -m venv .venv`), aktifkan, lalu install versi `requests` yang BERBEDA di tiap proyek (mis. `pip install requests==2.31.0` di satu, `pip install requests==2.28.0` di lainnya). Jalankan `pip freeze` di kedua venv untuk membuktikan versinya benar-benar berbeda dan tidak saling memengaruhi satu sama lain. Ini menutup roadmap Python: dari sintaks dasar sampai mengelola dependency proyek secara terisolasi.', 8, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:23.622+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('af09f040-3187-4005-8da9-c2d2fe6f45ef', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Pengenalan Spring Boot & Instalasi', 'pengenalan-spring-boot-dan-instalasi', '**Masalah yang diselesaikan:** Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual yang panjang dan server aplikasi (Tomcat) yang harus di-setup terpisah — banyak boilerplate sebelum sempat menulis satu baris pun kode business logic.
+
+**Spring Boot** menyelesaikan ini lewat tiga hal: *auto-configuration* (Spring menebak konfigurasi yang masuk akal berdasarkan dependency yang ada), server *embedded* (Tomcat sudah termasuk di dalam aplikasi, tidak perlu instalasi terpisah), dan *starter dependency* (bundel dependency siap pakai per kebutuhan, misalnya `spring-boot-starter-web` untuk aplikasi web).
+
+```mermaid
+flowchart TD
+  subgraph Tradisional["Spring Tradisional"]
+    X["Konfigurasi XML manual"] --> T["Install & config Tomcat terpisah"] --> Deploy["Deploy .war ke server"]
+  end
+  subgraph Boot["Spring Boot"]
+    Auto["Auto-configuration dari starter dependency"] --> Embed["Tomcat SUDAH ada di dalam aplikasi"] --> Run["java -jar app.jar — langsung jalan"]
+  end
 ```
 
-### 2. Entity & Repository
+### Membuat Project Lewat Spring Initializr
+Cara paling mudah: buka [start.spring.io](https://start.spring.io), pilih Maven, Java, versi Spring Boot terbaru, tambahkan dependency **Spring Web**, lalu generate & download project-nya.
+
+```bash
+# Setelah project di-extract, jalankan lewat Maven wrapper (tidak perlu install Maven manual)
+./mvnw spring-boot:run
+
+# Windows
+mvnw.cmd spring-boot:run
+```
+
+Buka `http://localhost:8080` — Spring Boot otomatis menjalankan server web di port itu, tanpa konfigurasi tambahan apa pun.
+
+### Anatomi Aplikasi Minimal
 ```java
-@Entity
-public class Todo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String judul;
-    private boolean selesai;
+// src/main/java/com/contoh/demo/DemoApplication.java
+package com.contoh.demo;
 
-    // getter & setter (atau pakai Lombok @Data untuk generate otomatis)
-}
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// Cukup EXTENDS JpaRepository — TIDAK perlu menulis implementasi sama sekali
-public interface TodoRepository extends JpaRepository<Todo, Integer> {
-}
-```
-
-### 3. Pakai di Controller (Ganti List In-Memory)
-```java
-@RestController
-@RequestMapping("/api/todos")
-public class TodoController {
-    private final TodoRepository repository;
-
-    public TodoController(TodoRepository repository) { // DI dari catatan sebelumnya
-        this.repository = repository;
-    }
-
-    @GetMapping
-    public List<Todo> semua() {
-        return repository.findAll();
-    }
-
-    @PostMapping
-    public Todo tambah(@RequestBody Todo todoBaru) {
-        return repository.save(todoBaru); // INSERT kalau id null, UPDATE kalau id sudah ada
-    }
-
-    @DeleteMapping("/{id}")
-    public void hapus(@PathVariable Integer id) {
-        repository.deleteById(id);
+@SpringBootApplication // gabungan @Configuration + @EnableAutoConfiguration + @ComponentScan
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
     }
 }
 ```
-
-| Method `JpaRepository` | Fungsi |
-| --- | --- |
-| `findAll()` | Ambil semua baris |
-| `findById(id)` | Ambil satu baris, mengembalikan `Optional<T>` |
-| `save(entity)` | INSERT (kalau `id` null) atau UPDATE (kalau `id` sudah ada) |
-| `deleteById(id)` | Hapus satu baris berdasarkan primary key |
 
 Poin penting:
 
-- `extends JpaRepository<Todo, Integer>` saja SUDAH CUKUP — Spring meng-generate implementasi lengkapnya secara otomatis saat aplikasi start, tanpa kamu menulis class implementasi manual.
-- H2 dipakai di sini karena paling sederhana untuk belajar (file database lokal, tanpa install server terpisah) — provider lain (PostgreSQL, MySQL) dipakai dengan pola KODE yang sama persis, cuma beda `spring.datasource.url` dan driver dependency-nya.
-- `spring.jpa.hibernate.ddl-auto=update` membuat Hibernate otomatis membuat/menyesuaikan struktur tabel dari class `@Entity` — praktis untuk belajar, tapi di production biasanya dipakai tool migration terpisah (Flyway/Liquibase) untuk kontrol lebih ketat.', '[{"url":"https://docs.spring.io/spring-data/jpa/reference/jpa.html","label":"Spring Data JPA — Reference Documentation"},{"url":"https://spring.io/guides/gs/accessing-data-jpa","label":"Spring Guides — Accessing Data with JPA"}]'::jsonb, '[]'::jsonb, 'Tambahkan dependency `spring-boot-starter-data-jpa` dan `h2` ke project dari catatan sebelumnya. Buat entity `Todo` dan interface `TodoRepository` seperti contoh di atas, ganti `TodoController` supaya pakai `TodoRepository` (bukan `List` in-memory lagi). Jalankan aplikasi, tambah beberapa todo lewat POST, lalu STOP aplikasinya (Ctrl+C) dan jalankan ulang — panggil `GET /api/todos` lagi dan buktikan data yang kamu tambahkan sebelumnya masih ada (karena `jdbc:h2:file:` menyimpan ke file, bukan cuma di memori).', 3, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+- `@SpringBootApplication` adalah SATU annotation yang menggabungkan tiga hal: menandai class ini sebagai sumber konfigurasi, mengaktifkan auto-configuration, dan memindai (*scan*) package ini serta sub-package-nya untuk menemukan component Spring lain secara otomatis.
+- `./mvnw` (Maven Wrapper) memastikan semua orang yang menjalankan project memakai versi Maven yang SAMA persis, tanpa perlu install Maven manual di komputernya masing-masing.
+- `src/main/resources/application.properties` (atau `.yml`) adalah tempat konfigurasi aplikasi (port, koneksi database, dst) — dibahas lebih lanjut di catatan-catatan berikutnya.', '[{"url":"https://spring.io/quickstart","label":"Spring — Quickstart Guide"},{"url":"https://spring.io/guides/gs/spring-boot","label":"Spring Guides — Building an Application with Spring Boot"}]'::jsonb, '[{"url":"https://adoptium.net/","label":"JDK (Java Development Kit) versi 17 atau lebih baru sudah terinstall"},{"url":"https://code.visualstudio.com/docs/languages/java","label":"IDE Java — IntelliJ IDEA atau VS Code dengan Java Extension Pack"}]'::jsonb, 'Buka [start.spring.io](https://start.spring.io), generate project baru dengan dependency "Spring Web", download dan extract. Jalankan `./mvnw spring-boot:run` (atau `mvnw.cmd spring-boot:run` di Windows) dari terminal di folder project itu. Buka `http://localhost:8080` di browser — akan muncul halaman error "Whitelabel Error Page" (ini NORMAL, karena belum ada endpoint yang didefinisikan). Buktikan servernya benar-benar jalan dengan melihat log `Tomcat started on port 8080` di terminal.', 0, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-22 14:30:33.487+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b21bd33f-6b73-4703-a270-dbfbbd8de0a8', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Query Data Dasar (CRUD)', 'query-dasar', 'Client Supabase dari catatan sebelumnya sudah siap. **Masalah yang diselesaikan sekarang:** bagaimana benar-benar membaca dan mengubah data di database dari kode aplikasi, tanpa menulis query SQL manual satu per satu?
+
+Setelah client Supabase siap, operasi dasar ke database (CRUD) dipanggil lewat method di atas nama tabel.
+
+```mermaid
+flowchart LR
+  App["Aplikasi Web<br/>supabase.from(''produk'').select(''*'')"] --> PostgREST["Supabase PostgREST API"]
+  PostgREST --> DB["PostgreSQL Database<br/>SELECT * FROM produk;"]
+  DB --> PostgREST
+  PostgREST --> Res["Mengembalikan Objek JS<br/>{ data, error }"]
+```
+
+```ts
+import { supabase } from "./lib/supabase";
+
+// SELECT — ambil semua baris
+const { data, error } = await supabase.from("produk").select("*");
+
+// SELECT dengan filter
+const { data: satu } = await supabase
+  .from("produk")
+  .select("*")
+  .eq("id", 1)
+  .single();
+
+// INSERT — tambah baris baru
+await supabase.from("produk").insert({ nama: "Buku", harga: 50000 });
+
+// UPDATE — ubah baris yang cocok filter
+await supabase.from("produk").update({ harga: 60000 }).eq("id", 1);
+
+// DELETE — hapus baris yang cocok filter
+await supabase.from("produk").delete().eq("id", 1);
+```
+
+| Method Supabase | Setara perintah SQL |
+| --- | --- |
+| `.select("*")` | `SELECT * FROM produk` |
+| `.insert({...})` | `INSERT INTO produk (...) VALUES (...)` |
+| `.update({...}).eq("id", 1)` | `UPDATE produk SET ... WHERE id = 1` |
+| `.delete().eq("id", 1)` | `DELETE FROM produk WHERE id = 1` |
+
+Poin penting:
+
+- Setiap query mengembalikan `{ data, error }` — selalu cek `error` sebelum memakai `data`, jangan asumsikan query selalu berhasil.
+- `.eq("kolom", nilai)` adalah filter kondisi `WHERE kolom = nilai`; ada filter lain seperti `.gt()`, `.lt()`, `.like()` untuk kondisi berbeda.
+- Query hanya akan berhasil kalau diizinkan oleh Row Level Security (RLS) tabel tersebut — kalau RLS aktif tapi belum ada policy, semua query dari client akan ditolak meskipun kodenya benar.', '[{"url":"https://supabase.com/docs/reference/javascript/introduction","label":"Supabase Docs — JavaScript Client Reference"}]'::jsonb, '[]'::jsonb, 'Di project Supabase kamu, buat tabel `produk` (kolom: `id`, `nama` text, `harga` numeric). Praktikkan keempat operasi CRUD di atas lewat client — insert 2-3 produk, select semuanya, update salah satu harganya, lalu delete satu. Cek tabel `produk` di dashboard Supabase (Table Editor) setiap habis satu operasi, untuk memastikan perubahannya benar-benar tersimpan di database.', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-22 14:30:24.243+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
 
 -- Category Quiz Questions (6 baris)
 INSERT INTO category_quiz_questions (id, category_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('373a1cba-5b63-4c5b-a3ba-76baace97746', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Manakah yang BUKAN termasuk topik dasar JavaScript yang sudah dipelajari di roadmap ini?', '["Variabel & scope","Closure","Arrow function","Migrasi database SQL"]'::jsonb, 3, 'Migrasi database bukan bagian dari roadmap dasar JavaScript di kategori ini — itu topik terpisah (mis. Supabase).', 0, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
