@@ -27,7 +27,7 @@ Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), mengabai
     slug: "javascript",
     description: `JavaScript adalah bahasa pemrograman inti di balik hampir semua interaktivitas web — dari validasi form sampai aplikasi kompleks seperti Gmail. Roadmap ini membangun fondasinya secara bertahap: banyak konsep JS lanjutan (closure, Promise) sering disalahpahami pemula justru karena dasar-dasarnya (scope, fungsi) belum kokoh.
 
-Roadmap ini membawamu dari variabel & scope, mendefinisikan fungsi (termasuk arrow function), membongkar object/array lewat destructuring, mentransformasi array secara deklaratif, closure untuk data privat, menangani error runtime, Promise untuk kode asinkron, async/await sebagai gula sintaksnya, sampai memecah kode jadi module terorganisir. Sembilan langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
+Roadmap ini membawamu dari variabel & scope, mendefinisikan fungsi (termasuk arrow function), membongkar object/array lewat destructuring, mentransformasi array secara deklaratif, manipulasi DOM & event listener untuk mengubah tampilan web, closure untuk data privat, menangani error runtime, Promise untuk kode asinkron, async/await sebagai gula sintaksnya, memanggil REST API dengan Fetch API, sampai memecah kode jadi module terorganisir. Sebelas langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
 
 **Asumsi:** belum pernah menulis JavaScript sama sekali juga tidak masalah — roadmap ini menjelaskan dari variabel. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.`,
   },
@@ -54,7 +54,7 @@ Roadmap ini membawamu dari sintaks & tipe data dasar, struktur kontrol (percaban
     slug: "supabase",
     description: `Membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya. Supabase menyediakan semua itu siap pakai di atas Postgres, diakses langsung dari client tanpa perlu backend server terpisah.
 
-Roadmap ini membawamu dari setup client, operasi CRUD dasar, mengenali user lewat autentikasi, mengamankan data per user lewat Row Level Security, menyimpan file lewat Storage, sampai mendengarkan perubahan data secara live lewat Realtime. Enam langkah yang membangun satu sama lain — RLS memakai \`auth.uid()\` dari langkah autentikasi sebelumnya, dan policy Storage/Realtime memakai pola RLS yang sama, jadi urutannya penting.
+Roadmap ini membawamu dari setup client, operasi CRUD dasar, menghubungkan data lewat relasi tabel & foreign key, mengenali user lewat autentikasi, mengamankan data per user lewat Row Level Security, menyimpan file lewat Storage, sampai mendengarkan perubahan data secara live lewat Realtime. Tujuh langkah yang membangun satu sama lain — RLS memakai \`auth.uid()\` dari langkah autentikasi sebelumnya, dan policy Storage/Realtime memakai pola RLS yang sama, jadi urutannya penting.
 
 **Asumsi:** familiar dengan JavaScript/TypeScript dasar dan konsep \`async\`/\`await\`. Butuh akun Supabase (gratis) — disebutkan di catatan pertama.`,
   },
@@ -1577,8 +1577,84 @@ Poin penting:
   },
   {
     category: "javascript",
-    slug: "closure",
+    slug: "dom-dan-event-listener-dasar",
     order: 4,
+    title: "DOM & Event Listener Dasar: Membuat Halaman Web Interaktif",
+    content: `Catatan sebelumnya membahas cara memproses dan mentransformasi data array di memori. **Masalah yang diselesaikan sekarang:** semua kode yang kamu pelajari sejauh ini hanya berjalan dan mencetak teks di terminal console. Bagaimana cara JavaScript mengubah teks, warna, atau struktur halaman web di browser, serta merespons saat pengunjung mengklik tombol?
+
+Browser merepresentasikan dokumen HTML sebagai pohon objek yang disebut **DOM (Document Object Model)**. Lewat JavaScript, kita bisa memilih elemen HTML (*query*), membaca atau mengubah isinya, dan memasang pendengar aksi (*event listener*).
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Browser["Halaman Web di Browser"]
+    Btn["<button id='tombol'>Klik Saya</button>"]
+    P["<p id='pesan'>Teks Awal</p>"]
+  end
+  subgraph JS["JavaScript DOM API"]
+    Sel["const btn = document.querySelector('#tombol');<br/>const pesan = document.querySelector('#pesan');"]
+    Ev["btn.addEventListener('click', () => {<br/>  pesan.textContent = 'Halo dari JavaScript!';<br/>});"]
+  end
+  Btn -.->|Dipilih oleh| Sel
+  P -.->|Dipilih oleh| Sel
+  Sel --> Ev
+  Ev -->|Memperbarui DOM saat diklik| P
+\`\`\`
+
+Contoh kode dasar manipulasi DOM dan Event:
+
+\`\`\`html
+<!-- index.html -->
+<button id="btn-ubah">Ganti Salam</button>
+<p id="teks-salam">Selamat pagi!</p>
+
+<script>
+  // 1. Memilih elemen dari dokumen HTML berdasarkan selector CSS
+  const tombol = document.querySelector("#btn-ubah");
+  const teksSalam = document.querySelector("#teks-salam");
+
+  // 2. Memasang Event Listener: fungsi yang otomatis dipanggil saat aksi terjadi
+  tombol.addEventListener("click", function () {
+    // 3. Mengubah teks dan styling elemen secara dinamis
+    teksSalam.textContent = "Halo, selamat datang di dunia web!";
+    teksSalam.style.color = "#2563eb";
+    teksSalam.style.fontWeight = "bold";
+  });
+</script>
+\`\`\`
+
+Poin penting:
+
+- \`document.querySelector('selector')\` memilih elemen pertama yang cocok dengan selector CSS (misal \`#id\`, \`.class\`, atau nama tag seperti \`button\`).
+- \`addEventListener('event', callback)\` mendengarkan event tertentu seperti \`'click'\`, \`'input'\`, \`'submit'\`, atau \`'keydown'\` tanpa menimpa event listener lain.
+- Gunakan \`textContent\` (bukan \`innerHTML\`) untuk mengubah teks biasa agar aman dari celah keamanan Cross-Site Scripting (XSS).
+- Memahami manipulasi DOM langsung ini adalah fondasi penting sebelum beralih ke React, di mana manipulasi DOM diotomatisasi secara deklaratif.`,
+    sources: [
+      {
+        label: "MDN Web Docs — Introduction to the DOM",
+        url: "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction"
+      },
+      {
+        label: "MDN Web Docs — EventTarget.addEventListener()",
+        url: "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener"
+      }
+    ],
+    prerequisites: [
+      {
+        label: "Browser web modern (Chrome/Firefox/Edge) dan editor teks",
+        url: "https://developer.mozilla.org"
+      }
+    ],
+    practice: `Buat file \`index.html\` sederhana di komputermu dan buka di browser:
+1. Buat tag \`<input type="text" id="input-nama" placeholder="Ketik namamu..." />\`.
+2. Buat tag \`<h2 id="salam">Halo, Pengunjung!</h2>\`.
+3. Di tag \`<script>\`, pilih input dan h2 tersebut dengan \`document.querySelector\`.
+4. Pasang event listener \`'input'\` pada tag input: setiap kali user mengetik, ubah teks h2 menjadi \`Halo, \${input.value || "Pengunjung"}!\`.
+5. Amati bagaimana tampilan halaman berubah secara live di browser tanpa reload setiap kali kamu menekan tuts keyboard.`,
+  },
+  {
+    category: "javascript",
+    slug: "closure",
+    order: 5,
     title: "Memahami Closure",
     content: `Sekarang kamu paham cara mendefinisikan fungsi dan konsep scope (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana membuat variabel yang privat ke satu fungsi, tapi tetap bisa diakses/diubah oleh fungsi lain yang terkait dengannya — tanpa membuat variabel itu global (yang berisiko tertimpa atau diubah kode lain secara tidak sengaja)? Sebelum closure dipahami, satu-satunya cara menyimpan state antar pemanggilan fungsi terasa seperti harus pakai variabel global.
 
@@ -1622,7 +1698,7 @@ Poin penting:
   {
     category: "javascript",
     slug: "error-handling-dasar",
-    order: 5,
+    order: 6,
     title: "Error Handling: try, catch, finally",
     content: `Sekarang kamu paham fungsi dan closure (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau ada error runtime yang tidak ditangani (misalnya \`JSON.parse()\` gagal karena string-nya tidak valid), SELURUH script berhenti jalan di situ juga (*uncaught exception*) — bagaimana caranya program tetap jalan dan memberi respons yang masuk akal, walau satu bagian kecil gagal?
 
@@ -1680,7 +1756,7 @@ Poin penting:
   {
     category: "javascript",
     slug: "promise-dasar",
-    order: 6,
+    order: 7,
     title: "Promise Dasar",
     content: `\`try/catch\` dari catatan sebelumnya menangani error di kode SINKRON. **Masalah yang diselesaikan sekarang:** kode ASINKRON (timer, request ke server) yang ditulis pakai callback bersarang berkali-kali cepat jadi sulit dibaca begitu ada beberapa langkah berurutan ("*callback hell*"), dan tiap callback butuh error handling-nya sendiri-sendiri, tidak konsisten satu jalur.
 
@@ -1737,7 +1813,7 @@ Poin penting:
   {
     category: "javascript",
     slug: "async-await",
-    order: 7,
+    order: 8,
     title: "Async/Await di JavaScript",
     content: `Promise dari catatan sebelumnya sudah menyelesaikan masalah callback bersarang, tapi rantai \`.then().then().then()\` yang panjang masih agak sulit dibaca urutannya sekilas mata. **Masalah yang diselesaikan sekarang:** bagaimana menulis kode asinkron yang TERLIHAT seperti kode sinkron biasa (baris demi baris), padahal di baliknya tetap non-blocking?
 
@@ -1780,8 +1856,82 @@ Poin penting:
   },
   {
     category: "javascript",
+    slug: "fetch-api-dasar",
+    order: 9,
+    title: "Fetch API: Mengambil Data dari REST API",
+    content: `Catatan sebelumnya membahas sintaks \`async\` dan \`await\` untuk menangani Promise dengan gaya kode sinkron. **Masalah yang diselesaikan sekarang:** sebagian besar aplikasi modern tidak menyimpan seluruh datanya di dalam kode frontend — data produk, profil user, atau postingan blog disimpan di server database dan diambil lewat jaringan internet (*HTTP request*). Bagaimana cara JavaScript meminta dan menerima data dari server eksternal?
+
+Browser menyediakan fungsi bawaan **\`fetch()\`** berbasis Promise untuk mengirim HTTP request (GET, POST, PUT, DELETE) ke server dan menerima responsnya (biasanya dalam format JSON).
+
+\`\`\`mermaid
+sequenceDiagram
+  autonumber
+  participant B as Browser (JavaScript)
+  participant S as Web Server / REST API
+  B->>S: fetch('https://api.example.com/produk')
+  Note over S: Server memproses & mengambil data
+  S-->>B: HTTP Response (Status 200 OK + Header)
+  B->>B: await response.json() untuk parse data
+  Note over B: Data JSON siap dipakai di UI web
+\`\`\`
+
+Contoh kode mengambil data produk publik:
+
+\`\`\`js
+// Mengambil data dengan async/await dan penanganan error
+async function muatDaftarPengguna() {
+  try {
+    // 1. Kirim request HTTP GET ke endpoint API
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+
+    // 2. Selalu periksa apakah response berstatus sukses (HTTP 200-299)
+    if (!response.ok) {
+      throw new Error(\`Gagal memuat data (HTTP \${response.status})\`);
+    }
+
+    // 3. Ekstrak data JSON dari body response
+    const data = await response.json();
+
+    // 4. Olah data yang didapat
+    console.log(\`Ditemukan \${data.length} pengguna:\`);
+    data.slice(0, 3).forEach((user) => {
+      console.log(\`- \${user.name} (\${user.email})\`);
+    });
+  } catch (error) {
+    console.error("Terjadi kesalahan jaringan:", error.message);
+  }
+}
+
+muatDaftarPengguna();
+\`\`\`
+
+Poin penting:
+
+- \`fetch()\` mengembalikan Promise yang me-resolve ke objek \`Response\`. Promise ini **tidak** otomatis me-reject jika server mengembalikan status error seperti 404 atau 500 — selalu cek properti \`response.ok\` (boolean).
+- Parsing body seperti \`response.json()\` atau \`response.text()\` juga bersifat asinkron dan harus di-\`await\`.
+- Untuk mengirim data baru (*create*), tambahkan opsi object \`{ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }\`.
+- Ini adalah pola komunikasi klien-ke-server yang akan kamu temui berulang kali di React, Next.js, dan Supabase.`,
+    sources: [
+      {
+        label: "MDN Web Docs — Using the Fetch API",
+        url: "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
+      },
+      {
+        label: "MDN Web Docs — Response.ok",
+        url: "https://developer.mozilla.org/en-US/docs/Web/API/Response/ok"
+      }
+    ],
+    prerequisites: [],
+    practice: `Coba jalankan di Node.js (v18+) atau di Console DevTools browser:
+1. Panggil \`fetch("https://jsonplaceholder.typicode.com/posts/1")\`.
+2. Tunggu responsnya dan konversi dengan \`.json()\`.
+3. Cetak judul postingan (\`data.title\`) dan isinya (\`data.body\`) ke console.
+4. Coba sengaja ubah URL menjadi endpoint yang salah (\`.../posts/999999\`) dan amati bagaimana pengecekan \`if (!response.ok)\` mendeteksi status 404 Not Found secara anggun.`,
+  },
+  {
+    category: "javascript",
     slug: "modules-dasar",
-    order: 8,
+    order: 10,
     title: "Modules Dasar: import dan export",
     content: `Sekarang kamu sudah menguasai variabel, fungsi, closure, error handling, sampai async/await (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** sebelum module, semua kode JS di satu file besar — atau digabung lewat banyak tag \`<script>\` di HTML — berbagi SATU scope global yang sama. Variabel/fungsi dengan nama sama di file berbeda saling menimpa (*naming collision*), dan urutan \`<script>\` di HTML harus manual diatur sesuai dependency-nya.
 
@@ -3159,8 +3309,99 @@ Poin penting:
   },
   {
     category: "supabase",
-    slug: "auth-dasar",
+    slug: "relasi-dan-foreign-key",
     order: 2,
+    title: "Relasi Antar-Tabel & Relational Queries",
+    content: `Catatan sebelumnya membahas cara melakukan operasi CRUD pada satu tabel mandiri. **Masalah yang diselesaikan sekarang:** data di dunia nyata hampir tidak pernah berdiri sendiri dalam satu tabel datar. Sebuah artikel blog terikat ke satu kategori (*one-to-many*), dan satu catatan bisa memiliki banyak komentar. Di SQL tradisional, kita harus menulis query \`JOIN\` yang panjang. Bagaimana cara Supabase mengambil data relasional secara efisien dalam satu panggilan API?
+
+Karena Supabase dibangun di atas PostgreSQL, hubungan antar-tabel didefinisikan menggunakan **Foreign Key (kunci asing)**. Hebatnya, PostgREST secara otomatis mendeteksi relasi ini, memungkinkan kita mengambil data dari beberapa tabel sekaligus hanya dengan menyebutkan nama tabel relasinya di dalam method \`.select()\`.
+
+\`\`\`mermaid
+erDiagram
+  CATEGORIES ||--o{ NOTES : "memiliki banyak"
+  CATEGORIES {
+    uuid id PK
+    text name
+    text slug
+  }
+  NOTES {
+    uuid id PK
+    uuid category_id FK
+    text title
+    text slug
+  }
+\`\`\`
+
+Mendefinisikan Foreign Key di SQL dan mengambil datanya lewat JavaScript:
+
+\`\`\`sql
+-- 1. Definisi relasi di database lewat Foreign Key
+CREATE TABLE categories (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL
+);
+
+CREATE TABLE notes (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id uuid NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  title text NOT NULL
+);
+\`\`\`
+
+\`\`\`ts
+import { supabase } from "./lib/supabase";
+
+// 2. Query 1-ke-1 atau N-ke-1: Ambil catatan beserta info kategorinya (JOIN otomatis)
+const { data: catatanDenganKategori, error: err1 } = await supabase
+  .from("notes")
+  .select(\`
+    id,
+    title,
+    categories (
+      id,
+      name
+    )
+  \`);
+
+// 3. Query 1-ke-N: Ambil kategori beserta daftar semua catatan di dalamnya (Nested Array)
+const { data: kategoriDenganNotes, error: err2 } = await supabase
+  .from("categories")
+  .select(\`
+    name,
+    notes (
+      id,
+      title
+    )
+  \`)
+  .eq("name", "TypeScript");
+\`\`\`
+
+Poin penting:
+
+- Relasi otomatis di Supabase **wajib** memiliki constraint \`REFERENCES tabel_tujuan(id)\` di tingkat database PostgreSQL agar PostgREST dapat mendeteksinya.
+- Mengambil relasi induk (*parent*) mengembalikan objek tunggal (misal \`categories: { id, name }\`).
+- Mengambil relasi anak (*children*) mengembalikan array objek (misal \`notes: [{ id, title }, ...]\`).
+- Dengan nested select ini, kamu tidak perlu melakukan query bertingkat (*waterfall fetch*), menghemat round-trip jaringan dan meningkatkan performa aplikasi secara drastis.`,
+    sources: [
+      {
+        label: "Supabase Docs — Querying Joins and Nested Tables",
+        url: "https://supabase.com/docs/guides/database/joins-and-nesting"
+      },
+      {
+        label: "PostgreSQL Docs — Foreign Keys",
+        url: "https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK"
+      }
+    ],
+    prerequisites: [],
+    practice: `Di project Supabase kamu (atau SQL Editor dashboard):
+1. Periksa skema tabel \`categories\` dan \`notes\` yang ada di database proyek ini.
+2. Buat skrip node sederhana atau coba query: ambil 3 baris dari tabel \`notes\` dengan menyertakan nama kategorinya: \`.from("notes").select("title, categories(name)").limit(3)\`.
+3. Cetak hasilnya ke console dan perhatikan bagaimana Supabase otomatis menyusun objek kategori di dalam tiap objek catatan tanpa kamu perlu menulis perintah SQL \`INNER JOIN\` manual.`,
+  },
+  {
+    category: "supabase",
+    slug: "auth-dasar",
+    order: 3,
     title: "Autentikasi Dasar Pengguna",
     content: `Sekarang kamu bisa query data bebas (asalkan RLS belum aktif). **Masalah yang diselesaikan sekarang:** bagaimana tahu *siapa* yang sedang mengakses aplikasi, supaya nanti data bisa dibatasi per user — bukan semua orang melihat/mengubah data yang sama?
 
@@ -3232,7 +3473,7 @@ Poin penting:
   {
     category: "supabase",
     slug: "rls-dasar",
-    order: 3,
+    order: 4,
     title: "Dasar Row Level Security (RLS)",
     content: `Sekarang kamu punya cara mengenali user yang login (\`auth.uid()\`, dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana memastikan user A tidak bisa membaca/mengubah data milik user B, padahal keduanya memakai publishable key yang sama dan bisa langsung memanggil database dari browser?
 
@@ -3291,7 +3532,7 @@ Poin penting:
   {
     category: "supabase",
     slug: "storage-dasar",
-    order: 4,
+    order: 5,
     title: "Storage Dasar: Upload & Ambil URL File",
     content: `Sekarang kamu bisa autentikasi user dan proteksi data lewat RLS. **Masalah yang diselesaikan sekarang:** bagaimana kalau aplikasi kamu perlu menyimpan *file* — foto profil, dokumen, gambar produk — bukan cuma data terstruktur di tabel? Menyimpan file sebagai base64 di kolom database itu boros dan lambat; kamu butuh tempat penyimpanan file terpisah yang tetap terintegrasi dengan sistem auth & RLS yang sama.
 
@@ -3354,7 +3595,7 @@ Poin penting:
   {
     category: "supabase",
     slug: "realtime-dasar",
-    order: 5,
+    order: 6,
     title: "Realtime Subscription Dasar",
     content: `Sekarang kamu sudah bisa CRUD, auth, RLS, dan simpan file. **Masalah yang diselesaikan sekarang (dan menutup roadmap Supabase ini):** bagaimana kalau aplikasi kamu perlu tahu SAAT ITU JUGA ketika data berubah di database — tanpa user harus refresh halaman manual? Cara lama: *polling* (fetch ulang tiap beberapa detik), yang boros request dan tetap ada delay sampai beberapa detik.
 
