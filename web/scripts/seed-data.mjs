@@ -5,6 +5,15 @@
 
 export const categories = [
   {
+    name: "React",
+    slug: "react",
+    description: `React adalah library JavaScript paling populer untuk membangun antarmuka (UI) — dipakai jutaan aplikasi web, dari dashboard internal sampai produk skala besar seperti Instagram dan Facebook (yang menciptakannya). Sebelum React (dan library serupa), memperbarui tampilan setelah data berubah berarti memanipulasi DOM manual satu per satu (\`document.getElementById(...).innerHTML = ...\`) — gampang jadi berantakan dan bug begitu aplikasinya makin besar. React menyelesaikan ini lewat pendekatan deklaratif: kamu deskripsikan UI seharusnya terlihat seperti apa berdasarkan state saat ini, React yang mengurus cara memperbaruinya di DOM.
+
+Roadmap ini membawamu dari instalasi project dengan Vite, menulis UI dengan JSX, memecah UI jadi component yang bisa dipakai ulang lewat props, merespons interaksi user lewat event listener, membuat component "mengingat" sesuatu lewat state (useState), menampilkan UI kondisional, me-render list data dinamis, berbagi state antar-komponen (lifting state up), mengelola form, menyinkronkan component dengan sistem luar lewat useEffect, sampai mengetik komponen React dengan TypeScript sebagai jembatan ke Next.js. Sebelas langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
+
+**Asumsi:** kamu perlu familiar dengan dasar JavaScript (variabel, fungsi, array method seperti \`map\`/\`filter\`, destructuring) — kalau belum, roadmap [JavaScript](/kategori/javascript) di platform ini membahas semua itu dari nol. Roadmap ini murni fokus ke React-nya sendiri, bukan mengulang dasar JavaScript.`,
+  },
+  {
     name: "Git",
     slug: "git",
     description: `Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (\`script_v2_final.js\`, \`script_v2_REVISI.js\`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.
@@ -27,9 +36,9 @@ Roadmap ini membawamu dari variabel & scope, mendefinisikan fungsi (termasuk arr
     slug: "nextjs",
     description: `Sebelum ada *file-based routing* seperti di Next.js, menyusun routing di aplikasi React itu kerja manual: install library router, lalu tulis config terpisah yang memetakan tiap URL ke komponennya — dan config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya. Masalah lain: React tradisional mengirim **semua** kode JavaScript ke browser, bahkan untuk bagian yang cuma menampilkan teks statis dari database, bikin aplikasi lambat di koneksi lemah.
 
-Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dan navigasi, menyusun layout bersama antar halaman, memahami batas Server/Client Component, mengambil data dengan aman, membuat API sendiri lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sembilan langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya, jadi jangan lompat kalau belum menyelesaikan langkah sebelumnya.
+Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dasar, memahami batas Server vs Client Component sejak awal, navigasi dinamis, menyusun layout bersama antar halaman, mengambil data di Server Component, mutasi data langsung lewat Server Actions, membuat API publik lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sepuluh langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya.
 
-**Asumsi:** roadmap ini fokus ke Next.js itu sendiri, bukan mengajari React dari nol — kamu perlu familiar dengan dasar JavaScript dan konsep component/props/hooks di React (belum ada roadmap React tersendiri di platform ini). Prasyarat tool spesifik (mis. versi Node.js) disebutkan di catatan pertama.`,
+**Asumsi:** roadmap ini fokus ke Next.js itu sendiri, bukan mengajari React dari nol — kamu perlu familiar dengan dasar JavaScript dan konsep component/props/hooks di React (lihat roadmap [React](/kategori/react) di platform ini jika belum). Prasyarat tool spesifik (Node.js) disebutkan di catatan pertama.`,
   },
   {
     name: "Python",
@@ -106,6 +115,803 @@ Roadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency 
 ];
 
 export const notes = [
+  {
+    category: "react",
+    slug: "instalasi-dan-membuat-project",
+    order: 0,
+    title: "Instalasi & Membuat Project React (Vite)",
+    content: `**Masalah yang diselesaikan:** dulu, memulai project React dari nol berarti setup manual: install Babel buat transpile JSX, konfigurasi Webpack buat bundling, atur dev server sendiri — semua sebelum baris kode UI pertama ditulis. Create React App (CRA) sempat jadi solusi standar, tapi sekarang sudah tidak direkomendasikan lagi oleh tim React sendiri karena lambat dan tidak lagi dikembangkan aktif. **Vite** jadi pilihan modern: scaffold project React siap pakai dalam hitungan detik, dev server sangat cepat (pakai native ES modules, bukan bundling penuh tiap kali save).
+
+React sendiri adalah library JavaScript untuk membangun antarmuka (UI) berbasis komponen — potongan UI yang bisa dipakai ulang dan disusun jadi halaman lengkap.
+
+\`\`\`mermaid
+flowchart TD
+    A[npm create vite@latest] --> B[Pilih nama project]
+    B --> C[Pilih framework: React]
+    C --> D[Pilih varian: JavaScript / TypeScript]
+    D --> E[npm install]
+    E --> F[npm run dev]
+    F --> G[Server jalan di localhost, hot reload aktif]
+\`\`\`
+
+### 1. Membuat Project Baru dengan Vite
+
+\`\`\`bash
+npm create vite@latest nama-app -- --template react
+cd nama-app
+npm install
+npm run dev
+\`\`\`
+
+Buka \`http://localhost:5173\` — perubahan di kode langsung terlihat di browser tanpa reload manual (Hot Module Replacement).
+
+### 2. Struktur Folder Penting
+
+| File/Folder | Peran |
+| --- | --- |
+| \`index.html\` | Entry point HTML, punya \`<div id="root">\` tempat React di-mount. |
+| \`src/main.jsx\` | Entry point JavaScript — me-render komponen \`<App />\` ke \`#root\`. |
+| \`src/App.jsx\` | Komponen utama aplikasi, biasanya titik awal menyusun UI. |
+| \`package.json\` | Dependensi & script (\`dev\`, \`build\`, \`preview\`). |
+
+\`\`\`jsx
+// src/main.jsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+\`\`\`
+
+- \`createRoot\` menghubungkan aplikasi React ke elemen DOM nyata (\`#root\`) — titik pertemuan antara HTML biasa dan dunia React.
+- \`<StrictMode>\` bukan komponen UI, tapi alat bantu development: menjalankan beberapa fungsi dua kali secara sengaja untuk membantu menemukan bug (side effect yang tidak bersih), tidak berpengaruh di production.`,
+    sources: [
+      {
+            "url": "https://react.dev/learn/start-a-new-react-project",
+            "label": "React – Start a New React Project"
+      },
+      {
+            "url": "https://vite.dev/guide/",
+            "label": "Vite – Getting Started"
+      }
+],
+    prerequisites: [
+      {
+            "url": "https://nodejs.org",
+            "label": "Node.js versi 18.17 atau lebih baru sudah terinstall (cek dengan `node --version` di terminal)"
+      },
+      {
+            "label": "Familiar dengan perintah dasar terminal/command line (masuk folder, jalankan perintah)"
+      }
+],
+    practice: `Buat project baru dengan Vite seperti contoh di atas, ubah teks di \`src/App.jsx\`, simpan filenya, dan amati perubahan langsung muncul di browser tanpa reload manual (Hot Module Replacement).`,
+  },
+  {
+    category: "react",
+    slug: "jsx-dasar",
+    order: 1,
+    title: "JSX Dasar",
+    content: `**Masalah yang diselesaikan:** catatan sebelumnya bikin project React jalan, tapi belum menyentuh cara nulis UI-nya. Sebelum JSX, membangun UI di JavaScript murni berarti manggil \`React.createElement()\` berulang-ulang — untuk UI sederhana pun kodenya jadi panjang dan susah dibayangkan bentuk akhirnya:
+
+\`\`\`js
+React.createElement('h1', null, 'Halo, Dunia')
+\`\`\`
+
+JSX menyelesaikan ini dengan sintaks mirip HTML langsung di dalam JavaScript, yang di-compile Vite/Babel jadi \`createElement()\` di balik layar — kamu tulis yang mirip HTML, hasilnya tetap JavaScript biasa.
+
+\`\`\`mermaid
+flowchart LR
+    JSX["&lt;h1&gt;Halo&lt;/h1&gt;"] -->|dikompilasi Babel/Vite| CE["React.createElement('h1', null, 'Halo')"]
+    CE --> DOM["Elemen DOM nyata di browser"]
+\`\`\`
+
+### 1. Menulis JSX
+
+\`\`\`jsx
+function Sapaan() {
+  const nama = 'Budi'
+  return <h1>Halo, {nama}!</h1>
+}
+\`\`\`
+
+- Kurung kurawal \`{}\` membungkus ekspresi JavaScript apa pun (variabel, pemanggilan fungsi, operasi matematika) di dalam JSX.
+- JSX **wajib** punya satu root element pembungkus. Kalau butuh banyak elemen tanpa tag pembungkus tambahan di DOM, pakai Fragment (\`<>...</>\`):
+
+\`\`\`jsx
+function Profil() {
+  return (
+    <>
+      <h1>Budi</h1>
+      <p>Software Engineer</p>
+    </>
+  )
+}
+\`\`\`
+
+### 2. Perbedaan dari HTML Biasa
+
+| HTML | JSX | Alasan |
+| --- | --- | --- |
+| \`class="btn"\` | \`className="btn"\` | \`class\` adalah keyword reserved di JavaScript. |
+| \`<input>\` (self-closing opsional) | \`<input />\` | Tag tanpa children wajib ditutup sendiri. |
+| \`onclick="..."\` (string) | \`onClick={fungsi}\` | Event handler JSX menerima fungsi JavaScript, bukan string; nama event pakai camelCase. |
+
+- JSX bukan HTML — ekspresi \`{kondisi ? <A/> : <B/>}\` valid, tapi kontrol alur penuh (\`if\`/\`for\` langsung di dalam markup) tidak, karena JSX cuma ekspresi, bukan statement.`,
+    sources: [
+      {
+            "url": "https://react.dev/learn/writing-markup-with-jsx",
+            "label": "React – Writing Markup with JSX"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Vite yang dibuat di langkah sebelumnya:
+1. Buka \`src/App.jsx\`.
+2. Tambahkan variabel \`const judul = "Belajar React"\` dan \`const tahun = 2026\`.
+3. Tampilkan kedua nilai tersebut di dalam elemen JSX menggunakan kurung kurawal \`{judul}\` dan \`{tahun}\`.
+4. Tambahkan atribut \`className="container"\` dan inline style \`style={{ padding: "16px", backgroundColor: "#f3f4f6" }}\` pada elemen pembungkus utama.
+5. Jalankan \`npm run dev\`, buka browser, dan amati bahwa teks serta gaya tampilan muncul sesuai kode JSX yang kamu tulis.`,
+  },
+  {
+    category: "react",
+    slug: "component-dan-props-dasar",
+    order: 2,
+    title: "Component & Props Dasar",
+    content: `**Masalah yang diselesaikan:** setelah tahu cara menulis markup dengan JSX di catatan sebelumnya, masalah berikutnya adalah duplikasi. Bayangkan halaman yang menampilkan 20 kartu produk — copy-paste blok JSX yang sama 20 kali bikin kode panjang dan susah di-maintain (ubah satu style, harus ubah di 20 tempat). Component menyelesaikan ini: definisikan struktur UI SEKALI sebagai fungsi, lalu pakai berkali-kali dengan data berbeda-beda lewat **props**.
+
+\`\`\`mermaid
+flowchart TD
+    App["App"] --> Kartu1["KartuProduk nama='Sepatu' harga=200000"]
+    App --> Kartu2["KartuProduk nama='Tas' harga=350000"]
+    App --> Kartu3["KartuProduk nama='Topi' harga=75000"]
+\`\`\`
+
+### 1. Component adalah Fungsi
+
+\`\`\`jsx
+function KartuProduk({ nama, harga }) {
+  return (
+    <div className="kartu">
+      <h2>{nama}</h2>
+      <p>Rp {harga.toLocaleString('id-ID')}</p>
+    </div>
+  )
+}
+\`\`\`
+
+- Nama component **wajib** diawali huruf kapital (\`KartuProduk\`, bukan \`kartuProduk\`) — React memakai ini untuk membedakan component (\`<KartuProduk />\`) dari tag HTML biasa (\`<div />\`).
+- \`{ nama, harga }\` adalah destructuring dari objek \`props\` yang dikirim parent — sama dengan menulis \`function KartuProduk(props) { const { nama, harga } = props; ... }\`.
+
+### 2. Mengirim Props dari Parent
+
+\`\`\`jsx
+function App() {
+  return (
+    <div>
+      <KartuProduk nama="Sepatu" harga={200000} />
+      <KartuProduk nama="Tas" harga={350000} />
+    </div>
+  )
+}
+\`\`\`
+
+Tiap atribut di JSX (\`nama="Sepatu"\`) jadi satu key di objek \`props\` yang diterima component. Nilai non-string (angka, boolean, objek, fungsi) ditulis di dalam \`{}\`.
+
+### 3. Props Bersifat Read-Only
+
+Component **tidak boleh** mengubah props yang diterimanya sendiri — data mengalir satu arah, dari parent ke child (disebut *one-way data flow*). Kalau child perlu mengubah sesuatu, parent yang menyediakan fungsi lewat props (dibahas lebih detail waktu masuk ke state).`,
+    sources: [
+      {
+            "url": "https://react.dev/learn/your-first-component",
+            "label": "React – Your First Component"
+      },
+      {
+            "url": "https://react.dev/learn/passing-props-to-a-component",
+            "label": "React – Passing Props to a Component"
+      }
+],
+    prerequisites: [],
+    practice: `Buat component \`KartuProduk\` seperti contoh di atas, pakai 3x dengan data produk berbeda-beda. Lalu coba tambahkan baris yang mengubah \`nama\` di dalam component itu sendiri (\`nama = 'lainnya'\`) dan amati warning yang muncul di console browser.`,
+  },
+  {
+    category: "react",
+    slug: "event-handling-dasar",
+    order: 3,
+    title: "Event Handling Dasar",
+    content: `Catatan sebelumnya membahas cara memecah UI dan mengirim data ke component lewat props. **Masalah yang diselesaikan sekarang:** web bukan cuma dokumen statis yang dibaca — user mengklik tombol, mengetik di form, atau menggeser kursor. Di JavaScript murni kita memakai \`addEventListener\`, tapi bagaimana cara React menangani aksi user secara deklaratif langsung di elemen JSX?
+
+\`\`\`mermaid
+flowchart LR
+  User["Aksi User<br/>(Klik, Ketik, Hover)"] --> Event["React SyntheticEvent"]
+  Event --> Handler["Fungsi Handler Dijalankan<br/>onClick={handleClick}"]
+  Handler --> State["Bisa memicu pembaruan state<br/>atau aksi lanjutan"]
+\`\`\`
+
+### 1. Menangani Event Dasar
+
+\`\`\`jsx
+function Tombol() {
+  function handleClick() {
+    alert('Tombol diklik!')
+  }
+
+  return <button onClick={handleClick}>Klik Saya</button>
+}
+\`\`\`
+
+Poin krusial: \`onClick={handleClick}\` — mengirim **referensi fungsi**, bukan memanggilnya (\`onClick={handleClick()}\` salah, itu akan langsung terpanggil sekali waktu render, bukan waktu diklik).
+
+### 2. Event Handler dengan Parameter
+
+Kalau handler butuh argumen tambahan (misalnya id item yang diklik dari sebuah list), bungkus dengan arrow function supaya pemanggilannya ditunda sampai event benar-benar terjadi:
+
+\`\`\`jsx
+function DaftarItem({ items, onHapus }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.nama}
+          <button onClick={() => onHapus(item.id)}>Hapus</button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+\`\`\`
+
+### 3. Event Object
+
+Sama seperti JavaScript biasa, handler otomatis menerima event object sebagai argumen pertama — berguna untuk baca nilai input atau mencegah perilaku default browser:
+
+\`\`\`jsx
+function Form() {
+  function handleSubmit(e) {
+    e.preventDefault() // Mencegah reload halaman (default HTML form)
+    console.log('Form dikirim')
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Kirim</button>
+    </form>
+  )
+}
+\`\`\`
+
+- Event di React disebut *Synthetic Event* — dibungkus React supaya perilakunya konsisten di semua browser, tapi API-nya (\`e.target\`, \`e.preventDefault()\`, dst) terasa sama seperti event DOM native.`,
+    sources: [
+      {
+            "url": "https://react.dev/learn/responding-to-events",
+            "label": "React – Responding to Events"
+      }
+],
+    prerequisites: [],
+    practice: `Di component latihan kamu (\`src/App.jsx\`):
+1. Buat tombol "Klik Saya" dengan prop \`onClick={handleClick}\` yang memunculkan \`alert("Tombol diklik!")\`.
+2. Buat tombol kedua yang mengirim argumen ke handler menggunakan inline arrow function: \`onClick={() => handlePilih("React")}\`.
+3. Tambahkan tag \`<input placeholder="Ketik sesuatu..." />\` dan pasang event listener \`onChange={(e) => console.log(e.target.value)}\`. Buka tab Console di DevTools browser dan lihat nilainya tercetak setiap kali kamu mengetik karakter baru.`,
+  },
+  {
+    category: "react",
+    slug: "state-dan-usestate-dasar",
+    order: 4,
+    title: "State & useState Dasar",
+    content: `Catatan sebelumnya menunjukkan cara merespons interaksi user lewat event listener. **Masalah yang diselesaikan sekarang:** kalau kamu cuma mengubah variabel JavaScript biasa di dalam event handler (\`let count = 0; count++\`), tampilan layar **tidak akan berubah**. Variabel lokal tereset setiap kali fungsi component dijalankan, dan React tidak tahu kapan harus menggambar ulang layar. Component butuh cara untuk **mengingat** data antar-render dan memberi tahu React untuk memperbarui tampilan.
+
+\`useState\` adalah *Hook* bawaan React yang menyelesaikan dua masalah itu sekaligus: menyimpan nilai yang tetap ada antar render, dan memberi tahu React untuk render ulang UI setiap nilainya berubah.
+
+\`\`\`mermaid
+flowchart LR
+    Klik["User klik tombol"] --> Set["setCount(count + 1)"]
+    Set --> ReRender["React render ulang component"]
+    ReRender --> UI["UI menampilkan angka baru"]
+\`\`\`
+
+### 1. Menggunakan useState
+
+\`\`\`jsx
+import { useState } from 'react'
+
+function Counter() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Diklik {count} kali
+    </button>
+  )
+}
+\`\`\`
+
+- \`useState(0)\` mengembalikan array berisi dua hal: nilai state saat ini (\`count\`) dan fungsi untuk mengubahnya (\`setCount\`). \`0\` adalah nilai awal.
+- Memanggil \`setCount(...)\` **tidak langsung** mengubah \`count\` di tempat — itu memberi tahu React untuk menjadwalkan render ulang dengan nilai baru.
+- **Jangan pernah** mengubah state secara langsung (\`count = count + 1\`) — React tidak akan tahu ada perubahan dan UI tidak ter-update.
+
+### 2. State Bersifat Lokal per Component
+
+Kalau \`<Counter />\` dipakai dua kali di halaman yang sama, masing-masing punya \`count\` sendiri-sendiri, terpisah total — mengklik yang satu tidak memengaruhi yang lain. State "milik" instance component tertentu, bukan dibagi otomatis ke component lain (untuk berbagi state antar component, biasanya state-nya dipindah ke parent bersama dan dikirim lewat props — topik lanjutan di luar roadmap dasar ini).`,
+    sources: [
+      {
+            "url": "https://react.dev/learn/state-a-components-memory",
+            "label": "React – State: A Component's Memory"
+      }
+],
+    prerequisites: [],
+    practice: `Buat component counter interaktif di \`src/App.jsx\`:
+1. Import \`useState\` dari \`"react"\`.
+2. Deklarasikan state: \`const [hitung, setHitung] = useState(0)\`.
+3. Buat dua tombol: tombol "+ Tambah" (\`onClick={() => setHitung(hitung + 1)}\`) dan tombol "- Kurang" (\`onClick={() => setHitung(hitung - 1)}\`).
+4. Tambahkan tombol "Reset" yang mengembalikan nilai \`setHitung(0)\`.
+5. Coba klik tombol di browser dan perhatikan bagaimana angka di layar langsung berubah seketika tanpa perlu reload halaman.`,
+  },
+  {
+    category: "react",
+    slug: "conditional-rendering-dasar",
+    order: 5,
+    title: "Conditional Rendering Dasar",
+    content: `Catatan sebelumnya membahas state untuk menyimpan memori dan merender ulang tampilan. **Masalah yang diselesaikan sekarang:** UI jarang statis — kadang perlu tampil beda tergantung kondisi: pesan error cuma muncul kalau ada error, tombol "Login" berubah jadi "Logout" kalau user sudah masuk. Karena JSX cuma ekspresi (tidak bisa langsung menulis \`if\`/\`else\` di tengah markup seperti template engine lain), React memakai fitur JavaScript biasa yang **menghasilkan nilai** — ekspresi ternary dan operator \`&&\` — bukan sintaks khusus baru.
+
+\`\`\`mermaid
+flowchart TD
+  Kondisi{"Evaluasi Kondisi<br/>(isLoggedIn?)"}
+  Kondisi -->|true| UI_A["Tampilkan <Dashboard />"]
+  Kondisi -->|false| UI_B["Tampilkan <TombolLogin />"]
+\`\`\`
+
+### 1. If/Else di Luar JSX (Paling Jelas)
+
+\`\`\`jsx
+function Status({ sudahLogin }) {
+  if (sudahLogin) {
+    return <p>Selamat datang kembali!</p>
+  }
+  return <p>Silakan login dulu.</p>
+}
+\`\`\`
+
+Cara ini paling gampang dibaca untuk percabangan besar — return lebih awal sebelum JSX utama.
+
+### 2. Ternary di Dalam JSX
+
+Untuk percabangan kecil yang menyatu dengan markup lain, ternary (\`kondisi ? A : B\`) lebih ringkas:
+
+\`\`\`jsx
+function TombolAuth({ sudahLogin }) {
+  return (
+    <button>{sudahLogin ? 'Logout' : 'Login'}</button>
+  )
+}
+\`\`\`
+
+### 3. Operator \`&&\` untuk "Tampilkan Kalau..."
+
+Kalau cuma butuh tampil-atau-tidak (tanpa alternatif), \`&&\` lebih ringkas daripada ternary dengan \`: null\`:
+
+\`\`\`jsx
+function Notifikasi({ jumlahPesan }) {
+  return (
+    <div>
+      {jumlahPesan > 0 && <span className="badge">{jumlahPesan} pesan baru</span>}
+    </div>
+  )
+}
+\`\`\`
+
+⚠️ **Jebakan umum:** \`{jumlahPesan && <span>...</span>}\` (tanpa \`> 0\`) berbahaya kalau \`jumlahPesan\` bisa \`0\` — JavaScript menganggap \`0\` falsy, tapi \`&&\` tetap me-render angka \`0\` itu sendiri ke layar (karena \`0\` bukan \`null\`/\`undefined\`/\`false\`, React tetap menampilkannya sebagai teks "0"). Selalu ubah jadi boolean eksplisit (\`jumlahPesan > 0 && ...\`) untuk menghindari ini.`,
+    sources: [
+      {
+            "url": "https://react.dev/learn/conditional-rendering",
+            "label": "React – Conditional Rendering"
+      }
+],
+    prerequisites: [],
+    practice: `Buat tombol toggle status login di component kamu:
+1. Buat state \`const [isLoggedIn, setIsLoggedIn] = useState(false)\`.
+2. Gunakan operator ternary untuk menentukan teks tombol: \`{isLoggedIn ? "Keluar (Logout)" : "Masuk (Login)"}\` dengan event \`onClick={() => setIsLoggedIn(!isLoggedIn)}\`.
+3. Di bawah tombol, gunakan operator \`&&\` untuk menampilkan pesan sambutan hanya jika user login: \`{isLoggedIn && <p>Selamat datang, Member!</p>}\`.
+4. Klik tombol bolak-balik di browser dan amati elemen muncul dan hilang sesuai kondisi state.`,
+  },
+  {
+    category: "react",
+    slug: "rendering-list-dan-keys",
+    order: 6,
+    title: "Rendering List & Keys",
+    content: `**Masalah yang diselesaikan:** data di aplikasi nyata jarang berupa satu nilai tunggal — biasanya array: daftar produk, daftar komentar, daftar to-do. Menulis JSX manual satu-satu untuk tiap item jelas tidak mungkin kalau datanya dinamis dari database. React menyelesaikan ini dengan memakai \`Array.prototype.map()\` biasa (bukan API baru) untuk mengubah array data jadi array elemen JSX.
+
+\`\`\`mermaid
+flowchart LR
+    Data["['Roti', 'Susu', 'Telur']"] -->|.map| JSXArr["tiga elemen &lt;li&gt;"]
+    JSXArr --> DOM["Tiga &lt;li&gt; di layar"]
+\`\`\`
+
+### 1. Me-render Array dengan \`.map()\`
+
+\`\`\`jsx
+function DaftarBelanja({ items }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.nama}</li>
+      ))}
+    </ul>
+  )
+}
+\`\`\`
+
+### 2. Kenapa Prop \`key\` Wajib
+
+React memakai \`key\` untuk mencocokkan elemen list antara render sebelum dan sesudah perubahan data — supaya tahu item mana yang ditambah, dihapus, atau digeser urutannya, tanpa harus membongkar-ulang seluruh DOM list dari nol. Tanpa \`key\` yang stabil dan unik, React bisa salah mencocokkan elemen, menyebabkan bug halus: state di komponen list (misalnya input yang sedang diketik) bisa "nempel" ke item yang salah setelah list berubah urutan.
+
+- **Aman:** \`id\` unik dari data itu sendiri (dari database, misalnya) — \`key={item.id}\`.
+- **Berisiko:** index array (\`key={index}\`) — cuma aman kalau list itu **tidak pernah** diurutkan ulang, ditambah di tengah, atau dihapus sebagian; kalau salah satu itu terjadi, index tiap item bisa berubah walau datanya sama, bikin React salah mencocokkan.
+- \`key\` **bukan** props biasa — tidak bisa dibaca lewat \`props.key\` di dalam component, itu sinyal khusus buat React sendiri.
+
+### 3. Filter Sebelum Map
+
+Pola umum: gabungkan \`.filter()\` dan \`.map()\` biasa dari JavaScript untuk menampilkan sebagian data saja:
+
+\`\`\`jsx
+function DaftarSelesai({ tugas }) {
+  return (
+    <ul>
+      {tugas
+        .filter((t) => t.selesai)
+        .map((t) => (
+          <li key={t.id}>{t.judul}</li>
+        ))}
+    </ul>
+  )
+}
+\`\`\``,
+    sources: [
+      {
+            "url": "https://react.dev/learn/rendering-lists",
+            "label": "React – Rendering Lists"
+      }
+],
+    prerequisites: [],
+    practice: `Buat daftar tugas (to-do list) dinamis:
+1. Buat array data di component kamu: \`const tugas = [{ id: 1, teks: "Belajar JSX" }, { id: 2, teks: "Pahami Props" }, { id: 3, teks: "Eksplorasi State" }]\`.
+2. Render array tersebut ke dalam elemen \`<ul>\` menggunakan \`tugas.map(item => <li key={item.id}>{item.teks}</li>)\`.
+3. Coba sengaja hapus atribut \`key={item.id}\`, buka Console DevTools browser, dan lihat pesan peringatan merah *"Each child in a list should have a unique key prop"*. Kembalikan prop \`key\` tersebut dan amati pesan peringatan hilang.`,
+  },
+  {
+    category: "react",
+    slug: "lifting-state-up",
+    order: 7,
+    title: "Lifting State Up: Berbagi State Antar-Komponen",
+    content: `Catatan sebelumnya menunjukkan cara me-render daftar data dinamis dengan key. **Masalah yang diselesaikan sekarang:** di aplikasi nyata, data sering kali perlu diakses atau diubah oleh beberapa komponen yang bertetangga (*sibling*). Kalau state disimpan di dalam Component A, Component B tidak bisa membacanya karena props di React hanya mengalir ke bawah (*one-way data flow*).
+
+Solusinya adalah **Lifting State Up (mengangkat state ke atas)**: pindahkan state dari komponen anak ke komponen induk (*parent*) terdekat yang menaungi kedua komponen tersebut. Komponen induk kemudian membagikan nilai state ke anak pertama lewat props biasa, dan membagikan fungsi pengubah state (*callback*) ke anak kedua.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Salah["Sebelum (State Terkunci di Komponen Anak)"]
+    SA["ParentComponent"]
+    SA --> SB1["ChildA<br/>(punya state: teks)"]
+    SA --> SB2["ChildB<br/>(butuh baca teks, tapi tidak bisa!)"]
+  end
+  subgraph Benar["Setelah (Lifting State Up ke Parent)"]
+    PA["ParentComponent<br/>const [teks, setTeks] = useState('')"]
+    PA -->|props: value=teks, onChange=setTeks| PB1["InputChild (mengubah state)"]
+    PA -->|props: pesan=teks| PB2["DisplayChild (membaca state)"]
+  end
+\`\`\`
+
+Contoh kode konkret: sinkronisasi input suhu atau teks catatan dengan pratinjau live:
+
+\`\`\`jsx
+// src/App.jsx
+import { useState } from "react";
+
+// Komponen 1: Mengatur input teks
+function KotakInput({ nilai, onChangeNilai }) {
+  return (
+    <div>
+      <label>Ketik catatan: </label>
+      <input
+        type="text"
+        value={nilai}
+        onChange={(e) => onChangeNilai(e.target.value)}
+        placeholder="Tulis pesan..."
+      />
+    </div>
+  );
+}
+
+// Komponen 2: Menampilkan hasil ketikan secara langsung
+function PratinjauTeks({ nilai }) {
+  return (
+    <div style={{ marginTop: "12px", padding: "8px", border: "1px dashed #999" }}>
+      <strong>Pratinjau Live:</strong> {nilai || "Belum ada tulisan"}
+    </div>
+  );
+}
+
+// Komponen Induk: Menyimpan state bersama
+export default function App() {
+  const [teksBersama, setTeksBersama] = useState("");
+
+  return (
+    <div style={{ padding: "16px" }}>
+      <h2>Contoh Lifting State Up</h2>
+      <KotakInput nilai={teksBersama} onChangeNilai={setTeksBersama} />
+      <PratinjauTeks nilai={teksBersama} />
+    </div>
+  );
+}
+\`\`\`
+
+Poin penting:
+
+- Data di React hanya mengalir satu arah (dari atas ke bawah). Untuk mengubah data ke atas, kirim fungsi handler (*callback*) dari parent ke child lewat props.
+- Komponen anak yang menerima data dan callback menjadi *controlled component* murni — ia tidak menyimpan state sendiri, sehingga mudah diuji dan dipakai ulang.
+- Jangan terburu-buru menggunakan state management global (seperti Redux atau Context API) jika masalah berbagi data bisa diselesaikan dengan mengangkat state ke parent terdekat.`,
+    sources: [
+      {
+            "label": "React Docs — Sharing State Between Components",
+            "url": "https://react.dev/learn/sharing-state-between-components"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Vite latihan kamu:
+1. Buat dua komponen anak: \`TombolTambah\` (berisi tombol "+1") dan \`TampilanAngka\` (hanya menampilkan teks \`Jumlah: X\`).
+2. Angkat state \`[hitung, setHitung]\` ke komponen induk (\`App\`).
+3. Oper \`hitung\` ke \`TampilanAngka\` sebagai prop pembaca.
+4. Oper fungsi \`() => setHitung(hitung + 1)\` ke \`TombolTambah\` sebagai prop \`onTambah\`.
+5. Klik tombol dan pastikan komponen tampilan angka ter-update secara harmonis meskipun keduanya adalah komponen terpisah.`,
+  },
+  {
+    category: "react",
+    slug: "forms-dan-controlled-input-dasar",
+    order: 8,
+    title: "Forms & Controlled Input Dasar",
+    content: `**Masalah yang diselesaikan:** di HTML biasa, elemen form (\`<input>\`, \`<textarea>\`, \`<select>\`) menyimpan nilainya sendiri secara internal di DOM — JavaScript cuma "membaca" nilai itu saat dibutuhkan (misalnya waktu submit). Ini bertentangan dengan cara React bekerja, yang idealnya punya satu sumber kebenaran (*single source of truth*) untuk tiap data, supaya UI selalu konsisten dengan state. Kalau tidak terkontrol, sulit misalnya memvalidasi input secara real-time atau me-reset form dari kode.
+
+React menyelesaikan ini lewat pola **controlled component**: nilai input disimpan di state (\`useState\`), bukan di DOM, dan tiap perubahan disinkronkan lewat \`onChange\`.
+
+\`\`\`mermaid
+flowchart LR
+    Ketik["User mengetik"] -->|onChange| Set["setNama(e.target.value)"]
+    Set --> State["state 'nama' diperbarui"]
+    State -->|value=nama| Input["Input menampilkan nilai dari state"]
+\`\`\`
+
+### 1. Controlled Input Dasar
+
+\`\`\`jsx
+import { useState } from 'react'
+
+function FormNama() {
+  const [nama, setNama] = useState('')
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    alert(\`Halo, \${nama}!\`)
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={nama}
+        onChange={(e) => setNama(e.target.value)}
+      />
+      <button type="submit">Kirim</button>
+    </form>
+  )
+}
+\`\`\`
+
+- \`value={nama}\` mengunci nilai input supaya selalu sama dengan state — inilah yang membuatnya "controlled" (dikontrol React, bukan DOM).
+- \`onChange\` wajib ada kalau \`value\` di-set — tanpa \`onChange\`, input jadi read-only (tidak bisa diketik) karena state-nya tidak pernah diperbarui.
+
+### 2. Beberapa Input Sekaligus
+
+Untuk form dengan banyak field, satu objek state dengan satu handler generik lebih ringkas daripada satu \`useState\` per field:
+
+\`\`\`jsx
+function FormRegistrasi() {
+  const [data, setData] = useState({ nama: '', email: '' })
+
+  function handleChange(e) {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+
+  return (
+    <form>
+      <input name="nama" value={data.nama} onChange={handleChange} />
+      <input name="email" value={data.email} onChange={handleChange} />
+    </form>
+  )
+}
+\`\`\`
+
+\`{...data, [e.target.name]: e.target.value}\` men-spread state lama lalu menimpa satu key sesuai \`name\` input yang berubah — pola umum update state objek tanpa memutasi objek lamanya langsung.`,
+    sources: [
+      {
+            "url": "https://react.dev/reference/react-dom/components/input",
+            "label": "React – Reference: <input>"
+      }
+],
+    prerequisites: [],
+    practice: `Buat form registrasi dengan 2 field (nama, email) pakai pola objek state di atas, lalu tambahkan tampilan pratinjau live di bawah form yang menampilkan nilai form saat diketik (tanpa perlu submit).`,
+  },
+  {
+    category: "react",
+    slug: "use-effect-dasar",
+    order: 9,
+    title: "useEffect Dasar (Sinkronisasi dengan Sistem Luar)",
+    content: `**Masalah yang diselesaikan:** semua yang dibahas roadmap ini sejauh ini terjadi murni di dalam React — render UI dari state dan props. Tapi aplikasi nyata sering perlu "keluar" dari dunia React: mengambil data dari API, mengatur judul tab browser, memasang timer, atau berlangganan event dari luar. Kalau kode semacam ini dijalankan langsung di badan component (waktu render), efeknya bisa terpicu berkali-kali secara tidak terduga setiap kali component render ulang.
+
+\`useEffect\` adalah Hook yang menyelesaikan ini: menjalankan kode **setelah** render selesai, dan cuma dijalankan ulang kalau nilai yang kamu tentukan benar-benar berubah.
+
+\`\`\`mermaid
+flowchart TD
+    Render["Component selesai render"] --> Cek{"Dependency array berubah?"}
+    Cek -->|Ya| Cleanup["Jalankan cleanup function (kalau ada) dari efek sebelumnya"]
+    Cleanup --> Run["Jalankan efek baru"]
+    Cek -->|Tidak| Skip["Lewati, tidak dijalankan ulang"]
+\`\`\`
+
+### 1. Sintaks Dasar
+
+\`\`\`jsx
+import { useEffect, useState } from 'react'
+
+function JudulHalaman({ judul }) {
+  useEffect(() => {
+    document.title = judul
+  }, [judul])
+
+  return <h1>{judul}</h1>
+}
+\`\`\`
+
+- Argumen pertama: fungsi yang berisi efeknya (kode yang "keluar" dari React, di sini mengubah \`document.title\`).
+- Argumen kedua (*dependency array*): daftar nilai yang, kalau berubah sejak render terakhir, memicu efek dijalankan ulang. \`[judul]\` berarti "jalankan ulang cuma kalau \`judul\` berubah".
+
+### 2. Tiga Bentuk Dependency Array
+
+| Dependency Array | Kapan Efek Jalan |
+| --- | --- |
+| \`[]\` (array kosong) | Cuma sekali, tepat setelah render pertama (mount). |
+| \`[judul]\` | Tiap kali render pertama, DAN tiap kali \`judul\` berubah. |
+| Tanpa argumen kedua sama sekali | Setiap kali component render ulang, apa pun penyebabnya — jarang ini yang diinginkan. |
+
+### 3. Cleanup Function
+
+Kalau efek membuat sesuatu yang perlu "dibereskan" sebelum efek berikutnya jalan (atau sebelum component hilang dari layar) — misalnya \`setInterval\` atau subscription — fungsi cleanup dikembalikan dari efeknya:
+
+\`\`\`jsx
+function Timer() {
+  const [detik, setDetik] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => setDetik((d) => d + 1), 1000)
+    return () => clearInterval(id) // Cleanup: dipanggil sebelum efek berikutnya / saat unmount
+  }, [])
+
+  return <p>{detik} detik berlalu</p>
+}
+\`\`\`
+
+Tanpa \`clearInterval\` di cleanup, tiap kali component ini remount akan menumpuk interval baru yang jalan terus di background — kebocoran memori (*memory leak*) yang klasik.`,
+    sources: [
+      {
+            "url": "https://react.dev/learn/synchronizing-with-effects",
+            "label": "React – Synchronizing with Effects"
+      }
+],
+    prerequisites: [],
+    practice: `Buat component \`Timer\` seperti contoh di atas. Lalu sengaja hapus baris \`return () => clearInterval(id)\`, tampilkan/sembunyikan component itu berkali-kali lewat conditional rendering, dan tambahkan \`console.log('interval baru dipasang')\` di dalam efeknya untuk mengamati penumpukan timer akibat cleanup yang hilang.`,
+  },
+  {
+    category: "react",
+    slug: "react-dengan-typescript",
+    order: 10,
+    title: "React dengan TypeScript Dasar",
+    content: `Catatan sebelumnya melengkapi semua fitur dasar React: dari JSX, interaksi, state, sampai efek samping. **Masalah yang diselesaikan sekarang:** saat aplikasi React berkembang besar, komponen menerima belasan props. Di JavaScript murni, salah mengetik nama prop (\`onClick\` vs \`onclick\`, atau \`user.name\` vs \`user.nama\`) baru ketahuan saat halaman error di browser.
+
+Menggunakan TypeScript bersama React memberikan *autocomplete* dan pemeriksaan tipe instan: TypeScript memastikan bahwa komponen menerima props dengan tipe yang tepat, dan hooks (\`useState\`, \`useRef\`) terjaga tipe nilainya.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph JS["React JS Murni (.jsx)"]
+    J1["Kirim props: <Kartu nama={123} />"] --> J2["Tidak ada peringatan di editor"]
+    J2 --> J3["Error runtime saat browser coba render .toUpperCase()"]
+  end
+  subgraph TS["React + TypeScript (.tsx)"]
+    T1["interface KartuProps { nama: string; }"] --> T2["Kirim props: <Kartu nama={123} />"]
+    T2 --> T3["Editor langsung garis bawahi merah:<br/>Type 'number' is not assignable to type 'string'"]
+  end
+\`\`\`
+
+Contoh mendefinisikan tipe Props dan State di file \`.tsx\`:
+
+\`\`\`tsx
+// src/components/TombolAksi.tsx
+import { useState } from "react";
+
+// 1. Tipe untuk Props komponen
+interface TombolAksiProps {
+  label: string;
+  varian?: "primer" | "sekunder"; // opsional dengan literal union
+  onKlik: () => void;
+}
+
+export function TombolAksi({ label, varian = "primer", onKlik }: TombolAksiProps) {
+  return (
+    <button
+      onClick={onKlik}
+      style={{
+        padding: "8px 16px",
+        backgroundColor: varian === "primer" ? "#2563eb" : "#6b7280",
+        color: "white",
+        borderRadius: "4px",
+        border: "none",
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
+// 2. Tipe pada useState
+interface Pengguna {
+  id: number;
+  nama: string;
+}
+
+export default function ProfilApp() {
+  // Memberi tipe generic pada state yang awalnya null
+  const [pengguna, setPengguna] = useState<Pengguna | null>(null);
+
+  return (
+    <div>
+      <TombolAksi
+        label="Muat Pengguna"
+        onKlik={() => setPengguna({ id: 1, nama: "Budi Santoso" })}
+      />
+      {pengguna && <p>Halo, {pengguna.nama}!</p>}
+    </div>
+  );
+}
+\`\`\`
+
+Poin penting:
+
+- File komponen React yang menggunakan TypeScript memakai ekstensi \`.tsx\` (bukan \`.ts\` biasa) agar compiler bisa membedakan tag JSX dari generic.
+- Mengetik props menggunakan \`interface\` atau \`type\` langsung mendokumentasikan apa saja yang dibutuhkan komponen tersebut bagi developer lain.
+- Untuk state yang nilainya bisa bertransisi dari kosong ke ada (seperti hasil fetch API), gunakan generic: \`useState<TipeData | null>(null)\`.
+- Pemahaman ini adalah jembatan langsung menuju framework fullstack modern seperti **Next.js App Router**, di mana TypeScript digunakan secara default.`,
+    sources: [
+      {
+            "label": "React Docs — Using TypeScript with React",
+            "url": "https://react.dev/learn/typescript"
+      },
+      {
+            "label": "TypeScript Handbook — JSX",
+            "url": "https://www.typescriptlang.org/docs/handbook/2/jsx.html"
+      }
+],
+    prerequisites: [
+      {
+            "label": "Familiar dengan sintaks dasar TypeScript (interface & type alias) dari roadmap TypeScript",
+            "url": "/kategori/typescript"
+      }
+],
+    practice: `Di project latihan kamu:
+1. Buat file baru \`src/Kartu.tsx\`.
+2. Tulis interface \`interface KartuProps { judul: string; harga: number; aktif?: boolean; }\`.
+3. Buat komponen \`Kartu\` yang menerima props tersebut dan menampilkannya.
+4. Coba panggil komponen tersebut di \`App.tsx\` dengan sengaja memberikan string pada harga (\`harga="gratis"\`).
+5. Amati error kompilasi yang muncul di terminal dan garis merah di editor kode sebelum kode dijalankan.`,
+  },
   {
     category: "git",
     slug: "commit-dan-staging",
@@ -1157,7 +1963,7 @@ Kalau sudah jalan, coba tambahkan satu level lagi: \`app/produk/[id]/ulasan/page
   {
     category: "nextjs",
     slug: "navigasi-link-dan-router",
-    order: 2,
+    order: 3,
     title: "Navigasi dengan Link dan useRouter",
     content: `**Masalah yang diselesaikan:** setelah tahu cara *membuat* route lewat struktur folder di catatan sebelumnya, pertanyaan berikutnya: bagaimana cara *pindah* antar route itu dari dalam aplikasi? Cara naif: pakai tag \`<a href="...">\` biasa seperti website statis — tapi ini memicu *full page reload*, membuang keuntungan performa React (semua state hilang, seluruh halaman di-fetch ulang dari server termasuk asset yang sebenarnya sama).
 
@@ -1228,7 +2034,7 @@ export default function FormLogin() {
   {
     category: "nextjs",
     slug: "layout-dan-nested-layout",
-    order: 3,
+    order: 4,
     title: "Layout & Nested Layout Dasar",
     content: `**Masalah yang diselesaikan:** makin banyak halaman yang kamu buat dan navigasikan (seperti di catatan sebelumnya), makin banyak juga elemen UI yang berulang di tiap halaman — navbar, footer, sidebar. Copy-paste elemen itu ke tiap \`page.tsx\` bikin kode duplikat dan gampang jadi tidak konsisten kalau salah satu lupa di-update.
 
@@ -1299,7 +2105,7 @@ export default function DashboardLayout({
   {
     category: "nextjs",
     slug: "server-client-components",
-    order: 4,
+    order: 2,
     title: "Server Component vs Client Component",
     content: `Sekarang kamu sudah bisa bikin routing, navigasi antar halaman, dan berbagi layout UI. Pertanyaan berikutnya: **kode apa saja yang sebenarnya dikirim ke browser** waktu halaman itu diakses? Sebelum React Server Components, jawabannya selalu sama — semua kode komponennya, bahkan kalau komponen itu cuma menampilkan teks statis dari database dan tidak butuh interaktivitas sama sekali. Ini boros: bundle JavaScript makin besar, waktu render pertama makin lambat, terutama di HP dengan koneksi lambat.
 
@@ -1429,8 +2235,100 @@ export default async function HalamanProduk() {
   },
   {
     category: "nextjs",
-    slug: "route-handlers-dasar",
+    slug: "server-actions-dasar",
     order: 6,
+    title: "Server Actions Dasar: Mutasi Data Tanpa API Endpoint",
+    content: `Catatan sebelumnya membahas cara mengambil data (*read*) di Server Component menggunakan \`fetch()\` langsung. **Masalah yang diselesaikan sekarang:** bagaimana cara mengirim data kembali ke server (*write / mutate*), misalnya saat user mengisi form pendaftaran atau mengklik tombol hapus?
+
+Di React tradisional atau Next.js versi lama (Pages Router), kamu harus membuat API endpoint terpisah, memasang event handler manual, lalu memanggil \`fetch('/api/...', { method: 'POST' })\`. Next.js App Router menyederhanakan ini lewat **Server Actions**: fungsi asinkron bertanda \`"use server"\` yang dieksekusi secara aman di server, dan dapat langsung dipasang ke atribut \`action\` tag \`<form>\` HTML biasa tanpa perlu membuat API route terpisah!
+
+\`\`\`mermaid
+sequenceDiagram
+  autonumber
+  participant B as Browser (Form HTML)
+  participant S as Next.js Server (Server Action)
+  participant DB as Database
+  B->>S: Submit Form via action={simpanData}
+  Note over S: Fungsi "use server" dieksekusi di server
+  S->>DB: Simpan data (INSERT / UPDATE)
+  S->>S: revalidatePath('/produk') untuk refresh cache
+  S-->>B: Kembalikan HTML halaman terbaru
+\`\`\`
+
+Contoh implementasi Server Action di halaman Server Component:
+
+\`\`\`tsx
+// app/tambah-tugas/page.tsx
+import { revalidatePath } from "next/cache";
+
+// Simulasi penyimpanan sederhana di server
+const daftarTugas: string[] = ["Belajar App Router"];
+
+export default async function TambahTugasPage() {
+  // Server Action: fungsi server yang dipanggil saat form submit
+  async function tambahTugas(formData: FormData) {
+    "use server";
+
+    const judul = formData.get("judul") as string;
+    if (!judul || judul.trim() === "") return;
+
+    // Simpan ke database / server state
+    daftarTugas.push(judul);
+
+    // Refresh cache halaman secara instan
+    revalidatePath("/tambah-tugas");
+  }
+
+  return (
+    <main style={{ padding: "20px" }}>
+      <h1>Daftar Tugas</h1>
+      <ul>
+        {daftarTugas.map((t, idx) => (
+          <li key={idx}>{t}</li>
+        ))}
+      </ul>
+
+      {/* Form langsung memanggil Server Action */}
+      <form action={tambahTugas} style={{ marginTop: "20px" }}>
+        <input
+          name="judul"
+          placeholder="Tugas baru..."
+          required
+          style={{ padding: "8px", marginRight: "8px" }}
+        />
+        <button type="submit" style={{ padding: "8px 16px" }}>
+          Simpan ke Server
+        </button>
+      </form>
+    </main>
+  );
+}
+\`\`\`
+
+Poin penting:
+
+- Directive \`"use server"\` menandai bahwa seluruh kode di dalam fungsi tersebut **hanya** berjalan di environment server — kode ini tidak pernah dibundel atau dikirim ke browser.
+- Server Action menerima objek standar browser \`FormData\`, sehingga membaca nilai input cukup memakai \`formData.get("nama_input")\`.
+- \`revalidatePath('/path')\` membersihkan cache Server Component pada path tersebut sehingga data baru langsung tampil di UI seketika tanpa reload penuh.
+- Server Action juga dapat ditaruh di file terpisah (misal \`app/actions.ts\`) dengan menuliskan \`"use server"\` di baris paling atas file, sehingga bisa dipakai bersama oleh Client Component.`,
+    sources: [
+      {
+        label: "Next.js Docs — Server Actions and Mutations",
+        url: "https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations",
+      },
+    ],
+    prerequisites: [],
+    practice: `Di project Next.js latihan kamu:
+1. Buat route baru \`app/pesan/page.tsx\`.
+2. Deklarasikan array pesan di level server module.
+3. Buat Server Action \`kirimPesan(formData: FormData)\` bertanda \`"use server"\`.
+4. Ambil teks dari \`formData.get("pesan")\`, masukkan ke array, dan panggil \`revalidatePath("/pesan")\`.
+5. Buka \`http://localhost:3000/pesan\` di browser, ketik pesan di form, klik submit, dan pastikan pesan baru langsung muncul di daftar tanpa ada reload halaman browser.`,
+  },
+  {
+    category: "nextjs",
+    slug: "route-handlers-dasar",
+    order: 7,
     title: "Route Handlers Dasar (API Routes)",
     content: `**Masalah yang diselesaikan:** catatan sebelumnya fokus mengambil data DARI luar (API pihak ketiga). Tapi bagaimana kalau justru aplikasi Next.js kamu sendiri yang perlu jadi sumber data buat aplikasi lain (mobile app, atau frontend terpisah)? Kamu butuh bikin API endpoint sendiri.
 
@@ -1509,7 +2407,7 @@ export async function GET(
   {
     category: "nextjs",
     slug: "environment-variables-dasar",
-    order: 7,
+    order: 8,
     title: "Environment Variables Dasar di Next.js",
     content: `**Masalah yang diselesaikan:** Route Handler yang barusan kamu buat mungkin perlu terhubung ke database atau API eksternal yang butuh API key rahasia. Menaruh key itu langsung di kode (hardcode) berbahaya — apalagi kalau kode itu ter-commit ke Git repo publik.
 
@@ -1577,7 +2475,7 @@ export default function ClientButton() {
   {
     category: "nextjs",
     slug: "metadata-seo-dasar",
-    order: 8,
+    order: 9,
     title: "Metadata Dasar untuk SEO di Next.js",
     content: `**Masalah yang diselesaikan:** semua yang sudah kamu bangun sejauh ini fungsional, tapi bagaimana orang lain (dan mesin pencari seperti Google) tahu halaman kamu ini tentang apa sebelum mereka klik? Tanpa metadata yang benar, link yang dibagikan ke sosial media cuma menampilkan URL polos, dan Google kesulitan mengindeks halaman dengan judul yang relevan.
 
@@ -2499,6 +3397,17 @@ Poin penting:
 
 TypeScript menambahkan sistem tipe di atas JavaScript, dicek SEBELUM kode dijalankan (compile time). Tipe bisa ditulis manual (annotation) atau otomatis ditebak oleh compiler (inference).
 
+\`\`\`mermaid
+flowchart LR
+  subgraph Dev["Saat Menulis Kode & Compile Time"]
+    TS["Kode TypeScript (.ts)<br/>let umur: number = 'dua puluh'"] --> Checker["TypeScript Compiler (Type Check)"]
+    Checker -->|Deteksi Error Tipe| Alert["Build Gagal & Garis Merah di Editor<br/>Bug tertangkap sebelum aplikasi jalan!"]
+  end
+  subgraph Prod["Saat Program Berjalan (Runtime)"]
+    Checker -->|Tipe Valid| JS["JavaScript Bersih (.js)"] --> Run["Browser / Node.js<br/>Berjalan aman tanpa type mismatch"]
+  end
+\`\`\`
+
 | Tipe | Contoh nilai |
 | --- | --- |
 | \`string\` | \`"Budi"\` |
@@ -2557,6 +3466,13 @@ Poin penting:
     content: `Catatan sebelumnya membahas tipe untuk nilai tunggal (\`string\`, \`number\`, dst). **Masalah yang diselesaikan sekarang:** bagaimana kalau yang perlu diberi tipe adalah *object* dengan banyak properti — misalnya data user dengan \`id\`, \`nama\`, \`email\`? Menuliskan ulang bentuk object yang sama di setiap fungsi yang memakainya itu berulang dan gampang tidak konsisten kalau salah satu lupa di-update.
 
 \`interface\` dan \`type\` sama-sama dipakai untuk mendefinisikan bentuk (shape) sebuah object, supaya TypeScript bisa memeriksa strukturnya.
+
+\`\`\`mermaid
+flowchart TD
+  Contract["Kontrak Interface User<br/>id: number<br/>nama: string<br/>email?: string (opsional)"]
+  ObjA["Objek Valid:<br/>{ id: 1, nama: 'Budi' }"] -->|Memenuhi Kontrak Shape| Contract
+  ObjB["Objek Error:<br/>{ id: '1', nama: 'Budi' }"] -.->|Ditolak: id bukan number| Contract
+\`\`\`
 
 \`\`\`ts
 // pakai interface

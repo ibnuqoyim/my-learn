@@ -1,0 +1,902 @@
+[
+  {
+    "id": "46e5f5c4-74d3-4c2e-958b-b64e24b59c49",
+    "note_id": "1065af1e-2c02-4a29-878a-0523e4f7b2c6",
+    "question": "Apa itu closure di JavaScript?",
+    "options": [
+      "Cara menutup browser",
+      "Fungsi yang mengingat variabel dari scope tempat ia dibuat",
+      "Tipe data khusus",
+      "Method untuk menghapus variabel"
+    ],
+    "correct_index": 1,
+    "explanation": "Closure adalah fungsi yang tetap punya akses ke variabel dari scope pembuatnya, meskipun scope itu sudah selesai dieksekusi.",
+    "order_index": 0,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "9112376e-4d17-4c50-b22e-947548c3d012",
+    "note_id": "1065af1e-2c02-4a29-878a-0523e4f7b2c6",
+    "question": "Kalau buatCounter() dipanggil 2 kali, berapa banyak closure independen yang terbentuk?",
+    "options": [
+      "1",
+      "2",
+      "0",
+      "Tergantung browser"
+    ],
+    "correct_index": 1,
+    "explanation": "Setiap pemanggilan buatCounter() menghasilkan closure baru dengan variabel jumlah masing-masing, saling independen.",
+    "order_index": 1,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "cb05c648-6c96-4483-8677-fc91936944f2",
+    "note_id": "1065af1e-2c02-4a29-878a-0523e4f7b2c6",
+    "question": "Closure sering dipakai untuk membuat apa?",
+    "options": [
+      "Data privat / pola module",
+      "Query database",
+      "Elemen HTML",
+      "File CSS"
+    ],
+    "correct_index": 0,
+    "explanation": "Karena variabel di dalam closure tidak bisa diakses langsung dari luar, closure sering dipakai untuk menyembunyikan/mengenkapsulasi data (pola module).",
+    "order_index": 2,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "452dbe3d-afa0-4d68-8943-4ab7890f0140",
+    "note_id": "0769c792-0dde-47ba-bc93-f4e5da16e884",
+    "question": "Kapan TypeScript memeriksa kecocokan tipe?",
+    "options": [
+      "Saat program berjalan (runtime)",
+      "Saat kompilasi (compile time)",
+      "Setelah program selesai",
+      "Tidak pernah"
+    ],
+    "correct_index": 1,
+    "explanation": "TypeScript adalah static type checker — pengecekan tipe dilakukan saat kompilasi, sebelum kode dijalankan.",
+    "order_index": 0,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "b6ae1e34-1ceb-4f0f-b86c-53a4ff0b9b47",
+    "note_id": "0769c792-0dde-47ba-bc93-f4e5da16e884",
+    "question": "Apa yang dimaksud dengan \"type inference\" di TypeScript?",
+    "options": [
+      "Tipe harus selalu ditulis manual",
+      "TypeScript otomatis menebak tipe dari nilai yang diberikan",
+      "Semua variabel bertipe any",
+      "Fitur ini hanya ada di JavaScript"
+    ],
+    "correct_index": 1,
+    "explanation": "Kalau tidak ditulis manual, TypeScript tetap mencoba menebak tipe lewat inference berdasarkan nilai awalnya.",
+    "order_index": 1,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "b502be86-efa5-402e-8d4c-a184472f7e8f",
+    "note_id": "0769c792-0dde-47ba-bc93-f4e5da16e884",
+    "question": "Ekstensi file apa yang dipakai untuk TypeScript biasa (bukan JSX/React)?",
+    "options": [
+      ".js",
+      ".ts",
+      ".tsx",
+      ".jsx"
+    ],
+    "correct_index": 1,
+    "explanation": "File TypeScript berekstensi .ts, sedangkan .tsx dipakai kalau berisi JSX/React.",
+    "order_index": 2,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "42acce6e-34ad-4e69-8871-ae71ea6d9243",
+    "note_id": "5dacd9a7-113a-4bbb-ac1c-73077beec662",
+    "question": "Perintah CLI resmi apa yang dipakai untuk membuat project Next.js baru?",
+    "options": [
+      "create-next-app",
+      "create-react-app",
+      "next new",
+      "npm init react-app"
+    ],
+    "correct_index": 0,
+    "explanation": "`npx create-next-app@latest` adalah CLI resmi untuk scaffold project Next.js siap pakai dalam satu perintah.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "4b21055d-d6b6-4126-ae4c-13fa6fb91600",
+    "note_id": "5dacd9a7-113a-4bbb-ac1c-73077beec662",
+    "question": "File khusus apa di dalam folder app/ yang berfungsi sebagai error boundary untuk menangkap crash runtime?",
+    "options": [
+      "loading.tsx",
+      "not-found.tsx",
+      "error.tsx",
+      "layout.tsx"
+    ],
+    "correct_index": 2,
+    "explanation": "`error.tsx` menangkap crash runtime tanpa merusak seluruh web, sedangkan `loading.tsx` untuk skeleton loading dan `not-found.tsx` untuk halaman 404.",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "5917a855-9a5a-4d54-b091-13e46f764f8c",
+    "note_id": "5dacd9a7-113a-4bbb-ac1c-73077beec662",
+    "question": "Folder apa yang menjadi tempat utama routing dan UI pages pada project Next.js App Router?",
+    "options": [
+      "app/",
+      "public/",
+      "pages/",
+      "components/"
+    ],
+    "correct_index": 0,
+    "explanation": "Struktur berbasis folder di `app/` secara otomatis memetakan folder menjadi rute URL di browser.",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "b8319a3b-cb6d-4ac3-a884-d7d91477c952",
+    "note_id": "d32cf121-3b02-42ce-bc5d-ea8577f5c39d",
+    "question": "Apa yang dipakai Next.js App Router sebagai dasar penentuan routing, menggantikan config routing terpisah?",
+    "options": [
+      "Struktur folder di dalam app/",
+      "File konfigurasi routing terpisah",
+      "Library React Router",
+      "State management global"
+    ],
+    "correct_index": 0,
+    "explanation": "Next.js App Router memakai struktur folder itu sendiri sebagai definisi routing — tidak ada file config routing terpisah untuk disinkronkan.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "7f6cd754-43c7-4115-9dd6-94ba44a579d1",
+    "note_id": "d32cf121-3b02-42ce-bc5d-ea8577f5c39d",
+    "question": "Penulisan nama folder seperti apa yang menandakan sebuah dynamic route segment di App Router?",
+    "options": [
+      "{slug}",
+      "[slug]",
+      "<slug>",
+      "(slug)"
+    ],
+    "correct_index": 1,
+    "explanation": "Nama folder di dalam kurung siku `[slug]` berarti segmen URL dinamis, dan nilainya diterima lewat prop `params`.",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "1c31c5e4-2a5f-49bb-902c-cd4d23b95862",
+    "note_id": "d32cf121-3b02-42ce-bc5d-ea8577f5c39d",
+    "question": "Sejak Next.js 15, tipe data `params` pada halaman dynamic route berubah menjadi apa?",
+    "options": [
+      "Object biasa seperti sebelumnya",
+      "Promise yang harus di-await",
+      "Array of string",
+      "Class instance"
+    ],
+    "correct_index": 1,
+    "explanation": "Sejak Next.js 15, params berupa Promise sehingga harus di-await dulu sebelum dipakai — berbeda dari versi Next.js 14 ke bawah.",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "82754e93-6c0f-45ca-a2ea-bcfd81f70d53",
+    "note_id": "75351001-c5ee-4c99-a786-8ad8354733da",
+    "question": "Mengapa sebaiknya tidak memakai tag `<a href=\"...\">` biasa untuk navigasi antar halaman di Next.js?",
+    "options": [
+      "Karena memicu full page reload dan membuang keuntungan performa React",
+      "Karena tidak valid secara HTML",
+      "Karena tidak bisa dipakai di Server Component",
+      "Karena akan error saat build"
+    ],
+    "correct_index": 0,
+    "explanation": "Tag `<a>` biasa memicu full page reload — semua state hilang dan seluruh halaman di-fetch ulang dari server.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "c26478ba-e429-4933-992a-4ce334a6a219",
+    "note_id": "75351001-c5ee-4c99-a786-8ad8354733da",
+    "question": "Hook apa yang dipakai untuk navigasi programatik (misal setelah submit form) di App Router?",
+    "options": [
+      "useNavigate dari react-router",
+      "useHistory dari next/router",
+      "useRouter dari next/navigation",
+      "useRouter dari next/router"
+    ],
+    "correct_index": 2,
+    "explanation": "Di App Router, useRouter wajib di-import dari `next/navigation`, bukan `next/router` (Pages Router lama).",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "b9c81c9b-ac5d-4493-92fd-e1d2c8458699",
+    "note_id": "75351001-c5ee-4c99-a786-8ad8354733da",
+    "question": "Apa yang otomatis dilakukan Next.js saat komponen `<Link>` muncul di viewport?",
+    "options": [
+      "Prefetching resource route di background",
+      "Mengompres semua gambar di halaman",
+      "Validasi form otomatis",
+      "Menghapus cache halaman sebelumnya"
+    ],
+    "correct_index": 0,
+    "explanation": "Next.js otomatis melakukan prefetching resource di background saat link muncul di viewport, sehingga transisi halaman terasa instan.",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "85a07bd0-5e30-453e-9e17-f54e12de2299",
+    "note_id": "2c353801-6cec-4671-a4a3-d29eced08c1b",
+    "question": "Apa yang terjadi pada layout ketika user berpindah halaman di dalam layout yang sama?",
+    "options": [
+      "Layout di-render ulang dari awal",
+      "Layout tetap bertahan (persisted state), tidak di-render ulang",
+      "Layout dihapus dan dimuat ulang dari server",
+      "Layout otomatis berubah jadi Client Component"
+    ],
+    "correct_index": 1,
+    "explanation": "Layout adalah komponen UI yang dibagikan ke beberapa halaman anak; saat berpindah halaman di layout yang sama, layout tetap bertahan dan tidak di-render ulang dari awal.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "07ff2932-efb8-4f2b-8cb8-6c0e1735c59f",
+    "note_id": "2c353801-6cec-4671-a4a3-d29eced08c1b",
+    "question": "File apa yang wajib dimiliki setiap aplikasi App Router untuk membungkus elemen dasar dokumen HTML?",
+    "options": [
+      "app/page.tsx",
+      "app/globals.css",
+      "app/layout.tsx (Root Layout)",
+      "app/loading.tsx"
+    ],
+    "correct_index": 2,
+    "explanation": "Setiap aplikasi Next.js App Router wajib memiliki satu Root Layout (`app/layout.tsx`) untuk membungkus elemen dasar dokumen HTML seperti `<html>` dan `<body>`.",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "3529ddcc-4868-431f-b844-8fbb09272a74",
+    "note_id": "2c353801-6cec-4671-a4a3-d29eced08c1b",
+    "question": "Nested layout seperti `app/dashboard/layout.tsx` berlaku untuk rute yang mana saja?",
+    "options": [
+      "Seluruh aplikasi tanpa kecuali",
+      "Hanya semua rute di dalam subfolder tersebut",
+      "Hanya halaman utama (root)",
+      "Hanya Client Component"
+    ],
+    "correct_index": 1,
+    "explanation": "Layout bersarang (nested layout) hanya membungkus semua rute di dalam subfolder tempat file layout itu berada.",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "896264a7-83e4-4cd5-b17e-ceb4bd12e55e",
+    "note_id": "b38b67fc-0349-4842-a63d-3ea5cf6cdd1a",
+    "question": "Secara default, semua komponen di dalam folder app/ pada Next.js App Router adalah jenis komponen apa?",
+    "options": [
+      "Client Component",
+      "Server Component",
+      "Static Component",
+      "Hybrid Component"
+    ],
+    "correct_index": 1,
+    "explanation": "Di App Router, semua komponen di dalam folder app/ adalah Server Component secara default — dirender di server tanpa mengirim JavaScript komponennya ke browser.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "ea0360c4-006f-4a81-b004-c54a3003548e",
+    "note_id": "b38b67fc-0349-4842-a63d-3ea5cf6cdd1a",
+    "question": "Directive apa yang wajib ditulis paling atas file (sebelum import lain) untuk menandai sebuah Client Component?",
+    "options": [
+      "\"use server\"",
+      "\"use client\"",
+      "\"use strict\"",
+      "\"use state\""
+    ],
+    "correct_index": 1,
+    "explanation": "Directive \"use client\" wajib ditulis paling atas file supaya komponen (dan semua yang di-import olehnya) dikirim juga ke browser sebagai JavaScript.",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "b36bdb0f-2b5b-4ce7-b79b-e9d41a3be99e",
+    "note_id": "b38b67fc-0349-4842-a63d-3ea5cf6cdd1a",
+    "question": "Fitur apa yang TIDAK bisa dipakai langsung di Server Component dan harus dipindah ke Client Component terpisah?",
+    "options": [
+      "useState, useEffect, dan event handler seperti onClick",
+      "async/await untuk fetch data",
+      "Import komponen lain",
+      "Penulisan JSX"
+    ],
+    "correct_index": 0,
+    "explanation": "Server Component tidak bisa memakai useState, useEffect, atau event handler — bagian interaktif itu harus dipindah ke Client Component terpisah.",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "0208903d-5267-4d1d-86f7-bd7cbfca96f9",
+    "note_id": "74c8b4b2-9b99-4bd6-a4cd-aa30d30961dc",
+    "question": "Bagaimana cara Server Component mengambil data tanpa perlu useEffect?",
+    "options": [
+      "Memakai async/await langsung di badan fungsi komponen",
+      "Memakai useEffect + useState seperti biasa",
+      "Memakai class component lifecycle method",
+      "Memakai Redux middleware"
+    ],
+    "correct_index": 0,
+    "explanation": "Server Component dapat langsung mengambil data secara asynchronous (async/await) di badan fungsi komponen tanpa perlu useEffect atau useState.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "60bc970c-c144-436c-9b37-66d77d83c4c6",
+    "note_id": "74c8b4b2-9b99-4bd6-a4cd-aa30d30961dc",
+    "question": "Opsi caching pada fetch() mana yang membuat data selalu di-fetch segar di setiap request (dynamic data)?",
+    "options": [
+      "cache: 'force-cache'",
+      "cache: 'no-store'",
+      "next: { revalidate: 3600 }",
+      "cache: 'default'"
+    ],
+    "correct_index": 1,
+    "explanation": "cache: \"no-store\" berarti dynamic data — selalu fetch data segar setiap request masuk, berbeda dengan force-cache (statis) atau revalidate (ISR).",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "631b6efe-4af8-415e-9b78-f3be4ea9fa6c",
+    "note_id": "74c8b4b2-9b99-4bd6-a4cd-aa30d30961dc",
+    "question": "Apa keuntungan keamanan dari melakukan data fetching di Server Component dibanding di browser?",
+    "options": [
+      "Kredensial API key dan query database tetap berada di server, tidak bocor ke browser",
+      "Data otomatis terenkripsi end-to-end",
+      "Tidak perlu menggunakan database",
+      "Semua data otomatis menjadi public"
+    ],
+    "correct_index": 0,
+    "explanation": "Karena fetching terjadi di server, kredensial API key dan query database tetap berada di server dan tidak bocor ke browser.",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "68709469-b476-4641-a6ee-4424e5595064",
+    "note_id": "450a660e-26e5-4470-9ac7-6db63edb259b",
+    "question": "Nama file apa yang dipakai untuk membuat Route Handler / custom API endpoint di App Router?",
+    "options": [
+      "page.tsx",
+      "route.ts",
+      "api.ts",
+      "handler.tsx"
+    ],
+    "correct_index": 1,
+    "explanation": "Route Handlers dibuat menggunakan Web Standard Request dan Response API di dalam file route.ts.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "f02f534a-7179-43ec-a82c-fed3a2d77b89",
+    "note_id": "450a660e-26e5-4470-9ac7-6db63edb259b",
+    "question": "Apakah file route.ts boleh ditaruh di folder yang sama dengan page.tsx?",
+    "options": [
+      "Boleh, tidak masalah sama sekali",
+      "Tidak boleh",
+      "Boleh hanya untuk method GET",
+      "Boleh hanya di folder root app/"
+    ],
+    "correct_index": 1,
+    "explanation": "File route.ts tidak boleh ditaruh di folder yang sama dengan page.tsx.",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "cdbab029-7971-4a13-b656-5bad9b5b7b26",
+    "note_id": "450a660e-26e5-4470-9ac7-6db63edb259b",
+    "question": "Bagaimana cara menangani HTTP method POST pada sebuah Route Handler?",
+    "options": [
+      "function handlePost() { ... }",
+      "export async function POST(request) { ... }",
+      "export default POST()",
+      "function onPost(req, res) { ... }"
+    ],
+    "correct_index": 1,
+    "explanation": "Method HTTP ditangani dengan mengekspor fungsi async bernama sesuai method-nya, misalnya export async function POST(request).",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "70161f6b-2dd1-4983-b930-11a5bb0ec6ae",
+    "note_id": "c357b844-d366-44d5-8d81-7377d8abd0d2",
+    "question": "Prefix apa yang wajib ditambahkan pada environment variable agar bisa dibaca di Client Component/browser?",
+    "options": [
+      "PUBLIC_",
+      "NEXT_PUBLIC_",
+      "CLIENT_",
+      "ENV_PUBLIC_"
+    ],
+    "correct_index": 1,
+    "explanation": "Prefix NEXT_PUBLIC_ wajib diberikan jika suatu variabel perlu dibaca di sisi klien/browser.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "375979c4-561c-42ae-88e5-14a4eb47a991",
+    "note_id": "c357b844-d366-44d5-8d81-7377d8abd0d2",
+    "question": "File apa yang dipakai Next.js untuk memuat environment variables secara lokal?",
+    "options": [
+      ".env.local",
+      "config.json",
+      "next.config.mjs",
+      "package.json"
+    ],
+    "correct_index": 0,
+    "explanation": "Next.js memiliki dukungan bawaan untuk memuat environment variables dari file .env.local.",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "69eddf7f-acc7-49d6-885c-4790560f544c",
+    "note_id": "c357b844-d366-44d5-8d81-7377d8abd0d2",
+    "question": "Mengapa variabel seperti DATABASE_URL (tanpa prefix NEXT_PUBLIC_) aman dari kebocoran ke browser?",
+    "options": [
+      "Karena otomatis dienkripsi oleh Next.js",
+      "Karena hanya terbaca di Server Environment (Node.js Runtime), bernilai undefined di Client Component",
+      "Karena disimpan langsung di database",
+      "Karena Next.js menghapusnya saat build"
+    ],
+    "correct_index": 1,
+    "explanation": "Variabel tanpa prefix NEXT_PUBLIC_ hanya terbaca di Server Environment; saat diakses dari Client Component nilainya undefined, mencegah kebocoran kunci rahasia.",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "e4432874-5cb0-4989-ae56-c659bd3c7594",
+    "note_id": "0bd6b9e8-c329-4078-a066-f00213688aee",
+    "question": "Fungsi apa yang dipakai untuk membuat metadata dinamis berdasarkan data seperti slug artikel?",
+    "options": [
+      "generateMetadata",
+      "getMetadata",
+      "createMetadata",
+      "useMetadata"
+    ],
+    "correct_index": 0,
+    "explanation": "generateMetadata adalah fungsi async yang dipakai untuk metadata dinamis, misalnya pada halaman artikel blog app/notes/[slug]/page.tsx.",
+    "order_index": 0,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "cb518d8a-bcb2-47a9-bbe8-253af571b6c5",
+    "note_id": "0bd6b9e8-c329-4078-a066-f00213688aee",
+    "question": "Informasi apa yang didefinisikan oleh Metadata API di Next.js App Router?",
+    "options": [
+      "Informasi <head> HTML seperti title, description, dan OpenGraph tag",
+      "Konfigurasi routing dinamis",
+      "State global aplikasi",
+      "Skema database"
+    ],
+    "correct_index": 0,
+    "explanation": "Metadata API mendefinisikan informasi <head> HTML seperti title, description, favicon, dan OpenGraph tag untuk media sosial, baik statis maupun dinamis.",
+    "order_index": 1,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "ec81c523-eb33-4d43-bc49-65a4adf45f31",
+    "note_id": "0bd6b9e8-c329-4078-a066-f00213688aee",
+    "question": "Apa fungsi title template seperti `{ template: \"%s | Catatan Belajar\" }` di app/layout.tsx?",
+    "options": [
+      "Membuat format title konsisten di seluruh halaman turunan",
+      "Mengubah bahasa halaman secara otomatis",
+      "Menentukan warna tema situs",
+      "Membuat favicon otomatis"
+    ],
+    "correct_index": 0,
+    "explanation": "Title template di Root Layout membuat format title konsisten — setiap halaman turunan tinggal mengisi bagian %s.",
+    "order_index": 2,
+    "created_at": "2026-09-21 10:03:34.082505+00"
+  },
+  {
+    "id": "381b8d37-0b5d-4d30-8613-8bee858345e7",
+    "note_id": "d2e61558-75c1-4704-87ef-ef56220afdb8",
+    "question": "Alat modern apa yang direkomendasikan untuk scaffolding project React karena dev server-nya sangat cepat (pakai native ES modules)?",
+    "options": [
+      "Vite",
+      "webpack",
+      "Gulp",
+      "Babel"
+    ],
+    "correct_index": 0,
+    "explanation": "Vite dipakai karena dev server-nya sangat cepat (native ES modules), berbeda dari Create React App yang sekarang sudah tidak direkomendasikan lagi oleh tim React.",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "83841c2d-3cc8-4d9e-bbf2-46542a76ff22",
+    "note_id": "d2e61558-75c1-4704-87ef-ef56220afdb8",
+    "question": "Fungsi apa yang menghubungkan aplikasi React ke elemen DOM nyata (`#root`)?",
+    "options": [
+      "createRoot",
+      "useEffect",
+      "document.createElement",
+      "useState"
+    ],
+    "correct_index": 0,
+    "explanation": "`createRoot(document.getElementById('root')).render(...)` adalah titik pertemuan antara HTML biasa dan dunia React.",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "fafa487e-c69e-4699-837e-8507e3341b41",
+    "note_id": "d2e61558-75c1-4704-87ef-ef56220afdb8",
+    "question": "Apa fungsi `<StrictMode>` di `src/main.jsx`?",
+    "options": [
+      "Alat bantu development yang sengaja menjalankan sebagian fungsi dua kali untuk membantu menemukan bug",
+      "Component UI utama aplikasi",
+      "Mengatur routing aplikasi",
+      "Mempercepat build production"
+    ],
+    "correct_index": 0,
+    "explanation": "StrictMode bukan komponen UI, melainkan alat bantu development untuk menemukan side effect yang tidak bersih; tidak berpengaruh di production.",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "767a1628-38f3-42be-ab55-a272cbc8b499",
+    "note_id": "ef237ccd-12be-46e1-af47-198a937b5a2a",
+    "question": "JSX pada akhirnya dikompilasi menjadi apa oleh Babel/Vite?",
+    "options": [
+      "React.createElement()",
+      "HTML murni",
+      "CSS",
+      "WebAssembly"
+    ],
+    "correct_index": 0,
+    "explanation": "JSX cuma sintaks yang mirip HTML; di balik layar dikompilasi jadi pemanggilan React.createElement().",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "1f63423d-1a55-420d-b451-182d81e6335a",
+    "note_id": "ef237ccd-12be-46e1-af47-198a937b5a2a",
+    "question": "Kenapa JSX memakai `className`, bukan `class`, untuk atribut CSS?",
+    "options": [
+      "class adalah keyword reserved di JavaScript",
+      "className lebih pendek untuk diketik",
+      "HTML tidak mendukung atribut class",
+      "class cuma untuk komponen berbasis class"
+    ],
+    "correct_index": 0,
+    "explanation": "class adalah kata kunci reserved di JavaScript, jadi JSX memakai className sebagai gantinya.",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "993fddc3-523c-4045-843b-b904b2d1c4d3",
+    "note_id": "ef237ccd-12be-46e1-af47-198a937b5a2a",
+    "question": "Apa yang wajib dipenuhi JSX terkait root element yang dikembalikan sebuah component?",
+    "options": [
+      "Wajib satu root element pembungkus (atau Fragment <>...</>)",
+      "Boleh banyak root element tanpa pembungkus",
+      "Wajib pakai <div> sebagai root",
+      "Tidak boleh ada elemen bersarang"
+    ],
+    "correct_index": 0,
+    "explanation": "JSX wajib punya satu root element; kalau tidak mau ada tag pembungkus tambahan di DOM, pakai Fragment (<>...</>).",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "87240fb5-11f8-41ac-9729-9e0985b69485",
+    "note_id": "f630317b-981e-41b2-b3fb-b80b1cc345d7",
+    "question": "Kenapa nama component React wajib diawali huruf kapital, misalnya `KartuProduk`?",
+    "options": [
+      "Supaya React bisa membedakan component dari tag HTML biasa",
+      "Supaya lebih mudah dibaca saja",
+      "Itu aturan penamaan JavaScript pada umumnya",
+      "Supaya bisa dipakai di file .jsx"
+    ],
+    "correct_index": 0,
+    "explanation": "React memakai huruf kapital di awal nama untuk membedakan <KartuProduk /> (component) dari <div /> (tag HTML biasa).",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "9499698d-2f17-4de1-aff4-1f4319e89cb0",
+    "note_id": "f630317b-981e-41b2-b3fb-b80b1cc345d7",
+    "question": "Bagaimana sifat props yang diterima sebuah component?",
+    "options": [
+      "Read-only, tidak boleh diubah component itu sendiri",
+      "Bisa diubah bebas oleh component itu sendiri",
+      "Otomatis ter-update dua arah ke parent",
+      "Hanya boleh berisi string"
+    ],
+    "correct_index": 0,
+    "explanation": "Data mengalir satu arah (one-way data flow) dari parent ke child; component tidak boleh mengubah props yang diterimanya sendiri.",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "624a54a0-8ad4-4980-bf08-ed501fd8a73e",
+    "note_id": "f630317b-981e-41b2-b3fb-b80b1cc345d7",
+    "question": "`function KartuProduk({ nama, harga })` — teknik apa yang dipakai pada parameter itu?",
+    "options": [
+      "Destructuring dari objek props",
+      "Spread operator",
+      "Template literal",
+      "Optional chaining"
+    ],
+    "correct_index": 0,
+    "explanation": "Itu sama dengan menulis function KartuProduk(props) { const { nama, harga } = props; ... } — destructuring objek props langsung di parameter.",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "5a412e1c-bb98-4380-991f-8fbc8c2a3408",
+    "note_id": "5b25c713-0c3b-467d-9bd2-3f5002f12668",
+    "question": "Kenapa variabel biasa di dalam fungsi component tidak cukup untuk menyimpan data yang berubah seiring waktu (mis. jumlah klik)?",
+    "options": [
+      "Di-reset ke nilai awal tiap render ulang, dan mengubahnya tidak memicu render ulang",
+      "Variabel biasa berjalan lebih lambat",
+      "JavaScript tidak mendukung variabel di dalam fungsi",
+      "useState wajib dipakai di semua fungsi JavaScript"
+    ],
+    "correct_index": 0,
+    "explanation": "Tiap render, fungsi component dijalankan dari awal sehingga variabel biasa di-reset, dan mengubahnya langsung tidak memberi tahu React untuk render ulang.",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "43ea5789-6bcb-4c34-9dff-00aeca50efc5",
+    "note_id": "5b25c713-0c3b-467d-9bd2-3f5002f12668",
+    "question": "Apa yang dikembalikan oleh pemanggilan `useState(0)`?",
+    "options": [
+      "Array berisi nilai state saat ini dan fungsi untuk mengubahnya",
+      "Objek dengan properti value",
+      "String kosong",
+      "Sebuah Promise"
+    ],
+    "correct_index": 0,
+    "explanation": "useState mengembalikan array [nilaiSaatIni, fungsiSetter], biasa didestructuring jadi const [count, setCount] = useState(0).",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "2d4fe525-11c9-41ae-b2a4-a8e4cce57198",
+    "note_id": "5b25c713-0c3b-467d-9bd2-3f5002f12668",
+    "question": "Kalau `<Counter />` dipakai dua kali di halaman yang sama, bagaimana state `count` di masing-masing instance?",
+    "options": [
+      "Masing-masing instance punya count sendiri-sendiri, terpisah total",
+      "Keduanya berbagi nilai count yang sama",
+      "Cuma instance pertama yang benar-benar punya state",
+      "Akan terjadi error karena komponen duplikat"
+    ],
+    "correct_index": 0,
+    "explanation": "State bersifat lokal per instance component — mengklik salah satu Counter tidak memengaruhi Counter lainnya.",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "ca5acd51-25b4-49c1-bcf8-f646e8943606",
+    "note_id": "eb9e7936-95b5-42b9-9396-12637e884505",
+    "question": "Kenapa `onClick={handleClick()}` salah dipakai sebagai event handler?",
+    "options": [
+      "Fungsi langsung terpanggil sekali waktu render, bukan waktu diklik",
+      "Sintaksnya langsung error di JSX",
+      "Tidak bisa dipakai sama sekali di JSX",
+      "Harus selalu pakai arrow function tanpa terkecuali"
+    ],
+    "correct_index": 0,
+    "explanation": "onClick={handleClick()} memanggil fungsinya sekali saat render (karena ada tanda kurung), bukan mengirim referensi fungsi untuk dipanggil nanti saat event terjadi.",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "33845c87-d26b-4c0b-8fd2-dca1edf063a8",
+    "note_id": "eb9e7936-95b5-42b9-9396-12637e884505",
+    "question": "Kenapa handler dengan parameter tambahan (misal id item) perlu dibungkus arrow function, seperti `onClick={() => onHapus(item.id)}`?",
+    "options": [
+      "Supaya pemanggilannya ditunda sampai event benar-benar terjadi",
+      "Supaya dieksekusi lebih cepat",
+      "Karena onHapus tidak bisa dipanggil langsung sama sekali",
+      "Itu wajib secara sintaks JSX untuk semua handler"
+    ],
+    "correct_index": 0,
+    "explanation": "Arrow function membungkus pemanggilan onHapus(item.id) supaya baru dieksekusi saat event klik terjadi, bukan langsung saat render.",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "10c564f1-a4dc-4bd8-8aae-2469903eb2ed",
+    "note_id": "eb9e7936-95b5-42b9-9396-12637e884505",
+    "question": "Apa sebutan untuk event object di React yang dibungkus supaya perilakunya konsisten di semua browser?",
+    "options": [
+      "Synthetic Event",
+      "Native Event",
+      "Virtual Event",
+      "Custom Event"
+    ],
+    "correct_index": 0,
+    "explanation": "React membungkus event native browser jadi Synthetic Event supaya API-nya (e.target, e.preventDefault(), dst) konsisten di semua browser.",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "76f8e52a-6630-4dc4-97cc-8e7c5cc7c1c2",
+    "note_id": "97bae629-d766-42d8-b52f-72403968fe7e",
+    "question": "Kenapa React tidak bisa langsung menulis if/else di tengah markup JSX?",
+    "options": [
+      "JSX cuma ekspresi, bukan statement",
+      "JSX tidak mendukung JavaScript sama sekali",
+      "if/else sudah deprecated di JavaScript modern",
+      "React secara sengaja melarang percabangan"
+    ],
+    "correct_index": 0,
+    "explanation": "JSX adalah ekspresi yang menghasilkan nilai, sedangkan if/else adalah statement — makanya percabangan besar ditulis di luar JSX (mis. return lebih awal).",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "4b2ba4b0-f968-4360-8c77-85ad123d5c76",
+    "note_id": "97bae629-d766-42d8-b52f-72403968fe7e",
+    "question": "Apa jebakan umum menulis `{jumlahPesan && <span>...</span>}` tanpa perbandingan eksplisit (mis. `> 0`)?",
+    "options": [
+      "Kalau jumlahPesan bernilai 0, angka \"0\" itu sendiri ikut ter-render ke layar",
+      "Kode itu akan selalu error saat build",
+      "Component tidak akan pernah ter-render",
+      "jumlahPesan otomatis dianggap true"
+    ],
+    "correct_index": 0,
+    "explanation": "0 dianggap falsy oleh JavaScript, tapi karena bukan null/undefined/false, React tetap merender nilai 0 itu sendiri sebagai teks di layar.",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "c4fe8be9-25cd-4b05-96bc-b2089d8fbb80",
+    "note_id": "97bae629-d766-42d8-b52f-72403968fe7e",
+    "question": "Untuk percabangan besar yang paling jelas dibaca, cara apa yang direkomendasikan?",
+    "options": [
+      "if/else di luar JSX dengan return lebih awal",
+      "Ternary bersarang berkali-kali di dalam JSX",
+      "switch-case langsung di dalam JSX",
+      "Selalu pakai operator && untuk semua kasus"
+    ],
+    "correct_index": 0,
+    "explanation": "if/else di luar JSX dengan return lebih awal paling gampang dibaca untuk percabangan besar, dibanding ternary bersarang yang cepat sulit dibaca.",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "1801331a-022a-40bb-926e-b4bac4388c78",
+    "note_id": "925ecd75-7b79-409e-b372-642eafd5f496",
+    "question": "Fungsi JavaScript apa yang dipakai untuk mengubah array data jadi array elemen JSX?",
+    "options": [
+      ".map()",
+      ".filter()",
+      ".reduce()",
+      ".forEach()"
+    ],
+    "correct_index": 0,
+    "explanation": "React memakai Array.prototype.map() biasa (bukan API baru) untuk mentransformasi array data jadi array elemen JSX.",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "c4475d6a-f630-48f5-99f3-597388afdff6",
+    "note_id": "925ecd75-7b79-409e-b372-642eafd5f496",
+    "question": "Kenapa prop `key` penting saat me-render list di React?",
+    "options": [
+      "React memakainya untuk mencocokkan elemen list antar render supaya tidak salah mencocokkan item",
+      "Supaya CSS bisa styling per item secara otomatis",
+      "Wajib untuk validasi HTML",
+      "Untuk mempercepat network request"
+    ],
+    "correct_index": 0,
+    "explanation": "key membantu React mencocokkan item mana yang ditambah/dihapus/digeser urutannya antar render, mencegah bug halus seperti state yang \"nempel\" ke item salah.",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "a91bf28f-9d2d-4b90-b458-2cd337406817",
+    "note_id": "925ecd75-7b79-409e-b372-642eafd5f496",
+    "question": "Kapan memakai index array sebagai `key` dianggap berisiko?",
+    "options": [
+      "Kalau list itu bisa diurutkan ulang, ditambah di tengah, atau dihapus sebagian",
+      "Selalu aman dipakai kapan saja tanpa pengecualian",
+      "Cuma berisiko kalau list-nya kosong",
+      "Index tidak pernah boleh dipakai sama sekali walau list statis"
+    ],
+    "correct_index": 0,
+    "explanation": "Kalau list berubah urutan/ditambah/dihapus, index tiap item bisa berubah walau datanya sama, membuat React salah mencocokkan elemen.",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "4e405100-e203-4768-8a40-d0c802b216aa",
+    "note_id": "098092c7-34cf-4366-9ae8-9b3167714015",
+    "question": "Apa yang dimaksud dengan \"controlled component\" pada form React?",
+    "options": [
+      "Nilai input disimpan di state React dan disinkronkan lewat onChange, bukan disimpan di DOM",
+      "Input yang otomatis tervalidasi tanpa kode tambahan",
+      "Component yang di-render di server",
+      "Form yang tidak bisa diedit oleh user"
+    ],
+    "correct_index": 0,
+    "explanation": "Controlled component menjadikan state React sebagai single source of truth untuk nilai input, bukan DOM yang menyimpannya sendiri.",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "df4e7a37-07e1-401a-ad72-fbe7296fc906",
+    "note_id": "098092c7-34cf-4366-9ae8-9b3167714015",
+    "question": "Kalau `value` di-set pada `<input>` tapi `onChange` tidak disediakan, apa yang terjadi?",
+    "options": [
+      "Input jadi read-only (tidak bisa diketik) karena state tidak pernah diperbarui",
+      "Input berjalan normal seperti biasa",
+      "React otomatis menambahkan onChange sendiri",
+      "Akan muncul error saat proses build"
+    ],
+    "correct_index": 0,
+    "explanation": "Tanpa onChange, state yang jadi sumber value tidak pernah berubah, jadi input terlihat seperti tidak bisa diketik.",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "d895e5db-7c69-4697-a351-fc959c6f9f62",
+    "note_id": "098092c7-34cf-4366-9ae8-9b3167714015",
+    "question": "Pola `{...data, [e.target.name]: e.target.value}` dipakai untuk apa?",
+    "options": [
+      "Meng-update satu field dalam objek state tanpa memutasi objek lamanya langsung",
+      "Menghapus semua data lama di state",
+      "Membuat array baru dari sebuah objek",
+      "Validasi format input"
+    ],
+    "correct_index": 0,
+    "explanation": "Spread {...data} menyalin field lama, lalu [e.target.name]: e.target.value menimpa satu field sesuai input yang berubah — tanpa memutasi objek state lama secara langsung.",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "de7528ba-267f-4fd6-ad0c-4af7a73402e6",
+    "note_id": "4a0c242e-8f48-4777-8060-ad5d6073febd",
+    "question": "Kapan efek pada `useEffect(() => {...}, [])` (dependency array kosong) dijalankan?",
+    "options": [
+      "Cuma sekali, tepat setelah render pertama (mount)",
+      "Setiap kali component render ulang, apa pun penyebabnya",
+      "Tidak akan pernah dijalankan",
+      "Hanya saat component di-unmount"
+    ],
+    "correct_index": 0,
+    "explanation": "Dependency array kosong [] berarti efek cuma jalan sekali setelah render pertama (mount), tidak berulang di render selanjutnya.",
+    "order_index": 0,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "aa918c04-a4c3-4532-b81d-7aa3c4a4c4ac",
+    "note_id": "4a0c242e-8f48-4777-8060-ad5d6073febd",
+    "question": "Apa fungsi cleanup function yang dikembalikan dari sebuah useEffect?",
+    "options": [
+      "Dijalankan sebelum efek berikutnya jalan / sebelum component unmount, untuk membereskan resource seperti interval",
+      "Untuk memulai efek yang benar-benar baru",
+      "Untuk mengubah isi dependency array",
+      "Untuk mempercepat proses render"
+    ],
+    "correct_index": 0,
+    "explanation": "Cleanup function (mis. return () => clearInterval(id)) dipanggil sebelum efek berikutnya jalan atau saat component unmount, untuk membereskan resource dari efek sebelumnya.",
+    "order_index": 1,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  },
+  {
+    "id": "3c1fe9aa-7028-4d1a-b150-b1405f69d665",
+    "note_id": "4a0c242e-8f48-4777-8060-ad5d6073febd",
+    "question": "Apa akibat kalau `clearInterval` tidak dipanggil di cleanup function pada contoh Timer?",
+    "options": [
+      "Menumpuk interval baru yang jalan terus di background (memory leak)",
+      "Timer otomatis berhenti sendiri",
+      "Tidak ada dampak apa pun ke aplikasi",
+      "Component akan langsung error saat render"
+    ],
+    "correct_index": 0,
+    "explanation": "Tanpa clearInterval di cleanup, tiap kali component ini remount akan menumpuk interval baru yang terus berjalan di background — memory leak klasik.",
+    "order_index": 2,
+    "created_at": "2026-09-21 23:49:42.152147+00"
+  }
+]

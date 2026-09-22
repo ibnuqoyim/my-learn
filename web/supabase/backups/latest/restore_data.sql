@@ -1,0 +1,4513 @@
+-- Database Backup Snapshot (data only)
+-- Generated: 2026-09-22T10:51:15.550Z
+-- Supabase Project: sgtopeghogkwaaaygakc
+
+BEGIN;
+
+-- Categories (12 baris)
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('3e71ad0e-b25a-4567-b43e-282574f1590a', 'Supabase', 'supabase', 'Membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya. Supabase menyediakan semua itu siap pakai di atas Postgres, diakses langsung dari client tanpa perlu backend server terpisah.
+
+Roadmap ini membawamu dari setup client, operasi CRUD dasar, mengenali user lewat autentikasi, mengamankan data per user lewat Row Level Security, menyimpan file lewat Storage, sampai mendengarkan perubahan data secara live lewat Realtime. Enam langkah yang membangun satu sama lain — RLS memakai `auth.uid()` dari langkah autentikasi sebelumnya, dan policy Storage/Realtime memakai pola RLS yang sama, jadi urutannya penting.
+
+**Asumsi:** familiar dengan JavaScript/TypeScript dasar dan konsep `async`/`await`. Butuh akun Supabase (gratis) — disebutkan di catatan pertama.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Git', 'git', 'Sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (`script_v2_final.js`, `script_v2_REVISI.js`) — tidak ada riwayat yang jelas, dan kolaborasi tim jadi mimpi buruk (siapa mengubah apa, kapan). Git menyelesaikan ini dengan melacak setiap perubahan sebagai snapshot bernama (commit) yang bisa dibandingkan, digabungkan, dan dibagikan.
+
+Roadmap ini membawamu dari cara menyimpan perubahan (staging & commit), membatalkan perubahan yang salah, bercabang untuk mengerjakan fitur tanpa mengganggu kode utama (branching), menyimpan perubahan sementara lewat stash, berkolaborasi lewat repository remote seperti GitHub, mengabaikan file yang tidak seharusnya ikut ter-commit, sampai menyelesaikan konflik yang muncul saat menggabungkan perubahan. Tujuh langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan command line/terminal dasar. Prasyarat tool (Git, akun GitHub) disebutkan di catatan yang membutuhkannya.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('b4e47208-8775-4a24-a2f3-1655745b90f1', 'Python', 'python', 'Python dikenal sebagai bahasa yang mudah dibaca dan cepat dipelajari, dipakai luas mulai dari scripting, web backend, sampai data science. Roadmap ini membangun fondasinya secara bertahap dari nol.
+
+Roadmap ini membawamu dari sintaks & tipe data dasar, struktur kontrol (percabangan & perulangan), struktur data (list/tuple/dict/set), menulis fungsi sendiri, list comprehension untuk kode yang lebih ringkas, menangani error runtime, membaca/menulis file, memakai module & library, sampai mengisolasi dependency tiap proyek lewat virtual environment. Sembilan langkah, ikuti berurutan.
+
+**Asumsi:** belum pernah menulis Python sama sekali juga tidak masalah — roadmap ini menjelaskan dari sintaks dasar. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('4e1efab5-9672-4b24-bdd9-5951a9a18a9d', 'Ansible', 'ansible', 'Mengelola belasan atau ratusan server secara manual berarti SSH satu per satu, menjalankan command yang sama berulang-ulang — lambat, gampang lupa satu langkah di salah satu server, dan hasilnya gampang beda-beda antar server (*configuration drift*) meski niatnya sama persis. Ansible menyelesaikan ini dengan otomasi *agentless*: definisikan konfigurasi yang diinginkan sekali dalam file YAML, jalankan ke banyak server sekaligus lewat SSH.
+
+Roadmap ini membawamu dari instalasi & cara kerja dasar, mendata server yang dikelola lewat inventory, menjalankan playbook untuk otomasi berulang, membuat konfigurasi yang fleksibel lewat variables & templating, sampai mengorganisir automation jadi modular lewat roles. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan command line/terminal, SSH ke server Linux, dan sintaks dasar YAML. Butuh minimal satu mesin Linux untuk dipraktikkan (VM lokal atau VPS) — disebutkan di catatan pertama.', '2026-09-19 10:15:28.833636+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Java (Spring Boot)', 'java-spring-boot', 'Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual dan setup server terpisah (Tomcat, web.xml) sebelum sempat menulis baris kode business logic pertama. Spring Boot menyelesaikan ini dengan auto-configuration, server tertanam (*embedded*), dan bundel dependency siap pakai (*starter*) — aplikasi web bisa jalan dari satu perintah.
+
+Roadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency Injection yang jadi tulang punggung Spring, membangun REST API, menyimpan data ke database lewat Spring Data JPA, sampai validasi request & penanganan error terpusat. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan dasar bahasa Java (class, interface, method) dan konsep OOP — roadmap ini fokus ke Spring Boot itu sendiri, bukan mengajari sintaks Java dari nol. Prasyarat tool (JDK, Maven) disebutkan di catatan pertama.', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('5f927683-b6aa-425e-9b06-82fe47703e2f', '.NET', 'dotnet', 'Sebelum .NET Core (2016 ke atas), .NET Framework hanya berjalan di Windows — sulit dipakai untuk deployment modern yang mengandalkan server Linux dan container. .NET sekarang adalah platform open-source dan cross-platform dari Microsoft: satu SDK yang jalan di Windows, Linux, maupun macOS, untuk membangun aplikasi web, cloud, hingga desktop.
+
+Roadmap ini membawamu dari pengenalan ekosistem & CLI `dotnet`, dasar bahasa C# (tipe data, class, record), pola Dependency Injection yang jadi tulang punggung aplikasi .NET modern, membangun REST API sungguhan lewat ASP.NET Core Minimal API, sampai menyimpan datanya secara permanen ke database lewat Entity Framework Core. Enam langkah, ikuti berurutan.
+
+**Asumsi:** roadmap ini menjelaskan dari dasar, tapi familiar dengan konsep OOP (object, class) dari bahasa lain akan membantu mempercepat pemahaman. Prasyarat tool (.NET SDK) disebutkan di catatan pertama.', '2026-09-18 09:10:05.725507+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('d68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Flutter (Android)', 'flutter', 'Membangun aplikasi mobile yang jalan di Android DAN iOS secara tradisional berarti menulis DUA codebase terpisah — Kotlin/Java untuk Android, Swift untuk iOS. Logic bisnis yang sama harus diimplementasikan dua kali, dan bug yang diperbaiki di satu platform harus diperbaiki lagi manual di platform lainnya. Flutter menyelesaikan ini dengan satu codebase (bahasa Dart) yang dikompilasi jadi kode native untuk berbagai platform sekaligus.
+
+Roadmap ini fokus ke target Android: instalasi & menjalankan aplikasi pertama, memahami widget (StatelessWidget vs StatefulWidget), menyusun layout dari beberapa widget, berpindah antar halaman, sampai mengambil data dari API lewat HTTP request. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan konsep pemrograman umum (variabel, fungsi, class) dari bahasa apa pun — roadmap ini tidak mengajarkan sintaks Dart dari nol, tapi contoh kodenya cukup sederhana untuk diikuti pemula. Prasyarat tool (Flutter SDK, Android Studio) disebutkan di catatan pertama.', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'Agentic AI (Hermes)', 'agentic-ai-hermes', 'Chatbot LLM biasa cuma bisa membalas teks — begitu jawabannya berupa kode atau command, KAMU yang harus menyalin, menjalankannya sendiri di terminal, membaca hasil/errornya, lalu menempelkannya balik ke chat supaya model tahu apa yang terjadi. Untuk task yang butuh banyak langkah, siklus manual ini melelahkan dan lambat. Agentic AI membalik itu: model yang mengeksekusi tool-nya sendiri (terminal, file, browser) secara langsung, mengamati hasilnya, dan melanjutkan sampai task selesai — kamu cukup kasih instruksi dan menyetujui langkah yang berisiko.
+
+Roadmap ini pakai **Hermes Agent** dari Nous Research (open-source, *self-improving*) sebagai contoh konkret: instalasi & autentikasi, menjalankan task pertama lewat CLI, memahami memori lintas sesi, membuat & memakai ulang pengetahuan prosedural (*skills*), sampai menghubungkan tool eksternal lewat MCP. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan command line/terminal dasar. Tidak perlu pengalaman sebelumnya dengan agentic AI atau LLM API — roadmap ini menjelaskan dari instalasi. Prasyarat tool (Git) dan akun untuk akses model disebutkan di catatan pertama.', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'React', 'react', 'React adalah library JavaScript paling populer untuk membangun antarmuka (UI) — dipakai jutaan aplikasi web, dari dashboard internal sampai produk skala besar seperti Instagram dan Facebook (yang menciptakannya). Sebelum React (dan library serupa), memperbarui tampilan setelah data berubah berarti memanipulasi DOM manual satu per satu (`document.getElementById(...).innerHTML = ...`) — gampang jadi berantakan dan bug begitu aplikasinya makin besar. React menyelesaikan ini lewat pendekatan deklaratif: kamu deskripsikan UI seharusnya terlihat seperti apa berdasarkan state saat ini, React yang mengurus cara memperbaruinya di DOM.
+
+Roadmap ini membawamu dari instalasi project, menulis UI dengan JSX, memecah UI jadi component yang bisa dipakai ulang lewat props, membuat component "mengingat" sesuatu lewat state, merespons interaksi user, menampilkan UI kondisional, me-render list data dinamis, mengelola form, sampai menyinkronkan component dengan hal di luar React (fetch data, timer, dst) lewat useEffect. Sembilan langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
+
+**Asumsi:** kamu perlu familiar dengan dasar JavaScript (variabel, fungsi, array method seperti `map`/`filter`, destructuring) — kalau belum, roadmap [JavaScript](/kategori/javascript) di platform ini membahas semua itu dari nol. Roadmap ini murni fokus ke React-nya sendiri, bukan mengulang dasar JavaScript.', '2026-09-21 23:24:41.175314+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Next.js', 'nextjs', 'Sebelum ada *file-based routing* seperti di Next.js, menyusun routing di aplikasi React itu kerja manual: install library router, lalu tulis config terpisah yang memetakan tiap URL ke komponennya — dan config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya. Masalah lain: React tradisional mengirim **semua** kode JavaScript ke browser, bahkan untuk bagian yang cuma menampilkan teks statis dari database, bikin aplikasi lambat di koneksi lemah.
+
+Roadmap ini membawamu dari nol sampai bisa membangun aplikasi Next.js App Router yang lengkap: mulai dari setup project, memahami routing dan navigasi, menyusun layout bersama antar halaman, memahami batas Server/Client Component, mengambil data dengan aman, membuat API sendiri lewat Route Handlers, mengelola environment variables, sampai melengkapi halaman dengan metadata untuk SEO. Sembilan langkah, ikuti berurutan — tiap catatan secara eksplisit dibangun di atas yang sebelumnya, jadi jangan lompat kalau belum menyelesaikan langkah sebelumnya.
+
+**Asumsi:** roadmap ini fokus ke Next.js itu sendiri, bukan mengajari React dari nol — kamu perlu familiar dengan dasar JavaScript dan konsep component/props/state/hooks di React. Kalau belum, selesaikan dulu roadmap [React](/kategori/react) di platform ini (sampai catatan useState & useEffect) sebelum lanjut ke sini. Prasyarat tool spesifik (mis. versi Node.js) disebutkan di catatan pertama.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('9deddb76-862f-4fce-83e4-57a0202df83b', 'JavaScript', 'javascript', 'JavaScript adalah bahasa pemrograman inti di balik hampir semua interaktivitas web — dari validasi form sampai aplikasi kompleks seperti Gmail. Roadmap ini membangun fondasinya secara bertahap: banyak konsep JS lanjutan (closure, Promise) sering disalahpahami pemula justru karena dasar-dasarnya (scope, fungsi) belum kokoh.
+
+Roadmap ini membawamu dari variabel & scope, mendefinisikan fungsi (termasuk arrow function), membongkar object/array lewat destructuring, mentransformasi array secara deklaratif, closure untuk data privat, menangani error runtime, Promise untuk kode asinkron, async/await sebagai gula sintaksnya, sampai memecah kode jadi module terorganisir. Sembilan langkah, ikuti berurutan — tiap catatan dibangun di atas yang sebelumnya.
+
+**Asumsi:** belum pernah menulis JavaScript sama sekali juga tidak masalah — roadmap ini menjelaskan dari variabel. Familiar dengan konsep pemrograman umum (dari bahasa apa pun) akan membantu mempercepat pemahaman, tapi bukan keharusan.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+INSERT INTO categories (id, name, slug, description, created_at) VALUES ('ea6a08d0-0af9-435b-88f7-ff6e196be052', 'TypeScript', 'typescript', 'JavaScript murni tidak mendeteksi kesalahan tipe data sampai program benar-benar dijalankan (runtime) — kirim string ke fungsi yang harusnya menerima angka baru ketahuan setelah aplikasi jalan, bahkan mungkin sudah di production. TypeScript menambahkan sistem tipe di atas JavaScript yang dicek saat menulis kode (compile time), sebelum bug itu sempat sampai ke user.
+
+Roadmap ini membawamu dari tipe dasar sampai bisa membaca dan menulis konfigurasi TypeScript sendiri: mulai dari type annotation primitif, mendefinisikan bentuk object lewat interface/type alias, union & literal type untuk merepresentasikan pilihan terbatas, type narrowing untuk menangani union dengan aman, type assertion untuk kasus kamu lebih tahu dari compiler, generics untuk kode yang reusable tanpa kehilangan type safety, utility types untuk memanipulasi tipe yang sudah ada, enum sebagai alternatif union, sampai opsi `tsconfig.json` yang paling penting untuk dikonfigurasi. Sembilan langkah, ikuti berurutan.
+
+**Asumsi:** TypeScript itu JavaScript plus sistem tipe, bukan bahasa baru dari nol — roadmap ini mengasumsikan kamu familiar dengan JavaScript dasar (variabel, fungsi, object, array). Prasyarat tool (Node.js, TypeScript compiler) disebutkan di catatan pertama.', '2026-09-18 06:20:59.380972+00') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, slug = EXCLUDED.slug, description = EXCLUDED.description;
+
+-- Notes (84 baris)
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('d2e61558-75c1-4704-87ef-ef56220afdb8', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Instalasi & Membuat Project React (Vite)', 'instalasi-dan-membuat-project', '**Masalah yang diselesaikan:** dulu, memulai project React dari nol berarti setup manual: install Babel buat transpile JSX, konfigurasi Webpack buat bundling, atur dev server sendiri — semua sebelum baris kode UI pertama ditulis. Create React App (CRA) sempat jadi solusi standar, tapi sekarang sudah tidak direkomendasikan lagi oleh tim React sendiri karena lambat dan tidak lagi dikembangkan aktif. **Vite** jadi pilihan modern: scaffold project React siap pakai dalam hitungan detik, dev server sangat cepat (pakai native ES modules, bukan bundling penuh tiap kali save).
+
+React sendiri adalah library JavaScript untuk membangun antarmuka (UI) berbasis komponen — potongan UI yang bisa dipakai ulang dan disusun jadi halaman lengkap.
+
+```mermaid
+flowchart TD
+    A[npm create vite@latest] --> B[Pilih nama project]
+    B --> C[Pilih framework: React]
+    C --> D[Pilih varian: JavaScript / TypeScript]
+    D --> E[npm install]
+    E --> F[npm run dev]
+    F --> G[Server jalan di localhost, hot reload aktif]
+```
+
+### 1. Membuat Project Baru dengan Vite
+
+```bash
+npm create vite@latest nama-app -- --template react
+cd nama-app
+npm install
+npm run dev
+```
+
+Buka `http://localhost:5173` — perubahan di kode langsung terlihat di browser tanpa reload manual (Hot Module Replacement).
+
+### 2. Struktur Folder Penting
+
+| File/Folder | Peran |
+| --- | --- |
+| `index.html` | Entry point HTML, punya `<div id="root">` tempat React di-mount. |
+| `src/main.jsx` | Entry point JavaScript — me-render komponen `<App />` ke `#root`. |
+| `src/App.jsx` | Komponen utama aplikasi, biasanya titik awal menyusun UI. |
+| `package.json` | Dependensi & script (`dev`, `build`, `preview`). |
+
+```jsx
+// src/main.jsx
+import { StrictMode } from ''react''
+import { createRoot } from ''react-dom/client''
+import App from ''./App.jsx''
+
+createRoot(document.getElementById(''root'')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+
+- `createRoot` menghubungkan aplikasi React ke elemen DOM nyata (`#root`) — titik pertemuan antara HTML biasa dan dunia React.
+- `<StrictMode>` bukan komponen UI, tapi alat bantu development: menjalankan beberapa fungsi dua kali secara sengaja untuk membantu menemukan bug (side effect yang tidak bersih), tidak berpengaruh di production.', '[{"url":"https://react.dev/learn/start-a-new-react-project","label":"React – Start a New React Project"},{"url":"https://vite.dev/guide/","label":"Vite – Getting Started"}]'::jsonb, '[{"url":"https://nodejs.org","label":"Node.js versi 18.17 atau lebih baru sudah terinstall (cek dengan `node --version` di terminal)"},{"label":"Familiar dengan perintah dasar terminal/command line (masuk folder, jalankan perintah)"}]'::jsonb, 'Buat project baru dengan Vite seperti contoh di atas, ubah teks di `src/App.jsx`, simpan filenya, dan amati perubahan langsung muncul di browser tanpa reload manual (Hot Module Replacement).', 0, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('f5e12ef2-2bb3-4c8c-84dc-022aa5214645', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Menyelesaikan Merge Conflict', 'merge-conflict-dasar', 'Sekarang kamu tahu cara branching, push/pull, dan mengabaikan file yang tidak perlu (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau dua branch (atau kamu dan rekan tim) sama-sama mengubah BARIS YANG SAMA di file yang sama, Git tidak tahu versi mana yang benar saat `merge`/`pull` — proses berhenti di tengah jalan dan minta kamu memutuskan sendiri.
+
+**Merge conflict** terjadi ketika Git tidak bisa menggabungkan otomatis dua perubahan yang saling bertabrakan pada baris yang sama.
+
+```mermaid
+gitGraph
+   commit id: "A"
+   branch fitur-a
+   checkout fitur-a
+   commit id: "ubah baris 5 jadi X"
+   checkout main
+   commit id: "ubah baris 5 jadi Y"
+```
+
+Kedua branch sama-sama mengubah baris 5 dengan nilai berbeda (`X` di `fitur-a`, `Y` di `main`) — saat `git merge fitur-a` dijalankan dari `main`, Git tidak bisa menebak versi mana yang benar, jadi proses berhenti dan minta diselesaikan manual.
+
+### Tampilan File Saat Konflik
+Git menandai bagian yang bentrok langsung di dalam file dengan *conflict markers*:
+
+```text
+<<<<<<< HEAD
+const sapaan = "Selamat pagi";
+=======
+const sapaan = "Halo semua";
+>>>>>>> fitur-a
+```
+
+- Baris di atas `=======` adalah versi branch yang sedang aktif (`HEAD`).
+- Baris di bawah `=======` sampai `>>>>>>>` adalah versi dari branch yang sedang di-merge (`fitur-a`).
+
+### Langkah Menyelesaikan Konflik
+```bash
+# 1. Coba merge, Git berhenti dan melaporkan file yang konflik
+git merge fitur-a
+# Auto-merging index.js
+# CONFLICT (content): Merge conflict in index.js
+
+# 2. Buka file yang konflik, edit manual: pilih salah satu versi,
+#    gabungan keduanya, atau tulis versi baru — lalu HAPUS conflict markers-nya
+#    (<<<<<<<, =======, >>>>>>>) sepenuhnya
+
+# 3. Tandai sudah diselesaikan dengan menambahkannya ke staging
+git add index.js
+
+# 4. Selesaikan proses merge dengan commit
+git commit
+```
+
+Poin penting:
+
+- `git status` saat konflik menampilkan daftar file yang "*both modified*" — itulah file-file yang perlu diedit manual.
+- Conflict marker (`<<<<<<<`, `=======`, `>>>>>>>`) HARUS dihapus semuanya sebelum commit — kalau lupa, marker itu akan ikut ter-commit sebagai teks biasa dan merusak kode.
+- Kalau ingin membatalkan proses merge sepenuhnya dan kembali ke kondisi sebelum `git merge` dijalankan, pakai `git merge --abort`.
+- Konflik yang sama juga bisa muncul saat `git pull` (karena `pull` = `fetch` + `merge`) — cara menyelesaikannya identik.', '[{"url":"https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging","label":"Git Basic Branching and Merging — Pro Git Book"},{"url":"https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line","label":"GitHub Docs — Resolving a Merge Conflict Using the Command Line"}]'::jsonb, '[]'::jsonb, 'Di repository latihan kamu: dari `main`, buat branch `fitur-a`, ubah baris pertama `catatan.txt` jadi teks apa saja, commit. Pindah balik ke `main`, ubah baris PERTAMA yang SAMA di `catatan.txt` jadi teks lain, commit juga. Jalankan `git merge fitur-a` dari `main` — harus muncul CONFLICT. Buka `catatan.txt`, lihat conflict marker-nya, edit manual untuk memilih/menggabungkan isinya, hapus semua marker, lalu `git add catatan.txt` dan `git commit` untuk menyelesaikannya. Ini menutup roadmap Git: dari commit pertama sampai menyelesaikan konflik kolaborasi yang paling umum ditemui.', 6, 'published', '2026-09-19 10:05:15.317547+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('094325c7-ec35-493d-84a3-7fdaca5e37e9', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Fungsi & Arrow Function Dasar', 'fungsi-dan-arrow-function', 'Sekarang kamu paham `let`/`const` dan scope (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** function declaration biasa punya `this` yang nilainya ditentukan SAAT DIPANGGIL (dynamic) — ini sering bikin bug tidak terduga di dalam callback (misalnya method object yang dipanggil lewat `setTimeout`, `this`-nya berubah jadi bukan object aslinya lagi). Arrow function (ES6) menyelesaikan ini dengan mewarisi `this` dari scope tempat dia DITULIS (lexical), bukan dari cara dia dipanggil.
+
+### Tiga Cara Mendefinisikan Fungsi
+```js
+// Function declaration — di-hoisting, bisa dipanggil sebelum baris definisinya
+function sapa(nama) {
+  return `Halo, ${nama}`;
+}
+
+// Function expression — TIDAK di-hoisting seperti declaration
+const sapa2 = function (nama) {
+  return `Halo, ${nama}`;
+};
+
+// Arrow function — sintaks ringkas, this lexical
+const sapa3 = (nama) => `Halo, ${nama}`;
+```
+
+### Masalah `this` yang Diselesaikan Arrow Function
+```js
+const timer = {
+  detik: 0,
+  mulai() {
+    // RUSAK: function biasa, "this" di dalam setTimeout BUKAN lagi "timer"
+    setTimeout(function () {
+      this.detik++; // this = undefined/window, BUKAN timer — error atau salah!
+    }, 1000);
+  },
+  mulaiBenar() {
+    // BENAR: arrow function mewarisi "this" dari mulaiBenar() (yaitu timer)
+    setTimeout(() => {
+      this.detik++; // this = timer, sesuai harapan
+      console.log(this.detik);
+    }, 1000);
+  },
+};
+```
+
+```mermaid
+flowchart LR
+  subgraph Regular["Function Biasa"]
+    R1["this ditentukan SAAT dipanggil"] --> R2["Bisa berubah tergantung caller<br/>(rawan bug di callback)"]
+  end
+  subgraph Arrow["Arrow Function"]
+    A1["this diwarisi dari scope penulisan"] --> A2["Selalu konsisten,<br/>tidak berubah tergantung caller"]
+  end
+```
+
+| | Function Declaration | Function Expression | Arrow Function |
+| --- | --- | --- | --- |
+| Hoisting | Ya, bisa dipanggil sebelum definisi | Tidak | Tidak |
+| `this` | Dynamic (tergantung cara dipanggil) | Dynamic | Lexical (dari scope penulisan) |
+| Bisa jadi constructor (`new`)? | Ya | Ya | Tidak |
+
+Poin penting:
+
+- Arrow function TIDAK cocok dipakai sebagai method object yang butuh akses `this` ke object itu sendiri secara langsung (`this` di situ akan merujuk ke scope LUAR object, bukan object-nya) — tapi cocok untuk callback DI DALAM method seperti contoh di atas.
+- `() => ekspresi` tanpa kurung kurawal otomatis me-return nilai ekspresinya (*implicit return*) — `() => { return ekspresi; }` kalau pakai kurung kurawal harus eksplisit `return`.
+- Function declaration di-hoisting sepenuhnya (bisa dipanggil sebelum baris definisinya di kode), function expression dan arrow function tidak.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions","label":"Arrow function expressions — MDN Web Docs"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this","label":"this — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Salin object `timer` di atas persis (dengan `mulai()` yang rusak dan `mulaiBenar()` yang benar). Panggil `timer.mulai()` dulu — perhatikan errornya (`this.detik` gagal karena `this` bukan `timer`). Lalu panggil `timer.mulaiBenar()` — buktikan `this.detik` bertambah dengan benar setelah 1 detik. Jelaskan dengan kata-katamu sendiri kenapa dua fungsi yang isinya mirip itu berperilaku beda.', 1, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('75351001-c5ee-4c99-a786-8ad8354733da', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Navigasi dengan Link dan useRouter', 'navigasi-link-dan-router', '**Masalah yang diselesaikan:** setelah tahu cara *membuat* route lewat struktur folder di catatan sebelumnya, pertanyaan berikutnya: bagaimana cara *pindah* antar route itu dari dalam aplikasi? Cara naif: pakai tag `<a href="...">` biasa seperti website statis — tapi ini memicu *full page reload*, membuang keuntungan performa React (semua state hilang, seluruh halaman di-fetch ulang dari server termasuk asset yang sebenarnya sama).
+
+Next.js menyediakan navigasi sisi klien (*client-side navigation*) yang cepat menggunakan komponen `<Link>` dan hook programatik `useRouter`.
+
+```mermaid
+flowchart LR
+    Browser["Klik &lt;Link href=''/about''&gt;"] --> Prefetch["Prefetch Route di Background"]
+    Prefetch --> Render["Ganti Konten Halaman (SPA Transition)"]
+    Render -.-> NoReload["Tanpa Full Page Reload!"]
+```
+
+### 1. Komponen `<Link>` (Direkomendasikan)
+Gunakan tag `<Link>` untuk navigasi deklaratif. Next.js otomatis melakukan *prefetching* resource di background saat link muncul di viewport:
+
+```tsx
+import Link from "next/link";
+
+export default function Navigasi() {
+  return (
+    <nav className="flex gap-4">
+      <Link href="/" className="hover:underline">Beranda</Link>
+      <Link href="/blog" className="hover:underline">Daftar Artikel</Link>
+      <Link href="/dashboard?tab=profile">Profil</Link>
+    </nav>
+  );
+}
+```
+
+### 2. Navigasi Programatik dengan `useRouter`
+Untuk navigasi yang dipicu oleh suatu aksi logika (misal: setelah tombol simpan diklik atau selesai submit form):
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+
+export default function FormLogin() {
+  const router = useRouter();
+
+  async function handleLogin() {
+    // Simulasi proses login
+    await loginApi();
+    // Navigasi ke halaman dashboard
+    router.push("/dashboard");
+    // Opsional: refresh data server component
+    router.refresh();
+  }
+
+  return <button onClick={handleLogin}>Masuk</button>;
+}
+```
+
+- **`<Link>` vs `<a>`**: Jangan gunakan tag `<a href="...">` biasa karena akan memicu *full page reload* yang lambat.
+- **Import Path**: Di App Router, `useRouter` wajib di-import dari `next/navigation`, bukan `next/router` (Pages Router lama).', '[{"url":"https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating","label":"Next.js Docs — Linking and Navigating"}]'::jsonb, '[]'::jsonb, 'Di project latihan kamu, tambahkan komponen `<Navigasi>` (seperti contoh di atas) ke `app/layout.tsx` supaya muncul di semua halaman. Lalu:
+
+1. Klik-klik antar link, buka DevTools tab Network, perhatikan request yang terjadi — apakah full HTML di-download ulang tiap klik, atau cuma data yang berubah?
+2. Ganti salah satu `<Link>` jadi `<a>` biasa, ulangi langkah 1, bandingkan bedanya.
+3. Tambahkan tombol yang memanggil `router.push(''/produk/99'')` (pakai dynamic route dari latihan sebelumnya) tanpa lewat `<Link>` sama sekali.', 2, 'published', '2026-09-18 09:12:02.218401+00', '2026-09-18 10:09:56.018828+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('fe167a21-cc21-43b7-9184-f76286b9e065', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Sintaks & Tipe Data Dasar', 'sintaks-dan-tipe-data-dasar', '**Masalah yang diselesaikan:** bahasa seperti Java/C# mewajibkan kamu mendeklarasikan tipe tiap variabel secara eksplisit (`int umur = 25;`) sebelum bisa dipakai — boilerplate ini menambah baris kode untuk hal yang sering kali sudah jelas dari nilainya sendiri. Python memakai *dynamic typing*: tipe ditentukan otomatis dari nilai yang diisikan, dan bisa berubah kapan saja variabelnya diisi ulang dengan nilai bertipe lain.
+
+```python
+umur = 25        # int — otomatis dikenali sebagai angka bulat
+tinggi = 1.75     # float — angka desimal
+nama = "Budi"     # str — teks
+aktif = True      # bool — True/False
+
+print(type(umur))  # <class ''int''>
+
+umur = "dua puluh lima"  # BOLEH — Python tidak melarang ganti tipe
+print(type(umur))         # <class ''str''>
+```
+
+### Operator Dasar & f-string
+```python
+a = 10
+b = 3
+print(a + b)   # 13
+print(a // b)  # 3  — pembagian bulat (floor division)
+print(a % b)   # 1  — sisa bagi (modulo)
+print(a ** b)  # 1000 — pangkat
+
+nama = "Ani"
+umur = 30
+# f-string — cara modern menyisipkan variabel ke dalam teks
+print(f"{nama} berumur {umur} tahun")
+```
+
+| Tipe | Contoh | Fungsi Konversi |
+| --- | --- | --- |
+| `int` | `25`, `-3` | `int("25")` |
+| `float` | `1.75`, `-0.5` | `float("1.75")` |
+| `str` | `"halo"` | `str(25)` |
+| `bool` | `True`, `False` | `bool(1)` (hampir semua nilai selain `0`/kosong dianggap `True`) |
+
+Poin penting:
+
+- `type(nilai)` selalu bisa dipakai untuk mengecek tipe suatu nilai saat ini — berguna terutama karena tipe variabel Python bisa berubah.
+- Indentasi (spasi di awal baris) di Python BUKAN sekadar gaya penulisan — ia bagian dari sintaks, menentukan blok kode mana yang termasuk bagian mana (akan terlihat jelas di catatan berikutnya soal struktur kontrol).
+- Konversi tipe eksplisit (`int()`, `str()`, dst) diperlukan saat Python tidak bisa menebak otomatis, misalnya menggabungkan angka dengan teks: `"Umur: " + str(umur)` — `"Umur: " + umur` akan error kalau `umur` berupa `int`.', '[{"url":"https://docs.python.org/3/tutorial/introduction.html","label":"An Informal Introduction to Python — Python Docs"},{"url":"https://docs.python.org/3/library/stdtypes.html","label":"Built-in Types — Python Docs"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python 3 sudah terinstall (cek dengan `python --version` atau `python3 --version`)"}]'::jsonb, 'Buat empat variabel dengan masing-masing tipe (`int`, `float`, `str`, `bool`), cetak tipe masing-masing pakai `type()`. Buat variabel `umur = 25` (angka) dan coba `print("Umur saya: " + umur)` — catat error-nya (`TypeError`). Perbaiki dengan `str(umur)` atau f-string `f"Umur saya: {umur}"`. Terakhir, hitung luas persegi panjang dari `panjang = 8` dan `lebar = 3` lalu cetak hasilnya pakai f-string.', 0, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('2c353801-6cec-4671-a4a3-d29eced08c1b', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Layout & Nested Layout Dasar', 'layout-dan-nested-layout', '**Masalah yang diselesaikan:** makin banyak halaman yang kamu buat dan navigasikan (seperti di catatan sebelumnya), makin banyak juga elemen UI yang berulang di tiap halaman — navbar, footer, sidebar. Copy-paste elemen itu ke tiap `page.tsx` bikin kode duplikat dan gampang jadi tidak konsisten kalau salah satu lupa di-update.
+
+Layout adalah komponen UI yang dibagikan ke beberapa halaman anak. Ketika berpindah halaman di dalam layout yang sama, layout tetap bertahan (*persisted state*) dan tidak di-render ulang dari awal.
+
+```mermaid
+flowchart TD
+    subgraph RootLayout ["app/layout.tsx (Root Layout: Navbar + Footer Global)"]
+        subgraph DashboardLayout ["app/dashboard/layout.tsx (Sidebar Dashboard)"]
+            P1["app/dashboard/page.tsx (Ringkasan)"]
+            P2["app/dashboard/settings/page.tsx (Pengaturan)"]
+        end
+    end
+```
+
+### 1. Root Layout (`app/layout.tsx`)
+Setiap aplikasi Next.js App Router wajib memiliki satu Root Layout untuk membungkus elemen dasar dokumen HTML:
+
+```tsx
+// app/layout.tsx
+import "./globals.css";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="id">
+      <body>
+        <header className="p-4 border-b">Navbar Global</header>
+        <main>{children}</main>
+      </body>
+    </html>
+  );
+}
+```
+
+### 2. Nested Layout (`app/dashboard/layout.tsx`)
+Layout bersarang hanya membungkus semua rute di dalam subfolder tersebut:
+
+```tsx
+// app/dashboard/layout.tsx
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex">
+      <aside className="w-64 p-4 bg-gray-100">Menu Sidebar</aside>
+      <section className="flex-1 p-6">{children}</section>
+    </div>
+  );
+}
+```
+
+- **Re-render Efisien**: Mengubah rute dari `/dashboard` ke `/dashboard/settings` hanya me-render ulang `children`, sedangkan Sidebar dan Navbar tetap utuh.
+- **Data Sharing**: Layout cocok untuk meletakkan konteks state bersama atau navigasi lokal.', '[{"url":"https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts","label":"Next.js Docs — Pages and Layouts"}]'::jsonb, '[]'::jsonb, 'Di project latihan, tambahkan `app/dashboard/layout.tsx` dengan sidebar sederhana (seperti contoh di atas), lalu buat dua halaman di dalamnya: `app/dashboard/page.tsx` dan `app/dashboard/pengaturan/page.tsx`. Navigasi antar keduanya (pakai `<Link>` dari catatan sebelumnya) dan amati lewat DevTools Elements/Inspector: apakah sidebar ikut ter-render ulang tiap pindah halaman, atau tetap diam?', 3, 'published', '2026-09-18 09:12:01.736924+00', '2026-09-18 10:09:56.018828+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5aa2858a-ba05-4cd2-8119-608ded4f1b67', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Struktur Kontrol: if, for, while', 'struktur-kontrol-dasar', 'Sekarang kamu paham variabel dan tipe data dasar (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** program yang cuma dijalankan baris demi baris secara linear tidak bisa membuat KEPUTUSAN (melakukan hal berbeda tergantung kondisi) atau MENGULANG pekerjaan yang sama tanpa menulis ulang kodenya berkali-kali.
+
+### Percabangan: `if` / `elif` / `else`
+```python
+nilai = 75
+
+if nilai >= 90:
+    kategori = "A"
+elif nilai >= 75:
+    kategori = "B"
+else:
+    kategori = "C"
+
+print(kategori)  # "B"
+```
+
+```mermaid
+flowchart TD
+  Start["nilai = 75"] --> Q1{"nilai >= 90?"}
+  Q1 -->|Ya| A["kategori = A"]
+  Q1 -->|Tidak| Q2{"nilai >= 75?"}
+  Q2 -->|Ya| B["kategori = B"]
+  Q2 -->|Tidak| C["kategori = C"]
+```
+
+### Perulangan: `for` dan `while`
+```python
+# for — mengulang untuk tiap elemen di sebuah iterable
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+buah = ["apel", "jeruk", "kiwi"]
+for b in buah:
+    print(b)
+
+# while — mengulang SELAMA kondisi masih True
+hitung = 0
+while hitung < 3:
+    print(hitung)
+    hitung += 1
+```
+
+### `break` dan `continue`
+```python
+for n in range(10):
+    if n == 5:
+        break  # hentikan loop sepenuhnya
+    if n % 2 == 0:
+        continue  # lewati sisa kode, lanjut ke iterasi berikutnya
+    print(n)  # cuma cetak angka ganjil sebelum 5: 1, 3
+```
+
+Poin penting:
+
+- Python TIDAK pakai kurung kurawal `{ }` untuk menandai blok kode seperti banyak bahasa lain — blok ditandai lewat INDENTASI (biasanya 4 spasi) setelah tanda titik dua (`:`). Indentasi yang salah/tidak konsisten menyebabkan `IndentationError`.
+- `range(5)` menghasilkan urutan `0, 1, 2, 3, 4` (5 ANGKA, tapi berhenti SEBELUM angka 5) — pola ini sering bikin bingung pemula (*off-by-one*).
+- Pakai `for` kalau tahu persis berapa kali/apa yang mau diiterasi (list, range), pakai `while` kalau pengulangannya tergantung kondisi yang tidak diketahui jumlahnya di awal.', '[{"url":"https://docs.python.org/3/tutorial/controlflow.html","label":"More Control Flow Tools — Python Docs"}]'::jsonb, '[]'::jsonb, 'Tulis program yang mengecek satu angka: cetak "Fizz" kalau habis dibagi 3, "Buzz" kalau habis dibagi 5, "FizzBuzz" kalau habis dibagi KEDUANYA, atau angkanya sendiri kalau tidak keduanya — pakai `if`/`elif`/`else`. Bungkus dalam `for n in range(1, 21)` supaya jalan untuk angka 1 sampai 20. Lalu tulis `while` loop terpisah yang mencetak angka 10 turun ke 1 (hitung mundur), berhenti otomatis begitu mencapai 0.', 1, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('098092c7-34cf-4366-9ae8-9b3167714015', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Forms & Controlled Input Dasar', 'forms-dan-controlled-input-dasar', '**Masalah yang diselesaikan:** di HTML biasa, elemen form (`<input>`, `<textarea>`, `<select>`) menyimpan nilainya sendiri secara internal di DOM — JavaScript cuma "membaca" nilai itu saat dibutuhkan (misalnya waktu submit). Ini bertentangan dengan cara React bekerja, yang idealnya punya satu sumber kebenaran (*single source of truth*) untuk tiap data, supaya UI selalu konsisten dengan state. Kalau tidak terkontrol, sulit misalnya memvalidasi input secara real-time atau me-reset form dari kode.
+
+React menyelesaikan ini lewat pola **controlled component**: nilai input disimpan di state (`useState`), bukan di DOM, dan tiap perubahan disinkronkan lewat `onChange`.
+
+```mermaid
+flowchart LR
+    Ketik["User mengetik"] -->|onChange| Set["setNama(e.target.value)"]
+    Set --> State["state ''nama'' diperbarui"]
+    State -->|value=nama| Input["Input menampilkan nilai dari state"]
+```
+
+### 1. Controlled Input Dasar
+
+```jsx
+import { useState } from ''react''
+
+function FormNama() {
+  const [nama, setNama] = useState('''')
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    alert(`Halo, ${nama}!`)
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={nama}
+        onChange={(e) => setNama(e.target.value)}
+      />
+      <button type="submit">Kirim</button>
+    </form>
+  )
+}
+```
+
+- `value={nama}` mengunci nilai input supaya selalu sama dengan state — inilah yang membuatnya "controlled" (dikontrol React, bukan DOM).
+- `onChange` wajib ada kalau `value` di-set — tanpa `onChange`, input jadi read-only (tidak bisa diketik) karena state-nya tidak pernah diperbarui.
+
+### 2. Beberapa Input Sekaligus
+
+Untuk form dengan banyak field, satu objek state dengan satu handler generik lebih ringkas daripada satu `useState` per field:
+
+```jsx
+function FormRegistrasi() {
+  const [data, setData] = useState({ nama: '''', email: '''' })
+
+  function handleChange(e) {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+
+  return (
+    <form>
+      <input name="nama" value={data.nama} onChange={handleChange} />
+      <input name="email" value={data.email} onChange={handleChange} />
+    </form>
+  )
+}
+```
+
+`{...data, [e.target.name]: e.target.value}` men-spread state lama lalu menimpa satu key sesuai `name` input yang berubah — pola umum update state objek tanpa memutasi objek lamanya langsung.', '[{"url":"https://react.dev/reference/react-dom/components/input","label":"React – Reference: <input>"}]'::jsonb, '[]'::jsonb, 'Buat form registrasi dengan 2 field (nama, email) pakai pola objek state di atas, lalu tambahkan tampilan pratinjau live di bawah form yang menampilkan nilai form saat diketik (tanpa perlu submit).', 7, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('450a660e-26e5-4470-9ac7-6db63edb259b', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Route Handlers Dasar (API Routes)', 'route-handlers-dasar', '**Masalah yang diselesaikan:** catatan sebelumnya fokus mengambil data DARI luar (API pihak ketiga). Tapi bagaimana kalau justru aplikasi Next.js kamu sendiri yang perlu jadi sumber data buat aplikasi lain (mobile app, atau frontend terpisah)? Kamu butuh bikin API endpoint sendiri.
+
+Route Handlers memungkinkan kita membuat custom request handler untuk REST API publik menggunakan Web Standard `Request` dan `Response` API di dalam file `route.ts`.
+
+```mermaid
+flowchart LR
+    Client["Client / External App"] -->|HTTP GET /api/users| GetHandler["GET(request)"]
+    Client -->|HTTP POST /api/users| PostHandler["POST(request)"]
+
+    GetHandler --> Res["NextResponse.json(...)"]
+    PostHandler --> Res
+```
+
+### 1. Membuat Endpoint API (`app/api/users/route.ts`)
+```ts
+// app/api/users/route.ts
+import { NextResponse } from "next/server";
+
+// Handler HTTP GET
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const filter = searchParams.get("role") || "semua";
+
+  const users = [
+    { id: 1, nama: "Ahmad", role: "admin" },
+    { id: 2, nama: "Budi", role: "member" },
+  ];
+
+  return NextResponse.json({ sukses: true, filter, data: users });
+}
+
+// Handler HTTP POST
+export async function POST(request: Request) {
+  const body = await request.json();
+
+  if (!body.nama) {
+    return NextResponse.json(
+      { sukses: false, pesan: "Nama wajib diisi" },
+      { status: 400 }
+    );
+  }
+
+  // Simpan data ke database...
+  return NextResponse.json(
+    { sukses: true, pesan: "User berhasil dibuat", user: body },
+    { status: 201 }
+  );
+}
+```
+
+### 2. Dynamic Route Handler (`app/api/users/[id]/route.ts`)
+```ts
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const userId = params.id;
+  return NextResponse.json({ id: userId, nama: `User ${userId}` });
+}
+```
+
+- File `route.ts` tidak boleh ditaruh di folder yang sama dengan `page.tsx`.
+- Method HTTP yang didukung: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, dan `OPTIONS`.', '[{"url":"https://nextjs.org/docs/app/building-your-application/routing/route-handlers","label":"Next.js Docs — Route Handlers"}]'::jsonb, '[]'::jsonb, 'Buat `app/api/produk/route.ts` yang punya handler `GET` mengembalikan daftar produk statis (array beberapa object). Lalu:
+
+1. Buka `http://localhost:3000/api/produk` langsung di browser — harus muncul JSON-nya.
+2. Tambahkan handler `POST` yang menerima body JSON dan validasi field wajib (seperti contoh error 400 di atas), lalu tes lewat `fetch` di console browser atau tool seperti Postman/curl.', 6, 'published', '2026-09-18 09:12:03.345176+00', '2026-09-18 10:09:56.018828+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('533997b1-eb1d-4bd4-bf99-b0acfb72864d', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Struktur Data Dasar: list, tuple, dict, set', 'struktur-data-dasar', 'Sekarang kamu bisa membuat keputusan dan mengulang (dari catatan sebelumnya) — biasanya dipakai BARENGAN dengan struktur data untuk mengolah kumpulan nilai. **Masalah yang diselesaikan sekarang:** satu variabel cuma menyimpan SATU nilai — bagaimana menyimpan banyak nilai sekaligus, dan bagaimana memilih struktur yang tepat tergantung kebutuhan (perlu urutan? boleh duplikat? perlu pasangan key-value? perlu nilai unik saja)?
+
+```python
+# list — urutan, BISA diubah (mutable), boleh duplikat
+belanja = ["telur", "roti", "susu", "roti"]
+belanja.append("gula")
+
+# tuple — urutan, TIDAK BISA diubah (immutable)
+koordinat = (10, 20)
+# koordinat[0] = 99  # TypeError — tuple tidak bisa diubah
+
+# dict — pasangan key-value
+profil = {"nama": "Budi", "umur": 25}
+print(profil["nama"])  # "Budi"
+
+# set — cuma nilai UNIK, tanpa urutan pasti
+tag = {"python", "web", "python"}  # duplikat otomatis dibuang
+print(tag)  # {"python", "web"}
+```
+
+```mermaid
+flowchart TD
+  Q1{"Perlu urutan?"}
+  Q1 -->|Tidak, cuma unik| Set["set"]
+  Q1 -->|Ya| Q2{"Perlu key-value?"}
+  Q2 -->|Ya| Dict["dict"]
+  Q2 -->|Tidak| Q3{"Boleh berubah?"}
+  Q3 -->|Ya| List["list"]
+  Q3 -->|Tidak| Tuple["tuple"]
+```
+
+| Struktur | Urutan? | Bisa Diubah? | Boleh Duplikat? | Contoh Sintaks |
+| --- | --- | --- | --- | --- |
+| `list` | Ya | Ya | Ya | `[1, 2, 3]` |
+| `tuple` | Ya | Tidak | Ya | `(1, 2, 3)` |
+| `dict` | Ya (sejak Python 3.7+) | Ya | Key harus unik | `{"a": 1}` |
+| `set` | Tidak | Ya (isi boleh ditambah/dibuang) | Tidak | `{1, 2, 3}` |
+
+Poin penting:
+
+- Pakai `tuple` untuk data yang secara konsep TIDAK BOLEH berubah (koordinat, RGB warna) — sifat immutable-nya jadi jaminan, bukan sekadar konvensi.
+- Akses `dict` dengan key yang tidak ada melempar `KeyError` — pakai `profil.get("kota", "tidak ada")` untuk ambil dengan nilai default kalau key-nya mungkin tidak ada.
+- `set` berguna untuk operasi seperti mengecek keberadaan nilai secara cepat, atau menghilangkan duplikat dari sebuah list: `list(set(list_dengan_duplikat))`.', '[{"url":"https://docs.python.org/3/tutorial/datastructures.html","label":"Data Structures — Python Docs"}]'::jsonb, '[]'::jsonb, 'Buat `list` berisi 5 nama buah, tambahkan satu buah lagi pakai `.append()`. Buat `tuple` berisi koordinat `(x, y)`, coba ubah salah satu elemennya dan catat error-nya. Buat `dict` profil diri sendiri (`nama`, `umur`, `kota`), akses satu key yang TIDAK ada pakai `.get()` dengan default value. Buat `set` dari sebuah list yang sengaja punya banyak duplikat, buktikan hasilnya cuma berisi nilai unik.', 2, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('25f62e53-78ac-42fe-b8ad-f5d2fc696266', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Fungsi Dasar: def, Parameter, dan Return', 'fungsi-dasar', 'Sekarang kamu bisa membuat keputusan, mengulang, dan menyimpan koleksi data (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** logic yang sama (misalnya menghitung diskon) sering dibutuhkan di banyak tempat berbeda dalam program — menyalin-tempel kode yang sama berkali-kali bikin susah dipelihara (kalau ada bug, harus diperbaiki di SEMUA tempat yang menyalinnya).
+
+```python
+def hitung_diskon(harga, persen=10):
+    """Menghitung harga setelah diskon. Default diskon 10%."""
+    potongan = harga * (persen / 100)
+    return harga - potongan
+
+print(hitung_diskon(100000))       # pakai default 10%: 90000.0
+print(hitung_diskon(100000, 25))   # override jadi 25%: 75000.0
+```
+
+```mermaid
+flowchart LR
+  Call["hitung_diskon(100000, 25)"] --> Fn["def hitung_diskon(harga, persen=10)"]
+  Fn --> Body["potongan = harga * (persen / 100)"]
+  Body --> Return["return harga - potongan"]
+  Return --> Result["75000.0 dikembalikan ke pemanggil"]
+```
+
+Poin penting:
+
+- Parameter dengan nilai default (`persen=10`) bersifat OPSIONAL saat memanggil fungsi — kalau tidak diisi, nilai default itu yang dipakai.
+- Fungsi TANPA `return` eksplisit otomatis mengembalikan `None` — beda dengan fungsi yang memang sengaja `return None`.
+- Argumen bisa dikirim berdasarkan POSISI (`hitung_diskon(100000, 25)`) atau berdasarkan NAMA (`hitung_diskon(harga=100000, persen=25)`) — cara kedua lebih jelas dibaca kalau parameternya banyak.', '[{"url":"https://docs.python.org/3/tutorial/controlflow.html#defining-functions","label":"Defining Functions — Python Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `cek_kelulusan(nilai, batas=60)` yang mengembalikan `"Lulus"` kalau `nilai >= batas`, atau `"Tidak Lulus"` kalau tidak — dengan `batas` bernilai default 60. Panggil tanpa argumen kedua (pakai default), lalu panggil lagi dengan `batas=75` untuk kasus yang lebih ketat. Tulis fungsi kedua `rata_rata(daftar_nilai)` yang menerima sebuah `list` angka dan mengembalikan rata-ratanya — gunakan bersama fungsi `cek_kelulusan` untuk mengecek apakah rata-rata itu lulus atau tidak.', 3, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('325f8dde-35ce-4bbf-b50c-69f8b55d22c4', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Error Handling: try, except, finally', 'error-handling-dasar', 'Sekarang kamu bisa menulis fungsi dan mengolah struktur data (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau ada error runtime yang tidak ditangani (misalnya user mengetik teks padahal program mengharapkan angka), seluruh program berhenti total (*uncaught exception*) — bagaimana caranya program tetap jalan dan memberi respons yang masuk akal?
+
+```python
+# TANPA error handling — kalau input bukan angka, program CRASH total
+umur = int(input("Umur kamu: "))
+
+# DENGAN try/except — error ditangkap, program tetap jalan
+try:
+    umur = int(input("Umur kamu: "))
+    print(f"Tahun depan umur kamu {umur + 1}")
+except ValueError:
+    print("Itu bukan angka yang valid!")
+finally:
+    print("Selesai mencoba baca input.")  # SELALU jalan
+```
+
+```mermaid
+flowchart TD
+  Try["Kode di dalam try:"] -->|Berhasil, tanpa error| Skip["except DILEWATI"]
+  Try -->|Error dilempar| Except["except ValueError: dijalankan"]
+  Skip --> Finally["finally: — SELALU dijalankan"]
+  Except --> Finally
+```
+
+### Menangani Beberapa Jenis Error & Melempar Error Sendiri
+```python
+def bagi(a, b):
+    if b == 0:
+        raise ValueError("Tidak bisa membagi dengan nol")
+    return a / b
+
+try:
+    hasil = bagi(10, 0)
+except ValueError as e:
+    print(f"Error: {e}")
+except ZeroDivisionError:
+    print("Pembagian nol terdeteksi dari operator langsung")
+except Exception as e:
+    print(f"Error tidak terduga: {e}")
+```
+
+Poin penting:
+
+- Tangkap jenis exception SPESIFIK (`ValueError`, `KeyError`, dst) sebisa mungkin, bukan langsung `except:` tanpa jenis — supaya kamu tahu persis error apa yang sedang ditangani, dan tidak diam-diam menyembunyikan bug lain yang tidak terkait.
+- `finally` dijalankan SELALU, baik `try`-nya berhasil maupun gagal — cocok untuk kode pembersihan (menutup file/koneksi) yang wajib jalan apa pun hasilnya.
+- `raise` melempar exception secara manual — berguna untuk menandai kondisi yang secara logis salah meski tidak menyebabkan error Python secara langsung.', '[{"url":"https://docs.python.org/3/tutorial/errors.html","label":"Errors and Exceptions — Python Docs"}]'::jsonb, '[]'::jsonb, 'Tulis program yang minta input umur lewat `input()`, coba konversi ke `int()` di dalam `try/except ValueError` — kalau gagal, cetak pesan error yang jelas alih-alih program crash. Tambahkan `finally` yang selalu mencetak "Selesai". Tulis fungsi `bagi(a, b)` yang `raise ValueError` kalau `b == 0`, panggil dalam `try/except`, cetak pesan error-nya lewat `except ValueError as e: print(e)`.', 5, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4a0c242e-8f48-4777-8060-ad5d6073febd', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'useEffect Dasar (Sinkronisasi dengan Sistem Luar)', 'use-effect-dasar', '**Masalah yang diselesaikan:** semua yang dibahas roadmap ini sejauh ini terjadi murni di dalam React — render UI dari state dan props. Tapi aplikasi nyata sering perlu "keluar" dari dunia React: mengambil data dari API, mengatur judul tab browser, memasang timer, atau berlangganan event dari luar. Kalau kode semacam ini dijalankan langsung di badan component (waktu render), efeknya bisa terpicu berkali-kali secara tidak terduga setiap kali component render ulang.
+
+`useEffect` adalah Hook yang menyelesaikan ini: menjalankan kode **setelah** render selesai, dan cuma dijalankan ulang kalau nilai yang kamu tentukan benar-benar berubah.
+
+```mermaid
+flowchart TD
+    Render["Component selesai render"] --> Cek{"Dependency array berubah?"}
+    Cek -->|Ya| Cleanup["Jalankan cleanup function (kalau ada) dari efek sebelumnya"]
+    Cleanup --> Run["Jalankan efek baru"]
+    Cek -->|Tidak| Skip["Lewati, tidak dijalankan ulang"]
+```
+
+### 1. Sintaks Dasar
+
+```jsx
+import { useEffect, useState } from ''react''
+
+function JudulHalaman({ judul }) {
+  useEffect(() => {
+    document.title = judul
+  }, [judul])
+
+  return <h1>{judul}</h1>
+}
+```
+
+- Argumen pertama: fungsi yang berisi efeknya (kode yang "keluar" dari React, di sini mengubah `document.title`).
+- Argumen kedua (*dependency array*): daftar nilai yang, kalau berubah sejak render terakhir, memicu efek dijalankan ulang. `[judul]` berarti "jalankan ulang cuma kalau `judul` berubah".
+
+### 2. Tiga Bentuk Dependency Array
+
+| Dependency Array | Kapan Efek Jalan |
+| --- | --- |
+| `[]` (array kosong) | Cuma sekali, tepat setelah render pertama (mount). |
+| `[judul]` | Tiap kali render pertama, DAN tiap kali `judul` berubah. |
+| Tanpa argumen kedua sama sekali | Setiap kali component render ulang, apa pun penyebabnya — jarang ini yang diinginkan. |
+
+### 3. Cleanup Function
+
+Kalau efek membuat sesuatu yang perlu "dibereskan" sebelum efek berikutnya jalan (atau sebelum component hilang dari layar) — misalnya `setInterval` atau subscription — fungsi cleanup dikembalikan dari efeknya:
+
+```jsx
+function Timer() {
+  const [detik, setDetik] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => setDetik((d) => d + 1), 1000)
+    return () => clearInterval(id) // Cleanup: dipanggil sebelum efek berikutnya / saat unmount
+  }, [])
+
+  return <p>{detik} detik berlalu</p>
+}
+```
+
+Tanpa `clearInterval` di cleanup, tiap kali component ini remount akan menumpuk interval baru yang jalan terus di background — kebocoran memori (*memory leak*) yang klasik.', '[{"url":"https://react.dev/learn/synchronizing-with-effects","label":"React – Synchronizing with Effects"}]'::jsonb, '[]'::jsonb, 'Buat component `Timer` seperti contoh di atas. Lalu sengaja hapus baris `return () => clearInterval(id)`, tampilkan/sembunyikan component itu berkali-kali lewat conditional rendering, dan tambahkan `console.log(''interval baru dipasang'')` di dalam efeknya untuk mengamati penumpukan timer akibat cleanup yang hilang.', 8, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('ef237ccd-12be-46e1-af47-198a937b5a2a', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'JSX Dasar', 'jsx-dasar', '**Masalah yang diselesaikan:** catatan sebelumnya bikin project React jalan, tapi belum menyentuh cara nulis UI-nya. Sebelum JSX, membangun UI di JavaScript murni berarti manggil `React.createElement()` berulang-ulang — untuk UI sederhana pun kodenya jadi panjang dan susah dibayangkan bentuk akhirnya:
+
+```js
+React.createElement(''h1'', null, ''Halo, Dunia'')
+```
+
+JSX menyelesaikan ini dengan sintaks mirip HTML langsung di dalam JavaScript, yang di-compile Vite/Babel jadi `createElement()` di balik layar — kamu tulis yang mirip HTML, hasilnya tetap JavaScript biasa.
+
+```mermaid
+flowchart LR
+    JSX["&lt;h1&gt;Halo&lt;/h1&gt;"] -->|dikompilasi Babel/Vite| CE["React.createElement(''h1'', null, ''Halo'')"]
+    CE --> DOM["Elemen DOM nyata di browser"]
+```
+
+### 1. Menulis JSX
+
+```jsx
+function Sapaan() {
+  const nama = ''Budi''
+  return <h1>Halo, {nama}!</h1>
+}
+```
+
+- Kurung kurawal `{}` membungkus ekspresi JavaScript apa pun (variabel, pemanggilan fungsi, operasi matematika) di dalam JSX.
+- JSX **wajib** punya satu root element pembungkus. Kalau butuh banyak elemen tanpa tag pembungkus tambahan di DOM, pakai Fragment (`<>...</>`):
+
+```jsx
+function Profil() {
+  return (
+    <>
+      <h1>Budi</h1>
+      <p>Software Engineer</p>
+    </>
+  )
+}
+```
+
+### 2. Perbedaan dari HTML Biasa
+
+| HTML | JSX | Alasan |
+| --- | --- | --- |
+| `class="btn"` | `className="btn"` | `class` adalah keyword reserved di JavaScript. |
+| `<input>` (self-closing opsional) | `<input />` | Tag tanpa children wajib ditutup sendiri. |
+| `onclick="..."` (string) | `onClick={fungsi}` | Event handler JSX menerima fungsi JavaScript, bukan string; nama event pakai camelCase. |
+
+- JSX bukan HTML — ekspresi `{kondisi ? <A/> : <B/>}` valid, tapi kontrol alur penuh (`if`/`for` langsung di dalam markup) tidak, karena JSX cuma ekspresi, bukan statement.', '[{"url":"https://react.dev/learn/writing-markup-with-jsx","label":"React – Writing Markup with JSX"}]'::jsonb, '[]'::jsonb, NULL, 1, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('f630317b-981e-41b2-b3fb-b80b1cc345d7', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Component & Props Dasar', 'component-dan-props-dasar', '**Masalah yang diselesaikan:** setelah tahu cara menulis markup dengan JSX di catatan sebelumnya, masalah berikutnya adalah duplikasi. Bayangkan halaman yang menampilkan 20 kartu produk — copy-paste blok JSX yang sama 20 kali bikin kode panjang dan susah di-maintain (ubah satu style, harus ubah di 20 tempat). Component menyelesaikan ini: definisikan struktur UI SEKALI sebagai fungsi, lalu pakai berkali-kali dengan data berbeda-beda lewat **props**.
+
+```mermaid
+flowchart TD
+    App["App"] --> Kartu1["KartuProduk nama=''Sepatu'' harga=200000"]
+    App --> Kartu2["KartuProduk nama=''Tas'' harga=350000"]
+    App --> Kartu3["KartuProduk nama=''Topi'' harga=75000"]
+```
+
+### 1. Component adalah Fungsi
+
+```jsx
+function KartuProduk({ nama, harga }) {
+  return (
+    <div className="kartu">
+      <h2>{nama}</h2>
+      <p>Rp {harga.toLocaleString(''id-ID'')}</p>
+    </div>
+  )
+}
+```
+
+- Nama component **wajib** diawali huruf kapital (`KartuProduk`, bukan `kartuProduk`) — React memakai ini untuk membedakan component (`<KartuProduk />`) dari tag HTML biasa (`<div />`).
+- `{ nama, harga }` adalah destructuring dari objek `props` yang dikirim parent — sama dengan menulis `function KartuProduk(props) { const { nama, harga } = props; ... }`.
+
+### 2. Mengirim Props dari Parent
+
+```jsx
+function App() {
+  return (
+    <div>
+      <KartuProduk nama="Sepatu" harga={200000} />
+      <KartuProduk nama="Tas" harga={350000} />
+    </div>
+  )
+}
+```
+
+Tiap atribut di JSX (`nama="Sepatu"`) jadi satu key di objek `props` yang diterima component. Nilai non-string (angka, boolean, objek, fungsi) ditulis di dalam `{}`.
+
+### 3. Props Bersifat Read-Only
+
+Component **tidak boleh** mengubah props yang diterimanya sendiri — data mengalir satu arah, dari parent ke child (disebut *one-way data flow*). Kalau child perlu mengubah sesuatu, parent yang menyediakan fungsi lewat props (dibahas lebih detail waktu masuk ke state).', '[{"url":"https://react.dev/learn/your-first-component","label":"React – Your First Component"},{"url":"https://react.dev/learn/passing-props-to-a-component","label":"React – Passing Props to a Component"}]'::jsonb, '[]'::jsonb, 'Buat component `KartuProduk` seperti contoh di atas, pakai 3x dengan data produk berbeda-beda. Lalu coba tambahkan baris yang mengubah `nama` di dalam component itu sendiri (`nama = ''lainnya''`) dan amati warning yang muncul di console browser.', 2, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5b25c713-0c3b-467d-9bd2-3f5002f12668', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'State & useState Dasar', 'state-dan-usestate-dasar', '**Masalah yang diselesaikan:** props dari catatan sebelumnya cukup untuk data yang datang dari luar component, tapi bagaimana kalau component perlu **mengingat** sesuatu dan berubah sendiri seiring waktu — misalnya jumlah klik tombol? Variabel biasa di dalam fungsi component tidak cukup: tiap kali component dirender ulang, fungsi dijalankan dari awal dan variabel biasa itu di-reset ke nilai awal lagi. Lagipula, mengubah variabel biasa tidak membuat React tahu harus render ulang.
+
+`useState` adalah *Hook* bawaan React yang menyelesaikan dua masalah itu sekaligus: menyimpan nilai yang tetap ada antar render, dan memberi tahu React untuk render ulang UI setiap nilainya berubah.
+
+```mermaid
+flowchart LR
+    Klik["User klik tombol"] --> Set["setCount(count + 1)"]
+    Set --> ReRender["React render ulang component"]
+    ReRender --> UI["UI menampilkan angka baru"]
+```
+
+### 1. Menggunakan useState
+
+```jsx
+import { useState } from ''react''
+
+function Counter() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Diklik {count} kali
+    </button>
+  )
+}
+```
+
+- `useState(0)` mengembalikan array berisi dua hal: nilai state saat ini (`count`) dan fungsi untuk mengubahnya (`setCount`). `0` adalah nilai awal.
+- Memanggil `setCount(...)` **tidak langsung** mengubah `count` di tempat — itu memberi tahu React untuk menjadwalkan render ulang dengan nilai baru.
+- **Jangan pernah** mengubah state secara langsung (`count = count + 1`) — React tidak akan tahu ada perubahan dan UI tidak ter-update.
+
+### 2. State Bersifat Lokal per Component
+
+Kalau `<Counter />` dipakai dua kali di halaman yang sama, masing-masing punya `count` sendiri-sendiri, terpisah total — mengklik yang satu tidak memengaruhi yang lain. State "milik" instance component tertentu, bukan dibagi otomatis ke component lain (untuk berbagi state antar component, biasanya state-nya dipindah ke parent bersama dan dikirim lewat props — topik lanjutan di luar roadmap dasar ini).', '[{"url":"https://react.dev/learn/state-a-components-memory","label":"React – State: A Component''s Memory"}]'::jsonb, '[]'::jsonb, NULL, 3, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('eb9e7936-95b5-42b9-9396-12637e884505', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Event Handling Dasar', 'event-handling-dasar', '**Masalah yang diselesaikan:** catatan sebelumnya sudah memakai `onClick` sekilas buat trigger `setCount`, tapi belum dibahas detail cara React menangani event secara umum — klik, input, submit form, dan seterusnya. Di HTML biasa, event handler sering ditulis sebagai string di atribut (`onclick="doSomething()"`), bercampur dengan markup. React memisahkan ini: handler ditulis sebagai fungsi JavaScript biasa, dikirim lewat prop event yang namanya camelCase.
+
+### 1. Menangani Event Dasar
+
+```jsx
+function Tombol() {
+  function handleClick() {
+    alert(''Tombol diklik!'')
+  }
+
+  return <button onClick={handleClick}>Klik Saya</button>
+}
+```
+
+Poin krusial: `onClick={handleClick}` — mengirim **referensi fungsi**, bukan memanggilnya (`onClick={handleClick()}` salah, itu akan langsung terpanggil sekali waktu render, bukan waktu diklik).
+
+### 2. Event Handler dengan Parameter
+
+Kalau handler butuh argumen tambahan (misalnya id item yang diklik dari sebuah list), bungkus dengan arrow function supaya pemanggilannya ditunda sampai event benar-benar terjadi:
+
+```jsx
+function DaftarItem({ items, onHapus }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.nama}
+          <button onClick={() => onHapus(item.id)}>Hapus</button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### 3. Event Object
+
+Sama seperti JavaScript biasa, handler otomatis menerima event object sebagai argumen pertama — berguna untuk baca nilai input atau mencegah perilaku default browser:
+
+```jsx
+function Form() {
+  function handleSubmit(e) {
+    e.preventDefault() // Mencegah reload halaman (default HTML form)
+    console.log(''Form dikirim'')
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Kirim</button>
+    </form>
+  )
+}
+```
+
+- Event di React disebut *Synthetic Event* — dibungkus React supaya perilakunya konsisten di semua browser, tapi API-nya (`e.target`, `e.preventDefault()`, dst) terasa sama seperti event DOM native.', '[{"url":"https://react.dev/learn/responding-to-events","label":"React – Responding to Events"}]'::jsonb, '[]'::jsonb, NULL, 4, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('c357b844-d366-44d5-8d81-7377d8abd0d2', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Environment Variables Dasar di Next.js', 'environment-variables-dasar', '**Masalah yang diselesaikan:** Route Handler yang barusan kamu buat mungkin perlu terhubung ke database atau API eksternal yang butuh API key rahasia. Menaruh key itu langsung di kode (hardcode) berbahaya — apalagi kalau kode itu ter-commit ke Git repo publik.
+
+Next.js memiliki dukungan bawaan untuk memuat environment variables dari file `.env.local` dengan pemisahan keamanan antara Server dan Browser.
+
+```mermaid
+flowchart TD
+    subgraph EnvFile [".env.local"]
+        Secret["DATABASE_SECRET_KEY=rahasia123"]
+        Public["NEXT_PUBLIC_API_URL=https://api.com"]
+    end
+
+    Secret -->|Hanya Terbaca| Server["Server Environment (Node.js Runtime)"]
+    Public -->|Terbaca & Di-bundle| Browser["Browser / Client Bundle (''use client'')"]
+
+    Secret -.->|BLOCKED / undefined| Browser
+```
+
+### 1. Definisi Variabel di `.env.local`
+```bash
+# Variabel Rahasia (Server Only)
+DATABASE_URL="postgresql://user:pass@localhost:5432/db"
+SUPABASE_SERVICE_ROLE_KEY="eyJh..."
+
+# Variabel Publik (Browser & Server)
+NEXT_PUBLIC_SUPABASE_URL="https://example.supabase.co"
+NEXT_PUBLIC_SITE_NAME="Catatan Belajar"
+```
+
+### 2. Mengakses Variabel di Kode
+
+```tsx
+// 1. Di Server Component atau Route Handler (Bisa akses keduanya)
+export default function ServerPage() {
+  const secret = process.env.DATABASE_URL; // Terbaca aman
+  const site = process.env.NEXT_PUBLIC_SITE_NAME;
+  return <div>{site}</div>;
+}
+
+// 2. Di Client Component (''use client'')
+"use client";
+
+export default function ClientButton() {
+  // Hanya variabel dengan prefix NEXT_PUBLIC_ yang bisa diakses
+  const site = process.env.NEXT_PUBLIC_SITE_NAME;
+  // process.env.DATABASE_URL -> undefined (Mencegah kebocoran kunci rahasia)
+
+  return <button>Kunjungi {site}</button>;
+}
+```
+
+- **Prefix `NEXT_PUBLIC_`**: Wajib diberikan jika suatu variabel perlu dibaca di sisi klien/browser.
+- **Keamanan**: Jangan pernah memberi prefix `NEXT_PUBLIC_` pada Private Key, Secret Token, atau Database Password.', '[{"url":"https://nextjs.org/docs/app/building-your-application/configuring/environment-variables","label":"Next.js Docs — Environment Variables"}]'::jsonb, '[]'::jsonb, 'Tambahkan `.env.local` di root project dengan dua variabel: satu tanpa prefix (`RAHASIA_TEST=abc123`) dan satu dengan prefix `NEXT_PUBLIC_` (`NEXT_PUBLIC_NAMA_APP=Belajar Next.js`). Restart dev server (`.env.local` cuma dibaca saat start), lalu:
+
+1. Di Server Component manapun, `console.log(process.env.RAHASIA_TEST)` — muncul di terminal tempat `npm run dev` jalan.
+2. Di Client Component, coba akses `process.env.RAHASIA_TEST` (harus `undefined`) vs `process.env.NEXT_PUBLIC_NAMA_APP` (harus muncul nilainya) — buktikan sendiri batas keamanannya.', 7, 'published', '2026-09-18 09:12:03.856045+00', '2026-09-18 10:09:56.018828+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('de6ea69a-2b96-4586-800d-a2d8d1d0045c', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Membaca & Menulis File Dasar', 'membaca-menulis-file-dasar', 'Sekarang kamu bisa menangani error dengan aman (dari catatan sebelumnya) — penting karena operasi file gampang gagal (file tidak ada, tidak ada izin akses, dst). **Masalah yang diselesaikan sekarang:** data yang cuma hidup di variabel HILANG begitu program selesai dijalankan — bagaimana caranya menyimpan data ke file supaya tetap ada (*persistent*) untuk dibaca lagi nanti, bahkan oleh program lain?
+
+```python
+# Menulis ke file — mode "w" (write, menimpa isi lama)
+with open("catatan.txt", "w") as f:
+    f.write("Baris pertama\n")
+    f.write("Baris kedua\n")
+
+# Membaca seluruh isi file
+with open("catatan.txt", "r") as f:
+    isi = f.read()
+    print(isi)
+
+# Membaca baris per baris
+with open("catatan.txt", "r") as f:
+    for baris in f:
+        print(baris.strip())  # .strip() buang newline di akhir baris
+
+# Menambahkan ke file TANPA menghapus isi lama — mode "a" (append)
+with open("catatan.txt", "a") as f:
+    f.write("Baris tambahan\n")
+```
+
+```mermaid
+flowchart LR
+  Open["with open(''file'', mode) as f:"] --> Ops["Baca/tulis lewat f"]
+  Ops --> Close["File OTOMATIS ditutup<br/>saat keluar blok with"]
+```
+
+| Mode | Fungsi |
+| --- | --- |
+| `"r"` | Baca (*read*) — error kalau file tidak ada |
+| `"w"` | Tulis (*write*) — MENIMPA seluruh isi lama, atau buat file baru kalau belum ada |
+| `"a"` | Tambah (*append*) — menambah di akhir file, isi lama tetap ada |
+
+Poin penting:
+
+- Pakai `with open(...) as f:` (*context manager*), BUKAN `f = open(...)` manual — `with` menjamin file otomatis ditutup begitu blok kodenya selesai, bahkan kalau terjadi error di tengah jalan. Lupa menutup file bisa menyebabkan kebocoran resource.
+- Mode `"w"` MENGHAPUS seluruh isi file lama tanpa peringatan — pastikan memang itu yang diinginkan, kalau tidak pakai `"a"`.
+- Kombinasikan dengan `try/except FileNotFoundError` (dari catatan sebelumnya) untuk menangani kasus file yang mau dibaca ternyata belum ada.', '[{"url":"https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files","label":"Reading and Writing Files — Python Docs"}]'::jsonb, '[]'::jsonb, 'Tulis program yang membuat file `tugas.txt` berisi 3 baris tugas (mode `"w"`). Baca ulang file itu dan cetak isinya baris per baris. Tambahkan satu baris tugas baru pakai mode `"a"`, baca lagi untuk buktikan baris lama TIDAK hilang. Terakhir, coba `open("tidak-ada.txt", "r")` pada file yang sengaja tidak ada, bungkus dengan `try/except FileNotFoundError` supaya program tidak crash, cetak pesan error yang jelas.', 6, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b7fdf2d5-4091-406a-9485-69c07ea6e713', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Import & Module Dasar', 'import-dan-module-dasar', 'Sekarang kamu sudah bisa membaca/menulis file (dari catatan sebelumnya) — kode kamu makin banyak melakukan hal berbeda-beda. **Masalah yang diselesaikan sekarang:** menaruh SEMUA kode di satu file besar makin lama makin susah dikelola — bagaimana caranya memecah kode jadi beberapa file terpisah dan memakai ulang fungsi dari file lain, atau dari library yang sudah ada (bukan menulis ulang dari nol)?
+
+### Import dari Standard Library
+Python punya banyak module bawaan (*standard library*) siap pakai tanpa install apa pun:
+
+```python
+import math
+print(math.sqrt(16))  # 4.0
+
+import random
+print(random.randint(1, 10))  # angka acak 1-10
+
+from datetime import datetime
+print(datetime.now())  # waktu saat ini
+```
+
+### Membuat Module Sendiri
+```python
+# file: kalkulator.py
+def tambah(a, b):
+    return a + b
+
+def kurang(a, b):
+    return a - b
+```
+
+```python
+# file: main.py — di folder yang sama dengan kalkulator.py
+import kalkulator
+print(kalkulator.tambah(2, 3))  # 5
+
+# atau import fungsi tertentu langsung
+from kalkulator import kurang
+print(kurang(5, 2))  # 3
+```
+
+```mermaid
+flowchart LR
+  Std["Standard Library<br/>(bawaan Python: math, random, dst)"] -->|import| Code["Kode kamu"]
+  Pip["Package pihak ketiga<br/>(diinstall lewat pip)"] -->|import| Code
+  Own["Module buatan sendiri<br/>(file .py lain)"] -->|import| Code
+```
+
+Poin penting:
+
+- `import module` mengharuskan pakai prefix `module.fungsi()`, sedangkan `from module import fungsi` bisa langsung panggil `fungsi()` tanpa prefix — tapi lebih rawan bentrok nama kalau banyak module diimpor sekaligus.
+- Package pihak ketiga (yang tidak termasuk standard library, misalnya `requests`) harus di-`pip install` dulu sebelum bisa di-`import` — dibahas lebih lanjut di catatan berikutnya soal virtual environment.
+- `import module as alias` (mis. `import numpy as np`) memberi nama pendek supaya tidak perlu mengetik nama module lengkap berulang kali — konvensi umum di banyak library populer.', '[{"url":"https://docs.python.org/3/tutorial/modules.html","label":"Modules — Python Docs"}]'::jsonb, '[]'::jsonb, 'Buat file `kalkulator.py` berisi minimal 3 fungsi (`tambah`, `kurang`, `kali`). Buat file `main.py` di folder yang sama, `import kalkulator` lalu panggil ketiga fungsinya. Coba juga `from kalkulator import tambah` dan panggil langsung tanpa prefix. Import module bawaan `random`, gunakan `random.choice()` untuk memilih satu nama secara acak dari sebuah list nama yang kamu buat.', 7, 'published', '2026-09-19 12:13:10.509311+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('97bae629-d766-42d8-b52f-72403968fe7e', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Conditional Rendering Dasar', 'conditional-rendering-dasar', '**Masalah yang diselesaikan:** UI jarang statis — kadang perlu tampil beda tergantung kondisi: pesan error cuma muncul kalau ada error, tombol "Login" berubah jadi "Logout" kalau user sudah masuk. Karena JSX cuma ekspresi (tidak bisa langsung menulis `if`/`else` di tengah markup seperti template engine lain), React memakai fitur JavaScript biasa yang **menghasilkan nilai** — ekspresi ternary dan operator `&&` — bukan sintaks khusus baru.
+
+### 1. If/Else di Luar JSX (Paling Jelas)
+
+```jsx
+function Status({ sudahLogin }) {
+  if (sudahLogin) {
+    return <p>Selamat datang kembali!</p>
+  }
+  return <p>Silakan login dulu.</p>
+}
+```
+
+Cara ini paling gampang dibaca untuk percabangan besar — return lebih awal sebelum JSX utama.
+
+### 2. Ternary di Dalam JSX
+
+Untuk percabangan kecil yang menyatu dengan markup lain, ternary (`kondisi ? A : B`) lebih ringkas:
+
+```jsx
+function TombolAuth({ sudahLogin }) {
+  return (
+    <button>{sudahLogin ? ''Logout'' : ''Login''}</button>
+  )
+}
+```
+
+### 3. Operator `&&` untuk "Tampilkan Kalau..."
+
+Kalau cuma butuh tampil-atau-tidak (tanpa alternatif), `&&` lebih ringkas daripada ternary dengan `: null`:
+
+```jsx
+function Notifikasi({ jumlahPesan }) {
+  return (
+    <div>
+      {jumlahPesan > 0 && <span className="badge">{jumlahPesan} pesan baru</span>}
+    </div>
+  )
+}
+```
+
+⚠️ **Jebakan umum:** `{jumlahPesan && <span>...</span>}` (tanpa `> 0`) berbahaya kalau `jumlahPesan` bisa `0` — JavaScript menganggap `0` falsy, tapi `&&` tetap me-render angka `0` itu sendiri ke layar (karena `0` bukan `null`/`undefined`/`false`, React tetap menampilkannya sebagai teks "0"). Selalu ubah jadi boolean eksplisit (`jumlahPesan > 0 && ...`) untuk menghindari ini.', '[{"url":"https://react.dev/learn/conditional-rendering","label":"React – Conditional Rendering"}]'::jsonb, '[]'::jsonb, NULL, 5, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('925ecd75-7b79-409e-b372-642eafd5f496', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Rendering List & Keys', 'rendering-list-dan-keys', '**Masalah yang diselesaikan:** data di aplikasi nyata jarang berupa satu nilai tunggal — biasanya array: daftar produk, daftar komentar, daftar to-do. Menulis JSX manual satu-satu untuk tiap item jelas tidak mungkin kalau datanya dinamis dari database. React menyelesaikan ini dengan memakai `Array.prototype.map()` biasa (bukan API baru) untuk mengubah array data jadi array elemen JSX.
+
+```mermaid
+flowchart LR
+    Data["[''Roti'', ''Susu'', ''Telur'']"] -->|.map| JSXArr["tiga elemen &lt;li&gt;"]
+    JSXArr --> DOM["Tiga &lt;li&gt; di layar"]
+```
+
+### 1. Me-render Array dengan `.map()`
+
+```jsx
+function DaftarBelanja({ items }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.nama}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### 2. Kenapa Prop `key` Wajib
+
+React memakai `key` untuk mencocokkan elemen list antara render sebelum dan sesudah perubahan data — supaya tahu item mana yang ditambah, dihapus, atau digeser urutannya, tanpa harus membongkar-ulang seluruh DOM list dari nol. Tanpa `key` yang stabil dan unik, React bisa salah mencocokkan elemen, menyebabkan bug halus: state di komponen list (misalnya input yang sedang diketik) bisa "nempel" ke item yang salah setelah list berubah urutan.
+
+- **Aman:** `id` unik dari data itu sendiri (dari database, misalnya) — `key={item.id}`.
+- **Berisiko:** index array (`key={index}`) — cuma aman kalau list itu **tidak pernah** diurutkan ulang, ditambah di tengah, atau dihapus sebagian; kalau salah satu itu terjadi, index tiap item bisa berubah walau datanya sama, bikin React salah mencocokkan.
+- `key` **bukan** props biasa — tidak bisa dibaca lewat `props.key` di dalam component, itu sinyal khusus buat React sendiri.
+
+### 3. Filter Sebelum Map
+
+Pola umum: gabungkan `.filter()` dan `.map()` biasa dari JavaScript untuk menampilkan sebagian data saja:
+
+```jsx
+function DaftarSelesai({ tugas }) {
+  return (
+    <ul>
+      {tugas
+        .filter((t) => t.selesai)
+        .map((t) => (
+          <li key={t.id}>{t.judul}</li>
+        ))}
+    </ul>
+  )
+}
+```', '[{"url":"https://react.dev/learn/rendering-lists","label":"React – Rendering Lists"}]'::jsonb, '[]'::jsonb, NULL, 6, 'published', '2026-09-21 23:24:41.175314+00', '2026-09-21 23:36:14.414004+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('479d2b80-51c8-4203-b114-7e0c45cd24ff', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Dasar Branching di Git', 'branching', 'Sekarang kamu bisa commit perubahan secara berurutan di satu garis riwayat (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau coba-coba fitur baru atau perbaikan, tapi tidak mau kode `main` yang sudah stabil ikut berubah/rusak selama proses coba-coba itu?
+
+Branch memungkinkan kita bekerja pada fitur/perbaikan tanpa mengganggu kode di branch utama.
+
+```mermaid
+gitGraph
+   commit id: "A"
+   commit id: "B"
+   branch fitur-baru
+   checkout fitur-baru
+   commit id: "C"
+   commit id: "D"
+   checkout main
+   merge fitur-baru id: "E"
+   commit id: "F"
+```
+
+Branch `fitur-baru` bercabang dari commit `B` di `main`, berkembang sendiri lewat commit `C` dan `D`, lalu digabungkan (merge) kembali jadi commit `E` di `main` — sepanjang itu, isi `main` (`A`, `B`) tidak berubah sama sekali.
+
+```bash
+# membuat branch baru sekaligus pindah ke branch itu
+git checkout -b fitur-baru
+
+# melihat semua branch
+git branch
+
+# pindah branch
+git checkout main
+
+# menggabungkan branch ke branch aktif saat ini
+git merge fitur-baru
+
+# menghapus branch yang sudah tidak dipakai
+git branch -d fitur-baru
+```
+
+Praktik yang baik: buat satu branch untuk satu fitur/perbaikan, beri nama yang jelas, dan gabungkan (merge) setelah selesai direview.', '[{"url":"https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell","label":"Git Branching - Branches in a Nutshell — Pro Git Book"}]'::jsonb, '[]'::jsonb, 'Di repository dari latihan sebelumnya, buat branch baru `git checkout -b fitur-baru`, edit `catatan.txt`, commit perubahannya. Pindah balik ke `main` (`git checkout main`) — perhatikan isi `catatan.txt` kembali ke versi sebelum diedit di branch `fitur-baru`. Jalankan `git merge fitur-baru` dari `main`, cek isinya lagi (sekarang harus dapat perubahan dari branch itu). Terakhir hapus branch-nya: `git branch -d fitur-baru`.', 2, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1065af1e-2c02-4a29-878a-0523e4f7b2c6', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Memahami Closure', 'closure', 'Sekarang kamu paham cara mendefinisikan fungsi dan konsep scope (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana membuat variabel yang privat ke satu fungsi, tapi tetap bisa diakses/diubah oleh fungsi lain yang terkait dengannya — tanpa membuat variabel itu global (yang berisiko tertimpa atau diubah kode lain secara tidak sengaja)? Sebelum closure dipahami, satu-satunya cara menyimpan state antar pemanggilan fungsi terasa seperti harus pakai variabel global.
+
+Closure adalah fungsi yang "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar sudah selesai dieksekusi.
+
+```js
+function buatCounter() {
+  let jumlah = 0;
+  return function () {
+    jumlah++;
+    return jumlah;
+  };
+}
+
+const counter = buatCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+```
+
+```mermaid
+graph TD
+  subgraph luar["buatCounter() — scope luar, dijalankan sekali"]
+    j["jumlah = 0"]
+    subgraph dalam["function() — closure (scope dalam)"]
+      c["jumlah++ dan return jumlah"]
+    end
+  end
+  j -. "tetap bisa diakses walau buatCounter() sudah selesai" .-> c
+```
+
+Poin penting:
+
+- Setiap pemanggilan `buatCounter()` menghasilkan closure baru dengan `jumlah` masing-masing.
+- Variabel `jumlah` tetap hidup di memori selama closure-nya masih dipakai.
+- Sering dipakai untuk membuat data privat, seperti pola module.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures","label":"Closures — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Modifikasi `buatCounter()` supaya mengembalikan object berisi dua fungsi sekaligus: `tambah()` dan `kurang()`, keduanya berbagi variabel `jumlah` yang sama lewat closure. Buat dua instance counter berbeda (`counterA` dan `counterB`) dari `buatCounter()` yang sama, lalu buktikan variabel `jumlah` masing-masing independen — mengubah `counterA` tidak memengaruhi `counterB` sama sekali.', 4, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5dacd9a7-113a-4bbb-ac1c-73077beec662', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Instalasi & Struktur Project Next.js Dasar', 'instalasi-dan-struktur-project', '**Masalah yang diselesaikan:** dulu, memulai project React dari nol berarti setup manual — bundler, transpiler, routing, semua dikonfigurasi sendiri sebelum baris kode aplikasi pertama ditulis. `create-next-app` menyelesaikan ini dengan scaffold project siap pakai dalam satu perintah, lengkap dengan konvensi struktur folder yang dipakai di seluruh roadmap ini — terutama folder `app/` yang jadi topik utama catatan-catatan berikutnya.
+
+Membuat proyek Next.js baru paling mudah menggunakan CLI resmi `create-next-app`. Sejak Next.js 16, defaultnya sudah TypeScript, Tailwind CSS, ESLint, App Router, dan Turbopack sebagai bundler — jadi flag-flag itu opsional (tinggal ditulis eksplisit kalau mau memastikan, atau dilewati dengan `--yes` untuk pakai default/preferensi tersimpan).
+
+```mermaid
+flowchart TD
+    subgraph Root ["my-next-app/ (Root)"]
+        A["app/ (Routing & UI Pages)"]
+        B["public/ (Asset Statis: gambar, favicon)"]
+        C["next.config.ts (Konfigurasi Next.js)"]
+        D["package.json (Dependensi & Skrip)"]
+        E["tsconfig.json (Konfigurasi TypeScript)"]
+        F[".env.local (Environment Variables)"]
+        G["AGENTS.md (Panduan untuk AI Coding Agent)"]
+    end
+
+    A --> A1["layout.tsx (Root Layout / HTML Wrapper)"]
+    A --> A2["page.tsx (Halaman Utama / Home)"]
+    A --> A3["globals.css (Global Stylesheet)"]
+```
+
+### 1. Inisialisasi Proyek Baru
+Jalankan perintah berikut di terminal:
+
+```bash
+npx create-next-app@latest my-app --yes
+cd my-app
+npm run dev
+```
+
+Kalau mau menentukan sendiri tiap opsi (bukan pakai default), flag-nya masih bisa ditulis eksplisit:
+
+```bash
+npx create-next-app@latest my-app --typescript --tailwind --eslint --app
+```
+
+`npm run dev` menjalankan development server dengan **Turbopack** (bundler default sejak Next.js 16, jauh lebih cepat dari Webpack untuk local dev). Kalau perlu Webpack karena alasan kompatibilitas, jalankan `next dev --webpack`.
+
+### 2. File Khusus di Dalam Folder `app/`
+
+| Nama File | Peran / Fungsi |
+| --- | --- |
+| `layout.tsx` | Kerangka layout UI bersama (navbar, footer, tag `<html>` dan `<body>`). |
+| `page.tsx` | Konten halaman yang unik untuk route tersebut (menjadi rute publik). |
+| `loading.tsx` | Tampilan loading skeleton otomatis menggunakan React Suspense. |
+| `not-found.tsx` | Tampilan khusus halaman 404 ketika data atau URL tidak ditemukan. |
+| `error.tsx` | Error boundary untuk menangkap crash runtime tanpa merusak seluruh web. |
+
+Struktur berbasis folder di `app/` secara otomatis memetakan folder menjadi rute URL di browser — topik ini dibahas lengkap di catatan berikutnya.
+
+### 3. `AGENTS.md` — Panduan Otomatis untuk AI Coding Agent
+
+Sejak Next.js 16, `create-next-app` juga menyertakan file `AGENTS.md` (plus `CLAUDE.md` yang merujuk ke situ) secara default. Isinya instruksi supaya AI coding agent (seperti Claude Code) membaca dokumentasi versi Next.js yang benar-benar terpasang di `node_modules/next/dist/docs/` sebelum menulis kode — supaya rekomendasinya tidak berdasarkan versi lama dari data training. File ini otomatis ditulis ulang oleh `next dev`, jadi aman untuk di-commit bersama kode lainnya.', '[{"url":"https://nextjs.org/docs/app/getting-started/installation","label":"Next.js Docs — Installation"},{"url":"https://nextjs.org/docs/app/getting-started/project-structure","label":"Next.js Docs — Project Structure"}]'::jsonb, '[{"url":"https://nodejs.org","label":"Node.js versi 18.17 atau lebih baru sudah terinstall (cek dengan `node --version` di terminal)"},{"label":"Familiar dengan perintah dasar terminal/command line (masuk folder, jalankan perintah)"}]'::jsonb, 'Jalankan `npx create-next-app@latest belajar-nextjs --typescript --tailwind --eslint --app` di terminal, lalu `cd belajar-nextjs && npm run dev`. Buka `http://localhost:3000`, lalu:
+
+1. Buka `app/page.tsx`, ubah teksnya, simpan, lihat halaman otomatis reload (Fast Refresh).
+2. Hapus file `app/page.tsx` sementara dan reload — perhatikan pesan error yang muncul, itu petunjuk kenapa `page.tsx` wajib ada di tiap folder route.
+3. Kembalikan filenya. Project ini akan dipakai untuk semua latihan di catatan-catatan Next.js berikutnya.', 0, 'published', '2026-09-18 09:12:01.180176+00', '2026-09-18 12:28:31.553716+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('127a7415-d02b-42af-a472-99b2385dfc30', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'List Comprehension', 'list-comprehension', 'Sekarang kamu paham `for` loop dan struktur data `list` (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** transformasi atau filter list yang sering dipakai (misalnya ambil elemen genap saja) biasanya butuh beberapa baris kode (deklarasi list kosong, loop, if, append) untuk operasi yang sebenarnya konsepnya sederhana.
+
+List comprehension adalah cara ringkas membuat list baru dari list/iterable lain.
+
+```mermaid
+graph TD
+  A["angka = [1, 2, 3, 4, 5, 6]"] --> B["for n in angka"]
+  B --> C{"n % 2 == 0 ?"}
+  C -- ya --> D["masuk ke hasil"]
+  C -- tidak --> E["dilewati"]
+  D --> F["[2, 4, 6]"]
+```
+
+```python
+angka = [1, 2, 3, 4, 5, 6]
+
+# cara biasa
+genap = []
+for n in angka:
+    if n % 2 == 0:
+        genap.append(n)
+
+# dengan list comprehension
+genap = [n for n in angka if n % 2 == 0]
+```
+
+Pola umum: `[ekspresi for item in iterable if kondisi]`.
+
+Bisa juga dipakai untuk dictionary comprehension:
+
+```python
+kuadrat = {n: n**2 for n in angka}
+```', '[{"url":"https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions","label":"List Comprehensions — Python Docs"}]'::jsonb, '[]'::jsonb, 'Diberikan `kata = [''apel'', ''jeruk'', ''kiwi'', ''nanas'', ''anggur'']`, buat list comprehension baru yang cuma mengambil kata dengan panjang lebih dari 4 huruf, dan sekaligus ubah semuanya jadi huruf besar (`.upper()`). Lalu buat dictionary comprehension `{kata: len(kata) for kata in kata}` untuk memetakan tiap kata ke panjangnya.', 4, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('c896fece-5931-4659-ae78-9e06e810527a', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Realtime Subscription Dasar', 'realtime-dasar', 'Sekarang kamu sudah bisa CRUD, auth, RLS, dan simpan file. **Masalah yang diselesaikan sekarang (dan menutup roadmap Supabase ini):** bagaimana kalau aplikasi kamu perlu tahu SAAT ITU JUGA ketika data berubah di database — tanpa user harus refresh halaman manual? Cara lama: *polling* (fetch ulang tiap beberapa detik), yang boros request dan tetap ada delay sampai beberapa detik.
+
+**Supabase Realtime** memungkinkan client mendengarkan perubahan data (INSERT/UPDATE/DELETE) langsung dari database lewat WebSocket, tanpa polling.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant DB as Database
+  participant RT as Supabase Realtime
+  participant C as Client (Browser)
+  C->>RT: channel().on(''postgres_changes'').subscribe()
+  Note over C,RT: Koneksi WebSocket terbuka
+  DB->>DB: INSERT INTO produk (...)
+  DB-->>RT: Perubahan terdeteksi
+  RT-->>C: Event terkirim real-time
+  Note over C: UI update tanpa reload
+```
+
+```ts
+import { supabase } from "./lib/supabase";
+
+// Mendengarkan semua perubahan di tabel "produk"
+const channel = supabase
+  .channel("produk-changes")
+  .on(
+    "postgres_changes",
+    { event: "*", schema: "public", table: "produk" },
+    (payload) => {
+      console.log("Perubahan diterima:", payload.eventType, payload.new);
+    }
+  )
+  .subscribe();
+
+// Berhenti mendengarkan (mis. saat komponen di-unmount)
+supabase.removeChannel(channel);
+```
+
+Bisa juga dipersempit cuma ke event atau baris tertentu:
+
+```ts
+supabase
+  .channel("produk-baru-saja")
+  .on(
+    "postgres_changes",
+    { event: "INSERT", schema: "public", table: "produk", filter: "kategori_id=eq.5" },
+    (payload) => console.log("Produk baru di kategori 5:", payload.new)
+  )
+  .subscribe();
+```
+
+Poin penting:
+
+- Realtime harus diaktifkan dulu per tabel lewat dashboard (Database → Replication) atau SQL `alter publication supabase_realtime add table produk;` — tabel yang belum diaktifkan tidak akan mengirim event apa pun.
+- Payload event berisi `eventType` (`INSERT`/`UPDATE`/`DELETE`), `new` (data terbaru), dan `old` (data sebelumnya, untuk UPDATE/DELETE).
+- RLS tetap berlaku untuk Realtime — user cuma menerima event untuk baris yang boleh dia `SELECT` menurut policy yang ada.', '[{"url":"https://supabase.com/docs/guides/realtime/postgres-changes","label":"Supabase Docs — Postgres Changes (Realtime)"}]'::jsonb, '[]'::jsonb, 'Aktifkan Realtime untuk tabel `produk` (Database → Replication di dashboard, atau lewat SQL). Buka dua tab browser di halaman yang sama, keduanya menjalankan kode `channel().on(...)` di atas. Di tab pertama, insert produk baru (lewat kode atau dashboard) — lihat tab KEDUA, data barunya harus muncul di console tanpa reload halaman sama sekali. Coba juga persempit filter-nya cuma ke event `INSERT`, lalu ke baris tertentu pakai `filter`, dan buktikan event UPDATE/DELETE tidak lagi memicu callback-nya. Ini menutup roadmap Supabase: dari setup client sampai data yang live ter-sinkron ke semua client yang terhubung.', 5, 'published', '2026-09-18 23:46:50.864953+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('d32cf121-3b02-42ce-bc5d-ea8577f5c39d', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Routing Dasar dengan App Router', 'routing-dasar', 'Project Next.js kamu dari catatan sebelumnya sudah jalan — pertanyaan berikutnya: bagaimana URL seperti `/blog/artikel-pertama` bisa menampilkan halaman yang tepat? **Masalah yang diselesaikan:** sebelum ada file-based routing, mengatur routing di aplikasi React itu kerja manual — install library router (React Router), lalu tulis config terpisah yang memetakan tiap URL ke komponennya: `<Route path="/blog/:slug" element={<BlogPost />} />`. Config ini gampang jadi tidak sinkron dengan struktur folder komponen aslinya, apalagi kalau aplikasinya sudah besar dan ditulis banyak orang.
+
+Next.js (App Router) menyelesaikan ini dengan **memakai struktur folder itu sendiri sebagai definisi routing** — tidak ada file config routing terpisah untuk disinkronkan. Struktur folder di dalam `app/` menentukan URL, dan file `page.tsx` di dalam folder itu yang jadi halamannya.
+
+```mermaid
+graph TD
+  A["app/"] --> B["page.tsx → /"]
+  A --> C["about/"]
+  C --> D["page.tsx → /about"]
+  A --> E["blog/[slug]/"]
+  E --> F["page.tsx → /blog/apa-saja (dynamic route)"]
+```
+
+Contoh halaman dasar:
+
+```tsx
+// app/about/page.tsx
+export default function AboutPage() {
+  return <h1>Tentang Kami</h1>;
+}
+```
+
+Contoh dynamic route (segmen URL jadi parameter):
+
+```tsx
+// app/blog/[slug]/page.tsx
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  return <h1>Artikel: {slug}</h1>;
+}
+```
+
+Poin penting:
+
+- Hanya file bernama `page.tsx` (atau `.jsx`) yang membuat route bisa diakses publik; file lain di folder yang sama (komponen, util) tidak otomatis jadi halaman.
+- Nama folder di dalam kurung siku `[slug]` berarti segmen URL dinamis, dan nilainya diterima lewat prop `params`.
+- Sejak Next.js 15, `params` berupa `Promise` sehingga harus di-`await` dulu sebelum dipakai — bukan object biasa seperti versi Next.js 14 ke bawah.
+- `layout.tsx` di level folder yang sama membungkus semua halaman di dalamnya (misalnya untuk header/footer bersama).', '[{"url":"https://nextjs.org/docs/app/api-reference/file-conventions/dynamic-routes","label":"Next.js Docs — Dynamic Route Segments"}]'::jsonb, '[]'::jsonb, 'Di project Next.js dari latihan catatan sebelumnya, tambahkan dua halaman baru:
+
+1. `app/kontak/page.tsx` yang menampilkan teks "Hubungi Kami".
+2. `app/produk/[id]/page.tsx` — dynamic route yang menerima `id` dari URL dan menampilkannya. Buka `/produk/42` di browser, harus muncul "Detail produk: 42".
+
+Kalau sudah jalan, coba tambahkan satu level lagi: `app/produk/[id]/ulasan/page.tsx` (nested dynamic route), lalu perhatikan bagaimana struktur folder yang makin dalam otomatis jadi URL yang makin panjang. Latihan ini melatih kamu membaca struktur folder sebagai peta URL, bukan sekadar menghafal syntax-nya.', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-18 10:09:56.018828+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('bc2d0543-327c-445a-8641-b59c1a092feb', 'b4e47208-8775-4a24-a2f3-1655745b90f1', 'Virtual Environment (venv)', 'virtual-environment', 'Sekarang kamu bisa `import` module dan package pihak ketiga lewat `pip` (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau semua dependency Python diinstall secara global (satu Python untuk semua proyek), proyek A yang butuh `django==4` dan proyek B yang butuh `django==3` akan bertabrakan — cuma bisa ada satu versi terinstall global di satu waktu.
+
+Virtual environment digunakan agar dependency setiap proyek Python terisolasi dan tidak bentrok satu sama lain.
+
+```mermaid
+graph TD
+  subgraph A["Proyek A"]
+    A1[".venv A"] --> A2["django==4, requests==2.1"]
+  end
+  subgraph B["Proyek B"]
+    B1[".venv B"] --> B2["flask==3, requests==2.31"]
+  end
+```
+
+```bash
+# membuat venv
+python -m venv .venv
+
+# mengaktifkan (Linux/Mac)
+source .venv/bin/activate
+
+# mengaktifkan (Windows)
+.venv\Scripts\activate
+
+# menginstal dependency
+pip install -r requirements.txt
+
+# keluar dari venv
+deactivate
+```
+
+Tips:
+
+- Tambahkan folder `.venv/` ke `.gitignore` agar tidak ikut ter-commit.
+- Simpan daftar dependency dengan `pip freeze > requirements.txt`.', '[{"url":"https://docs.python.org/3/library/venv.html","label":"venv — Creation of virtual environments — Python Docs"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python sudah terinstall (cek dengan `python --version`)"}]'::jsonb, 'Buat dua folder proyek berbeda. Di masing-masing, buat venv terpisah (`python -m venv .venv`), aktifkan, lalu install versi `requests` yang BERBEDA di tiap proyek (mis. `pip install requests==2.31.0` di satu, `pip install requests==2.28.0` di lainnya). Jalankan `pip freeze` di kedua venv untuk membuktikan versinya benar-benar berbeda dan tidak saling memengaruhi satu sama lain. Ini menutup roadmap Python: dari sintaks dasar sampai mengelola dependency proyek secara terisolasi.', 8, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-19 12:13:10.509311+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('64ddb40a-29c5-476d-8146-6052ab96770c', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Autentikasi Dasar Pengguna', 'auth-dasar', 'Sekarang kamu bisa query data bebas (asalkan RLS belum aktif). **Masalah yang diselesaikan sekarang:** bagaimana tahu *siapa* yang sedang mengakses aplikasi, supaya nanti data bisa dibatasi per user — bukan semua orang melihat/mengubah data yang sama?
+
+Supabase menyediakan modul autentikasi lengkap (**Supabase Auth**) untuk mengelola pendaftaran, login, sesi token JWT, dan verifikasi email pengguna.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant C as Browser Client
+  participant A as Supabase Auth
+  participant DB as PostgreSQL Database
+  C->>A: Kirim email dan password
+  A->>A: Verifikasi hash kata sandi
+  A-->>C: Kembalikan Session dan Token JWT
+  C->>DB: Query data dengan Bearer JWT
+  DB->>DB: Validasi JWT dan isi auth.uid
+  DB-->>C: Kembalikan baris data sesuai RLS
+```
+
+Contoh kode alur autentikasi email dan kata sandi:
+
+```ts
+import { supabase } from "./lib/supabase";
+
+// 1. Mendaftarkan user baru (Sign Up)
+async function daftarUser(email: string, kataSandi: string) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password: kataSandi,
+  });
+  if (error) throw error;
+  return data.user;
+}
+
+// 2. Masuk menggunakan email & password (Sign In)
+async function masukUser(email: string, kataSandi: string) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password: kataSandi,
+  });
+  if (error) throw error;
+  return data.session;
+}
+
+// 3. Mendapatkan user yang sedang aktif saat ini
+async function ambilUserAktif() {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user;
+}
+
+// 4. Keluar dari sesi aplikasi (Sign Out)
+async function keluar() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+}
+```
+
+Poin penting:
+
+- Data akun autentikasi disimpan terpisah secara aman di dalam skema `auth.users`, bukan di skema `public`.
+- Untuk membaca identitas user di server atau client secara aman dan terverifikasi ke server auth, selalu utamakan pemanggilan `supabase.auth.getUser()`.
+- Setelah login berhasil, token JWT sesi otomatis disimpan (di cookie atau localStorage) dan disertakan di setiap panggilan query database berikutnya, sehingga RLS mengenali `auth.uid()`.', '[{"url":"https://supabase.com/docs/guides/auth","label":"Supabase Docs — User Management & Authentication"},{"url":"https://supabase.com/docs/reference/javascript/auth-signup","label":"Supabase Docs — Auth Reference (JavaScript)"}]'::jsonb, '[]'::jsonb, 'Buat form sederhana (atau langsung panggil dari kode/console) untuk `daftarUser()` dengan email+password sungguhan, cek email konfirmasi yang masuk. Setelah konfirmasi, coba `masukUser()`, lalu `ambilUserAktif()` untuk memastikan sesinya tersimpan. Terakhir panggil `keluar()` dan `ambilUserAktif()` lagi — pastikan hasilnya `null`.', 2, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-18 14:22:39.605391+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('0bd6b9e8-c329-4078-a066-f00213688aee', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Metadata Dasar untuk SEO di Next.js', 'metadata-seo-dasar', '**Masalah yang diselesaikan:** semua yang sudah kamu bangun sejauh ini fungsional, tapi bagaimana orang lain (dan mesin pencari seperti Google) tahu halaman kamu ini tentang apa sebelum mereka klik? Tanpa metadata yang benar, link yang dibagikan ke sosial media cuma menampilkan URL polos, dan Google kesulitan mengindeks halaman dengan judul yang relevan.
+
+Next.js App Router menyediakan API Metadata untuk mendefinisikan informasi `<head>` HTML (seperti title, description, favicon, dan OpenGraph tag untuk media sosial) baik secara statis maupun dinamis.
+
+```mermaid
+flowchart LR
+    Meta["export const metadata = {...}"] --> Gen["Next.js HTML Engine"]
+    Gen --> Head["&lt;head&gt;<br/>&lt;title&gt;...&lt;/title&gt;<br/>&lt;meta name=''description'' .../&gt;<br/>&lt;meta property=''og:image'' .../&gt;<br/>&lt;/head&gt;"]
+```
+
+### 1. Static Metadata (`app/about/page.tsx`)
+Untuk halaman dengan data judul dan deskripsi yang tetap:
+
+```tsx
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tentang Kami - Catatan Belajar",
+  description: "Platform catatan belajar teknologi web dan pemrograman.",
+  openGraph: {
+    title: "Tentang Kami",
+    description: "Platform catatan belajar teknologi web dan pemrograman.",
+    images: ["/og-image.png"],
+  },
+};
+
+export default function AboutPage() {
+  return <h1>Tentang Kami</h1>;
+}
+```
+
+### 2. Dynamic Metadata dengan `generateMetadata`
+Untuk halaman dinamis seperti artikel blog (`app/notes/[slug]/page.tsx`):
+
+```tsx
+import type { Metadata } from "next";
+
+type Props = {
+  params: { slug: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // Ambil data catatan dari API / Database
+  const note = await getNoteBySlug(params.slug);
+
+  return {
+    title: `${note.title} | Catatan Belajar`,
+    description: note.excerpt,
+    openGraph: {
+      title: note.title,
+      description: note.excerpt,
+    },
+  };
+}
+
+export default function NoteDetailPage({ params }: Props) {
+  return <article>Konten Catatan</article>;
+}
+```
+
+- **Title Template**: Di `app/layout.tsx`, kita bisa membuat format title konsisten:
+  ```ts
+  export const metadata: Metadata = {
+    title: {
+      template: "%s | Catatan Belajar",
+      default: "Catatan Belajar",
+    },
+  };
+  ```', '[{"url":"https://nextjs.org/docs/app/building-your-application/optimizing/metadata","label":"Next.js Docs — Metadata"}]'::jsonb, '[]'::jsonb, 'Tambahkan `export const metadata` ke salah satu halaman project latihan kamu (mis. `app/produk/page.tsx`), isi title dan description yang relevan. Lalu:
+
+1. Lihat tab browser — judulnya harus berubah sesuai `metadata.title`.
+2. View page source (Ctrl+U / klik kanan → View Page Source), cari tag `<meta name="description">` di `<head>` — pastikan isinya sesuai yang kamu tulis.
+3. Kalau sempat, coba `generateMetadata` dinamis untuk halaman `app/produk/[id]/page.tsx` yang title-nya berbeda tergantung `id`-nya — ini menutup roadmap Next.js: dari struktur project sampai halaman yang siap ditemukan orang lain.', 8, 'published', '2026-09-18 09:12:04.314568+00', '2026-09-18 10:09:56.018828+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b21bd33f-6b73-4703-a270-dbfbbd8de0a8', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Query Data Dasar (CRUD)', 'query-dasar', 'Client Supabase dari catatan sebelumnya sudah siap. **Masalah yang diselesaikan sekarang:** bagaimana benar-benar membaca dan mengubah data di database dari kode aplikasi, tanpa menulis query SQL manual satu per satu?
+
+Setelah client Supabase siap, operasi dasar ke database (CRUD) dipanggil lewat method di atas nama tabel.
+
+```ts
+import { supabase } from "./lib/supabase";
+
+// SELECT — ambil semua baris
+const { data, error } = await supabase.from("produk").select("*");
+
+// SELECT dengan filter
+const { data: satu } = await supabase
+  .from("produk")
+  .select("*")
+  .eq("id", 1)
+  .single();
+
+// INSERT — tambah baris baru
+await supabase.from("produk").insert({ nama: "Buku", harga: 50000 });
+
+// UPDATE — ubah baris yang cocok filter
+await supabase.from("produk").update({ harga: 60000 }).eq("id", 1);
+
+// DELETE — hapus baris yang cocok filter
+await supabase.from("produk").delete().eq("id", 1);
+```
+
+| Method Supabase | Setara perintah SQL |
+| --- | --- |
+| `.select("*")` | `SELECT * FROM produk` |
+| `.insert({...})` | `INSERT INTO produk (...) VALUES (...)` |
+| `.update({...}).eq("id", 1)` | `UPDATE produk SET ... WHERE id = 1` |
+| `.delete().eq("id", 1)` | `DELETE FROM produk WHERE id = 1` |
+
+Poin penting:
+
+- Setiap query mengembalikan `{ data, error }` — selalu cek `error` sebelum memakai `data`, jangan asumsikan query selalu berhasil.
+- `.eq("kolom", nilai)` adalah filter kondisi `WHERE kolom = nilai`; ada filter lain seperti `.gt()`, `.lt()`, `.like()` untuk kondisi berbeda.
+- Query hanya akan berhasil kalau diizinkan oleh Row Level Security (RLS) tabel tersebut — kalau RLS aktif tapi belum ada policy, semua query dari client akan ditolak meskipun kodenya benar.', '[{"url":"https://supabase.com/docs/reference/javascript/introduction","label":"Supabase Docs — JavaScript Client Reference"}]'::jsonb, '[]'::jsonb, 'Di project Supabase kamu, buat tabel `produk` (kolom: `id`, `nama` text, `harga` numeric). Praktikkan keempat operasi CRUD di atas lewat client — insert 2-3 produk, select semuanya, update salah satu harganya, lalu delete satu. Cek tabel `produk` di dashboard Supabase (Table Editor) setiap habis satu operasi, untuk memastikan perubahannya benar-benar tersimpan di database.', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-18 14:22:39.605391+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('bdf935e3-96ea-405e-a2b7-5a5491531515', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Dasar Row Level Security (RLS)', 'rls-dasar', 'Sekarang kamu punya cara mengenali user yang login (`auth.uid()`, dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana memastikan user A tidak bisa membaca/mengubah data milik user B, padahal keduanya memakai publishable key yang sama dan bisa langsung memanggil database dari browser?
+
+**Row Level Security (RLS)** adalah fitur keamanan bawaan PostgreSQL yang membatasi baris data mana saja yang boleh dibaca (*SELECT*), ditambah (*INSERT*), diubah (*UPDATE*), atau dihapus (*DELETE*) oleh pengguna tertentu.
+
+Di Supabase, karena client browser memanggil database langsung menggunakan Publishable Key, RLS adalah lapisan pertahanan utama agar pengguna tidak bisa membaca atau memanipulasi data milik orang lain.
+
+```mermaid
+flowchart TD
+  Req["Client Request<br/>SELECT dari browser"] --> CheckRLS{"Apakah RLS Aktif?"}
+  CheckRLS -->|Tidak| AllowAll["Izinkan Akses Semua Baris (Bahaya)"]
+  CheckRLS -->|Ya| EvalPolicy{"Evaluasi Policy per Baris"}
+  EvalPolicy -->|Lolos Policy: Sesuai User ID| ReturnRow["Baris Dikembalikan ke Client"]
+  EvalPolicy -->|Gagal: Bukan Pemilik Data| DropRow["Baris Diabaikan atau Ditolak"]
+```
+
+Mengaktifkan RLS dan membuat policy melalui SQL:
+
+```sql
+-- 1. Selalu aktifkan RLS pada tabel yang dibuat
+ALTER TABLE catatan ENABLE ROW LEVEL SECURITY;
+
+-- 2. Policy: Siapa saja (publik) boleh membaca catatan yang berstatus published
+CREATE POLICY "Catatan published dapat dibaca publik"
+ON catatan
+FOR SELECT
+USING (status = ''published'');
+
+-- 3. Policy: User yang login hanya boleh membaca catatan miliknya
+CREATE POLICY "User dapat membaca catatan miliknya"
+ON catatan
+FOR SELECT
+TO authenticated
+USING (auth.uid() = user_id);
+
+-- 4. Policy: User yang login hanya boleh menambah catatan dengan user_id miliknya
+CREATE POLICY "User dapat menambah catatan miliknya"
+ON catatan
+FOR INSERT
+TO authenticated
+WITH CHECK (auth.uid() = user_id);
+```
+
+Poin penting:
+
+- Saat RLS diaktifkan pada suatu tabel tanpa policy apa pun, perilakunya adalah **default deny** (semua query dari client anon/authenticated akan menghasilkan data kosong atau error).
+- Klausa `USING` digunakan untuk memeriksa baris yang sudah ada di database (cocok untuk `SELECT`, `UPDATE`, `DELETE`).
+- Klausa `WITH CHECK` digunakan untuk memvalidasi baris data baru yang akan ditulis ke database (cocok untuk `INSERT`, `UPDATE`).
+- Fungsi pembantu `auth.uid()` mengembalikan UUID pengguna yang sedang login berdasarkan token JWT sesi saat ini.', '[{"url":"https://supabase.com/docs/guides/database/postgres/row-level-security","label":"Supabase Docs — Row Level Security"},{"url":"https://www.postgresql.org/docs/current/ddl-rowsecurity.html","label":"PostgreSQL Docs — Row Security Policies"}]'::jsonb, '[]'::jsonb, 'Di tabel `produk` dari latihan sebelumnya, aktifkan RLS (`ALTER TABLE produk ENABLE ROW LEVEL SECURITY`) TANPA membuat policy apa pun dulu — coba `select` dari client, harus mendapat data kosong (default deny). Lalu tambahkan kolom `user_id uuid` ke tabel itu, buat policy SELECT & INSERT seperti contoh di atas berdasarkan `auth.uid()`. Terakhir, tes dengan dua akun berbeda: pastikan tiap akun cuma bisa melihat produk yang dia insert sendiri. Ini menutup roadmap Supabase: dari setup client sampai data yang benar-benar aman per user.', 3, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-18 14:22:39.605391+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('1b98495b-e72f-45a2-8f71-85c8abc53bad', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Dasar Commit & Staging di Git', 'commit-dan-staging', '**Masalah yang diselesaikan:** sebelum version control, melacak perubahan kode berarti menyimpan salinan file manual (`script_v2_final.js`, `script_v2_REVISI.js`) — tidak ada riwayat yang jelas, dan susah tahu apa saja yang sebenarnya berubah antar versi.
+
+Git bekerja dengan melacak perubahan file melalui tiga area utama: **Working Directory** (tempat kita mengedit file), **Staging Area** (area persiapan sebelum disimpan permanen), dan **Local Repository** (tempat riwayat commit tersimpan).
+
+```mermaid
+flowchart LR
+  WD["Working Directory<br/>(file diubah)"] -->|git add| SA["Staging Area<br/>(file siap dicommit)"]
+  SA -->|git commit| LR["Local Repository<br/>(riwayat tersimpan)"]
+  LR -.->|git restore| WD
+```
+
+Alur kerja dasar untuk menyimpan perubahan:
+
+```bash
+# 1. Memeriksa status file yang baru dibuat atau diubah
+git status
+
+# 2. Memasukkan file tertentu ke Staging Area
+git add index.html
+
+# Atau memasukkan semua file yang berubah di direktori saat ini
+git add .
+
+# 3. Menyimpan perubahan dari Staging Area ke Repository dengan pesan deskriptif
+git commit -m "feat: tambah halaman beranda awal"
+
+# 4. Melihat riwayat commit yang sudah tercatat
+git log --oneline
+```
+
+Poin penting:
+
+- Memisahkan `git add` dan `git commit` memberi kontrol penuh: kita bisa memilih file mana saja yang ingin digabungkan dalam satu commit logis, tanpa harus mencampur semua file yang sedang kita edit.
+- Pesan commit sebaiknya ringkas, jelas, dan menjelaskan *mengapa* atau *apa* perubahan yang dilakukan.
+- File baru yang belum pernah di-`git add` berstatus *untracked* (belum dilacak oleh Git).', '[{"url":"https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository","label":"Git Basics - Recording Changes to the Repository — Pro Git Book"}]'::jsonb, '[{"url":"https://git-scm.com/downloads","label":"Git sudah terinstall (cek dengan `git --version`)"},{"label":"Familiar dengan perintah dasar terminal/command line"}]'::jsonb, 'Buat folder baru, jalankan `git init` di dalamnya. Buat file `catatan.txt` berisi satu baris teks, jalankan `git status` — harus muncul sebagai *untracked*. Jalankan `git add catatan.txt`, cek `git status` lagi (sekarang *staged*). Commit dengan `git commit -m "..."`. Ubah lagi isi file itu dan jalankan `git status` sekali lagi — perhatikan Git membedakan status "modified" dari "untracked". Lihat riwayatnya dengan `git log --oneline`.', 0, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-18 14:26:55.952322+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('11f0f0f0-1b41-47d3-b761-a46fdd0abda4', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Mengabaikan File dengan .gitignore', 'gitignore-dasar', 'Sekarang project kamu sudah bisa di-push ke remote dan dibagikan ke orang lain (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** tidak semua file di folder project seharusnya ikut dilacak Git — file dependency yang bisa di-generate ulang (`node_modules/`), hasil build (`dist/`, `.next/`), atau file berisi rahasia (`.env` yang isinya API key/password). Kalau ikut ter-`push` ke remote publik, itu bisa membengkakkan ukuran repo atau — lebih parah — membocorkan kredensial ke siapa saja yang bisa lihat repo-nya.
+`.gitignore` adalah file konfigurasi berisi daftar pola nama file/folder yang sengaja Git abaikan — tidak akan pernah muncul sebagai *untracked* di `git status`, dan tidak bisa ikut ke-`git add` secara tidak sengaja (termasuk lewat `git add .`).
+
+```mermaid
+flowchart LR
+  Edit["File diubah/dibuat"] --> Check{"Cocok pola<br/>di .gitignore?"}
+  Check -->|Ya| Ignored["Diabaikan Git<br/>(tidak muncul di git status)"]
+  Check -->|Tidak| Tracked["Muncul sebagai untracked/modified<br/>bisa di-git add"]
+```
+
+### Contoh Isi `.gitignore` (Project Node.js/Next.js)
+```bash
+# Dependency — di-generate ulang dari package.json, tidak perlu di-commit
+node_modules/
+
+# Hasil build — di-generate ulang dari source code
+.next/
+dist/
+build/
+
+# File rahasia — TIDAK BOLEH pernah masuk repository
+.env
+.env.local
+
+# File/folder spesifik editor atau OS
+.vscode/
+.DS_Store
+
+# Semua file .log, di mana pun lokasinya
+*.log
+
+# Kecuali file ini — tanda seru membatalkan pola abaikan di atasnya
+!important.log
+```
+
+Poin penting:
+
+- Bikin `.gitignore` **sedini mungkin**, idealnya sebelum `git add` pertama kali — mencegah lebih mudah daripada membersihkan riwayat commit yang sudah terlanjur berisi secret.
+- Kalau sebuah file **sudah kadung ter-commit** sebelum ditambahkan ke `.gitignore`, menambahkannya ke `.gitignore` saja tidak cukup — Git akan tetap melacaknya. Perlu `git rm --cached <file>` untuk berhenti melacaknya (filenya tetap ada di disk, cuma dihapus dari index Git).
+- Pola `folder/` (dengan garis miring di akhir) cuma cocok untuk folder, sedangkan `*.log` cocok untuk semua file berekstensi `.log` di folder mana pun.
+- GitHub menyediakan koleksi template `.gitignore` siap pakai per bahasa/framework (Node, Python, dll.) yang bisa jadi titik awal.', '[{"url":"https://git-scm.com/docs/gitignore","label":"Git Documentation — gitignore"},{"url":"https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files","label":"GitHub Docs — Ignoring Files"}]'::jsonb, '[]'::jsonb, 'Di repository latihan kamu, buat file `rahasia.env` berisi teks apa saja, dan buat folder `node_modules/` kosong (isi dengan satu file dummy). Jalankan `git status` — keduanya muncul sebagai *untracked*. Buat file `.gitignore` berisi `rahasia.env` dan `node_modules/`, jalankan `git status` lagi — keduanya harus HILANG dari daftar. Sekarang simulasikan kasus "sudah kadung ter-commit": hapus baris `rahasia.env` dari `.gitignore` sebentar, `git add` + commit filenya, lalu kembalikan baris itu ke `.gitignore` dan jalankan `git rm --cached rahasia.env` — buktikan filenya tetap ada di disk tapi sudah tidak dilacak Git lagi (`git status` menampilkannya sebagai untracked, bukan lagi tracked).', 5, 'published', '2026-09-19 10:05:15.317547+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5b6e95b1-c7a8-49b4-b4fd-c2fa4eb4f970', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Storage Dasar: Upload & Ambil URL File', 'storage-dasar', 'Sekarang kamu bisa autentikasi user dan proteksi data lewat RLS. **Masalah yang diselesaikan sekarang:** bagaimana kalau aplikasi kamu perlu menyimpan *file* — foto profil, dokumen, gambar produk — bukan cuma data terstruktur di tabel? Menyimpan file sebagai base64 di kolom database itu boros dan lambat; kamu butuh tempat penyimpanan file terpisah yang tetap terintegrasi dengan sistem auth & RLS yang sama.
+
+**Supabase Storage** menyediakan penyimpanan file berbasis *bucket* (semacam folder besar), dengan kontrol akses yang bisa diatur sama seperti RLS di database.
+
+```mermaid
+flowchart LR
+  File["File dari input user"] -->|upload| Bucket["Bucket (mis. ''avatars'')"]
+  Bucket -->|"getPublicUrl()"| URL["URL publik file"]
+  Bucket -->|"createSignedUrl()"| SignedURL["URL sementara (bucket privat)"]
+```
+
+```ts
+import { supabase } from "./lib/supabase";
+
+// Upload file ke bucket "avatars"
+async function uploadAvatar(userId: string, file: File) {
+  const path = `${userId}/${file.name}`;
+  const { data, error } = await supabase.storage
+    .from("avatars")
+    .upload(path, file, { upsert: true });
+
+  if (error) throw error;
+  return data.path;
+}
+
+// Ambil URL publik (untuk bucket public)
+function ambilUrlAvatar(path: string) {
+  const { data } = supabase.storage.from("avatars").getPublicUrl(path);
+  return data.publicUrl;
+}
+
+// Ambil URL sementara/kedaluwarsa (untuk bucket privat)
+async function ambilUrlSementara(path: string) {
+  const { data, error } = await supabase.storage
+    .from("dokumen-privat")
+    .createSignedUrl(path, 60); // berlaku 60 detik
+
+  if (error) throw error;
+  return data.signedUrl;
+}
+```
+
+| Jenis Bucket | Siapa yang bisa akses URL | Cara ambil URL |
+| --- | --- | --- |
+| Public | Siapa saja yang punya URL-nya | `getPublicUrl()` — URL permanen |
+| Private | Cuma yang lolos RLS storage | `createSignedUrl()` — URL sementara, kedaluwarsa |
+
+Poin penting:
+
+- Bucket dibuat lewat dashboard (Storage → New bucket) atau API, dan bisa ditandai *public* atau *private* saat pembuatan.
+- Penamaan path yang menyertakan `userId/` (seperti contoh di atas) memudahkan penulisan RLS policy storage berdasarkan pemilik file.
+- Storage juga punya RLS sendiri (tabel `storage.objects`) — bucket private tanpa policy akan menolak semua akses, sama seperti tabel biasa tanpa policy.', '[{"url":"https://supabase.com/docs/guides/storage","label":"Supabase Docs — Storage"},{"url":"https://supabase.com/docs/reference/javascript/storage-from-upload","label":"Supabase Docs — Storage Upload Reference"}]'::jsonb, '[]'::jsonb, 'Buat bucket baru bernama `avatars` lewat dashboard Supabase (Storage → New bucket), tandai sebagai *public*. Di project kamu, buat form upload sederhana (`<input type="file">`), upload file yang dipilih user ke bucket itu memakai `uploadAvatar()` di atas, lalu tampilkan hasilnya lewat tag `<img src={url} />` memakai `ambilUrlAvatar()`. Setelah berhasil, buat bucket KEDUA yang privat, upload file yang sama ke sana, dan buktikan `getPublicUrl()`-nya tidak bisa diakses langsung (403) sementara `createSignedUrl()` bisa.', 4, 'published', '2026-09-18 23:46:50.864953+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('2dfd1c5a-2b5b-4cab-a63d-01afaeec9ab2', '3e71ad0e-b25a-4567-b43e-282574f1590a', 'Setup Supabase Client', 'setup-client', '**Masalah yang diselesaikan:** membangun backend sendiri dari nol — server, database, sistem auth, storage — butuh waktu berminggu-minggu sebelum sempat menulis fitur aplikasi yang sebenarnya.
+
+Supabase adalah backend siap pakai (database Postgres, auth, storage, dst) yang diakses lewat library `@supabase/supabase-js` di sisi aplikasi.
+
+```mermaid
+graph LR
+  App["App (kode kamu)"] -- "createClient(url, key)" --> Client["Supabase Client"]
+  Client --> DB["Postgres (database)"]
+  Client --> Auth["Auth"]
+  Client --> Storage["Storage"]
+```
+
+```bash
+npm install @supabase/supabase-js
+```
+
+```ts
+// lib/supabase.ts
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+
+export const supabase = createClient(supabaseUrl, supabaseKey);
+```
+
+```
+# .env.local
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxxxxxxxxxxxxxxx
+```
+
+Poin penting:
+
+- `supabaseUrl` dan `supabaseKey` didapat dari dashboard project Supabase (Project Settings → API Keys).
+- Key ini disebut **publishable key** (`sb_publishable_...`) — pengganti "anon key" lama, karena Supabase sedang memensiunkan anon/service_role key. Kedua jenis key masih berfungsi untuk sementara, tapi project baru sebaiknya pakai publishable key.
+- Publishable key aman dipakai di sisi client/browser karena akses datanya tetap dibatasi oleh Row Level Security (RLS) di database, bukan oleh key itu sendiri.
+- Client (`supabase`) yang dibuat sekali ini dipakai ulang di seluruh aplikasi untuk query, auth, dan storage.', '[{"url":"https://supabase.com/docs/reference/javascript/introduction","label":"Supabase Docs — JavaScript Client Reference"},{"url":"https://supabase.com/docs/guides/getting-started/migrating-to-new-api-keys","label":"Supabase Docs — Migrating to publishable and secret API keys"}]'::jsonb, '[{"url":"https://supabase.com/dashboard","label":"Akun & project Supabase sudah dibuat (gratis)"},{"url":"https://nodejs.org","label":"Node.js & npm sudah terinstall"}]'::jsonb, 'Buat project baru di dashboard Supabase (kalau belum ada), install `@supabase/supabase-js`, lalu buat file `lib/supabase.ts` seperti contoh di atas dengan URL & key project kamu sendiri (dari Project Settings → API Keys). Panggil `await supabase.auth.getSession()` dari mana saja di project untuk memastikan client-nya berhasil terhubung — harus return object tanpa error, walau sesinya masih `null` karena belum ada yang login.', 0, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-18 14:22:39.605391+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('0769c792-0dde-47ba-bc93-f4e5da16e884', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Tipe Dasar & Type Annotation', 'tipe-dasar', '**Masalah yang diselesaikan:** JavaScript murni tidak mendeteksi kesalahan tipe data sampai program benar-benar dijalankan — kirim string ke tempat yang harusnya angka baru ketahuan saat aplikasi sudah jalan (bahkan mungkin sudah di production), bukan saat menulis kode.
+
+TypeScript menambahkan sistem tipe di atas JavaScript, dicek SEBELUM kode dijalankan (compile time). Tipe bisa ditulis manual (annotation) atau otomatis ditebak oleh compiler (inference).
+
+| Tipe | Contoh nilai |
+| --- | --- |
+| `string` | `"Budi"` |
+| `number` | `20` |
+| `boolean` | `true` |
+| `string[]` | `["baca", "coding"]` |
+| `[number, number]` | `[10, 20]` (tuple: jumlah & urutan elemen tetap) |
+
+```ts
+// annotation manual
+let nama: string = "Budi";
+let umur: number = 20;
+let aktif: boolean = true;
+
+// array & tuple
+let hobi: string[] = ["baca", "coding"];
+let titik: [number, number] = [10, 20];
+
+// inference otomatis, tidak perlu ditulis manual
+let kota = "Jakarta"; // TypeScript tahu ini string
+
+// function dengan tipe parameter & return value
+function tambah(a: number, b: number): number {
+  return a + b;
+}
+
+// error ketika tipe tidak cocok, akan tertangkap saat kompilasi
+// tambah("1", 2); // Error: Argument of type ''string'' is not assignable...
+```
+
+Poin penting:
+
+- Tipe dicek saat kompilasi (compile time), bukan saat program berjalan.
+- Kalau tidak ditulis, TypeScript tetap mencoba menebak tipe lewat inference — tetap disarankan menulis annotation di parameter fungsi agar jelas.
+- File TypeScript berekstensi `.ts` (atau `.tsx` untuk JSX/React).', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/everyday-types.html","label":"TypeScript Handbook — Everyday Types"}]'::jsonb, '[{"url":"https://nodejs.org","label":"Node.js & npm sudah terinstall"},{"label":"TypeScript compiler tersedia (`npm install -g typescript`, atau lewat project yang sudah menyertakannya seperti Next.js)"}]'::jsonb, 'Buat file `coba.ts`, isi dengan variabel beranotasi tipe (`string`, `number`, `boolean`) dan satu function bertipe seperti contoh di atas. Jalankan `npx tsc coba.ts --noEmit` di terminal — perintah ini cuma mengecek tipe tanpa menghasilkan file `.js`. Lalu:
+
+1. Ubah salah satu nilai supaya tipenya salah (mis. `let umur: number = "dua puluh";`), jalankan lagi `npx tsc` — baca pesan error yang muncul.
+2. Kembalikan ke benar, lalu coba panggil `tambah("1", 2)` seperti komentar di atas — pastikan compiler menolaknya sebelum kode itu sempat dijalankan.', 0, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-18 14:16:57.963426+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('a713b2f2-d7be-439b-b97f-178a455a3416', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Interface & Type Alias', 'interface-dan-type-alias', 'Catatan sebelumnya membahas tipe untuk nilai tunggal (`string`, `number`, dst). **Masalah yang diselesaikan sekarang:** bagaimana kalau yang perlu diberi tipe adalah *object* dengan banyak properti — misalnya data user dengan `id`, `nama`, `email`? Menuliskan ulang bentuk object yang sama di setiap fungsi yang memakainya itu berulang dan gampang tidak konsisten kalau salah satu lupa di-update.
+
+`interface` dan `type` sama-sama dipakai untuk mendefinisikan bentuk (shape) sebuah object, supaya TypeScript bisa memeriksa strukturnya.
+
+```ts
+// pakai interface
+interface User {
+  id: number;
+  nama: string;
+  email?: string; // tanda "?" = properti opsional
+}
+
+function tampilkanUser(user: User): void {
+  console.log(`${user.id} - ${user.nama}`);
+}
+
+tampilkanUser({ id: 1, nama: "Budi" }); // email opsional, boleh tidak diisi
+
+// pakai type alias
+type Produk = {
+  nama: string;
+  harga: number;
+};
+
+const produk: Produk = { nama: "Buku", harga: 50000 };
+```
+
+| | `interface` | `type` |
+| --- | --- | --- |
+| extend | `interface Admin extends User {}` | `type Admin = User & { ... }` |
+| declaration merging | bisa (dua deklarasi nama sama digabung) | tidak bisa |
+| union type | tidak bisa | bisa: `"aktif" \| "nonaktif"` |
+| bentuk object biasa | bisa | bisa |
+
+Perbedaan singkat:
+
+- `interface` bisa di-*extend* (`interface Admin extends User {}`) dan bisa digabung otomatis kalau dideklarasikan dua kali (declaration merging).
+- `type` lebih fleksibel: bisa dipakai untuk union (`type Status = "aktif" | "nonaktif"`), bukan hanya bentuk object.
+- Untuk mendefinisikan bentuk object biasa, keduanya bisa dipakai — pilih salah satu dan konsisten dalam satu project.', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/objects.html","label":"TypeScript Handbook — Object Types (Interfaces)"}]'::jsonb, '[]'::jsonb, 'Buat `interface Buku { judul: string; penulis: string; tahun?: number }`. Tulis fungsi `cetakInfo(buku: Buku)` yang menampilkan info buku (tahun opsional, tampilkan "Tahun tidak diketahui" kalau tidak diisi). Lalu buat ULANG hal yang sama pakai `type` alih-alih `interface` — bandingkan, apa bedanya secara sintaks? Terakhir, coba `interface Buku { penerbit: string }` sekali lagi dengan nama yang sama — perhatikan declaration merging (TypeScript menggabungkan otomatis), lalu coba hal yang sama dengan `type` — harus muncul error "duplicate identifier".', 1, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-18 14:16:57.963426+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('84cd2ce8-0875-4959-8c6c-a5ff5079b9d1', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Membatalkan Perubahan: restore, reset, dan revert', 'membatalkan-perubahan-dasar', 'Sekarang kamu paham tiga area Git — Working Directory, Staging Area, dan Local Repository (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kadang perubahan yang kamu buat ternyata salah atau tidak jadi dipakai — tapi cara membatalkannya BEDA-BEDA tergantung perubahan itu sudah sejauh mana: baru diedit, sudah di-`add`, atau sudah di-`commit`. Pakai command yang salah bisa kehilangan pekerjaan yang sebenarnya masih ingin disimpan.
+
+```mermaid
+flowchart TD
+  Q1{Seberapa jauh<br/>perubahannya?}
+  Q1 -->|Baru diedit,<br/>belum git add| R1["git restore file"]
+  Q1 -->|Sudah git add,<br/>belum commit| R2["git restore --staged file"]
+  Q1 -->|Sudah commit,<br/>BELUM di-push/dibagikan| R3["git reset"]
+  Q1 -->|Sudah commit DAN<br/>sudah di-push/dibagikan| R4["git revert"]
+
+  R1 --> Out1["Perubahan di working directory hilang"]
+  R2 --> Out2["Balik ke working directory<br/>(perubahan TIDAK hilang)"]
+  R3 --> Out3["Riwayat commit lokal diubah"]
+  R4 --> Out4["Commit BARU dibuat<br/>(riwayat lama tetap ada)"]
+```
+
+### 1. Belum `git add`: `git restore`
+```bash
+# Buang perubahan di file tertentu, kembalikan ke versi commit terakhir
+git restore catatan.txt
+
+# Buang SEMUA perubahan yang belum di-add
+git restore .
+```
+
+### 2. Sudah `git add`, belum commit: `git restore --staged`
+```bash
+# Keluarkan file dari staging area — perubahannya TIDAK hilang,
+# cuma balik jadi "belum di-add" lagi
+git restore --staged catatan.txt
+```
+
+### 3. Sudah commit, BELUM di-push: `git reset`
+```bash
+# --soft: batalkan commit, tapi perubahannya tetap staged
+git reset --soft HEAD~1
+
+# --mixed (default): batalkan commit, perubahan balik ke working directory
+git reset HEAD~1
+
+# --hard: batalkan commit, perubahan HILANG SEPENUHNYA (hati-hati!)
+git reset --hard HEAD~1
+```
+
+### 4. Sudah commit DAN sudah di-push: `git revert`
+```bash
+# Buat commit BARU yang isinya kebalikan dari commit tertentu
+git revert <hash-commit>
+```
+
+Poin penting:
+
+- `git reset` MENGUBAH riwayat commit lokal — aman dipakai selama commit itu belum di-`push`/dibagikan ke orang lain. Kalau sudah di-`push`, `reset` lalu `push --force` bisa membuat riwayat rekan tim jadi tidak sinkron.
+- `git revert` TIDAK mengubah riwayat lama — dia menambah commit baru di atasnya. Ini kenapa `revert` yang dipakai untuk commit yang sudah dibagikan: aman untuk branch bersama.
+- `git reset --hard` bersifat destruktif dan permanen (kecuali kamu tahu cara memakai `git reflog` untuk pemulihan darurat) — selalu pastikan dulu perubahan itu memang tidak dibutuhkan lagi.
+- `HEAD~1` berarti "satu commit sebelum HEAD saat ini" — ganti angkanya untuk mundur lebih jauh (`HEAD~2`, dst).', '[{"url":"https://git-scm.com/docs/git-restore","label":"Git Documentation — git-restore"},{"url":"https://git-scm.com/docs/git-reset","label":"Git Documentation — git-reset"},{"url":"https://git-scm.com/docs/git-revert","label":"Git Documentation — git-revert"}]'::jsonb, '[]'::jsonb, 'Di repository latihan kamu: (1) edit `catatan.txt` tapi JANGAN di-`add`, jalankan `git restore catatan.txt` — buktikan perubahannya hilang, kembali ke versi commit terakhir. (2) Edit lagi, kali ini `git add`-kan, lalu `git restore --staged catatan.txt` — cek `git status`, perubahannya masih ada tapi statusnya balik jadi belum di-`add`. (3) Commit perubahan itu, lalu `git reset --soft HEAD~1` — buktikan commit-nya hilang dari `git log` tapi perubahannya masih staged, siap di-commit ulang. (4) Terakhir, buat satu commit lagi, anggap itu sudah "dibagikan ke tim", lalu jalankan `git revert <hash-commitnya>` — perhatikan Git membuat commit BARU yang membatalkan perubahan itu, bukan menghapus commit lamanya dari riwayat.', 1, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('5c3fa180-4dc4-43bb-9795-794788a4cba5', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'git stash: Menyimpan Perubahan Sementara', 'git-stash-dasar', 'Sekarang kamu bisa bercabang lewat branch (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kamu sedang di tengah mengerjakan sesuatu (file sudah diedit, belum siap di-commit), tapi tiba-tiba HARUS pindah branch cepat — misalnya ada bug mendesak di branch lain. Git menolak pindah branch kalau perubahan yang belum di-commit itu berisiko tertimpa. Commit "setengah jadi" cuma supaya bisa pindah branch juga bukan solusi bagus — riwayat jadi kotor berisi commit "WIP" yang tidak berarti.
+
+`git stash` menyimpan perubahan di working directory & staging area sementara TANPA commit, mengembalikan working directory ke kondisi bersih (seperti commit terakhir) — siap dikembalikan lagi kapan pun.
+
+```mermaid
+flowchart LR
+  A["Working directory kotor<br/>(ada perubahan belum commit)"] -->|git stash| B["Working directory bersih<br/>perubahan disimpan di stash"]
+  B -->|git checkout branch-lain| C["Kerjakan hal lain<br/>di branch berbeda"]
+  C -->|git checkout branch-asal| D["Balik ke branch semula<br/>(masih bersih)"]
+  D -->|git stash pop| E["Perubahan kembali<br/>seperti sebelum di-stash"]
+```
+
+```bash
+# Simpan perubahan saat ini ke stash (dengan pesan opsional)
+git stash push -m "sedang kerjakan form validasi"
+
+# Lihat daftar stash yang tersimpan
+git stash list
+# stash@{0}: On fitur-baru: sedang kerjakan form validasi
+
+# Kembalikan stash PALING BARU, sekaligus hapus dari daftar
+git stash pop
+
+# Kembalikan tapi TETAP simpan di daftar stash (bisa di-apply ke branch lain juga)
+git stash apply
+
+# Hapus satu entri stash tanpa mengembalikannya
+git stash drop stash@{0}
+```
+
+| Command | Perubahan Dikembalikan? | Tetap di Daftar Stash? |
+| --- | --- | --- |
+| `git stash pop` | Ya | Tidak (dihapus setelah dikembalikan) |
+| `git stash apply` | Ya | Ya (bisa di-`apply` lagi ke branch lain) |
+| `git stash drop` | Tidak | Tidak (langsung dihapus) |
+
+Poin penting:
+
+- Stash bersifat lokal per repository — tidak ikut ter-`push` ke remote, jadi bukan cara mem-backup perubahan penting.
+- Bisa ada lebih dari satu stash tersimpan sekaligus (`stash@{0}`, `stash@{1}`, dst) — `pop`/`apply` tanpa argumen selalu mengambil yang PALING BARU.
+- `git stash apply` berguna kalau kamu mau menerapkan perubahan yang sama ke lebih dari satu branch, tanpa harus stash ulang tiap kali.', '[{"url":"https://git-scm.com/docs/git-stash","label":"Git Documentation — git-stash"}]'::jsonb, '[]'::jsonb, 'Di branch `fitur-baru` dari latihan sebelumnya, edit `catatan.txt` TAPI JANGAN commit. Jalankan `git stash push -m "belum selesai"` — buktikan `git status` kembali bersih (perubahan hilang dari working directory). Pindah ke `main` (`git checkout main`), lihat isi `catatan.txt` tidak terpengaruh sama sekali. Pindah balik ke `fitur-baru`, jalankan `git stash list` untuk lihat stash tersimpan, lalu `git stash pop` — buktikan perubahan yang tadi kamu buat kembali persis seperti sebelum di-stash.', 3, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('673045d6-1066-4ae4-945f-28a590ae5bff', 'df6694f2-8cc1-47da-b697-e5c0f0f2cf89', 'Git Remote: Push, Pull, dan Fetch', 'remote-dasar', 'Sekarang kamu bisa commit dan bercabang di komputer sendiri. **Masalah yang diselesaikan sekarang:** bagaimana kalau kode itu perlu dibagikan ke orang lain, atau di-backup di luar komputer kamu? Riwayat commit yang cuma ada di satu komputer rentan hilang (laptop rusak/hilang) dan tidak bisa diakses tim lain.
+
+Repository remote adalah salinan proyek yang disimpan di server internet atau jaringan (seperti GitHub atau GitLab), memungkinkan kolaborasi tim dan backup kode.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant L as Komputer Lokal
+  participant R as Remote Repository
+  Note over L,R: Alur Sinkronisasi Kode
+  L->>R: git push origin main
+  Note right of R: Commit lokal diunggah ke remote
+  R-->>L: git fetch origin
+  Note left of L: Unduh riwayat commit tanpa merge
+  R->>L: git pull origin main
+  Note left of L: Unduh dan gabungkan ke branch aktif
+```
+
+Perintah umum bekerja dengan remote:
+
+```bash
+# Mengkloning repository yang sudah ada ke komputer lokal
+git clone https://github.com/username/nama-repo.git
+
+# Melihat daftar remote yang terhubung beserta URL-nya
+git remote -v
+
+# Mengambil perubahan terbaru dari remote tanpa mengubah branch lokal (fetch)
+git fetch origin
+
+# Mengambil sekaligus menggabungkan perubahan terbaru ke branch lokal saat ini (pull)
+git pull origin main
+
+# Mengunggah commit lokal ke branch di remote repository (push)
+git push origin main
+```
+
+Poin penting:
+
+- `origin` adalah nama alias standar untuk URL repository remote utama.
+- `git fetch` hanya mengunduh data riwayat baru dari remote; file lokalmu belum berubah sebelum kamu menjalankan `git merge`.
+- `git pull` merupakan kombinasi otomatis dari `git fetch` diikuti dengan `git merge`.
+- Sebelum melakukan `git push`, pastikan branch lokal sudah sinkron dengan versi remote untuk menghindari penolakan (non-fast-forward reject).', '[{"url":"https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes","label":"Git Basics - Working with Remotes — Pro Git Book"}]'::jsonb, '[{"url":"https://github.com/signup","label":"Akun GitHub (atau GitLab/Bitbucket) sudah dibuat"}]'::jsonb, 'Buat repository baru di GitHub (kosong, tanpa README). Di project lokal dari latihan sebelumnya, jalankan `git remote add origin <url-repo-kamu>`, lalu `git push origin main` (atau `master`, tergantung nama branch default-nya). Refresh halaman GitHub — pastikan commit-commit kamu muncul di sana. Coba juga `git clone <url-yang-sama>` ke folder lain untuk simulasi "komputer lain" yang mengambil kode itu.', 4, 'published', '2026-09-18 08:42:41.475237+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('fe513fea-0ef9-4593-84f9-9185358f940a', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Variabel & Scope: let, const, dan var', 'variabel-dan-scope', '**Masalah yang diselesaikan:** `var` (satu-satunya cara deklarasi variabel sebelum ES6) punya scope di level FUNGSI, bukan di level BLOK (`if`, `for`, `{}`) — variabel yang harusnya cuma dipakai sementara di dalam satu blok malah "bocor" ke luar dan bisa tertimpa nilai lain tanpa sadar. `var` juga boleh di-deklarasi ulang dengan nama sama tanpa error, membuat bug penimpaan variabel susah dilacak.
+
+```js
+if (true) {
+  var a = "bocor";
+}
+console.log(a); // "bocor" — var BOCOR keluar dari blok if!
+
+if (true) {
+  let b = "aman";
+}
+console.log(b); // ReferenceError: b is not defined — let terkurung di blok
+```
+
+```mermaid
+flowchart TD
+  subgraph Fn["Function Scope (var)"]
+    V["var a"]
+    subgraph Blok["Block { }"]
+      V2["var a (masih function scope!)"]
+      L["let b (block scope)"]
+    end
+  end
+  V -.->|"terlihat di seluruh fungsi"| Fn
+  L -.->|"cuma terlihat di dalam { }"| Blok
+```
+
+### `let` vs `const`
+`const` mengunci BINDING-nya (nama variabel itu tidak bisa diarahkan ke nilai lain), bukan mengunci isinya — kalau isinya object/array, propertinya masih bisa diubah:
+
+```js
+const user = { nama: "Budi" };
+user.nama = "Ani"; // BOLEH — mengubah properti, bukan mengganti binding
+console.log(user.nama); // "Ani"
+
+user = { nama: "Lain" }; // TypeError — tidak boleh, ini mengganti binding const
+```
+
+| | `var` | `let` | `const` |
+| --- | --- | --- | --- |
+| Scope | Function | Block | Block |
+| Boleh di-redeclare? | Ya | Tidak (error) | Tidak (error) |
+| Boleh di-reassign? | Ya | Ya | Tidak (error) |
+| Diakses sebelum deklarasi? | `undefined` (hoisted) | Error (*temporal dead zone*) | Error (*temporal dead zone*) |
+
+Poin penting:
+
+- Aturan praktis modern: pakai `const` secara default, pakai `let` cuma kalau variabelnya memang perlu diubah nilainya nanti (misal counter di loop), dan hindari `var` sepenuhnya di kode baru.
+- *Temporal dead zone* adalah rentang kode antara awal blok sampai baris deklarasi `let`/`const` — mengakses variabelnya di rentang itu melempar error, beda dengan `var` yang diam-diam bernilai `undefined`.
+- Scope block berarti `{ }` di mana pun — bukan cuma `if`/`for`, tapi blok kurung kurawal biasa juga membuat scope baru untuk `let`/`const`.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let","label":"let — MDN Web Docs"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const","label":"const — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Tulis loop `for (var i = 0; i < 3; i++) { ... }` lalu `console.log(i)` SETELAH loop-nya selesai — buktikan `i` masih bisa diakses (bocor). Ganti `var` jadi `let`, jalankan lagi — buktikan sekarang muncul `ReferenceError`. Buat `const angka = 5`, coba `angka = 10` — catat error-nya. Buat `const arr = [1, 2, 3]`, coba `arr.push(4)` — buktikan ini BERHASIL (karena mengubah isi, bukan mengganti binding-nya).', 0, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('fdfb1012-c109-44b1-8610-142b51d9fed2', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Destructuring Object & Array', 'destructuring-dasar', 'Sekarang kamu bisa mendefinisikan fungsi, termasuk arrow function (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** mengambil beberapa nilai dari object atau array biasanya berarti menulis `obj.properti` berulang kali baris demi baris — repetitif, apalagi kalau properti itu langsung mau dipakai sebagai variabel terpisah.
+
+**Destructuring** membongkar object/array langsung jadi variabel-variabel terpisah dalam satu baris.
+
+```js
+// SEBELUM destructuring — repetitif
+const user = { nama: "Budi", umur: 25, kota: "Jakarta" };
+const nama = user.nama;
+const umur = user.umur;
+
+// SESUDAH destructuring — satu baris
+const { nama, umur } = user;
+```
+
+### Object Destructuring: Rename & Default Value
+```js
+const user = { nama: "Budi", umur: 25 };
+
+// Rename: "nama" diambil tapi disimpan sebagai variabel "namaUser"
+const { nama: namaUser } = user;
+
+// Default value: dipakai kalau propertinya tidak ada di object
+const { kota = "Tidak diketahui" } = user;
+console.log(kota); // "Tidak diketahui" — karena user.kota memang tidak ada
+```
+
+### Array Destructuring
+```js
+const koordinat = [10, 20];
+const [x, y] = koordinat;
+
+// Lewati elemen dengan koma kosong
+const [pertama, , ketiga] = [1, 2, 3];
+
+// Trik menukar dua variabel tanpa variabel sementara
+let a = 1, b = 2;
+[a, b] = [b, a];
+console.log(a, b); // 2 1
+```
+
+### Destructuring di Parameter Fungsi
+Ini kombinasi paling umum dipakai — menyambung langsung dari catatan sebelumnya soal fungsi:
+
+```js
+function tampilkanProfil({ nama, umur }) {
+  console.log(`${nama}, ${umur} tahun`);
+}
+tampilkanProfil({ nama: "Ani", umur: 30 }); // langsung destructure dari argumen
+```
+
+Poin penting:
+
+- Nested destructuring bisa dipakai untuk object bersarang: `const { alamat: { kota } } = user;` langsung ambil `kota` dari `user.alamat.kota`.
+- Destructuring array mengandalkan URUTAN (posisi index), destructuring object mengandalkan NAMA properti — beda cara kerja meski sintaksnya mirip.
+- Kombinasi destructuring parameter + default value sangat umum dipakai untuk "opsi" fungsi: `function buat({ warna = "biru", ukuran = "M" } = {}) {...}`.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment","label":"Destructuring assignment — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Buat object `produk = { nama: "Laptop", harga: 15000000, spesifikasi: { ram: "16GB", storage: "512GB" } }`. Destructure `nama` dan `harga` langsung ke variabel, lalu destructure `ram` dari `spesifikasi` yang bersarang (nested). Buat array `[a, b, c] = [1, 2, 3]`, praktikkan trik tukar nilai `a` dan `c` dalam satu baris tanpa variabel sementara. Terakhir, tulis fungsi `cetakProduk({ nama, harga })` yang langsung destructure dari parameter, panggil dengan object `produk` di atas.', 2, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('95ceb255-d313-4311-843b-8239c08a7643', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Array Method Dasar: map, filter, reduce', 'array-method-dasar', 'Sekarang kamu bisa pakai arrow function dan destructuring (dari catatan-catatan sebelumnya) — dua hal itu sering dipakai BARENGAN dengan topik catatan ini. **Masalah yang diselesaikan sekarang:** mengubah atau menyaring isi array dengan `for` loop manual itu verbose — harus bikin array kosong dulu, manual `push` satu-satu, gampang salah index atau lupa inisialisasi.
+
+```js
+const produk = [
+  { nama: "Buku", harga: 50000 },
+  { nama: "Pensil", harga: 5000 },
+  { nama: "Tas", harga: 150000 },
+];
+
+// SEBELUM: for loop manual untuk ambil nama produk di atas 10rb
+const namaMahal = [];
+for (let i = 0; i < produk.length; i++) {
+  if (produk[i].harga > 10000) {
+    namaMahal.push(produk[i].nama);
+  }
+}
+
+// SESUDAH: filter + map, dibaca sebagai satu alur deklaratif
+const namaMahal2 = produk
+  .filter((p) => p.harga > 10000)
+  .map((p) => p.nama);
+```
+
+```mermaid
+flowchart LR
+  Arr["Array awal"] -->|"filter(fn)"| Filtered["Array baru, cuma<br/>elemen yang lolos kondisi"]
+  Filtered -->|"map(fn)"| Mapped["Array baru,<br/>setiap elemen ditransformasi"]
+  Arr -->|"reduce(fn, awal)"| Reduced["SATU nilai akhir<br/>(bukan array)"]
+```
+
+### `reduce`: Menggabungkan Array Jadi Satu Nilai
+```js
+const total = produk.reduce((akumulator, p) => akumulator + p.harga, 0);
+console.log(total); // 205000
+```
+
+### `forEach`: Cuma Menjalankan Efek Samping, Bukan Mengembalikan Array Baru
+```js
+produk.forEach((p) => console.log(p.nama)); // cuma print, tidak menghasilkan array baru
+```
+
+| Method | Mengembalikan | Kegunaan |
+| --- | --- | --- |
+| `map` | Array baru, panjang SAMA | Transformasi tiap elemen |
+| `filter` | Array baru, panjang bisa lebih pendek | Menyaring elemen berdasarkan kondisi |
+| `reduce` | Satu nilai apa saja (angka, object, dll) | Menggabungkan/mengakumulasi array jadi satu hasil |
+| `forEach` | `undefined` (tidak mengembalikan apa-apa) | Efek samping saja (mis. `console.log` tiap elemen) |
+
+Poin penting:
+
+- Semua method ini TIDAK mengubah array aslinya (kecuali `forEach` yang memang tidak menghasilkan array baru sama sekali) — `produk` tetap utuh setelah `.filter()`/`.map()` dipanggil.
+- `map`/`filter` bisa di-*chain* (disambung) karena masing-masing mengembalikan array baru yang siap dipanggil method array lagi.
+- `reduce` adalah yang paling fleksibel — `map` dan `filter` sebenarnya bisa ditulis ulang pakai `reduce`, tapi kebalikannya tidak selalu semudah itu.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map","label":"Array.prototype.map() — MDN Web Docs"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce","label":"Array.prototype.reduce() — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Dari array `produk` di atas (atau buat versi kamu sendiri dengan minimal 5 item), pakai `.filter()` + `.map()` di-chain untuk mendapatkan nama-nama produk dengan harga di atas 50000. Pakai `.reduce()` untuk menjumlahkan total harga SEMUA produk. Pakai `.reduce()` lagi untuk menghitung berapa banyak produk yang harganya di atas 50000 (harus dapat angka yang sama dengan panjang hasil `.filter()` sebelumnya) — buktikan `reduce` bisa menggantikan `filter`+hitung panjang array.', 3, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('747b8f3c-fdcc-4e7f-97c2-3c1111d291e6', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Error Handling: try, catch, finally', 'error-handling-dasar', 'Sekarang kamu paham fungsi dan closure (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau ada error runtime yang tidak ditangani (misalnya `JSON.parse()` gagal karena string-nya tidak valid), SELURUH script berhenti jalan di situ juga (*uncaught exception*) — bagaimana caranya program tetap jalan dan memberi respons yang masuk akal, walau satu bagian kecil gagal?
+
+```js
+// TANPA error handling — kalau JSON-nya rusak, seluruh script berhenti
+const data = JSON.parse(teksTidakValid); // Uncaught SyntaxError, program crash
+
+// DENGAN try/catch — error ditangkap, program tetap jalan
+try {
+  const data = JSON.parse(teksTidakValid);
+  console.log(data);
+} catch (error) {
+  console.error("Gagal parse JSON:", error.message);
+} finally {
+  console.log("Percobaan parse selesai."); // SELALU jalan, apa pun hasilnya
+}
+```
+
+```mermaid
+flowchart TD
+  Try["Kode di dalam try { }"] -->|Berhasil, tanpa error| Skip["catch DILEWATI"]
+  Try -->|Error dilempar| Catch["catch (error) { } dijalankan"]
+  Skip --> Finally["finally { } — SELALU dijalankan"]
+  Catch --> Finally
+```
+
+### Melempar Error Sendiri (`throw`)
+```js
+function bagi(a, b) {
+  if (b === 0) {
+    throw new Error("Tidak bisa membagi dengan nol");
+  }
+  return a / b;
+}
+
+try {
+  bagi(10, 0);
+} catch (error) {
+  console.error(error.message); // "Tidak bisa membagi dengan nol"
+  console.error(error.name); // "Error"
+}
+```
+
+Poin penting:
+
+- `finally` dijalankan SELALU — baik `try`-nya berhasil maupun gagal — cocok untuk kode pembersihan (*cleanup*) yang wajib jalan apa pun hasilnya (mis. menutup koneksi, menyembunyikan loading spinner).
+- `error.message` berisi pesan error yang bisa dibaca manusia, `error.name` berisi jenis error-nya (`TypeError`, `SyntaxError`, `Error` kustom, dst) — berguna kalau perlu menangani jenis error yang berbeda dengan cara berbeda.
+- Jangan `catch` error TANPA melakukan apa-apa (`catch (e) {}` kosong) — itu menyembunyikan bug alih-alih menyelesaikannya. Minimal log error-nya supaya masih terlihat saat debugging.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch","label":"try...catch — MDN Web Docs"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw","label":"throw — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `parseAman(teks)` yang membungkus `JSON.parse(teks)` dalam `try/catch` — kalau gagal, kembalikan `null` dan `console.error` pesan errornya, bukan sampai program crash. Tes dengan JSON valid dan JSON rusak (mis. `"{tidak valid"`). Tambahkan `finally` yang selalu mencetak "Percobaan parse selesai" — buktikan baris itu tetap muncul di KEDUA kasus (berhasil maupun gagal). Terakhir, buat fungsi `bagi(a, b)` yang melempar `Error` kustom kalau `b === 0`, panggil dalam `try/catch`, cetak `error.message`-nya.', 5, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('927a4efc-a94a-4260-a899-a38068b8d06c', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Promise Dasar', 'promise-dasar', '`try/catch` dari catatan sebelumnya menangani error di kode SINKRON. **Masalah yang diselesaikan sekarang:** kode ASINKRON (timer, request ke server) yang ditulis pakai callback bersarang berkali-kali cepat jadi sulit dibaca begitu ada beberapa langkah berurutan ("*callback hell*"), dan tiap callback butuh error handling-nya sendiri-sendiri, tidak konsisten satu jalur.
+
+**Promise** adalah object yang merepresentasikan hasil operasi asinkron yang BELUM tentu selesai sekarang, tapi akan selesai (atau gagal) di masa depan.
+
+```mermaid
+stateDiagram-v2
+  [*] --> Pending: Promise dibuat
+  Pending --> Fulfilled: resolve(nilai) dipanggil
+  Pending --> Rejected: reject(error) dipanggil
+  Fulfilled --> [*]: .then() dijalankan
+  Rejected --> [*]: .catch() dijalankan
+```
+
+### Membuat & Memakai Promise
+```js
+function tunggu(ms) {
+  return new Promise((resolve, reject) => {
+    if (ms < 0) {
+      reject(new Error("Durasi tidak boleh negatif"));
+      return;
+    }
+    setTimeout(() => resolve(`Selesai menunggu ${ms}ms`), ms);
+  });
+}
+
+tunggu(1000)
+  .then((pesan) => console.log(pesan)) // dijalankan kalau resolve()
+  .catch((error) => console.error(error.message)) // dijalankan kalau reject()
+  .finally(() => console.log("Promise selesai diproses")); // selalu jalan
+```
+
+### Menyambung Beberapa Promise (Chaining)
+```js
+tunggu(500)
+  .then((pesan) => {
+    console.log(pesan);
+    return tunggu(500); // return Promise lain, lanjut ke .then() berikutnya
+  })
+  .then((pesan) => console.log("Langkah kedua:", pesan));
+```
+
+Poin penting:
+
+- Promise cuma punya TIGA state: `pending` (belum selesai), `fulfilled` (berhasil, sudah `resolve`), `rejected` (gagal, sudah `reject`) — begitu pindah dari `pending` ke salah satu state lain, state-nya PERMANEN, tidak bisa berubah lagi.
+- `.then()` yang me-`return` Promise lain memungkinkan chaining berurutan tanpa nesting callback — inilah yang menyelesaikan masalah "callback hell".
+- `.catch()` menangkap error dari SEMUA `.then()` sebelumnya di rantai yang sama, tidak perlu `.catch()` di tiap langkah.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises","label":"Using Promises — MDN Web Docs"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise","label":"Promise — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `tunggu(ms)` persis seperti contoh di atas. Panggil `tunggu(1000).then(console.log)` — buktikan pesannya muncul setelah kira-kira 1 detik. Panggil `tunggu(-100).catch(console.error)` — buktikan `.catch()` menangkap error dari `reject()`. Buat CHAIN tiga `tunggu()` berurutan (masing-masing 500ms) memakai `.then()` bersambung — bandingkan keterbacaannya dengan kalau itu ditulis pakai callback `setTimeout` bersarang tiga level.', 6, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('96fdeed5-3947-4217-b466-7830060ce30b', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Async/Await di JavaScript', 'async-await', 'Promise dari catatan sebelumnya sudah menyelesaikan masalah callback bersarang, tapi rantai `.then().then().then()` yang panjang masih agak sulit dibaca urutannya sekilas mata. **Masalah yang diselesaikan sekarang:** bagaimana menulis kode asinkron yang TERLIHAT seperti kode sinkron biasa (baris demi baris), padahal di baliknya tetap non-blocking?
+
+`async/await` adalah gula sintaks di atas Promise agar kode asinkron terlihat seperti kode sinkron.
+
+```mermaid
+graph LR
+  subgraph sinkron["Sinkron (blocking)"]
+    s1["tugas1"] --> s2["tugas2"] --> s3["tugas3"]
+  end
+  subgraph asinkron["Async/Await (non-blocking)"]
+    a1["await fetch()"] -. "kode lain tetap jalan selagi menunggu" .-> a2["lanjut pakai data"]
+  end
+```
+
+```js
+async function ambilData() {
+  try {
+    const res = await fetch("/api/data");
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.error("Gagal mengambil data:", err);
+  }
+}
+```
+
+Poin penting:
+
+- `await` hanya bisa dipakai di dalam fungsi `async`.
+- `await` menjeda eksekusi fungsi sampai Promise selesai, tanpa memblokir thread utama.
+- Gunakan `try/catch` untuk menangani error, menggantikan `.catch()` pada Promise biasa.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function","label":"async function — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `ambilDuaData()` yang memanggil dua endpoint berbeda (mis. `https://jsonplaceholder.typicode.com/users/1` dan `.../posts/1`) satu per satu pakai `await` berurutan, catat waktunya (`console.time`/`console.timeEnd`). Lalu tulis ulang supaya kedua `fetch` itu jalan bersamaan pakai `Promise.all([...])` — bandingkan waktunya, harus jauh lebih cepat karena tidak menunggu satu selesai dulu sebelum mulai yang lain.', 7, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('cb292ff3-aed8-4f22-86b6-7683cbb957ed', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Modules Dasar: import dan export', 'modules-dasar', 'Sekarang kamu sudah menguasai variabel, fungsi, closure, error handling, sampai async/await (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** sebelum module, semua kode JS di satu file besar — atau digabung lewat banyak tag `<script>` di HTML — berbagi SATU scope global yang sama. Variabel/fungsi dengan nama sama di file berbeda saling menimpa (*naming collision*), dan urutan `<script>` di HTML harus manual diatur sesuai dependency-nya.
+
+**ES Modules** membuat tiap file JS punya scope-nya SENDIRI — variabel/fungsi cuma bisa diakses file lain kalau di-`export` secara eksplisit, dan dipakai lewat `import`.
+
+```mermaid
+flowchart LR
+  subgraph Sebelum["Sebelum Modules"]
+    S1["script1.js"] --- G["SATU scope global"]
+    S2["script2.js"] --- G
+    G -.->|"rawan naming collision"| Bug["variabel saling menimpa"]
+  end
+  subgraph Sesudah["Dengan ES Modules"]
+    M1["math.js<br/>(scope sendiri)"] -->|export| Exp["export { tambah, kurang }"]
+    Exp -->|import| M2["main.js<br/>(scope sendiri)"]
+  end
+```
+
+### `export` (di `math.js`)
+```js
+// Named export — bisa lebih dari satu per file
+export function tambah(a, b) {
+  return a + b;
+}
+export function kurang(a, b) {
+  return a - b;
+}
+
+// Default export — maksimal SATU per file
+export default function kali(a, b) {
+  return a * b;
+}
+```
+
+### `import` (di `main.js`)
+```js
+// Named import — nama HARUS sama persis dengan yang di-export (bisa di-rename pakai "as")
+import { tambah, kurang } from "./math.js";
+
+// Default import — boleh dikasih nama apa saja
+import kali from "./math.js";
+
+console.log(tambah(2, 3)); // 5
+console.log(kali(2, 3)); // 6
+```
+
+### Menjalankan Module
+```html
+<!-- Di browser: wajib type="module" -->
+<script type="module" src="main.js"></script>
+```
+
+```bash
+# Di Node.js: pakai ekstensi .mjs, ATAU tambahkan "type": "module" di package.json
+node main.mjs
+```
+
+Poin penting:
+
+- Variabel/fungsi di dalam module TIDAK otomatis jadi global — kalau tidak di-`export`, dia betul-betul privat ke file itu, tidak bisa diakses file lain sama sekali.
+- Named export bisa banyak per file, default export maksimal SATU — pilih named kalau file punya beberapa hal yang mau di-export sekaligus (seperti `math.js` di atas).
+- Module HANYA dieksekusi SEKALI meski di-`import` dari banyak file berbeda — hasilnya di-cache dan dipakai bersama, bukan dijalankan ulang tiap `import`.', '[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules","label":"JavaScript modules — MDN Web Docs"}]'::jsonb, '[]'::jsonb, 'Buat dua file: `math.js` berisi dua named export (`tambah`, `kurang`) dan satu default export (`kali`), lalu `main.js` yang meng-`import` ketiganya dan memanggilnya, cetak hasilnya ke console. Jalankan lewat `<script type="module" src="main.js"></script>` di file HTML kosong, buka di browser, cek hasilnya di DevTools console. Coba HAPUS `type="module"` dari tag script-nya — perhatikan muncul error `Cannot use import statement outside a module`, membuktikan `type="module"` memang wajib. Ini menutup roadmap JavaScript: dari variabel dasar sampai memecah kode jadi file-file yang terorganisir.', 8, 'published', '2026-09-19 11:37:52.333648+00', '2026-09-19 11:37:52.333648+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b38b67fc-0349-4842-a63d-3ea5cf6cdd1a', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Server Component vs Client Component', 'server-client-components', 'Sekarang kamu sudah bisa bikin routing, navigasi antar halaman, dan berbagi layout UI. Pertanyaan berikutnya: **kode apa saja yang sebenarnya dikirim ke browser** waktu halaman itu diakses? Sebelum React Server Components, jawabannya selalu sama — semua kode komponennya, bahkan kalau komponen itu cuma menampilkan teks statis dari database dan tidak butuh interaktivitas sama sekali. Ini boros: bundle JavaScript makin besar, waktu render pertama makin lambat, terutama di HP dengan koneksi lambat.
+
+Di App Router, semua komponen di dalam folder `app/` adalah **Server Component** secara default — dirender di server, tidak mengirim JavaScript komponennya ke browser. Untuk komponen yang butuh interaktivitas (state, event handler, hooks), harus ditandai sebagai **Client Component**.
+
+```mermaid
+graph LR
+  A["Server Component<br/>fetch data, render HTML"] -- "kirim HTML saja" --> B["Browser<br/>render statis"]
+  C["Client Component<br/>''use client''"] -- "kirim HTML + JS" --> D["Browser<br/>di-hydrate, jadi interaktif"]
+```
+
+```tsx
+// app/page.tsx — Server Component (default, tanpa directive apa pun)
+async function getData() {
+  const res = await fetch("https://api.example.com/produk");
+  return res.json();
+}
+
+export default async function HomePage() {
+  const produk = await getData(); // boleh langsung await, tanpa useEffect
+  return <p>Jumlah produk: {produk.length}</p>;
+}
+```
+
+```tsx
+// app/components/Counter.tsx — Client Component
+"use client";
+
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(count + 1)}>Klik: {count}</button>;
+}
+```
+
+Poin penting:
+
+- Directive `"use client"` wajib ditulis paling atas file, sebelum import lain, supaya komponen (dan semua yang di-import olehnya) dikirim juga ke browser sebagai JavaScript.
+- Server Component tidak bisa memakai `useState`, `useEffect`, atau event handler (`onClick`, dst) — kalau butuh itu, pindahkan bagian interaktifnya ke Client Component terpisah.
+- Server Component boleh langsung `async`/`await` untuk fetch data, tanpa perlu `useEffect`.', '[{"url":"https://nextjs.org/docs/app/getting-started/server-and-client-components","label":"Next.js Docs — Server and Client Components"}]'::jsonb, '[]'::jsonb, 'Buka DevTools browser (tab Network) di salah satu halaman yang kamu buat di latihan catatan sebelumnya, lalu:
+
+1. Tambahkan komponen counter interaktif (`"use client"` + `useState`, seperti contoh di atas) ke halaman `app/kontak/page.tsx`.
+2. Reload halaman, filter Network berdasarkan JS, lalu bandingkan ukuran JS yang di-download sebelum dan sesudah kamu tambahkan counter itu.
+3. Coba hapus baris `"use client"` dari komponen counter itu — Next.js akan menolak build karena kamu masih pakai `useState` di Server Component. Baca pesan errornya sampai habis; itu cara Next.js memaksa kamu sadar batas antara Server dan Client Component.', 4, 'published', '2026-09-18 06:20:59.380972+00', '2026-09-18 10:09:56.018828+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4f1eb8ba-21ab-47ba-945e-6c99edce2bb3', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Union Type & Literal Type', 'union-dan-literal-type', 'Sekarang kamu bisa mendefinisikan bentuk object lewat interface/type alias di catatan sebelumnya. **Masalah yang diselesaikan sekarang:** bagaimana kalau sebuah nilai cuma boleh salah satu dari beberapa pilihan spesifik — misalnya status pesanan yang cuma boleh `"pending"`, `"success"`, atau `"failed"`? Kalau cuma dianotasi `string` biasa, TypeScript tidak akan komplain kalau ada yang salah ketik `"pendign"` atau mengirim status yang sama sekali tidak valid.
+
+Union type memungkinkan suatu variabel atau parameter memiliki lebih dari satu kemungkinan tipe data (menggunakan operator `|`). Literal type mempersempit tipe data ke nilai eksak tertentu (bukan sekadar `string` atau `number` umum).
+
+```mermaid
+flowchart TD
+    subgraph UnionType ["type Status = ''pending'' | ''success'' | ''failed''"]
+        A["''pending''"]
+        B["''success''"]
+        C["''failed''"]
+    end
+    Val["Input Nilai: ''success''"] -->|Valid| B
+    ValInvalid["Input Nilai: ''cancelled''"] -->|Type Error| UnionType
+```
+
+### 1. Union Type Sederhana
+Mengizinkan nilai berupa salah satu dari tipe yang didefinisikan:
+
+```ts
+function formatID(id: string | number): string {
+  return `ID: ${id}`;
+}
+
+console.log(formatID(101));       // Output: ID: 101
+console.log(formatID("USR-001")); // Output: ID: USR-001
+```
+
+### 2. Literal Type (String & Number Literal)
+Mengunci nilai agar hanya menerima teks atau angka tertentu:
+
+```ts
+type Role = "admin" | "member" | "guest";
+type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6;
+
+let userRole: Role = "admin";
+// userRole = "superadmin"; // Error: Type ''"superadmin"'' is not assignable to type ''Role''.
+
+let roll: DiceRoll = 6;
+// let invalidRoll: DiceRoll = 7; // Error: Type ''7'' is not assignable to type ''DiceRoll''.
+```
+
+### 3. Discriminated Union (Tagged Union)
+Teknik menggabungkan beberapa object type yang memiliki properti penanda (*discriminant property*) yang sama untuk membedakan struktur datanya:
+
+```ts
+type ResponseData =
+  | { status: "loading" }
+  | { status: "success"; data: string[] }
+  | { status: "error"; message: string };
+
+function renderResponse(res: ResponseData) {
+  if (res.status === "loading") {
+    console.log("Sedang memuat data...");
+  } else if (res.status === "success") {
+    console.log("Data diterima:", res.data.length, "item");
+  } else {
+    console.log("Error:", res.message);
+  }
+}
+```
+
+- **Union (`|`)** = nilai bisa bertipe A **atau** B.
+- **Literal Type** = nilai harus persis teks/angka tertentu, sangat berguna menggantikan magic string/number.
+- **Discriminated Union** = pola standar di TypeScript untuk menangani state kompleks (misal: state API, aksi Redux, dll).', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types","label":"TypeScript Handbook — Everyday Types (Unions)"},{"url":"https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#literal-types","label":"TypeScript Handbook — Literal Types"}]'::jsonb, '[]'::jsonb, 'Definisikan `type Pembayaran = "transfer" | "kartu" | "cod"`. Buat fungsi `prosesPembayaran(metode: Pembayaran)` yang mencetak pesan berbeda per metode. Coba panggil dengan nilai yang salah ketik (`"trasfer"`) — pastikan TypeScript langsung menolak sebelum kode dijalankan. Lalu buat discriminated union `type Notifikasi = { tipe: "email"; alamat: string } | { tipe: "sms"; nomor: string }` dan fungsi yang menangani keduanya seperti contoh `renderResponse` di atas.', 2, 'published', '2026-09-18 09:02:38.493011+00', '2026-09-18 14:08:58.550479+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('f4acfa70-7427-4189-9374-db4b27e7e59d', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Type Narrowing Dasar', 'type-narrowing', 'Union type dan literal type dari catatan sebelumnya menyelesaikan masalah "nilai apa saja yang valid". **Masalah yang diselesaikan sekarang:** begitu kamu punya variabel bertipe union (misalnya `string | number`), compiler tidak tahu persis tipe konkretnya di titik tertentu dalam kode — jadi method yang spesifik ke satu tipe (`.toUpperCase()` untuk string, `.toFixed()` untuk number) tidak bisa langsung dipanggil tanpa pengecekan dulu.
+
+Type Narrowing adalah proses di mana TypeScript mempersempit tipe variabel yang luas menjadi tipe yang lebih spesifik berdasarkan pemeriksaan kondisi logika di kode (*control flow analysis*).
+
+```mermaid
+flowchart TD
+    Input["Input: string | number"] --> Check{"typeof value === ''string''?"}
+    Check -- Yes --> BranchStr["Tipe menyempit ke: string<br/>(Bisa akses .toUpperCase(), .slice())"]
+    Check -- No --> BranchNum["Tipe menyempit ke: number<br/>(Bisa akses .toFixed(), operasi hitung)"]
+```
+
+### 1. `typeof` Guard
+Digunakan untuk tipe primitif (`string`, `number`, `boolean`, `symbol`, `bigint`):
+
+```ts
+function padLeft(padding: number | string, input: string): string {
+  if (typeof padding === "number") {
+    // Di dalam blok ini, padding pasti bertipe `number`
+    return " ".repeat(padding) + input;
+  }
+  // Di luar blok if, TypeScript tahu padding pasti bertipe `string`
+  return padding + input;
+}
+```
+
+### 2. Equality Guard (`===`, `!==`)
+Pemeriksaan kesamaan nilai literal mempersempit tipe union:
+
+```ts
+function prosesStatus(state: "idle" | "loading" | "success") {
+  if (state === "loading") {
+    console.log("Animasi spinner...");
+  } else if (state === "success") {
+    console.log("Tampilkan konten!");
+  } else {
+    console.log("Menunggu aksi user.");
+  }
+}
+```
+
+### 3. Operator `in`
+Memeriksa keberadaan sebuah property pada object:
+
+```ts
+type Burung = { terbang: () => void };
+type Ikan = { berenang: () => void };
+
+function gerak(hewan: Burung | Ikan) {
+  if ("terbang" in hewan) {
+    hewan.terbang(); // TypeScript tahu ini Burung
+  } else {
+    hewan.berenang(); // TypeScript tahu ini Ikan
+  }
+}
+```
+
+### 4. `instanceof` Guard
+Memeriksa apakah object merupakan instance dari suatu `class`:
+
+```ts
+function logDateOrString(x: Date | string) {
+  if (x instanceof Date) {
+    console.log(x.toUTCString()); // x bertipe Date
+  } else {
+    console.log(x.toUpperCase()); // x bertipe string
+  }
+}
+```
+
+TypeScript secara pintar memotong kemungkinan tipe (*type narrowing*) di setiap cabang `if/else`, sehingga method yang dipanggil dijamin aman tanpa perlu casting manual (`as`).', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/narrowing.html","label":"TypeScript Handbook — Narrowing"}]'::jsonb, '[]'::jsonb, 'Tulis fungsi `formatNilai(value: string | number | boolean)` yang mengembalikan versi string dari `value` dengan format berbeda per tipe (uppercase untuk string, 2 angka desimal untuk number, "Ya"/"Tidak" untuk boolean). Pakai `typeof` guard untuk tiap cabang. Lalu coba hapus salah satu pengecekan `typeof`-nya dan lihat error yang muncul saat memanggil method yang tidak sesuai tipe di cabang itu.', 3, 'published', '2026-09-18 09:02:39.128372+00', '2026-09-18 14:08:58.550479+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('f58bc200-37ce-4df2-b238-49353da2397c', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Generics Dasar', 'generics-dasar', 'Semua fungsi yang kamu tulis sejauh ini punya tipe parameter yang spesifik. **Masalah yang diselesaikan sekarang:** bagaimana kalau kamu mau bikin fungsi yang bekerja untuk banyak tipe data sekaligus (angka, teks, object apa pun) tanpa menulis versi terpisah untuk masing-masing, dan tanpa kehilangan informasi tipe seperti yang terjadi kalau pakai `any`?
+
+Generics memungkinkan kita membuat fungsi, interface, atau class yang dapat bekerja dengan berbagai tipe data tanpa kehilangan informasi tipe aslinya (*type safety*), bertindak seperti variabel penampung tipe (*type placeholder*).
+
+```mermaid
+flowchart LR
+    subgraph Function ["Fungsi Generic: identitas&lt;T&gt;(arg: T): T"]
+        T["T (Type Placeholder)"]
+    end
+    Call1["identitas&lt;number&gt;(42)"] -->|T = number| Result1["Return: 42 (number)"]
+    Call2["identitas&lt;string&gt;(''halo'')"] -->|T = string| Result2["Return: ''halo'' (string)"]
+```
+
+### 1. Masalah Tanpa Generics vs Dengan Generics
+Jika menggunakan `any`, tipe return akan hilang. Dengan generics (`<T>`), tipe input dan output tetap terjaga:
+
+```ts
+// Tanpa Generics: kehilangan type check
+function identitasAny(arg: any): any {
+  return arg;
+}
+
+// Dengan Generics: tipe tetap terjaga
+function identitas<T>(arg: T): T {
+  return arg;
+}
+
+const angka = identitas<number>(100);    // tipe: number
+const teks = identitas("Selamat Datang"); // tipe: string (type inference otomatis)
+```
+
+### 2. Generic pada Interface & Type Alias
+Sangat umum digunakan untuk response API:
+
+```ts
+interface ApiResponse<T> {
+  status: number;
+  sukses: boolean;
+  data: T;
+}
+
+interface UserProfile {
+  id: string;
+  nama: string;
+}
+
+const userRes: ApiResponse<UserProfile> = {
+  status: 200,
+  sukses: true,
+  data: { id: "u1", nama: "Ahmad" }
+};
+
+const countRes: ApiResponse<number> = {
+  status: 200,
+  sukses: true,
+  data: 42
+};
+```
+
+### 3. Generic Constraints (`extends`)
+Membatasi tipe yang boleh masuk ke dalam parameter generic:
+
+```ts
+interface MemilikiPanjang {
+  length: number;
+}
+
+function hitungPanjang<T extends MemilikiPanjang>(item: T): number {
+  return item.length;
+}
+
+console.log(hitungPanjang("Halo Dunia")); // valid (string punya .length)
+console.log(hitungPanjang([1, 2, 3]));     // valid (array punya .length)
+// hitungPanjang(123); // Error: Argument of type ''number'' is not assignable to ''MemilikiPanjang''
+```
+
+Generics membuat kode bersifat *reusable* (dapat dipakai ulang) untuk berbagai jenis data namun tetap 100% *type-safe*.', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/generics.html","label":"TypeScript Handbook — Generics"}]'::jsonb, '[]'::jsonb, 'Buat fungsi generic `ambilElemenPertama<T>(arr: T[]): T` yang mengembalikan elemen pertama array apa pun. Panggil dengan array number, array string, dan array object — pastikan tipe hasil return-nya ikut menyesuaikan tanpa perlu casting manual. Lalu buat `interface Kotak<T> { isi: T }` dan buat dua instance kotak dengan tipe isi yang berbeda.', 5, 'published', '2026-09-18 09:02:39.77688+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('39bae655-e3ea-4921-85a9-c90ebead7963', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Enum Dasar', 'enum-dasar', 'Catatan-catatan sebelumnya (generics, utility types, union & literal type) sama-sama cara merepresentasikan "pilihan terbatas" atau bentuk tipe yang fleksibel dengan cara yang berbeda-beda. **Masalah yang diselesaikan sekarang:** enum adalah alternatif lain — sekumpulan konstanta bernama yang dikelompokkan dalam satu namespace, umum dipakai di code base yang lebih bergaya OOP.
+
+Enum (*enumerations*) adalah fitur TypeScript yang memungkinkan pendefinisian sekumpulan konstanta bernama. Enum memudahkan representasi pilihan opsi yang terbatas dan tetap.
+
+```mermaid
+flowchart TD
+    subgraph NumericEnum ["Numeric Enum (Auto Increment)"]
+        D0["Direction.Up = 0"]
+        D1["Direction.Right = 1"]
+        D2["Direction.Down = 2"]
+        D3["Direction.Left = 3"]
+    end
+    subgraph StringEnum ["String Enum (Eksplisit)"]
+        S1["StatusPesanan.Pending = ''PENDING''"]
+        S2["StatusPesanan.Proses = ''PROSES''"]
+        S3["StatusPesanan.Selesai = ''SELESAI''"]
+    end
+```
+
+### 1. Numeric Enum (Enum Angka)
+Secara default, nilai enum dimulai dari `0` dan otomatis bertambah 1:
+
+```ts
+enum Arah {
+  Atas,    // 0
+  Kanan,   // 1
+  Bawah,   // 2
+  Kiri     // 3
+}
+
+let gerakan: Arah = Arah.Atas;
+console.log(gerakan); // Output: 0
+```
+
+Kita juga bisa menentukan nilai awal:
+```ts
+enum HttpStatus {
+  OK = 200,
+  BadRequest = 400,
+  NotFound = 404,
+  InternalServerError = 500
+}
+```
+
+### 2. String Enum (Direkomendasikan)
+String enum lebih mudah di-debug karena nilainya langsung terbaca saat di-log atau disimpan ke database:
+
+```ts
+enum PeranPengguna {
+  Admin = "ADMIN",
+  Editor = "EDITOR",
+  Viewer = "VIEWER"
+}
+
+function cekAkses(peran: PeranPengguna) {
+  if (peran === PeranPengguna.Admin) {
+    console.log("Akses penuh diberikan.");
+  }
+}
+
+cekAkses(PeranPengguna.Admin);
+```
+
+### Enum vs String Literal Union
+Dalam ekosistem TypeScript modern, ada perbandingan umum antara `enum` dan `union literal`:
+
+| Fitur | `enum` | `type Status = "a" \| "b"` |
+| --- | --- | --- |
+| Transpile Output | Menghasilkan kode JavaScript (object IIFE) | Hilang setelah transpile (0 runtime overhead) |
+| Import | Harus import nama enum-nya | Cukup gunakan string literal langsung |
+| Keterbacaan | Terkapsulasi rapi di namespace | Sangat ringkas dan idiomatis di React/Next.js |
+
+Gunakan **String Enum** saat membutuhkan namespace konstanta yang terstruktur, atau gunakan **Union Literal** untuk tipe opsi yang ringan dan sering dioper langsung.', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/enums.html","label":"TypeScript Handbook — Enums"}]'::jsonb, '[]'::jsonb, 'Buat `enum StatusTugas { Belum, Proses, Selesai }`, tulis fungsi yang menerima parameter bertipe `StatusTugas` dan mencetak pesan berbeda per status. Lalu tulis ULANG hal yang sama pakai union literal (`type StatusTugas = "belum" | "proses" | "selesai"`). Bandingkan: mana yang menurutmu lebih enak dibaca saat hover ke variabelnya di editor?', 7, 'published', '2026-09-18 09:02:40.232866+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('60dad8ac-549b-43dc-a673-78afd8cfe886', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Konfigurasi Penting tsconfig.json', 'tsconfig-dasar', 'Sepanjang roadmap ini, TypeScript sudah menjaga banyak kesalahan lewat compiler. **Masalah yang diselesaikan sekarang:** seberapa ketat pengecekannya, versi JavaScript apa yang dihasilkan, dan bagaimana `import` di-resolve — semua diatur di satu file: `tsconfig.json`. Ini catatan penutup roadmap, tentang mengonfigurasi compiler-nya sendiri, bukan lagi soal sintaks tipe.
+
+File `tsconfig.json` adalah file konfigurasi utama proyek TypeScript yang menentukan aturan kompilasi, target JavaScript, sistem modul, dan tingkat ketatnya pemeriksaan tipe (*type-checking*).
+
+```mermaid
+flowchart TD
+    Config["tsconfig.json"]
+    Config --> Comp["compilerOptions (Aturan Compiler)"]
+    Config --> Inc["include / exclude (Target File)"]
+
+    Comp --> C1["target: ''ES2022'' (Versi output JS)"]
+    Comp --> C2["module: ''ESNext'' (Sistem import/export)"]
+    Comp --> C3["strict: true (Keamanan tipe maksimal)"]
+    Comp --> C4["noEmit: true (Hanya cek tipe, tanpa build file .js)"]
+```
+
+### Contoh Konfigurasi Standar untuk Web Modern / Next.js
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+```
+
+### Opsi Compiler Paling Penting untuk Pemula
+
+| Opsi | Nilai Populer | Fungsi |
+| --- | --- | --- |
+| `strict` | `true` | Menyalakan semua aturan ketat TypeScript (termasuk `noImplicitAny`, `strictNullChecks`). Sangat direkomendasikan selalu `true`. |
+| `target` | `ES2020` / `ES2022` | Menentukan versi JavaScript hasil output kompilasi. |
+| `moduleResolution` | `node` / `bundler` | Menentukan bagaimana TypeScript mencari path module saat `import`. `bundler` standar untuk Vite/Next.js modern. |
+| `paths` | `{"@/*": ["./*"]}` | Alias path import agar tidak perlu menulis `../../components`. |
+| `noEmit` | `true` | Memberitahu TypeScript hanya melakukan *type checking* (biasanya bundler lain seperti Vite/Webpack/Next.js yang menghasilkan file JS-nya). |
+| `skipLibCheck` | `true` | Melewati pemeriksaan tipe di file `.d.ts` pihak ketiga (`node_modules`) agar proses kompilasi jauh lebih cepat. |
+
+Menjaga `strict: true` sejak awal proyek membantu mencegah bug seperti `null pointer exception` sebelum kode sampai ke produksi.', '[{"url":"https://www.typescriptlang.org/docs/handbook/tsconfig-json.html","label":"TypeScript Handbook — What is a tsconfig.json"},{"url":"https://www.typescriptlang.org/tsconfig","label":"TSConfig Reference Guide"}]'::jsonb, '[]'::jsonb, 'Buka `tsconfig.json` di sebuah project TypeScript/Next.js yang sudah kamu punya (dari roadmap Next.js kalau sudah dikerjakan). Cek apakah `strict` bernilai `true`. Kalau belum, set jadi `true`, lalu jalankan ulang type-check (`npx tsc --noEmit` atau `npm run build`) — lihat apakah muncul error baru yang sebelumnya lolos karena strict mode belum aktif. Ini menutup roadmap TypeScript: dari sintaks tipe sampai konfigurasi compiler-nya sendiri.', 8, 'published', '2026-09-18 09:02:40.632265+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('74c8b4b2-9b99-4bd6-a4cd-aa30d30961dc', 'b403e972-3cb3-4605-a6b6-bb0f2774b0f6', 'Data Fetching di Server Component', 'data-fetching-server-component', '**Masalah yang diselesaikan:** sekarang kamu tahu bedanya Server Component dan Client Component dari catatan sebelumnya — tapi bagaimana caranya Server Component itu benar-benar *mengambil* data (dari database atau API) sebelum dikirim jadi HTML? Cara lama di React murni: pakai `useEffect` + `useState`, yang berarti komponen dirender dulu dalam keadaan kosong/loading, baru data menyusul dan komponen dirender ulang — dan semua ini terjadi di browser (Client Component), bukan di server.
+
+Di Next.js App Router, Server Component dapat langsung mengambil data secara *asynchronous* (`async/await`) langsung di badan fungsi komponen tanpa perlu `useEffect` atau `useState`.
+
+```mermaid
+flowchart TD
+    Req["Request Halaman Masuk"] --> SC["Server Component: async function Page()"]
+    SC --> DB["Query Database / fetch() API Langsung"]
+    DB --> Render["Render HTML di Server"]
+    Render --> Client["Kirim HTML Ringan ke Browser"]
+```
+
+### 1. Mengambil Data Langsung dengan `fetch()`
+```tsx
+// app/produk/page.tsx
+interface Produk {
+  id: number;
+  nama: string;
+  harga: number;
+}
+
+async function getProduk(): Promise<Produk[]> {
+  const res = await fetch("https://api.example.com/produk", {
+    // Revalidasi data setiap 60 detik (Incremental Static Regeneration)
+    next: { revalidate: 60 }
+  });
+
+  if (!res.ok) throw new Error("Gagal mengambil data");
+  return res.json();
+}
+
+export default async function HalamanProduk() {
+  const daftarProduk = await getProduk();
+
+  return (
+    <div>
+      <h1 className="text-xl font-bold">Daftar Produk</h1>
+      <ul>
+        {daftarProduk.map((p) => (
+          <li key={p.id}>{p.nama} - Rp {p.harga.toLocaleString()}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+### 2. Opsi Caching pada `fetch()`
+
+| Konfigurasi | Perilaku Caching |
+| --- | --- |
+| `cache: ''force-cache''` | Data di-cache secara statis (default di versi Next.js sebelumnya). |
+| `cache: ''no-store''` | Dynamic data: selalu fetch data segar setiap request masuk. |
+| `next: { revalidate: 3600 }` | ISR: cache data selama 1 jam, lalu perbarui di background. |
+
+### Keuntungan Data Fetching di Server
+- **Keamanan:** Kredensial API key dan query database tetap berada di server, tidak bocor ke browser.
+- **Performa:** Mengurangi ukuran JavaScript bundle yang dikirimkan ke user.', '[{"url":"https://nextjs.org/docs/app/building-your-application/data-fetching/fetching","label":"Next.js Docs — Data Fetching and Caching"}]'::jsonb, '[]'::jsonb, 'Di halaman `app/produk/page.tsx` (buat baru kalau belum ada), praktikkan pola di atas dengan fetch data dari API publik gratis, misalnya `https://fakestoreapi.com/products`. Lalu:
+
+1. Buka DevTools tab Network dan cari request ke `fakestoreapi.com` — perhatikan request itu TIDAK muncul di sana. Itu karena fetch-nya terjadi di server, bukan di browser.
+2. Ubah komponennya jadi Client Component (`"use client"` + `useEffect`/`fetch`), lalu ulangi langkah 1 — sekarang request-nya baru muncul di Network tab browser. Bandingkan bedanya.', 5, 'published', '2026-09-18 09:12:02.691558+00', '2026-09-18 10:09:56.018828+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('efbe7383-7963-47f3-b4fa-e29208d058d7', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Pengenalan Ekosistem .NET & CLI Dasar', 'pengenalan-dotnet-dan-cli', '**Masalah yang diselesaikan:** sebelum .NET Core (2016 ke atas), .NET Framework hanya berjalan di Windows — sulit dipakai untuk deployment modern yang mengandalkan server Linux dan container Docker, yang jadi standar industri sekarang.
+
+.NET adalah platform pengembangan perangkat lunak open-source dan cross-platform dari Microsoft untuk membangun berbagai jenis aplikasi (web, mobile, desktop, cloud, hingga IoT).
+
+```mermaid
+flowchart TD
+    subgraph Ecosystem [".NET Ecosystem"]
+        Lang["Bahasa: C# / F# / VB.NET"]
+        Comp["Roslyn Compiler"]
+        IL["Intermediate Language (IL)"]
+        CLR["Common Language Runtime (CLR / CoreCLR)"]
+        OS["Sistem Operasi: Linux / Windows / macOS"]
+
+        Lang --> Comp --> IL --> CLR --> OS
+    end
+```
+
+### Perintah Dasar .NET CLI (`dotnet`)
+Untuk mengelola proyek berbasis .NET, kita menggunakan command-line tool `dotnet`:
+
+```bash
+# Cek versi SDK yang terpasang
+dotnet --version
+
+# Membuat proyek Console App baru
+dotnet new console -n HaloDunia
+cd HaloDunia
+
+# Menjalankan proyek
+dotnet run
+
+# Membangun (compile) kode
+dotnet build
+
+# Menambahkan package NuGet
+dotnet add package Newtonsoft.Json
+```
+
+### Struktur File Proyek .NET
+File `.csproj` (C# Project) berisi informasi SDK, target framework (.NET 8/9), dan dependensi:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
+```
+
+- **Runtime & SDK**: SDK digunakan untuk membangun dan menjalankan proyek, Runtime hanya untuk menjalankan aplikasi yang sudah di-compile.
+- **Cross-Platform**: Kode yang ditulis di C# dapat berjalan di Linux, macOS, dan Windows tanpa perubahan.', '[{"url":"https://learn.microsoft.com/en-us/dotnet/core/introduction","label":"Microsoft Learn — What is .NET?"},{"url":"https://learn.microsoft.com/en-us/dotnet/core/tools/","label":"Microsoft Learn — .NET CLI Overview"}]'::jsonb, '[{"url":"https://dotnet.microsoft.com/download","label":".NET SDK versi 8 atau lebih baru sudah terinstall (cek dengan `dotnet --version`)"},{"label":"Familiar dengan perintah dasar terminal/command line"}]'::jsonb, 'Jalankan `dotnet --version` untuk cek SDK yang terpasang. Buat console app baru (`dotnet new console -n HaloDunia`), masuk ke foldernya, jalankan (`dotnet run`) — harus muncul "Hello, World!". Lalu:
+
+1. Edit `Program.cs` supaya mencetak nama kamu sendiri, jalankan ulang.
+2. Jalankan `dotnet add package Newtonsoft.Json`, buka file `.csproj` — perhatikan baris `<PackageReference>` baru yang otomatis ditambahkan.', 0, 'published', '2026-09-18 09:10:06.40053+00', '2026-09-18 14:15:10.545682+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('6a0f63e4-abff-4062-8fd4-0ec910e37b84', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Struktur Program C# & Tipe Data Dasar', 'csharp-dasar-dan-tipe-data', 'Project .NET kamu dari catatan sebelumnya sudah bisa jalan. **Masalah yang diselesaikan sekarang:** bagaimana menulis kode C# yang sebenarnya? Dulu, C# selalu butuh boilerplate `class Program` dan method `Main` sebelum baris kode aplikasi pertama ditulis — sejak C# 9/10, *Top-Level Statements* menghilangkan boilerplate itu.
+
+C# adalah bahasa pemrograman berorientasi objek yang bertipe statis (*statically typed*) dan *type-safe*. Sejak C# 9/10, kita bisa menggunakan *Top-Level Statements* untuk menulis kode yang sangat ringkas tanpa boilerplate class `Program`.
+
+```mermaid
+flowchart TD
+    subgraph DataStructures ["Tipe Data di C#"]
+        V["Value Types (Disimpan di Stack)<br/>int, double, bool, char, struct"]
+        R["Reference Types (Disimpan di Heap)<br/>string, object, class, record, array"]
+    end
+```
+
+### 1. Contoh Program C# Sederhana (Top-Level Statements)
+```csharp
+// Program.cs
+string nama = "Budi";
+int umur = 25;
+double tinggiBadan = 172.5;
+bool isActive = true;
+
+Console.WriteLine($"Halo, nama saya {nama}, umur {umur} tahun.");
+```
+
+### 2. Tipe Data Primitif Populer
+
+| Tipe Data | Ukuran | Contoh Nilai | Keterangan |
+| --- | --- | --- | --- |
+| `int` | 32-bit | `42` | Bilangan bulat standar |
+| `long` | 64-bit | `3000000000L` | Bilangan bulat besar |
+| `double` | 64-bit | `3.14159` | Bilangan desimal presisi ganda |
+| `decimal` | 128-bit | `199.99m` | Sangat akurat untuk perhitungan uang / finansial |
+| `bool` | 8-bit | `true` / `false` | Nilai kebenaran boolean |
+| `string` | Variabel | `"Belajar .NET"` | Teks / karakter berurutan |
+
+### 3. Nullable Reference Types (`?`)
+Secara default pada .NET modern, compiler memperingatkan potensi nilai null (*null safety*):
+
+```csharp
+string? namaOpsional = null; // Boleh null karena ada tanda ''?''
+string namaWajib = "Ibnu";    // Tidak boleh null
+
+if (namaOpsional is not null)
+{
+    Console.WriteLine(namaOpsional.ToUpper());
+}
+```', '[{"url":"https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/types","label":"Microsoft Learn — C# Types & Variables"}]'::jsonb, '[]'::jsonb, 'Buat variabel bertipe `int`, `double`, `bool`, `string` seperti contoh di atas, cetak semuanya dalam satu baris pakai string interpolation (`$"..."`). Lalu coba deklarasikan `string? namaOpsional = null;` dan `string namaWajib = null;` — perhatikan warning/error yang muncul dari compiler soal nullable reference types pada baris kedua.', 1, 'published', '2026-09-18 09:10:07.031007+00', '2026-09-18 14:15:10.545682+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('24cf8200-890e-4c4e-9ff0-7c6b413bc514', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Class, Record, dan Objek di C#', 'csharp-class-dan-record', 'Catatan sebelumnya membahas tipe data untuk nilai tunggal. **Masalah yang diselesaikan sekarang:** bagaimana merepresentasikan data yang punya banyak properti terkait sekaligus (misalnya data mahasiswa: id, nama, jurusan) dan punya perilaku (method) yang menyertainya?
+
+C# mendukung Pemrograman Berorientasi Objek (OOP) dengan `class`, serta tipe data *immutable* modern yang ringkas menggunakan `record`.
+
+```mermaid
+classDiagram
+    class Mahasiswa {
+        +int Id
+        +string Nama
+        +string Jurusan
+        +Belajar() void
+    }
+    class ProdukRecord {
+        <<record>>
+        +string Kode
+        +decimal Harga
+    }
+```
+
+### 1. Membuat Class Biasa
+```csharp
+public class Mahasiswa
+{
+    // Auto-implemented Properties
+    public int Id { get; set; }
+    public string Nama { get; set; }
+    public string Jurusan { get; set; }
+
+    // Constructor
+    public Mahasiswa(int id, string nama, string jurusan)
+    {
+        Id = id;
+        Nama = nama;
+        Jurusan = jurusan;
+    }
+
+    public void Sapa()
+    {
+        Console.WriteLine($"Halo, saya {Nama} dari jurusan {Jurusan}.");
+    }
+}
+
+var mhs = new Mahasiswa(1, "Siti", "Informatika");
+mhs.Sapa();
+```
+
+### 2. Menggunakan `record` (Immutable Data Transfer Object)
+`record` sangat berguna untuk DTO (Data Transfer Object) karena otomatis memiliki *value-based equality* dan bersifat *immutable*:
+
+```csharp
+// Definisi ringkas satu baris (Positional Record)
+public record Produk(string Nama, decimal Harga);
+
+var p1 = new Produk("Laptop", 12000000m);
+var p2 = new Produk("Laptop", 12000000m);
+
+// Value Equality: membandingkan isi nilai, bukan alamat memori
+Console.WriteLine(p1 == p2); // Output: True
+
+// Non-destructive Mutation dengan keyword ''with''
+var p3 = p1 with { Harga = 11500000m };
+Console.WriteLine($"Harga diskon: {p3.Harga}");
+```
+
+- Gunakan **`class`** saat object memiliki *state* yang sering berubah (mutable) dan memiliki logika bisnis yang kompleks.
+- Gunakan **`record`** untuk model data murni / DTO / response API yang tidak berubah.', '[{"url":"https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes","label":"Microsoft Learn — Classes and Records in C#"}]'::jsonb, '[]'::jsonb, 'Buat `class Produk` dengan properti `Nama` & `Harga` plus method `TampilkanInfo()`. Lalu buat versi `record` untuk data yang sama. Buat dua instance `record` dengan nilai identik, bandingkan dengan `==` (harus `True` karena value equality) — lalu coba hal yang sama dengan dua instance `class` biasa yang nilainya identik (harus `False`, karena class memakai reference equality secara default).', 2, 'published', '2026-09-18 09:10:07.854175+00', '2026-09-18 14:15:10.545682+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b2db3207-3f34-46e9-873f-e4e0043d8e86', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Dependency Injection (DI) Dasar di .NET', 'dotnet-dependency-injection', 'Sekarang kamu bisa bikin class dan object di C#. **Masalah yang diselesaikan sekarang:** kalau satu class butuh instance dari class lain (misalnya `NotifikasiManager` butuh `EmailService` untuk mengirim email), cara paling naif adalah `new EmailService()` langsung di dalam `NotifikasiManager`. Ini membuat kedua class jadi kaku (*tightly coupled*) — susah dites (tidak bisa diganti versi palsu/mock saat testing) dan susah diganti implementasinya (misal ganti dari email ke SMS).
+
+Dependency Injection (DI) adalah pola desain (*design pattern*) bawaan di .NET untuk mencapai *Inversion of Control* (IoC), di mana ketergantungan antar kelas diatur oleh framework (*Service Container*) alih-alih di-instansiasi manual (`new`).
+
+```mermaid
+flowchart TD
+    subgraph Container ["IoC Service Container"]
+        Reg["Daftarkan: builder.Services.AddScoped&lt;IPembayaran, TransferBank&gt;()"]
+    end
+
+    Req["Request Masuk / Controller"] --> Inject["Injeksi otomatis lewat Constructor"]
+    Container -.->|Menyediakan instance| Inject
+    Inject --> App["PesananService(IPembayaran pembayaran)"]
+```
+
+### 3 Macam Service Lifetime di .NET
+
+| Lifetime | Method Registrasi | Karakteristik Siklus Hidup |
+| --- | --- | --- |
+| **Transient** | `AddTransient<T>()` | Instance baru dibuat **setiap kali** diminta (cocok untuk service ringan tanpa state). |
+| **Scoped** | `AddScoped<T>()` | Satu instance dibuat **per HTTP Request** (standar untuk database context seperti Entity Framework). |
+| **Singleton** | `AddSingleton<T>()` | Hanya ada **satu instance** selama aplikasi berjalan (cocok untuk caching global / configuration). |
+
+### Contoh Penggunaan Constructor Injection
+```csharp
+// 1. Interface kontrak
+public interface IEmailService
+{
+    void KirimEmail(string tujuan, string pesan);
+}
+
+// 2. Implementasi
+public class EmailService : IEmailService
+{
+    public void KirimEmail(string tujuan, string pesan)
+    {
+        Console.WriteLine($"Mengirim email ke {tujuan}: {pesan}");
+    }
+}
+
+// 3. Konsumen Service (Injeksi lewat Constructor)
+public class NotifikasiManager
+{
+    private readonly IEmailService _emailService;
+
+    public NotifikasiManager(IEmailService emailService)
+    {
+        _emailService = emailService;
+    }
+
+    public void BeritahuUser(string email)
+    {
+        _emailService.KirimEmail(email, "Selamat datang di sistem!");
+    }
+}
+```
+
+### Registrasi di `Program.cs`:
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Mendaftarkan service ke IoC container
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<NotifikasiManager>();
+
+var app = builder.Build();
+```', '[{"url":"https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection","label":"Microsoft Learn — Dependency Injection in .NET"}]'::jsonb, '[]'::jsonb, 'Ikuti contoh `IEmailService`/`EmailService`/`NotifikasiManager` di atas dalam satu console app (tambahkan package `Microsoft.Extensions.DependencyInjection` kalau bukan project web). Daftarkan service-nya, lalu ambil `NotifikasiManager` dari container dan panggil `BeritahuUser`. Setelah jalan, buat implementasi KEDUA dari `IEmailService` (misal `ConsoleLogEmailService` yang cuma print ke console), ganti registrasinya ke implementasi baru itu — perhatikan kode `NotifikasiManager` tidak perlu diubah sama sekali.', 3, 'published', '2026-09-18 09:10:08.401481+00', '2026-09-18 14:15:10.545682+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('9df8efbe-fb1d-491b-a3ca-621be4df2d94', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Membangun REST API dengan ASP.NET Core Minimal API', 'aspnet-core-minimal-api', 'Sekarang kamu paham Dependency Injection, yang jadi tulang punggung ASP.NET Core. **Masalah yang diselesaikan sekarang:** bagaimana mengekspos logic yang sudah kamu bangun jadi HTTP endpoint yang bisa diakses aplikasi lain (mobile app, frontend web)? Sebelum Minimal API, ASP.NET Core butuh struktur controller yang cukup verbose untuk API sederhana.
+
+Minimal API adalah pendekatan modern dan efisien di ASP.NET Core untuk membangun endpoint HTTP / REST API dengan kode yang sangat ringkas tanpa membutuhkan controller yang kompleks.
+
+```mermaid
+flowchart LR
+    Client["Client / Frontend"] -->|GET /api/todos| Route["app.MapGet()"]
+    Client -->|POST /api/todos| PostRoute["app.MapPost()"]
+
+    Route --> JSON["Return JSON Response"]
+    PostRoute --> Status["Return Results.Created()"]
+```
+
+### Contoh Lengkap CRUD Minimal API di `Program.cs`
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+// Dummy in-memory database
+var todos = new List<TodoItem>
+{
+    new(1, "Belajar .NET Dasar", true),
+    new(2, "Membangun REST API", false)
+};
+
+// GET: Semua items
+app.MapGet("/api/todos", () => Results.Ok(todos));
+
+// GET: Berdasarkan ID
+app.MapGet("/api/todos/{id:int}", (int id) =>
+{
+    var item = todos.FirstOrDefault(t => t.Id == id);
+    return item is not null ? Results.Ok(item) : Results.NotFound();
+});
+
+// POST: Tambah baru
+app.MapPost("/api/todos", (TodoItem input) =>
+{
+    todos.Add(input);
+    return Results.Created($"/api/todos/{input.Id}", input);
+});
+
+// DELETE: Hapus item
+app.MapDelete("/api/todos/{id:int}", (int id) =>
+{
+    var item = todos.FirstOrDefault(t => t.Id == id);
+    if (item is null) return Results.NotFound();
+
+    todos.Remove(item);
+    return Results.NoContent();
+});
+
+app.Run();
+
+public record TodoItem(int Id, string Judul, bool Selesai);
+```
+
+### Keunggulan Minimal API
+- **Performa Tinggi**: Mengurangi *overhead* refleksi controller tradisional.
+- **Sintaks Ringkas**: Struktur file tunggal memudahkan pembuatan microservice atau service kecil.
+- **Dukungan OpenAPI / Swagger**: Cukup tambahkan `app.UseSwagger()` untuk dokumentasi interaktif otomatis.', '[{"url":"https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis","label":"Microsoft Learn — Minimal APIs Overview"}]'::jsonb, '[]'::jsonb, 'Buat project baru dengan `dotnet new web -n TodoApi`. Salin contoh CRUD Minimal API di atas ke `Program.cs`. Jalankan (`dotnet run`), lalu tes tiap endpoint (GET semua, GET by id, POST tambah baru, DELETE) lewat browser (untuk GET) atau tool seperti curl/Postman (untuk POST/DELETE). Simpan project ini — catatan berikutnya akan menyambungkannya ke database beneran lewat Entity Framework Core.', 4, 'published', '2026-09-18 09:10:09.064478+00', '2026-09-19 00:43:19.702546+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('64bbc713-65a6-4437-88a6-c932db08af4d', '5f927683-b6aa-425e-9b06-82fe47703e2f', 'Entity Framework Core Dasar: Akses Database', 'efcore-dasar', 'Minimal API dari catatan sebelumnya sudah bisa menerima request dan balas response, tapi datanya cuma `List<TodoItem>` di memori — hilang total tiap aplikasi di-restart. **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana menyimpan data ke database beneran yang bertahan lintas restart, tanpa menulis SQL mentah satu per satu untuk tiap operasi CRUD?
+
+**Entity Framework Core (EF Core)** adalah ORM (*Object-Relational Mapper*) resmi dari Microsoft — class C# biasa dipetakan otomatis jadi tabel database, query ditulis pakai LINQ (C#) bukan string SQL.
+
+```mermaid
+flowchart TD
+    Model["Class C# (Entity)<br/>public class Todo { ... }"] --> Ctx["DbContext<br/>DbSet&lt;Todo&gt; Todos"]
+    Ctx -->|"dotnet ef migrations add"| Migration["File Migration (C#)"]
+    Migration -->|"dotnet ef database update"| DB[("Database (SQLite/Postgres/dst)")]
+    Ctx -->|"LINQ: ToListAsync(), Add(), SaveChangesAsync()"| DB
+```
+
+### 1. Definisikan Entity & DbContext
+EF Core butuh dua hal: class yang merepresentasikan tabel (*entity*), dan `DbContext` yang jadi jembatan ke database. Karena EF Core perlu melacak perubahan nilai propertinya, di sini kita pakai `class` biasa (bukan `record` seperti `TodoItem` di catatan sebelumnya):
+
+```csharp
+// Entity — dipetakan jadi tabel "Todos"
+public class Todo
+{
+    public int Id { get; set; }
+    public string Judul { get; set; } = "";
+    public bool Selesai { get; set; }
+}
+
+// DbContext — jembatan ke database
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    public DbSet<Todo> Todos => Set<Todo>();
+}
+```
+
+### 2. Registrasi & Migration
+```bash
+# Install package (SQLite dipilih karena tidak butuh server database terpisah)
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet tool install --global dotnet-ef
+
+# Buat migration pertama dari model di atas
+dotnet ef migrations add InitialCreate
+
+# Terapkan migration ke database (bikin file todos.db)
+dotnet ef database update
+```
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Daftarkan DbContext ke DI container (Scoped secara default — 1 instance per request)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite("Data Source=todos.db"));
+
+var app = builder.Build();
+```
+
+### 3. CRUD Lewat EF Core (Ganti List In-Memory)
+Endpoint dari catatan sebelumnya sekarang menerima `AppDbContext` lewat DI, bukan lagi baca/tulis ke `List` statis:
+
+```csharp
+app.MapGet("/api/todos", async (AppDbContext db) =>
+    Results.Ok(await db.Todos.ToListAsync()));
+
+app.MapGet("/api/todos/{id:int}", async (int id, AppDbContext db) =>
+    await db.Todos.FindAsync(id) is Todo todo ? Results.Ok(todo) : Results.NotFound());
+
+app.MapPost("/api/todos", async (Todo input, AppDbContext db) =>
+{
+    db.Todos.Add(input);
+    await db.SaveChangesAsync();
+    return Results.Created($"/api/todos/{input.Id}", input);
+});
+
+app.MapDelete("/api/todos/{id:int}", async (int id, AppDbContext db) =>
+{
+    var todo = await db.Todos.FindAsync(id);
+    if (todo is null) return Results.NotFound();
+
+    db.Todos.Remove(todo);
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+});
+```
+
+| Operasi | Method EF Core | Catatan |
+| --- | --- | --- |
+| Baca semua | `ToListAsync()` | Query dieksekusi ke database saat method ini dipanggil, bukan saat `db.Todos` ditulis (*deferred execution*). |
+| Baca satu by key | `FindAsync(id)` | Cek dulu di memori (*change tracker*) sebelum query ke database. |
+| Tambah | `Add()` + `SaveChangesAsync()` | `Add()` cuma menandai di memori — perubahan baru benar-benar ditulis ke database saat `SaveChangesAsync()` dipanggil. |
+| Hapus | `Remove()` + `SaveChangesAsync()` | Sama seperti `Add()` — perlu `SaveChangesAsync()` untuk commit. |
+
+Poin penting:
+
+- `SaveChangesAsync()` membungkus semua perubahan (`Add`/`Remove`/edit properti) dalam satu transaksi — kalau ada yang gagal, semuanya di-rollback.
+- Migration adalah riwayat perubahan skema (file C# yang di-generate otomatis) — tiap kali entity berubah (nambah properti baru, dst), jalankan `dotnet ef migrations add <NamaPerubahan>` lagi lalu `dotnet ef database update`.
+- SQLite dipakai di sini karena paling sederhana untuk belajar (satu file `.db`, tanpa install server) — provider lain (`Npgsql.EntityFrameworkCore.PostgreSQL` untuk Postgres, dst) dipakai dengan pola yang sama persis, cuma beda `UseSqlite` jadi `UseNpgsql`.', '[{"url":"https://learn.microsoft.com/en-us/ef/core/","label":"Microsoft Learn — Entity Framework Core"},{"url":"https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli","label":"Microsoft Learn — EF Core Get Started"}]'::jsonb, '[]'::jsonb, 'Lanjutkan project `TodoApi` dari catatan sebelumnya. Ganti `List<TodoItem>` in-memory dengan `AppDbContext` + SQLite seperti contoh di atas (termasuk jalankan migration-nya). Jalankan API, tambah beberapa todo lewat POST, lalu STOP aplikasinya (Ctrl+C) dan jalankan ulang (`dotnet run`) — panggil GET /api/todos lagi dan buktikan data yang kamu tambahkan sebelumnya masih ada (tidak hilang seperti versi in-memory yang direset tiap restart). Ini menutup roadmap .NET: dari CLI dasar sampai REST API yang datanya beneran tersimpan permanen.', 5, 'published', '2026-09-19 00:43:19.702546+00', '2026-09-19 00:43:19.702546+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('51f1d96f-9451-41b9-a550-5eff238ea4af', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Type Assertion Dasar', 'type-assertion-dasar', 'Type narrowing di catatan sebelumnya membiarkan TypeScript menyimpulkan tipe lewat pengecekan runtime (`typeof`, `instanceof`, dst). **Masalah yang diselesaikan sekarang:** kadang KAMU tahu tipe sebenarnya dari sebuah nilai lebih pasti daripada yang bisa disimpulkan compiler — misalnya hasil `document.getElementById()` yang TypeScript anggap `HTMLElement | null`, padahal kamu yakin elemen itu selalu ada dan bertipe `HTMLInputElement` spesifik.
+
+**Type assertion** membiarkan kamu memberi tahu compiler tentang tipe suatu nilai secara manual — TANPA pengecekan runtime seperti narrowing. Ini paradigma yang sepenuhnya berbeda: narrowing itu compiler *memverifikasi*, assertion itu kamu yang *berjanji* (dan compiler percaya begitu saja).
+
+```mermaid
+flowchart LR
+  subgraph Narrowing["Type Narrowing (aman)"]
+    N1["if (typeof x === ''string'')"] --> N2["Compiler VERIFIKASI saat runtime"]
+  end
+  subgraph Assertion["Type Assertion (janji developer)"]
+    A1["x as string"] --> A2["Compiler PERCAYA tanpa verifikasi"]
+    A2 -.->|"Kalau salah"| A3["Runtime Error!"]
+  end
+```
+
+```ts
+// Syntax "as" (direkomendasikan, wajib di file .tsx karena <> bentrok dengan JSX)
+const input = document.getElementById("username") as HTMLInputElement;
+input.value = "Budi"; // valid — TypeScript percaya ini HTMLInputElement
+
+// Non-null assertion (!) — bilang "aku yakin ini bukan null/undefined"
+const app = document.getElementById("app")!;
+app.innerHTML = "Halo"; // tanpa "!", TypeScript akan komplain "app mungkin null"
+
+// Assertion yang SALAH tetap lolos compile — bahaya baru terasa saat runtime
+const angka = "123" as unknown as number;
+console.log(angka.toFixed(2)); // compile OK, tapi runtime ERROR (angka aslinya string)
+```
+
+Poin penting:
+
+- Assertion cuma memengaruhi apa yang compiler *percaya*, bukan mengubah nilai aslinya saat runtime — kalau assertion-nya salah, error baru muncul belakangan saat kode itu benar-benar dijalankan.
+- Pakai assertion secukupnya, di tempat yang benar-benar kamu yakin (DOM, hasil `JSON.parse()`, atau data dari API yang sudah divalidasi) — bukan sebagai jalan pintas untuk mengabaikan error tipe yang sebenarnya valid.
+- `as unknown as T` (double assertion) dipakai kalau dua tipe dianggap TypeScript "tidak cukup mirip" untuk di-assert langsung — tanda bahwa perlu dipikir ulang, bukan dipakai sembarangan.', '[{"url":"https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions","label":"TypeScript Handbook — Type Assertions"}]'::jsonb, '[]'::jsonb, 'Di kode yang berinteraksi dengan DOM (`document.getElementById(...)`), gunakan `as HTMLInputElement` untuk memberi tahu compiler elemen itu pasti input, lalu akses `.value`-nya. Setelah itu, SENGAJA buat assertion yang salah — misalnya `const x = "halo" as unknown as number` — lalu panggil `x.toFixed(2)`. Perhatikan: TypeScript TIDAK menangkap errornya saat compile (tidak seperti kalau kamu pakai narrowing), tapi kalau kode itu dijalankan sungguhan akan error runtime. Ini membuktikan bedanya "compiler percaya" (assertion) vs "compiler memverifikasi" (narrowing).', 4, 'published', '2026-09-18 23:46:50.864953+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('baab1811-b1aa-4eba-863f-5c566e0d3f07', 'ea6a08d0-0af9-435b-88f7-ff6e196be052', 'Utility Types Dasar', 'utility-types-dasar', 'Sekarang kamu paham generics — parameter tipe yang bisa diisi apa saja. TypeScript sendiri memakai generics secara internal untuk menyediakan **Utility Types**: tipe siap pakai yang memanipulasi tipe lain tanpa kamu perlu menulis ulang strukturnya dari nol. **Masalah yang diselesaikan:** sering kali kamu butuh VARIASI dari satu tipe yang sudah ada — misalnya tipe yang sama tapi semua propertinya opsional (untuk form update parsial), atau cuma sebagian properti saja (untuk preview card) — menulis interface baru dari nol untuk tiap variasi itu duplikatif dan gampang tidak sinkron kalau tipe aslinya berubah.
+
+```mermaid
+flowchart TD
+  Produk["interface Produk<br/>{ id, nama, harga, deskripsi }"] --> Partial["Partial&lt;Produk&gt;<br/>semua opsional"]
+  Produk --> Pick["Pick&lt;Produk, ''id''|''nama''&gt;<br/>cuma sebagian"]
+  Produk --> Omit["Omit&lt;Produk, ''id''&gt;<br/>tanpa sebagian"]
+  Produk --> Record["Record&lt;string, number&gt;<br/>key-value custom"]
+```
+
+```ts
+interface Produk {
+  id: number;
+  nama: string;
+  harga: number;
+  deskripsi: string;
+}
+
+// Partial<T> — semua properti jadi opsional (cocok untuk update parsial/PATCH)
+type ProdukUpdate = Partial<Produk>;
+const update: ProdukUpdate = { harga: 60000 }; // valid, field lain boleh tidak diisi
+
+// Pick<T, K> — ambil beberapa properti saja
+type ProdukPreview = Pick<Produk, "id" | "nama" | "harga">;
+const preview: ProdukPreview = { id: 1, nama: "Buku", harga: 50000 };
+
+// Omit<T, K> — buang beberapa properti
+type ProdukTanpaDeskripsi = Omit<Produk, "deskripsi">;
+
+// Record<K, T> — bikin object type dengan key & value tertentu
+type DaftarHarga = Record<string, number>;
+const harga: DaftarHarga = { "produk-1": 10000, "produk-2": 25000 };
+```
+
+| Utility Type | Fungsi | Contoh Use Case |
+| --- | --- | --- |
+| `Partial<T>` | Semua properti opsional | Body request `PATCH` (update parsial) |
+| `Required<T>` | Semua properti wajib (kebalikan `Partial`) | Validasi sebelum data disimpan ke database |
+| `Pick<T, K>` | Ambil sebagian properti | Data preview/card ringkas |
+| `Omit<T, K>` | Buang sebagian properti | Hilangkan field sensitif dari response API |
+| `Record<K, T>` | Object dengan key & value tertentu | Mapping/lookup table |
+
+Poin penting:
+
+- Semua utility type ini bawaan TypeScript (*global*), tidak perlu di-`import` dari mana pun.
+- `Pick`/`Omit` tidak membuat properti yang tersisa jadi opsional — kalau properti itu wajib di tipe asli, tetap wajib di hasil `Pick`/`Omit`.
+- Utility type bisa dikombinasikan, mis. `Partial<Pick<Produk, "harga" | "deskripsi">>` untuk "sebagian properti, dan itu pun opsional".', '[{"url":"https://www.typescriptlang.org/docs/handbook/utility-types.html","label":"TypeScript Handbook — Utility Types"}]'::jsonb, '[]'::jsonb, 'Dari `interface Produk` di atas (atau buat versi kamu sendiri), buat 4 variasi tipe: `ProdukUpdate` (`Partial`), `ProdukPreview` (`Pick` id+nama), `ProdukTanpaHarga` (`Omit`), dan `DaftarStok` (`Record<string, number>` memetakan nama produk ke jumlah stoknya). Isi masing-masing dengan data valid. Lalu SENGAJA hilangkan satu field wajib di `ProdukPreview` — pastikan compiler menolaknya, membuktikan `Pick` tidak membuat field jadi opsional, cuma memilih subset dari tipe aslinya.', 6, 'published', '2026-09-18 23:46:50.864953+00', '2026-09-18 23:46:50.864953+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('e55690f6-12cc-415f-8c52-ff154e3ca548', '4e1efab5-9672-4b24-bdd9-5951a9a18a9d', 'Pengenalan Ansible & Instalasi', 'pengenalan-ansible-dan-instalasi', '**Masalah yang diselesaikan:** kalau kamu punya 20 server yang butuh package sama ter-install dan config sama ter-apply, cara manual (SSH satu-satu, jalankan command yang sama berulang) itu lambat dan rawan salah — gampang lupa jalankan di satu server, atau versi command yang dijalankan sedikit beda tanpa sadar, sehingga tiap server jadi tidak identik lagi (*configuration drift*).
+
+**Ansible** adalah tool otomasi IT yang bersifat *agentless* — tidak perlu install software tambahan apa pun di server yang dikelola (*managed node*), cukup akses SSH dan Python sudah terinstall di sana (biasanya sudah ada secara default di distro Linux modern). Konfigurasi didefinisikan secara *declarative* dalam YAML: kamu bilang *state* seperti apa yang diinginkan ("nginx harus ter-install dan running"), bukan langkah-langkah imperatif ("jalankan apt install, lalu systemctl start").
+
+```mermaid
+flowchart LR
+  subgraph Control["Control Node (komputer kamu)"]
+    Ansible["Ansible + Inventory + Playbook"]
+  end
+
+  Ansible -->|SSH| S1["Managed Node 1"]
+  Ansible -->|SSH| S2["Managed Node 2"]
+  Ansible -->|SSH| S3["Managed Node 3"]
+```
+
+Tidak ada agent/daemon yang jalan terus-menerus di managed node — Ansible cuma "mampir" lewat SSH saat dijalankan, mengeksekusi task-nya, lalu selesai.
+
+### Instalasi (di Control Node)
+```bash
+# Lewat pip (disarankan, cross-platform)
+python3 -m pip install --user ansible
+
+# Atau lewat package manager (Ubuntu/Debian)
+sudo apt update && sudo apt install ansible -y
+
+# Cek versi terinstall
+ansible --version
+```
+
+### Tes Koneksi Pertama
+Modul `ping` (bukan ICMP ping biasa) memastikan Ansible bisa connect & menjalankan Python di target:
+
+```bash
+# Tes ke localhost (mesin kamu sendiri) tanpa perlu server lain dulu
+ansible localhost -m ping
+```
+
+Kalau berhasil, akan muncul respons `"ping": "pong"` — tandanya Ansible siap dipakai untuk mengelola server sungguhan.
+
+Poin penting:
+
+- *Agentless* berarti tidak ada proses tambahan yang jalan di background managed node — bedanya dengan tool seperti Puppet/Chef yang butuh agent ter-install permanen di tiap server.
+- *Idempotent* adalah sifat penting Ansible: menjalankan playbook yang sama berkali-kali menghasilkan state akhir yang sama, tidak menduplikasi efek (misalnya, "pastikan package X ter-install" tidak akan error atau install ulang kalau X sudah ada).
+- Managed node cukup punya Python terinstall (untuk generasi modern Ansible tidak lagi butuh Python di control node vs managed node versi tertentu — cek dokumentasi kalau target-nya sistem lama).', '[{"url":"https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html","label":"Ansible Docs — Installation Guide"},{"url":"https://docs.ansible.com/ansible/latest/getting_started/index.html","label":"Ansible Docs — Getting Started"}]'::jsonb, '[{"url":"https://www.python.org/downloads/","label":"Python 3 sudah terinstall di control node"},{"label":"Familiar dengan command line/terminal dan SSH dasar"},{"label":"Minimal satu mesin Linux untuk dipraktikkan (VM lokal seperti VirtualBox/Vagrant, atau VPS murah) — kalau belum ada, catatan ini tetap bisa dipraktikkan ke localhost"}]'::jsonb, 'Install Ansible lewat `pip` atau package manager sesuai OS kamu, lalu cek dengan `ansible --version`. Jalankan `ansible localhost -m ping` — pastikan hasilnya `"pong"`. Kalau kamu punya akses SSH ke server lain (VM lokal atau VPS), coba juga `ansible <ip-server> -m ping -u <username> --private-key <path-ke-ssh-key>` untuk membuktikan Ansible bisa connect ke server sungguhan, bukan cuma localhost.', 0, 'published', '2026-09-19 10:15:28.833636+00', '2026-09-19 10:15:28.833636+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('58917e0f-5f5b-414a-828f-48ee18a15c3f', '4e1efab5-9672-4b24-bdd9-5951a9a18a9d', 'Inventory & Ad-Hoc Command', 'inventory-dan-ad-hoc-command', 'Ansible sekarang sudah terinstall dan bisa connect ke `localhost` (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau server yang dikelola ada belasan atau ratusan, menulis alamat IP/hostname-nya satu-satu di command itu tidak praktis — dan gimana caranya mengelompokkan server berdasarkan perannya (web server vs database server) supaya bisa ditarget terpisah?
+
+**Inventory** adalah daftar server yang dikelola Ansible, dikelompokkan jadi *groups*. Bentuk paling sederhana adalah file teks format INI:
+
+```ini
+# inventory.ini
+[webservers]
+web1.contoh.com
+web2.contoh.com ansible_host=192.168.1.20
+
+[dbservers]
+db1.contoh.com
+
+# Grup bisa berisi grup lain
+[semua_server:children]
+webservers
+dbservers
+```
+
+```mermaid
+flowchart TD
+  Inv["inventory.ini"] --> WS["Group: webservers<br/>(web1, web2)"]
+  Inv --> DB["Group: dbservers<br/>(db1)"]
+  WS --> Cmd["ansible webservers -m ..."]
+  DB --> Cmd2["ansible dbservers -m ..."]
+```
+
+### Ad-Hoc Command
+Command satu-baris untuk menjalankan satu task cepat ke sekelompok server, tanpa perlu menulis playbook dulu — cocok untuk pengecekan cepat, bukan otomasi berulang (untuk itu, lihat catatan berikutnya soal playbook):
+
+```bash
+# Ping semua server di grup webservers
+ansible webservers -i inventory.ini -m ping
+
+# Install nginx di semua webservers (--become = jalankan sebagai sudo)
+ansible webservers -i inventory.ini -m apt -a "name=nginx state=present" --become
+
+# Jalankan command shell mentah di semua server
+ansible semua_server -i inventory.ini -m shell -a "df -h"
+
+# Lihat daftar modul yang tersedia
+ansible-doc -l
+```
+
+| Modul | Fungsi |
+| --- | --- |
+| `ping` | Tes koneksi & Python di target |
+| `command` / `shell` | Jalankan command mentah (`shell` mendukung pipe `|`/redirect, `command` tidak — lebih aman) |
+| `apt` / `yum` | Install/hapus package (tergantung distro Linux) |
+| `copy` | Salin file dari control node ke managed node |
+| `service` | Start/stop/restart service |
+
+Poin penting:
+
+- `-i inventory.ini` menunjuk file inventory yang dipakai — bisa juga di-skip kalau sudah dikonfigurasi sebagai default di `ansible.cfg`.
+- Ad-hoc command bagus untuk tugas sekali-jalan/pengecekan cepat, tapi tidak tersimpan sebagai kode yang bisa di-review atau dijalankan ulang secara konsisten — untuk itu perlu playbook.
+- `--become` diperlukan kalau task butuh privilege root (setara `sudo`) di managed node.', '[{"url":"https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html","label":"Ansible Docs — How to Build Your Inventory"}]'::jsonb, '[]'::jsonb, 'Buat file `inventory.ini` dengan satu grup berisi `localhost ansible_connection=local` (supaya tidak perlu SSH ke server lain dulu). Jalankan `ansible <nama_grup> -i inventory.ini -m ping` — harus berhasil. Coba modul lain: `ansible <nama_grup> -i inventory.ini -m shell -a "uname -a"` untuk lihat info sistem. Kalau kamu punya server lain, tambahkan sebagai grup kedua dan coba target masing-masing grup secara terpisah.', 1, 'published', '2026-09-19 10:15:28.833636+00', '2026-09-19 10:15:28.833636+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('60ef703d-df1c-40a7-99df-b64e8f32bd33', '4e1efab5-9672-4b24-bdd9-5951a9a18a9d', 'Playbook Dasar', 'playbook-dasar', 'Ad-hoc command dari catatan sebelumnya bagus untuk tugas sekali-jalan, tapi tidak tersimpan sebagai kode. **Masalah yang diselesaikan sekarang:** bagaimana menyimpan serangkaian langkah konfigurasi (install package, copy config, restart service) supaya bisa di-*review*, disimpan di Git, dan dijalankan ulang secara konsisten kapan saja — persis seperti *Infrastructure as Code*?
+
+**Playbook** adalah file YAML berisi daftar *task* yang dijalankan berurutan ke host/grup target.
+
+```mermaid
+flowchart TD
+  PB["Playbook (site.yml)"] --> H["hosts: webservers"]
+  H --> T1["Task 1: Install nginx"]
+  T1 --> T2["Task 2: Copy file konfigurasi"]
+  T2 --> T3["Task 3: Pastikan service running"]
+```
+
+```yaml
+# site.yml
+---
+- name: Setup web server dasar
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Pastikan nginx running dan enabled saat boot
+      service:
+        name: nginx
+        state: started
+        enabled: true
+```
+
+```bash
+# Menjalankan playbook
+ansible-playbook -i inventory.ini site.yml
+```
+
+### Idempotency: Jalankan Dua Kali
+Ini yang membedakan playbook dari sekadar script shell — jalankan `ansible-playbook` yang sama dua kali:
+
+- **Run pertama**: task menunjukkan status `changed` (nginx baru diinstall, service baru distart).
+- **Run kedua**: task menunjukkan status `ok` (bukan `changed`) — karena nginx sudah ter-install dan sudah running, Ansible tidak melakukan apa-apa lagi. Tidak ada efek samping dari menjalankannya berulang.
+
+Poin penting:
+
+- `hosts:` menentukan grup/host mana dari inventory yang jadi target playbook ini.
+- `become: true` setara `--become` di ad-hoc command — jalankan task sebagai root/sudo.
+- Setiap task idealnya punya `name:` deskriptif — ini yang muncul di output saat playbook dijalankan, memudahkan membaca log.
+- `state: present`/`started` mendeklarasikan *state* yang diinginkan, bukan perintah imperatif — inilah yang membuat Ansible idempotent.', '[{"url":"https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html","label":"Ansible Docs — Playbooks Intro"}]'::jsonb, '[]'::jsonb, 'Tulis `site.yml` seperti contoh di atas (ganti `nginx` dengan package lain kalau perlu, mis. `apache2`). Jalankan `ansible-playbook -i inventory.ini site.yml` — perhatikan tiap task berstatus `changed` di run pertama. Jalankan PERSIS command yang sama sekali lagi tanpa mengubah apa pun — buktikan semua task sekarang berstatus `ok`, bukan `changed`. Ini membuktikan sifat idempotent Ansible: menjalankan konfigurasi yang sama berkali-kali aman, tidak menduplikasi efek.', 2, 'published', '2026-09-19 10:15:28.833636+00', '2026-09-19 10:15:28.833636+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('7409fa85-8c27-46e9-960c-95e38c5c943d', '4e1efab5-9672-4b24-bdd9-5951a9a18a9d', 'Variables & Jinja2 Templating', 'variables-dan-jinja2-templating', 'Playbook dari catatan sebelumnya sudah menginstall & menjalankan nginx, tapi semua nilainya hardcoded langsung di YAML. **Masalah yang diselesaikan sekarang:** bagaimana kalau port atau nama domain yang dipakai beda antara environment *staging* dan *production*? Menulis playbook terpisah untuk tiap environment itu duplikatif dan gampang tidak sinkron kalau salah satu diubah tapi yang lain lupa.
+
+**Variables** menyimpan nilai yang bisa berbeda per host/environment, dirujuk lewat sintaks **Jinja2** (`{{ nama_variabel }}`) di playbook maupun di file template.
+
+```mermaid
+flowchart LR
+  Var["Variable<br/>server_port: 8080"] --> Tmpl["Template .j2<br/>listen {{ server_port }};"]
+  Tmpl -->|"module: template"| File["File hasil di managed node<br/>listen 8080;"]
+```
+
+### Mendefinisikan Variables
+```yaml
+# site.yml
+---
+- name: Setup web server dengan port kustom
+  hosts: webservers
+  become: true
+  vars:
+    server_port: 8080
+    server_name: "contoh.local"
+
+  tasks:
+    - name: Deploy konfigurasi nginx dari template
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/default
+      notify: Restart nginx
+
+  handlers:
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+```
+
+### Template Jinja2
+```text
+# templates/nginx.conf.j2
+server {
+    listen {{ server_port }};
+    server_name {{ server_name }};
+
+    location / {
+        root /var/www/html;
+    }
+}
+```
+
+Modul `template` memproses file `.j2`, mengganti `{{ server_port }}` dan `{{ server_name }}` dengan nilai variabel-nya, lalu menyalin HASIL-nya (bukan file `.j2` mentah) ke managed node.
+
+Poin penting:
+
+- Variable bisa didefinisikan di banyak tempat (`vars:` di playbook, file terpisah di `group_vars/`/`host_vars/`, atau lewat `-e` saat menjalankan `ansible-playbook`) — nilai dari sumber yang lebih spesifik (host) menang atas yang lebih umum (group).
+- Modul `template` berbeda dari `copy`: `template` memproses Jinja2 dulu sebelum menyalin, `copy` menyalin file apa adanya tanpa substitusi variabel.
+- Handler (`notify`/`handlers:`) cuma jalan kalau task yang memanggilnya berstatus `changed` — di sini, nginx cuma di-restart kalau config filenya BENAR-BENAR berubah, bukan di setiap run.', '[{"url":"https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_templating.html","label":"Ansible Docs — Templating (Jinja2)"}]'::jsonb, '[]'::jsonb, 'Ubah `site.yml` dari catatan sebelumnya supaya memakai `vars` dan `template` seperti contoh di atas. Buat file `templates/nginx.conf.j2` dengan variabel `{{ server_port }}`. Jalankan playbook-nya, lalu cek isi file hasil di managed node (`/etc/nginx/sites-available/default`) — pastikan `{{ server_port }}` sudah tergantikan jadi angka aslinya, bukan teks mentah. Ubah nilai `server_port` di `vars`, jalankan ulang playbook-nya, dan buktikan HANYA task `template` yang `changed` sekaligus men-trigger handler restart nginx — task lain tetap `ok`.', 3, 'published', '2026-09-19 10:15:28.833636+00', '2026-09-19 10:15:28.833636+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('981a2989-16f7-4928-bbbf-64ac1348e317', '4e1efab5-9672-4b24-bdd9-5951a9a18a9d', 'Roles Dasar', 'roles-dasar', 'Playbook dari catatan-catatan sebelumnya masih satu file — untuk satu service sederhana itu masih rapi. **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** begitu kamu mengelola banyak service (nginx, database, aplikasi sendiri) dalam satu proyek infrastruktur, satu file playbook raksasa berisi semua task/vars/template jadi susah dibaca dan tidak bisa dipakai ulang di proyek lain.
+
+**Role** adalah cara Ansible mengorganisir playbook jadi unit yang modular dan reusable, lewat struktur folder standar yang otomatis dikenali Ansible.
+
+```mermaid
+flowchart TD
+  Role["roles/nginx/"] --> Tasks["tasks/main.yml<br/>(daftar task)"]
+  Role --> Templates["templates/<br/>(file .j2)"]
+  Role --> Handlers["handlers/main.yml<br/>(mis. restart service)"]
+  Role --> Defaults["defaults/main.yml<br/>(nilai default variable)"]
+  Role --> Vars["vars/main.yml<br/>(variable tetap)"]
+```
+
+### Membuat Struktur Role
+```bash
+ansible-galaxy init roles/nginx
+```
+
+Perintah di atas otomatis membuat folder `roles/nginx/` berisi sub-folder standar (`tasks/`, `templates/`, `handlers/`, `defaults/`, `vars/`, dst) masing-masing dengan `main.yml` kosong siap diisi.
+
+### Memindahkan Isi Playbook ke Role
+```yaml
+# roles/nginx/tasks/main.yml — isi dipindah dari tasks: di site.yml sebelumnya
+---
+- name: Deploy konfigurasi nginx dari template
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+  notify: Restart nginx
+```
+
+```yaml
+# roles/nginx/handlers/main.yml
+---
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+```
+
+```yaml
+# roles/nginx/defaults/main.yml — nilai default, gampang di-override
+---
+server_port: 8080
+server_name: "contoh.local"
+```
+
+Playbook utama sekarang jadi jauh lebih ringkas — cuma memanggil role-nya:
+
+```yaml
+# site.yml
+---
+- name: Setup semua server
+  hosts: webservers
+  become: true
+  roles:
+    - nginx
+```
+
+Poin penting:
+
+- File `.j2` di dalam role TIDAK perlu path lengkap `templates/nginx.conf.j2` lagi saat dirujuk dari task di dalam role itu sendiri — Ansible otomatis mencari di folder `templates/` milik role tersebut.
+- Satu playbook (`roles:`) bisa memanggil banyak role sekaligus (misalnya `nginx`, `postgresql`, `app-sendiri`) — tiap role independen dan bisa dipakai ulang di proyek lain.
+- `defaults/main.yml` beda prioritas dari `vars/main.yml`: nilai di `defaults` paling gampang di-override dari luar role, sedangkan `vars` di dalam role punya prioritas lebih tinggi.', '[{"url":"https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html","label":"Ansible Docs — Roles"}]'::jsonb, '[]'::jsonb, 'Jalankan `ansible-galaxy init roles/nginx` untuk membuat struktur role. Pindahkan task, handler, dan variable dari `site.yml` (catatan sebelumnya) ke file-file di dalam `roles/nginx/` sesuai contoh di atas. Sederhanakan `site.yml` supaya cuma memanggil `roles: - nginx`. Jalankan ulang `ansible-playbook -i inventory.ini site.yml` — hasil akhirnya harus identik dengan sebelum di-refactor jadi role. Ini menutup roadmap Ansible: dari instalasi dasar sampai automation yang terorganisir dan bisa dipakai ulang.', 4, 'published', '2026-09-19 10:15:28.833636+00', '2026-09-19 10:15:28.833636+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('76381f52-76a4-469d-9520-da66aeb4c3dd', 'b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'Pengenalan Hermes Agent & Instalasi', 'pengenalan-hermes-agent-dan-instalasi', '**Masalah yang diselesaikan:** chatbot LLM biasa cuma membalas teks — begitu jawabannya berupa command atau kode, KAMU yang harus menyalinnya, menjalankannya sendiri di terminal, membaca hasil/error-nya, lalu menempelkan balik ke chat supaya modelnya tahu apa yang terjadi. Untuk task yang butuh banyak langkah bolak-balik, siklus manual ini melelahkan dan lambat.
+
+**Hermes Agent** adalah AI agent open-source dan *self-improving* dari Nous Research — bukan sekadar chatbot, tapi agent yang bisa langsung mengeksekusi tool-nya sendiri (terminal, baca/tulis file, browser, web search), mengamati hasilnya, dan melanjutkan sampai task selesai.
+
+```mermaid
+flowchart TD
+  subgraph Manual["Chatbot Biasa (manual loop)"]
+    M1["Kamu tanya"] --> M2["Model jawab teks/kode"]
+    M2 --> M3["KAMU jalankan sendiri di terminal"]
+    M3 --> M4["KAMU salin hasil/error balik ke chat"]
+    M4 --> M1
+  end
+
+  subgraph Agent["Hermes Agent (agentic loop)"]
+    A1["Kamu kasih task"] --> A2["Agent jalankan tool sendiri<br/>(terminal/file/browser)"]
+    A2 --> A3["Agent amati hasilnya"]
+    A3 -->|belum selesai| A2
+    A3 -->|selesai| A4["Agent kasih laporan akhir"]
+  end
+```
+
+### Instalasi
+```bash
+# Linux / macOS / WSL2 / Android (Termux)
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+
+# Reload shell setelah instalasi
+source ~/.bashrc   # atau ~/.zshrc di macOS
+```
+
+```powershell
+# Windows (PowerShell)
+iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+```
+
+Untuk macOS/Windows, alternatifnya download installer **Hermes Desktop** dari situs resminya. Installer otomatis mengurus dependency lain (Python, Node.js, ripgrep, ffmpeg) — prasyarat manual cuma `git`.
+
+### Autentikasi & Verifikasi
+```bash
+# Cara tercepat: langganan Nous Portal (akses 300+ model + tool gateway)
+hermes setup --portal
+
+# Cek instalasi bermasalah atau tidak
+hermes doctor
+
+# Cek versi terinstall
+hermes --version
+```
+
+| | Chatbot Biasa | Hermes Agent |
+| --- | --- | --- |
+| Eksekusi command/kode | Tidak bisa — kamu jalankan manual | Langsung dieksekusi agent lewat tool |
+| Ingat konteks lintas sesi | Tidak (kecuali fitur khusus platform) | Ya, lewat sistem memory bawaan |
+| Belajar prosedur baru | Tidak | Ya, lewat sistem skills |
+| Akses tool eksternal (API, database) | Tidak | Ya, lewat MCP |
+
+Poin penting:
+
+- Hermes Agent bisa jalan di macOS/Linux/Windows(WSL2), dan juga di infrastruktur cloud (VPS, Modal, Daytona) untuk task yang butuh jalan lama tanpa laptop kamu nyala terus.
+- `hermes setup --portal` adalah jalur setup paling cepat, tapi provider model lain (OpenAI-compatible endpoint, OpenRouter) juga didukung lewat `hermes model`.
+- Instalasi per-user menyimpan datanya di `~/.hermes/` — ini folder yang akan sering direferensikan di catatan-catatan berikutnya (memory, skills, config).', '[{"url":"https://hermes-agent.nousresearch.com/docs/getting-started/installation","label":"Hermes Agent Docs — Installation"},{"url":"https://hermes-agent.nousresearch.com/","label":"Hermes Agent — Homepage"}]'::jsonb, '[{"url":"https://git-scm.com/downloads","label":"Git sudah terinstall (cek dengan `git --version`)"},{"url":"https://hermes-agent.nousresearch.com/","label":"Akun untuk akses model — Nous Portal (langganan), atau API key provider lain yang kompatibel (OpenAI, OpenRouter)"},{"label":"Familiar dengan command line/terminal dasar"}]'::jsonb, 'Install Hermes Agent sesuai OS kamu, reload shell, lalu jalankan `hermes doctor` — pastikan tidak ada error dependency. Jalankan `hermes setup --portal` (atau `hermes model` kalau pakai provider lain) untuk autentikasi. Cek `hermes --version` berhasil menampilkan versi terinstall. Kalau semua langkah ini lolos tanpa error, instalasi kamu siap dipakai di catatan berikutnya.', 0, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8de5fb40-428e-41c3-8372-12010a66d04b', 'b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'Menjalankan Task Pertama & CLI Dasar', 'task-pertama-dan-cli-dasar', 'Hermes Agent sekarang sudah terinstall dan terautentikasi (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana caranya kasih task ke agent dan memastikan dia BENAR-BENAR mengeksekusi tool (bukan cuma menjawab teks tebakan tanpa verifikasi)?
+
+```bash
+# Interface modern (disarankan)
+hermes --tui
+
+# Atau CLI klasik
+hermes
+```
+
+### Kasih Task yang Mudah Diverifikasi
+Task pertama sebaiknya spesifik dan hasilnya gampang dicek — supaya kamu tahu pasti agent benar-benar menjalankan tool, bukan menebak jawaban:
+
+```text
+Cek direktori saat ini dan sebutkan apa yang kelihatan seperti file utama project ini.
+```
+
+```text
+Berapa penggunaan disk saya? Tampilkan 5 folder terbesar.
+```
+
+Interaksi yang berhasil menampilkan: banner model/provider yang dipakai, agent membalas tanpa error, dan — kalau tool dipakai — kamu bisa lihat eksekusi tool-nya (terminal command, baca file, web search) sebelum jawaban akhir muncul.
+
+### Melanjutkan Sesi
+```bash
+# Lanjutkan sesi paling terakhir
+hermes --continue
+# atau bentuk pendeknya
+hermes -c
+
+# Lihat daftar sesi sebelumnya
+hermes sessions list
+```
+
+| Fitur | Cara Pakai |
+| --- | --- |
+| Menu slash command | Ketik `/` untuk lihat pilihan (`/help`, `/tools`, `/model`, dst) |
+| Input multi-baris | `Alt+Enter`, `Ctrl+J`, atau `Shift+Enter` |
+| Interupsi proses berjalan | Ketik pesan baru lalu Enter — proses saat ini dihentikan |
+
+Poin penting:
+
+- `hermes --tui` (Text User Interface) menampilkan progress tool-calling secara visual real-time — lebih mudah diamati dibanding CLI klasik saat belajar.
+- Sesi yang sudah selesai TIDAK hilang begitu terminal ditutup — `hermes --continue` membuka kembali histori percakapan & konteksnya.
+- Ketik `/tools` untuk melihat daftar tool bawaan yang tersedia (60+ tool: terminal, file, web search, browser automation, dst) — agent memilih sendiri tool mana yang relevan untuk task-mu.', '[{"url":"https://hermes-agent.nousresearch.com/docs/getting-started/quickstart","label":"Hermes Agent Docs — Quickstart"}]'::jsonb, '[]'::jsonb, 'Jalankan `hermes --tui`. Kasih task yang hasilnya gampang diverifikasi, misalnya "Cek direktori saat ini dan sebutkan apa yang kelihatan seperti file utama project ini" — perhatikan agent benar-benar menjalankan command `ls`/`dir` (bukan menebak) sebelum menjawab. Tutup terminal, buka lagi, jalankan `hermes --continue` — buktikan agent masih ingat percakapan sebelumnya di sesi yang sama. Ketik `/tools` untuk lihat daftar tool bawaan yang tersedia.', 1, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('c965955f-d2c5-4a62-869d-09f6906b03a6', 'b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'Skills: Pengetahuan Prosedural yang Dipakai Ulang', 'skills-pengetahuan-prosedural', 'Memory dari catatan sebelumnya bagus untuk fakta & preferensi singkat — tapi punya batas ukuran ketat. **Masalah yang diselesaikan sekarang:** bagaimana kalau agent berulang kali harus mengerjakan PROSEDUR multi-langkah yang sama (misalnya alur review PR khusus project kamu)? Menjelaskan ulang instruksi detailnya setiap kali itu boros token dan rawan ada detail kecil yang terlewat.
+
+**Skill** adalah dokumen pengetahuan prosedural yang dimuat *on-demand* (bukan selalu aktif di context seperti memory) — mengikuti pola *progressive disclosure* supaya hemat token: agent cuma lihat daftar nama & deskripsi skill dulu, baru memuat isi lengkapnya kalau memang relevan dengan task saat itu.
+
+```mermaid
+flowchart TD
+  Exp["Agent kerjakan prosedur<br/>multi-langkah berulang"] -->|"tool: skill_manage"| Auto["Skill dibuat OTOMATIS<br/>dari pengalaman"]
+  Doc["Dokumentasi/SDK yang ada"] -->|"/learn"| Manual["Skill dibuat MANUAL<br/>dari materi referensi"]
+  Auto --> Store[("SKILL.md<br/>~/.hermes/skills/")]
+  Manual --> Store
+  Store -->|"/nama-skill instruksi"| Load["Dimuat saat dibutuhkan<br/>(progressive disclosure)"]
+```
+
+### Format `SKILL.md`
+```yaml
+---
+name: github-pr-workflow
+description: Alur review & merge PR khusus project ini
+version: 1.0.0
+---
+# GitHub PR Workflow
+
+## When to Use
+Saat diminta membuat atau review pull request di repo ini.
+
+## Procedure
+1. ...langkah-langkah spesifik...
+
+## Pitfalls
+- ...hal yang sering salah...
+
+## Verification
+- ...cara memastikan berhasil...
+```
+
+### Cara Skill Terbentuk
+- **Otomatis dari pengalaman**: lewat tool `skill_manage`, agent sendiri yang membuat skill saat menemukan prosedur non-trivial yang layak dipakai ulang (habis mengerjakan alur berulang, menemukan solusi dari error, atau menerima koreksi darimu).
+- **Manual lewat `/learn`**: kamu convert materi referensi (dokumentasi lokal, halaman web, catatan yang kamu ketik) jadi skill.
+- **Dari hub**: install skill siap pakai dari komunitas lewat `hermes skills install <sumber>`.
+
+```bash
+# Cari & pasang skill dari hub
+hermes skills browse
+hermes skills search <kata kunci>
+hermes skills install <sumber>
+
+# Lihat skill yang tersedia
+hermes skills list  # atau /skills list di dalam chat
+```
+
+Memanggil skill secara eksplisit lewat slash command:
+```text
+/github-pr-workflow buatkan PR untuk refactor auth ini
+```
+
+| Cara Terbentuk | Trigger |
+| --- | --- |
+| Otomatis (`skill_manage`) | Agent sendiri, setelah kerjakan prosedur berulang atau menerima koreksi |
+| Manual (`/learn`) | Kamu, dari dokumentasi/materi yang sudah ada |
+| Hub | Kamu, install skill siap pakai dari komunitas |
+
+Poin penting:
+
+- Skill BEDA dari memory: memory itu fakta/preferensi singkat yang selalu aktif di context, skill itu prosedur lebih panjang yang cuma dimuat kalau relevan — supaya tidak membebani context dengan hal yang jarang dipakai.
+- Skill dari hub melewati security scanning (deteksi command berbahaya, prompt injection) sebelum dipakai — level trust-nya bertingkat dari `builtin` sampai `community`.
+- Beberapa skill bisa digabung jadi satu `bundle` (`~/.hermes/skill-bundles/`) dan dipanggil sekaligus lewat satu slash command.', '[{"url":"https://hermes-agent.nousresearch.com/docs/user-guide/features/skills","label":"Hermes Agent Docs — Skills"}]'::jsonb, '[]'::jsonb, 'Pilih satu prosedur berulang yang relevan buat kamu (mis. alur commit & PR project tertentu), lalu jalankan `/learn` sambil menunjukkan dokumentasinya ke agent (atau jelaskan prosedurnya langsung). Setelah skill terbentuk, cek isinya di `~/.hermes/skills/`. Buka sesi BARU, panggil skill itu lewat slash command (`/nama-skill <instruksi>`) — buktikan agent langsung mengikuti prosedur yang tersimpan tanpa kamu jelaskan ulang detailnya.', 3, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('4af5aaed-92a1-4678-b07c-3746d4a4793a', 'b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'Memory: Ingatan Lintas Sesi', 'memory-lintas-sesi', 'Sekarang kamu bisa kasih task dan lanjutkan sesi yang sama (dari catatan sebelumnya) — tapi `--continue` cuma bekerja untuk sesi yang SAMA. **Masalah yang diselesaikan sekarang:** begitu kamu mulai sesi yang benar-benar BARU, agent (seperti chatbot biasa pada umumnya) kembali dari nol — kamu harus jelaskan ulang preferensi dan konteks project dari awal, setiap kali.
+
+**Memory** di Hermes Agent adalah dua file berukuran terbatas yang disimpan di `~/.hermes/memories/`: `MEMORY.md` (catatan lingkungan/konvensi/hal yang dipelajari) dan `USER.md` (profil preferensi & gaya komunikasi kamu).
+
+```mermaid
+flowchart LR
+  S1["Sesi 1 selesai"] -->|"tool memory: add/replace/remove"| Files[("MEMORY.md + USER.md<br/>~/.hermes/memories/")]
+  Files -->|"Injeksi ke system prompt saat sesi mulai"| S2["Sesi 2 (baru)"]
+  S2 -.->|"Kalau butuh detail lama<br/>yang tidak ada di snapshot"| Search["Full-text search<br/>histori sesi lama"]
+```
+
+### Cara Kerja
+- **Snapshot di awal sesi**: isi `MEMORY.md` dan `USER.md` dimuat ke system prompt saat sesi baru dimulai — langsung tersedia tanpa biaya token tambahan di tengah percakapan. Perubahan yang terjadi DALAM sesi baru muncul di sesi BERIKUTNYA, bukan langsung di sesi yang sama.
+- **Pencarian sesi lama**: kalau info yang dibutuhkan tidak ada di snapshot memory aktif, agent bisa mencari lewat histori sesi lama (full-text search) — bisa menemukan hal yang dibahas berminggu-minggu lalu meski tidak ada di memory aktif.
+
+### Perintah Terkait
+```bash
+# Lihat daftar sesi lama
+hermes sessions list
+```
+
+Di dalam chat:
+- `/journey` — lihat timeline skill & entri memory yang sudah dipelajari agent
+- `/memory pending` — review perubahan memory yang belum disimpan (kalau mode approval aktif)
+
+| File | Isi |
+| --- | --- |
+| `MEMORY.md` | Fakta lingkungan, konvensi project, workaround yang ditemukan |
+| `USER.md` | Preferensi kamu, gaya komunikasi, ekspektasi |
+
+Poin penting:
+
+- Memory di Hermes BERBEDA dari sekadar context window panjang: kapasitasnya dibatasi ketat (karakter maksimum per file) dan agent aktif memutuskan apa yang layak disimpan vs dibuang, bukan menyimpan semuanya.
+- Kamu bisa audit dan edit apa yang sudah "dipelajari" agent lewat `/journey` — bukan black box.
+- Kalau `write_approval` diaktifkan, agent minta persetujuan kamu dulu sebelum menulis perubahan ke memory — berguna kalau kamu mau kontrol penuh atas apa yang disimpan.', '[{"url":"https://hermes-agent.nousresearch.com/docs/user-guide/features/memory","label":"Hermes Agent Docs — Memory"}]'::jsonb, '[]'::jsonb, 'Di satu sesi, kasih tahu agent sebuah preferensi spesifik (mis. "selalu jawab pakai Bahasa Indonesia santai, jangan formal"). Tutup terminal SEPENUHNYA (bukan cuma `--continue`), buka `hermes --tui` lagi sebagai sesi BARU tanpa flag `--continue` — tanya sesuatu yang tidak berhubungan, dan perhatikan apakah gaya jawabannya masih mengikuti preferensi yang kamu kasih tahu sebelumnya. Ketik `/journey` untuk melihat apa saja yang sudah tersimpan sebagai memory.', 2, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8ad90324-94ac-45f4-a651-ec784b0f3e95', 'b8ecce90-6cfa-42bd-bd17-b76f0aa0569d', 'MCP: Menghubungkan Tool Eksternal', 'mcp-menghubungkan-tool-eksternal', 'Sekarang agent bisa eksekusi tool bawaan, ingat konteks, dan pakai ulang skill (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** bagaimana kalau kamu butuh agent bisa akses tool yang TIDAK dibawa bawaan Hermes — API internal perusahaan, database tertentu, atau service pihak ketiga seperti GitHub/Linear?
+
+**MCP (Model Context Protocol)** adalah protokol standar yang menghubungkan Hermes Agent ke *tool server* eksternal, tanpa perlu membangun integrasi native satu-satu untuk tiap service.
+
+```mermaid
+flowchart LR
+  Hermes["Hermes Agent"] --> Client["MCP Client"]
+  Client -->|"stdio (subprocess lokal)"| Local["MCP Server Lokal<br/>(mis. filesystem)"]
+  Client -->|"HTTP (remote)"| Remote["MCP Server Remote<br/>(mis. API internal)"]
+  Local --> Tools["Tool tersedia untuk agent"]
+  Remote --> Tools
+```
+
+### Konfigurasi (`~/.hermes/config.yaml`)
+Ada dua tipe transport: **stdio** (subprocess lokal) dan **HTTP** (endpoint remote):
+
+```yaml
+mcp_servers:
+  # stdio — dijalankan sebagai subprocess lokal
+  filesystem:
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-filesystem", "/home/user/projects"]
+
+  # HTTP — connect ke server remote
+  company_api:
+    url: "https://mcp.internal.contoh.com"
+    headers:
+      Authorization: "Bearer ***"
+```
+
+Contoh menghubungkan GitHub dengan filter tool tertentu saja:
+```yaml
+mcp_servers:
+  github:
+    command: "npx"
+    args: ["-y", "@modelcontextprotocol/server-github"]
+    env:
+      GITHUB_PERSONAL_ACCESS_TOKEN: "***"
+    tools:
+      include: [create_issue, list_issues]
+```
+
+### Cara Cepat Lewat CLI
+```bash
+# Pilih interaktif dari katalog server yang sudah direkomendasikan Nous
+hermes mcp
+
+# Install langsung by name
+hermes mcp install linear
+
+# Lihat semua entri katalog
+hermes mcp catalog
+```
+
+Setelah terhubung, cukup minta secara natural — agent otomatis menemukan tool dari MCP server itu dan memakainya:
+```text
+List open bugs dan draft issue baru untuk masalah reconnection yang flaky.
+```
+
+| Transport | Kapan Dipakai |
+| --- | --- |
+| `stdio` | Tool server jalan sebagai proses lokal di komputer/server yang sama dengan Hermes |
+| `HTTP` | Tool server sudah di-deploy sebagai endpoint terpisah (internal API, service pihak ketiga) |
+
+Poin penting:
+
+- `tools.include` (atau `exclude`) membatasi tool mana saja dari satu MCP server yang boleh dipakai agent — berguna untuk membatasi akses (misalnya cuma boleh baca issue, tidak boleh hapus repo).
+- `hermes mcp catalog` berisi server yang sudah direkomendasikan/diverifikasi Nous — titik awal paling aman dibanding menulis config MCP server pihak ketiga secara manual.
+- MCP membuat Hermes Agent bisa terus diperluas kapabilitasnya tanpa update aplikasi Hermes itu sendiri — cukup tambah entri di `mcp_servers`.', '[{"url":"https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp","label":"Hermes Agent Docs — MCP Integration"}]'::jsonb, '[]'::jsonb, 'Jalankan `hermes mcp catalog` untuk lihat server yang tersedia, lalu `hermes mcp install <salah satu nama dari katalog>` (atau tambahkan server `filesystem` secara manual ke `~/.hermes/config.yaml` seperti contoh di atas kalau mau coba tanpa akun pihak ketiga). Mulai sesi baru, minta agent melakukan sesuatu yang HANYA bisa dikerjakan lewat tool dari MCP server itu (bukan tool bawaan) — verifikasi dari responsnya bahwa dia benar-benar memanggil tool eksternal itu, bukan tool bawaan Hermes. Ini menutup roadmap Agentic AI: dari instalasi dasar sampai agent yang bisa diperluas kapabilitasnya ke sistem eksternal apa pun.', 4, 'published', '2026-09-19 10:23:25.989758+00', '2026-09-19 10:23:25.989758+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('634b3e76-a834-4d44-b13a-c1b91de1ab25', 'd68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Pengenalan Flutter & Instalasi', 'pengenalan-flutter-dan-instalasi', '**Masalah yang diselesaikan:** membangun aplikasi mobile yang jalan di Android DAN iOS secara tradisional berarti menulis DUA codebase terpisah dengan bahasa berbeda (Kotlin/Java untuk Android, Swift untuk iOS) — fitur yang sama harus diimplementasikan dua kali, dan bug yang diperbaiki di satu platform harus diperbaiki lagi manual di platform lainnya.
+
+**Flutter** adalah UI toolkit open-source dari Google — satu codebase Dart dikompilasi langsung jadi kode NATIVE (bukan berjalan di dalam WebView) untuk Android, iOS, web, dan desktop sekaligus.
+
+```mermaid
+flowchart TD
+  subgraph Tradisional["Native Terpisah"]
+    K["Kotlin/Java"] --> APK1["Android App"]
+    S["Swift"] --> IPA1["iOS App"]
+  end
+  subgraph Flutter["Dengan Flutter"]
+    D["Satu Codebase Dart"] --> APK2["Android App"]
+    D --> IPA2["iOS App"]
+  end
+```
+
+### Instalasi
+Cara paling mudah: install lewat editor (VS Code dengan ekstensi Flutter, atau Android Studio) yang otomatis mengurus SDK Flutter — atau instalasi manual lewat `flutter doctor`:
+
+```bash
+# Setelah Flutter SDK ter-extract/terinstall, cek kelengkapan environment
+flutter doctor
+# Menampilkan checklist: Flutter SDK, Android toolchain, Android Studio,
+# emulator/device terhubung — tandai bagian mana yang masih perlu dilengkapi
+```
+
+### Membuat & Menjalankan App Pertama
+```bash
+flutter create nama_app
+cd nama_app
+flutter run
+```
+
+`flutter create` menghasilkan project starter berisi *counter app* sederhana (tombol `+` menambah angka) — bukti bahwa environment kamu sudah siap sebelum masuk ke konsep widget di catatan berikutnya.
+
+Poin penting:
+
+- `flutter doctor` WAJIB dijalankan sebelum mulai — ini yang paling sering menyelesaikan masalah "kenapa app tidak bisa di-build" di awal setup.
+- Perlu minimal SATU target untuk menjalankan app: emulator Android (dibuat lewat Android Studio → Device Manager) atau device fisik dengan USB debugging aktif.
+- *Hot reload* (tekan `r` di terminal saat `flutter run` jalan, atau tombol petir di editor) menerapkan perubahan kode ke app yang sedang jalan dalam hitungan detik, TANPA restart aplikasi dari awal — ini yang bikin iterasi UI di Flutter terasa sangat cepat.', '[{"url":"https://docs.flutter.dev/get-started/install","label":"Flutter Docs — Install"},{"url":"https://docs.flutter.dev/platform-integration/android/setup","label":"Flutter Docs — Android Setup"}]'::jsonb, '[{"url":"https://developer.android.com/studio","label":"Android Studio terinstall (untuk Android SDK & emulator)"},{"url":"https://code.visualstudio.com/","label":"Editor kode — VS Code dengan ekstensi Flutter direkomendasikan"}]'::jsonb, 'Install Flutter SDK sesuai OS kamu, jalankan `flutter doctor` dan selesaikan semua item yang masih bertanda silang/peringatan. Buat emulator Android lewat Android Studio (Device Manager → Create Device). Jalankan `flutter create app_pertama`, masuk ke foldernya, jalankan `flutter run` — pastikan counter app default muncul di emulator. Ubah teks `''You have pushed the button this many times:''` di `lib/main.dart` jadi kalimat lain, simpan file, dan buktikan hot reload menerapkan perubahan itu TANPA restart app.', 0, 'published', '2026-09-19 12:19:14.593871+00', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('a594ed6c-459f-4f2f-baf2-6524ebc1d715', 'd68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Widget Dasar: StatelessWidget vs StatefulWidget', 'widget-dasar-stateless-stateful', 'Sekarang environment Flutter kamu sudah siap dan app pertama sudah jalan (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** di Flutter, HAMPIR SEMUA hal — teks, tombol, layout, bahkan padding — adalah *widget*. Ini beda dari native Android yang memisahkan layout XML (deklaratif) dari logic Kotlin/Java (imperatif); di Flutter keduanya digabung jadi satu lewat kode Dart yang deklaratif. Pertanyaan pertama yang harus dijawab: widget mana yang perlu MENGINGAT sesuatu yang bisa berubah (butuh *state*), dan mana yang tidak?
+
+```mermaid
+flowchart TD
+  subgraph SL["StatelessWidget"]
+    SL1["build() cuma bergantung<br/>pada parameter constructor"] --> SL2["Immutable — tidak bisa<br/>berubah sendiri setelah dibuat"]
+  end
+  subgraph SF["StatefulWidget"]
+    SF1["Punya objek State terpisah"] --> SF2["setState() memicu<br/>build() ulang"]
+    SF2 --> SF3["Tampilan ter-update"]
+  end
+```
+
+### StatelessWidget — Tidak Pernah Berubah Sendiri
+```dart
+class SapaanWidget extends StatelessWidget {
+  final String nama;
+  const SapaanWidget({super.key, required this.nama});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(''Halo, $nama!'');
+  }
+}
+```
+
+### StatefulWidget — Punya State yang Bisa Berubah
+```dart
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+
+  @override
+  State<CounterWidget> createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  int _jumlah = 0; // state — nilai yang bisa berubah antar build()
+
+  void _tambah() {
+    setState(() {
+      _jumlah++; // WAJIB di dalam setState() supaya UI ikut ter-update
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(''Jumlah: $_jumlah''),
+        ElevatedButton(onPressed: _tambah, child: const Text(''Tambah'')),
+      ],
+    );
+  }
+}
+```
+
+| | StatelessWidget | StatefulWidget |
+| --- | --- | --- |
+| Bisa berubah tanpa dibuat ulang dari parent? | Tidak | Ya, lewat `setState()` |
+| Contoh pemakaian | Teks statis, icon, layout tetap | Counter, form input, toggle switch |
+| Objek `State` terpisah? | Tidak perlu | Ya, wajib override `createState()` |
+
+Poin penting:
+
+- Mengubah variabel state TANPA memanggil `setState()` (mis. `_jumlah++;` saja tanpa dibungkus) TIDAK akan mengubah tampilan — variabelnya berubah di memori, tapi Flutter tidak tahu harus `build()` ulang.
+- `const` di depan constructor widget (seperti `const SapaanWidget(...)`) memberi tahu Flutter widget itu tidak akan berubah — optimisasi performa supaya tidak di-build ulang tanpa perlu.
+- Keputusan Stateless vs Stateful ditentukan oleh KONTEN widget-nya, bukan aturan kaku — kalau ragu, mulai dari StatelessWidget, baru naikkan jadi StatefulWidget begitu memang butuh menyimpan state yang berubah.', '[{"url":"https://docs.flutter.dev/ui/widgets-intro","label":"Flutter Docs — Introduction to Widgets"}]'::jsonb, '[]'::jsonb, 'Ganti isi `lib/main.dart` dengan `CounterWidget` di atas (bungkus dalam `MaterialApp` + `Scaffold`). Jalankan, tekan tombol "Tambah" beberapa kali — pastikan angkanya bertambah di layar. SENGAJA hapus `setState()`-nya (langsung `_jumlah++;` tanpa dibungkus), jalankan lagi — buktikan angkanya BERTAMBAH di data (bisa dicek lewat `print()`) tapi tampilan di layar TIDAK berubah, membuktikan pentingnya `setState()`.', 1, 'published', '2026-09-19 12:19:14.593871+00', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('bc24da08-12b3-4fda-9a36-7487a18ff35c', 'd68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Layout Dasar: Row, Column, Container', 'layout-dasar-row-column-container', 'Sekarang kamu paham widget Stateless dan Stateful (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** satu widget saja tidak cukup untuk membangun tampilan nyata — kamu perlu cara MENYUSUN banyak widget jadi satu layout utuh: horizontal, vertikal, dengan jarak/padding yang rapi.
+
+Flutter menyusun UI dengan cara MENUMPUK widget layout di dalam widget layout lain (*composition*) — tidak ada bahasa markup terpisah seperti XML.
+
+```mermaid
+flowchart TD
+  Container["Container (padding, warna background)"] --> Column["Column (susun vertikal)"]
+  Column --> Row["Row (susun horizontal)"]
+  Row --> Icon["Icon"]
+  Row --> Text1["Text (nama)"]
+  Column --> Text2["Text (deskripsi)"]
+```
+
+```dart
+Container(
+  padding: const EdgeInsets.all(16),
+  color: Colors.blue.shade50,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        children: [
+          const Icon(Icons.person),
+          const SizedBox(width: 8), // jarak antar widget
+          const Text(''Budi Santoso'', style: TextStyle(fontWeight: FontWeight.bold)),
+        ],
+      ),
+      const Text(''Flutter Developer''),
+    ],
+  ),
+)
+```
+
+| Widget | Fungsi |
+| --- | --- |
+| `Row` | Menyusun children secara HORIZONTAL |
+| `Column` | Menyusun children secara VERTIKAL |
+| `Container` | Membungkus satu child dengan padding, margin, warna, atau border |
+| `Center` | Memusatkan satu child secara horizontal & vertikal |
+| `SizedBox` | Kotak kosong berukuran tetap — sering dipakai untuk memberi JARAK antar widget |
+| `Expanded` | Membuat child mengisi ruang tersisa di dalam `Row`/`Column` |
+
+Poin penting:
+
+- `Row` dan `Column` masing-masing WAJIB diisi parameter `children: [...]` berisi list widget — kalau isinya melebihi ruang tersedia (misal terlalu banyak widget di `Row` sempit) akan muncul error "overflow" berwarna kuning-hitam khas Flutter.
+- `mainAxisAlignment` mengatur perataan SEPANJANG arah utama (horizontal untuk `Row`, vertikal untuk `Column`), `crossAxisAlignment` mengatur perataan TEGAK LURUS arah utama.
+- `Container` cuma boleh punya SATU child langsung — kalau butuh lebih dari satu widget di dalamnya, bungkus dulu dengan `Row`/`Column` seperti contoh di atas.', '[{"url":"https://docs.flutter.dev/ui/layout","label":"Flutter Docs — Layout"}]'::jsonb, '[]'::jsonb, 'Buat widget "kartu profil" persis seperti contoh di atas (icon + nama dalam `Row`, deskripsi di bawahnya dalam `Column`, dibungkus `Container` dengan padding dan warna latar). Tambahkan `Expanded` di dalam `Row` supaya teks nama mengambil sisa ruang yang ada, cek apa bedanya visualnya dibanding tanpa `Expanded`. Coba ganti `crossAxisAlignment` dari `start` ke `center`, amati bagaimana posisi konten berubah.', 2, 'published', '2026-09-19 12:19:14.593871+00', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('a2d5a6dd-36aa-4c30-88e8-0bddcf82f1db', 'd68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Navigasi Antar Halaman', 'navigasi-dasar', 'Sekarang kamu bisa menyusun layout satu halaman penuh (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** aplikasi nyata hampir selalu punya LEBIH dari satu halaman — bagaimana caranya berpindah ke halaman lain, dan (kalau perlu) mengirim data ke halaman itu atau menerima data balik darinya?
+
+**Navigator** di Flutter mengelola halaman sebagai STACK (tumpukan) — `push` menambah halaman baru di atas, `pop` membuang halaman teratas dan kembali ke sebelumnya.
+
+```mermaid
+flowchart LR
+  A["HalamanUtama"] -->|"Navigator.push()"| B["HalamanDetail"]
+  B -->|"Navigator.pop()"| A
+```
+
+### Berpindah Halaman & Mengirim Data
+```dart
+// Dari HalamanUtama, kirim data "nama" ke HalamanDetail
+Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (context) => HalamanDetail(nama: ''Budi''),
+  ),
+);
+
+class HalamanDetail extends StatelessWidget {
+  final String nama;
+  const HalamanDetail({super.key, required this.nama});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text(''Detail'')),
+      body: Center(child: Text(''Halo, $nama'')),
+    );
+  }
+}
+```
+
+### Kembali Sambil Membawa Data
+```dart
+// Di HalamanDetail — kembali sambil kirim hasil
+ElevatedButton(
+  onPressed: () => Navigator.of(context).pop(''Data dari detail''),
+  child: const Text(''Kembali''),
+)
+
+// Di HalamanUtama — menerima hasil dari push (harus pakai await)
+final hasil = await Navigator.of(context).push(
+  MaterialPageRoute(builder: (context) => const HalamanDetail(nama: ''Budi'')),
+);
+print(hasil); // "Data dari detail"
+```
+
+Poin penting:
+
+- `Navigator.push()` mengembalikan sebuah `Future` — pakai `await` kalau butuh menunggu dan menangkap data yang dikirim balik lewat `Navigator.pop(data)`.
+- Tombol "back" bawaan Android/iOS otomatis memanggil `pop()` kalau ada `AppBar` dengan tombol back — kamu tidak perlu menangani ini manual di kasus umum.
+- Untuk aplikasi dengan navigasi kompleks (deep linking, banyak tab), package seperti `go_router` lebih direkomendasikan daripada `Navigator` manual — tapi memahami `push`/`pop` tetap fondasi yang perlu dikuasai lebih dulu.', '[{"url":"https://docs.flutter.dev/ui/navigation","label":"Flutter Docs — Navigation and Routing"}]'::jsonb, '[]'::jsonb, 'Buat dua halaman: `HalamanUtama` dengan tombol yang meng-`Navigator.push()` ke `HalamanDetail`, kirim sebuah String lewat constructor. Di `HalamanDetail`, tampilkan data itu, dan buat tombol yang `Navigator.pop()` sambil membawa data BARU (String lain). Di `HalamanUtama`, tangkap data balik itu pakai `await` pada `Navigator.push()`, tampilkan lewat `SnackBar` atau `print()` begitu pengguna kembali dari `HalamanDetail`.', 3, 'published', '2026-09-19 12:19:14.593871+00', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('b0fe8fee-7092-4408-a1da-0c3371d3cd67', 'd68cb157-4b1f-4921-a71f-2d6c9b127e5f', 'Mengambil Data dari API (HTTP Request)', 'http-request-dasar', 'Sekarang kamu bisa membangun UI multi-halaman (dari catatan-catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** semua data yang dipakai sejauh ini di-hardcode langsung di kode. Aplikasi nyata butuh data dari SERVER — dan karena request jaringan itu ASINKRON (butuh waktu, bisa gagal), UI harus bisa menampilkan status loading, data, atau error dengan tepat.
+
+### Package `http`
+```bash
+flutter pub add http
+```
+
+```dart
+import ''dart:convert'';
+import ''package:http/http.dart'' as http;
+
+Future<List<String>> ambilDaftarPost() async {
+  final response = await http.get(
+    Uri.parse(''https://jsonplaceholder.typicode.com/posts?_limit=5''),
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body) as List;
+    return data.map((item) => item[''title''] as String).toList();
+  } else {
+    throw Exception(''Gagal mengambil data (status: ${response.statusCode})'');
+  }
+}
+```
+
+### Menampilkan dengan `FutureBuilder`
+```mermaid
+flowchart TD
+  FB["FutureBuilder"] --> Loading["Belum selesai:<br/>CircularProgressIndicator"]
+  FB --> Error["Gagal (hasError):<br/>Tampilkan pesan error"]
+  FB --> Data["Berhasil (hasData):<br/>Tampilkan datanya"]
+```
+
+```dart
+FutureBuilder<List<String>>(
+  future: ambilDaftarPost(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const CircularProgressIndicator();
+    } else if (snapshot.hasError) {
+      return Text(''Error: ${snapshot.error}'');
+    } else if (snapshot.hasData) {
+      return Column(
+        children: snapshot.data!.map((judul) => Text(judul)).toList(),
+      );
+    }
+    return const Text(''Tidak ada data'');
+  },
+)
+```
+
+Poin penting:
+
+- `FutureBuilder` otomatis rebuild widget-nya sesuai state `Future`: `waiting` (masih loading), `hasError` (gagal), atau `hasData` (berhasil) — kamu tidak perlu mengelola `setState()` manual untuk loading spinner.
+- Panggil fungsi `Future` (seperti `ambilDaftarPost()`) di `initState()` dan simpan hasilnya ke variabel, JANGAN dipanggil langsung di `build()` — kalau dipanggil di `build()`, request akan terkirim ULANG setiap kali widget di-*rebuild*.
+- Selalu cek `response.statusCode` sebelum memproses `response.body` — status selain 200 (seperti 404 atau 500) berarti request-nya gagal meski tidak melempar exception Dart secara otomatis.', '[{"url":"https://docs.flutter.dev/cookbook/networking/fetch-data","label":"Flutter Cookbook — Fetch Data from the Internet"}]'::jsonb, '[]'::jsonb, 'Tambahkan package `http` (`flutter pub add http`). Buat fungsi `ambilDaftarPost()` seperti contoh di atas, tampilkan hasilnya lewat `FutureBuilder` di sebuah halaman baru. Pastikan tampilan menunjukkan `CircularProgressIndicator` sesaat sebelum data muncul. SENGAJA salahkan URL-nya (mis. ganti jadi domain yang tidak ada) untuk memicu `hasError`, buktikan pesan error-nya tertampil alih-alih app crash. Ini menutup roadmap Flutter: dari instalasi sampai aplikasi yang menampilkan data sungguhan dari API.', 4, 'published', '2026-09-19 12:19:14.593871+00', '2026-09-19 12:19:14.593871+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('af09f040-3187-4005-8da9-c2d2fe6f45ef', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Pengenalan Spring Boot & Instalasi', 'pengenalan-spring-boot-dan-instalasi', '**Masalah yang diselesaikan:** Spring (framework Java untuk aplikasi enterprise) secara tradisional butuh konfigurasi XML manual yang panjang dan server aplikasi (Tomcat) yang harus di-setup terpisah — banyak boilerplate sebelum sempat menulis satu baris pun kode business logic.
+
+**Spring Boot** menyelesaikan ini lewat tiga hal: *auto-configuration* (Spring menebak konfigurasi yang masuk akal berdasarkan dependency yang ada), server *embedded* (Tomcat sudah termasuk di dalam aplikasi, tidak perlu instalasi terpisah), dan *starter dependency* (bundel dependency siap pakai per kebutuhan, misalnya `spring-boot-starter-web` untuk aplikasi web).
+
+```mermaid
+flowchart TD
+  subgraph Tradisional["Spring Tradisional"]
+    X["Konfigurasi XML manual"] --> T["Install & config Tomcat terpisah"] --> Deploy["Deploy .war ke server"]
+  end
+  subgraph Boot["Spring Boot"]
+    Auto["Auto-configuration dari starter dependency"] --> Embed["Tomcat SUDAH ada di dalam aplikasi"] --> Run["java -jar app.jar — langsung jalan"]
+  end
+```
+
+### Membuat Project Lewat Spring Initializr
+Cara paling mudah: buka [start.spring.io](https://start.spring.io), pilih Maven, Java, versi Spring Boot terbaru, tambahkan dependency **Spring Web**, lalu generate & download project-nya.
+
+```bash
+# Setelah project di-extract, jalankan lewat Maven wrapper (tidak perlu install Maven manual)
+./mvnw spring-boot:run
+
+# Windows
+mvnw.cmd spring-boot:run
+```
+
+Buka `http://localhost:8080` — Spring Boot otomatis menjalankan server web di port itu, tanpa konfigurasi tambahan apa pun.
+
+### Anatomi Aplikasi Minimal
+```java
+// src/main/java/com/contoh/demo/DemoApplication.java
+package com.contoh.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication // gabungan @Configuration + @EnableAutoConfiguration + @ComponentScan
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+```
+
+Poin penting:
+
+- `@SpringBootApplication` adalah SATU annotation yang menggabungkan tiga hal: menandai class ini sebagai sumber konfigurasi, mengaktifkan auto-configuration, dan memindai (*scan*) package ini serta sub-package-nya untuk menemukan component Spring lain secara otomatis.
+- `./mvnw` (Maven Wrapper) memastikan semua orang yang menjalankan project memakai versi Maven yang SAMA persis, tanpa perlu install Maven manual di komputernya masing-masing.
+- `src/main/resources/application.properties` (atau `.yml`) adalah tempat konfigurasi aplikasi (port, koneksi database, dst) — dibahas lebih lanjut di catatan-catatan berikutnya.', '[{"url":"https://spring.io/quickstart","label":"Spring — Quickstart Guide"},{"url":"https://spring.io/guides/gs/spring-boot","label":"Spring Guides — Building an Application with Spring Boot"}]'::jsonb, '[{"url":"https://adoptium.net/","label":"JDK (Java Development Kit) versi 17 atau lebih baru sudah terinstall"},{"url":"https://code.visualstudio.com/docs/languages/java","label":"IDE Java — IntelliJ IDEA atau VS Code dengan Java Extension Pack"}]'::jsonb, 'Buka [start.spring.io](https://start.spring.io), generate project baru dengan dependency "Spring Web", download dan extract. Jalankan `./mvnw spring-boot:run` (atau `mvnw.cmd spring-boot:run` di Windows) dari terminal di folder project itu. Buka `http://localhost:8080` di browser — akan muncul halaman error "Whitelabel Error Page" (ini NORMAL, karena belum ada endpoint yang didefinisikan). Buktikan servernya benar-benar jalan dengan melihat log `Tomcat started on port 8080` di terminal.', 0, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('02dfd4ed-3e64-4889-af20-33edb21dd807', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Dependency Injection (DI) Dasar di Spring', 'dependency-injection-dasar-spring', 'Sekarang aplikasi Spring Boot kamu sudah bisa jalan (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** kalau satu class butuh instance dari class lain (misalnya `NotifikasiService` butuh `EmailService` untuk mengirim email), cara paling naif adalah `new EmailService()` langsung di dalam `NotifikasiService`. Ini membuat kedua class *tightly coupled* — susah dites (tidak bisa diganti versi palsu/mock saat testing) dan susah diganti implementasinya.
+
+**Dependency Injection (DI)** adalah pola di mana Spring (lewat *IoC Container*-nya) yang menyediakan instance yang dibutuhkan suatu class, bukan class itu yang membuat sendiri lewat `new`.
+
+```mermaid
+flowchart TD
+  subgraph Container["Spring IoC Container"]
+    Scan["@ComponentScan menemukan<br/>semua class ber-@Component/@Service"]
+  end
+  Container -.->|"Menyediakan instance lewat constructor"| Consumer["NotifikasiService(EmailService email)"]
+```
+
+### Mendaftarkan & Menyuntikkan Dependency
+```java
+// 1. Interface kontrak
+public interface EmailService {
+    void kirim(String tujuan, String pesan);
+}
+
+// 2. Implementasi — @Service menandai ini sebagai Spring bean
+@Service
+public class SmtpEmailService implements EmailService {
+    @Override
+    public void kirim(String tujuan, String pesan) {
+        System.out.println("Mengirim email ke " + tujuan + ": " + pesan);
+    }
+}
+
+// 3. Consumer — menerima EmailService lewat CONSTRUCTOR injection
+@Service
+public class NotifikasiService {
+    private final EmailService emailService;
+
+    // Constructor injection — Spring otomatis menyuntikkan EmailService di sini
+    public NotifikasiService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
+    public void beritahuUser(String email) {
+        emailService.kirim(email, "Selamat datang di sistem!");
+    }
+}
+```
+
+| Annotation | Fungsi |
+| --- | --- |
+| `@Component` | Menandai class generik sebagai Spring bean (dikelola container) |
+| `@Service` | Sama seperti `@Component`, tapi menandai secara spesifik ini adalah *service layer* (business logic) |
+| `@Repository` | Sama seperti `@Component`, khusus *data access layer* — dibahas di catatan Spring Data JPA |
+| `@Autowired` | Memberi tahu Spring untuk menyuntikkan dependency (opsional di constructor kalau cuma ada SATU constructor) |
+
+Poin penting:
+
+- **Constructor injection** (seperti contoh di atas) lebih direkomendasikan dibanding *field injection* (`@Autowired private EmailService emailService;`) — dependency jadi eksplisit terlihat di constructor, dan class tidak bisa dibuat dalam keadaan setengah lengkap (tanpa dependency wajibnya).
+- Kalau class cuma punya SATU constructor, `@Autowired` di atasnya opsional — Spring otomatis pakai constructor itu untuk injection.
+- Semua class ber-`@Component`/`@Service`/`@Repository` otomatis ditemukan lewat `@ComponentScan` (bagian dari `@SpringBootApplication`) — tidak perlu didaftarkan manual satu-satu di tempat lain.', '[{"url":"https://docs.spring.io/spring-framework/reference/core/beans/dependency-injection.html","label":"Spring Framework Docs — Dependency Injection"}]'::jsonb, '[]'::jsonb, 'Buat interface `EmailService` dan implementasinya `SmtpEmailService` (`@Service`) seperti contoh di atas. Buat `NotifikasiService` yang menerima `EmailService` lewat constructor. Buat class `CommandLineRunner` (atau endpoint REST sederhana) yang menerima `NotifikasiService` lewat constructor juga, panggil `beritahuUser(...)`-nya, jalankan aplikasi dan pastikan pesannya tercetak. Setelah berhasil, buat implementasi KEDUA dari `EmailService` (mis. `ConsoleLogEmailService`), tandai yang lama dengan `@Primary` atau matikan salah satu — amati bagaimana Spring menentukan implementasi mana yang disuntikkan kalau ada lebih dari satu.', 1, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('11d8a676-e322-4766-952f-3b11c3f9f57b', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'REST Controller Dasar', 'rest-controller-dasar', 'Sekarang kamu paham Dependency Injection, yang jadi fondasi arsitektur Spring (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang:** bagaimana mengekspos business logic yang sudah dibangun jadi HTTP endpoint yang bisa diakses aplikasi lain (mobile app, frontend web)?
+
+`@RestController` menandai class sebagai penerima HTTP request, dengan return value method-nya otomatis dikonversi jadi JSON (lewat library Jackson, sudah termasuk di `spring-boot-starter-web`).
+
+```mermaid
+flowchart LR
+  Client["Client / Frontend"] -->|"GET /api/todos"| Get["@GetMapping"]
+  Client -->|"POST /api/todos"| Post["@PostMapping"]
+  Get --> JSON["Return List<Todo> -> otomatis jadi JSON"]
+  Post --> Created["Return Todo yang baru dibuat"]
+```
+
+### Contoh CRUD Sederhana (In-Memory)
+```java
+public record Todo(int id, String judul, boolean selesai) {}
+
+@RestController
+@RequestMapping("/api/todos")
+public class TodoController {
+    private final List<Todo> todos = new ArrayList<>(List.of(
+        new Todo(1, "Belajar Spring Boot", true),
+        new Todo(2, "Membangun REST API", false)
+    ));
+
+    @GetMapping
+    public List<Todo> semua() {
+        return todos;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Todo> satuById(@PathVariable int id) {
+        return todos.stream()
+            .filter(t -> t.id() == id)
+            .findFirst()
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Todo> tambah(@RequestBody Todo todoBaru) {
+        todos.add(todoBaru);
+        return ResponseEntity.status(HttpStatus.CREATED).body(todoBaru);
+    }
+}
+```
+
+| Annotation | Fungsi |
+| --- | --- |
+| `@RestController` | Gabungan `@Controller` + `@ResponseBody` — return value otomatis jadi response body (JSON) |
+| `@RequestMapping("/api/todos")` | Prefix path untuk SEMUA endpoint di controller ini |
+| `@GetMapping` / `@PostMapping` | Menangani HTTP method GET / POST di path tertentu |
+| `@PathVariable` | Mengambil nilai dari bagian path URL, mis. `{id}` |
+| `@RequestBody` | Mengonversi JSON body request jadi object Java otomatis |
+
+Poin penting:
+
+- `ResponseEntity<T>` memberi kontrol penuh atas HTTP status code (200, 201, 404, dst) — kalau method langsung `return` object biasa (tanpa `ResponseEntity`), Spring otomatis pakai status 200.
+- `record` (fitur Java modern) cocok untuk data transfer object seperti `Todo` di atas — otomatis immutable dan sudah punya constructor, getter (`.judul()`, bukan `.getJudul()`), `equals()`, dan `toString()`.
+- Data di atas masih `List` in-memory — hilang tiap aplikasi di-restart. Ini yang diselesaikan catatan berikutnya lewat Spring Data JPA.', '[{"url":"https://spring.io/guides/gs/rest-service","label":"Spring Guides — Building a RESTful Web Service"}]'::jsonb, '[]'::jsonb, 'Buat `TodoController` persis seperti contoh di atas. Jalankan aplikasinya, tes lewat browser untuk `GET /api/todos` dan `GET /api/todos/1`. Pakai curl atau Postman untuk `POST /api/todos` dengan body JSON `{"id": 3, "judul": "Baru", "selesai": false}`, verifikasi lewat `GET /api/todos` lagi bahwa data barunya muncul. Coba `GET /api/todos/999` (id yang tidak ada) — pastikan responnya status 404, bukan error 500.', 2, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('0e690faf-177a-4f08-adb7-78813ad3b002', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Spring Data JPA Dasar: Akses Database', 'spring-data-jpa-dasar', 'REST Controller dari catatan sebelumnya sudah bisa menerima request dan balas response, tapi datanya cuma `List<Todo>` di memori — hilang total tiap aplikasi di-restart. **Masalah yang diselesaikan sekarang:** bagaimana menyimpan data ke database beneran yang bertahan lintas restart, tanpa menulis query SQL manual untuk tiap operasi CRUD?
+
+**Spring Data JPA** adalah lapisan abstraksi di atas JPA/Hibernate — cukup definisikan *entity* dan *interface repository*, Spring OTOMATIS meng-generate implementasi CRUD-nya saat aplikasi jalan, tanpa kamu menulis satu baris SQL pun.
+
+```mermaid
+flowchart TD
+  Entity["Class Java + @Entity<br/>public class Todo { ... }"] --> Repo["interface TodoRepository<br/>extends JpaRepository&lt;Todo, Integer&gt;"]
+  Repo -->|"Spring generate otomatis saat runtime"| Impl["Implementasi CRUD lengkap<br/>(save, findById, findAll, delete, dst)"]
+  Impl --> DB[("Database")]
+```
+
+### 1. Dependency & Konfigurasi
+```bash
+# Tambahkan di pom.xml (atau pilih saat generate di start.spring.io):
+# - spring-boot-starter-data-jpa
+# - com.h2database:h2 (database file-based, ringan untuk belajar)
+```
+
+```properties
+# src/main/resources/application.properties
+spring.datasource.url=jdbc:h2:file:./data/todos
+spring.jpa.hibernate.ddl-auto=update
+```
+
+### 2. Entity & Repository
+```java
+@Entity
+public class Todo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String judul;
+    private boolean selesai;
+
+    // getter & setter (atau pakai Lombok @Data untuk generate otomatis)
+}
+
+// Cukup EXTENDS JpaRepository — TIDAK perlu menulis implementasi sama sekali
+public interface TodoRepository extends JpaRepository<Todo, Integer> {
+}
+```
+
+### 3. Pakai di Controller (Ganti List In-Memory)
+```java
+@RestController
+@RequestMapping("/api/todos")
+public class TodoController {
+    private final TodoRepository repository;
+
+    public TodoController(TodoRepository repository) { // DI dari catatan sebelumnya
+        this.repository = repository;
+    }
+
+    @GetMapping
+    public List<Todo> semua() {
+        return repository.findAll();
+    }
+
+    @PostMapping
+    public Todo tambah(@RequestBody Todo todoBaru) {
+        return repository.save(todoBaru); // INSERT kalau id null, UPDATE kalau id sudah ada
+    }
+
+    @DeleteMapping("/{id}")
+    public void hapus(@PathVariable Integer id) {
+        repository.deleteById(id);
+    }
+}
+```
+
+| Method `JpaRepository` | Fungsi |
+| --- | --- |
+| `findAll()` | Ambil semua baris |
+| `findById(id)` | Ambil satu baris, mengembalikan `Optional<T>` |
+| `save(entity)` | INSERT (kalau `id` null) atau UPDATE (kalau `id` sudah ada) |
+| `deleteById(id)` | Hapus satu baris berdasarkan primary key |
+
+Poin penting:
+
+- `extends JpaRepository<Todo, Integer>` saja SUDAH CUKUP — Spring meng-generate implementasi lengkapnya secara otomatis saat aplikasi start, tanpa kamu menulis class implementasi manual.
+- H2 dipakai di sini karena paling sederhana untuk belajar (file database lokal, tanpa install server terpisah) — provider lain (PostgreSQL, MySQL) dipakai dengan pola KODE yang sama persis, cuma beda `spring.datasource.url` dan driver dependency-nya.
+- `spring.jpa.hibernate.ddl-auto=update` membuat Hibernate otomatis membuat/menyesuaikan struktur tabel dari class `@Entity` — praktis untuk belajar, tapi di production biasanya dipakai tool migration terpisah (Flyway/Liquibase) untuk kontrol lebih ketat.', '[{"url":"https://docs.spring.io/spring-data/jpa/reference/jpa.html","label":"Spring Data JPA — Reference Documentation"},{"url":"https://spring.io/guides/gs/accessing-data-jpa","label":"Spring Guides — Accessing Data with JPA"}]'::jsonb, '[]'::jsonb, 'Tambahkan dependency `spring-boot-starter-data-jpa` dan `h2` ke project dari catatan sebelumnya. Buat entity `Todo` dan interface `TodoRepository` seperti contoh di atas, ganti `TodoController` supaya pakai `TodoRepository` (bukan `List` in-memory lagi). Jalankan aplikasi, tambah beberapa todo lewat POST, lalu STOP aplikasinya (Ctrl+C) dan jalankan ulang — panggil `GET /api/todos` lagi dan buktikan data yang kamu tambahkan sebelumnya masih ada (karena `jdbc:h2:file:` menyimpan ke file, bukan cuma di memori).', 3, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+INSERT INTO notes (id, category_id, title, slug, content, sources, prerequisites, practice, order_index, status, created_at, updated_at) VALUES ('8febfa69-d5b5-4405-a74d-e8ae1c1a8453', '620410c3-ebfb-4e0b-a8a6-578aaa70d726', 'Request Validation & Exception Handling', 'validation-dan-exception-handling', 'Sekarang data kamu tersimpan permanen ke database (dari catatan sebelumnya). **Masalah yang diselesaikan sekarang (dan menutup roadmap ini):** kalau client mengirim data yang tidak valid (judul kosong, misalnya) ke endpoint `POST`, tanpa validasi data buruk itu akan tersimpan begitu saja ke database — atau kalau ada error tak terduga lain, client menerima stack trace mentah Java yang membingungkan alih-alih pesan error yang jelas.
+
+### 1. Validasi Lewat Bean Validation
+```bash
+# Tambahkan dependency: spring-boot-starter-validation
+```
+
+```java
+@Entity
+public class Todo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NotBlank(message = "Judul tidak boleh kosong")
+    @Size(max = 100, message = "Judul maksimal 100 karakter")
+    private String judul;
+
+    private boolean selesai;
+    // getter & setter
+}
+```
+
+```java
+@PostMapping
+public Todo tambah(@Valid @RequestBody Todo todoBaru) { // @Valid memicu pengecekan
+    return repository.save(todoBaru);
+}
+```
+
+Tanpa penanganan lebih lanjut, request yang gagal validasi otomatis mengembalikan status `400 Bad Request` — tapi body response-nya masih berupa JSON error default Spring yang cukup verbose.
+
+```mermaid
+flowchart TD
+  Req["POST /api/todos<br/>judul: ''''"] --> Valid{"@Valid: judul kosong?"}
+  Valid -->|Gagal| MANV["MethodArgumentNotValidException dilempar"]
+  MANV --> Advice["@RestControllerAdvice menangkapnya"]
+  Advice --> Response["Response JSON rapi, status 400"]
+  Valid -->|Lolos| Save["repository.save() dijalankan"]
+```
+
+### 2. Exception Handling Terpusat Lewat `@RestControllerAdvice`
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    // Menangkap error validasi @Valid secara khusus, format response jadi rapi
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidasi(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(
+            error -> errors.put(error.getField(), error.getDefaultMessage())
+        );
+        return ResponseEntity.badRequest().body(errors);
+    }
+
+    // Menangkap exception lain yang tidak terduga
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleUmum(Exception ex) {
+        return ResponseEntity.internalServerError().body("Terjadi kesalahan: " + ex.getMessage());
+    }
+}
+```
+
+Poin penting:
+
+- `@RestControllerAdvice` (gabungan `@ControllerAdvice` + `@ResponseBody`) menangkap exception dari SEMUA controller di aplikasi secara terpusat — tidak perlu menulis `try/catch` berulang di tiap method controller.
+- `@ExceptionHandler(TipeException.class)` yang lebih SPESIFIK (seperti `MethodArgumentNotValidException`) didahulukan Spring dibanding yang generik (`Exception.class`) — urutan deklarasi di file tidak berpengaruh, yang penting kecocokan tipe exception-nya.
+- Anotasi Bean Validation umum lainnya: `@NotNull` (tidak boleh null), `@Min`/`@Max` (rentang angka), `@Email` (format email valid) — semuanya dari package `jakarta.validation.constraints`.', '[{"url":"https://docs.spring.io/spring-boot/reference/io/validation.html","label":"Spring Boot Docs — Validation"},{"url":"https://docs.spring.io/spring-boot/reference/web/servlet.html","label":"Spring Boot Docs — Servlet Web Applications (Error Handling)"}]'::jsonb, '[]'::jsonb, 'Tambahkan `@NotBlank` dan `@Size` ke field `judul` di entity `Todo`, tambahkan `@Valid` di parameter `@RequestBody` pada method `tambah()`. Coba `POST /api/todos` dengan `judul` kosong — pastikan responnya status 400. Buat `GlobalExceptionHandler` seperti contoh di atas, ulangi request yang sama — bandingkan response JSON-nya SEBELUM dan SESUDAH ada `@RestControllerAdvice` (harus jadi lebih rapi dan jelas field mana yang error). Ini menutup roadmap Java (Spring Boot): dari instalasi dasar sampai REST API yang datanya tersimpan permanen dan tervalidasi dengan aman.', 4, 'published', '2026-09-19 12:26:42.215569+00', '2026-09-19 12:26:42.215569+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, title = EXCLUDED.title, slug = EXCLUDED.slug, content = EXCLUDED.content, sources = EXCLUDED.sources, prerequisites = EXCLUDED.prerequisites, practice = EXCLUDED.practice, order_index = EXCLUDED.order_index, status = EXCLUDED.status, updated_at = EXCLUDED.updated_at;
+
+-- Category Quiz Questions (6 baris)
+INSERT INTO category_quiz_questions (id, category_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('373a1cba-5b63-4c5b-a3ba-76baace97746', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Manakah yang BUKAN termasuk topik dasar JavaScript yang sudah dipelajari di roadmap ini?', '["Variabel & scope","Closure","Arrow function","Migrasi database SQL"]'::jsonb, 3, 'Migrasi database bukan bagian dari roadmap dasar JavaScript di kategori ini — itu topik terpisah (mis. Supabase).', 0, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO category_quiz_questions (id, category_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('1a9c68fc-6c7d-49d4-bdcd-0c3b206bf299', '9deddb76-862f-4fce-83e4-57a0202df83b', 'Apa fungsi utama Promise di JavaScript?', '["Menyimpan data ke localStorage","Merepresentasikan hasil operasi asynchronous yang belum tentu selesai","Mengubah CSS secara dinamis","Membuat elemen HTML baru"]'::jsonb, 1, 'Promise merepresentasikan nilai yang mungkin belum tersedia sekarang tapi akan selesai (resolve/reject) di masa depan.', 1, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO category_quiz_questions (id, category_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('bb803c87-fd08-44c9-8c6d-2e6abdcba2b4', '9deddb76-862f-4fce-83e4-57a0202df83b', 'async/await adalah gula sintaks di atas apa?', '["Callback","Promise","Closure","Array method"]'::jsonb, 1, 'async/await mempermudah penulisan kode asynchronous yang sebenarnya tetap berbasis Promise di baliknya.', 2, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO category_quiz_questions (id, category_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('81a0b296-cebd-4c16-acd0-a195d76c9a10', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Apa masalah utama yang diselesaikan React dibanding manipulasi DOM manual?', '["React pakai pendekatan deklaratif — deskripsikan UI berdasarkan state, React yang urus update DOM-nya","React menghilangkan kebutuhan JavaScript sama sekali","React otomatis membuat API backend","React hanya alat untuk styling CSS"]'::jsonb, 0, 'Sebelum React, memperbarui tampilan berarti memanipulasi DOM manual satu per satu — React menyelesaikan ini lewat pendekatan deklaratif.', 0, '2026-09-22 03:55:16.577906+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO category_quiz_questions (id, category_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('c3cc2b3f-1b2e-4c95-bbb7-40870b85f788', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Roadmap React di platform ini dimulai dari instalasi project sampai ke topik apa di langkah terakhir?', '["useEffect (sinkronisasi dengan sistem luar)","Redux","TypeScript generics","Server Component"]'::jsonb, 0, 'Sembilan langkah roadmap ini diakhiri di catatan useEffect Dasar, tentang menyinkronkan component dengan hal di luar React seperti fetch data dan timer.', 1, '2026-09-22 03:55:16.577906+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO category_quiz_questions (id, category_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('b97322a5-f519-4a0b-94d9-b7f614167b6f', '874d0ef2-3e06-451f-80e8-6cd10276bd6a', 'Apa prasyarat pengetahuan yang disebutkan di deskripsi roadmap React ini?', '["Dasar JavaScript (variabel, fungsi, array method seperti map/filter, destructuring)","Pengalaman pakai Next.js terlebih dahulu","Sertifikasi cloud tertentu","Menguasai bahasa pemrograman Python"]'::jsonb, 0, 'Deskripsi roadmap ini secara eksplisit meminta familiar dengan dasar JavaScript dulu, dan mengarahkan ke roadmap JavaScript di platform ini kalau belum.', 2, '2026-09-22 03:55:16.577906+00') ON CONFLICT (id) DO UPDATE SET category_id = EXCLUDED.category_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+
+-- Note Quiz Questions (60 baris)
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('46e5f5c4-74d3-4c2e-958b-b64e24b59c49', '1065af1e-2c02-4a29-878a-0523e4f7b2c6', 'Apa itu closure di JavaScript?', '["Cara menutup browser","Fungsi yang mengingat variabel dari scope tempat ia dibuat","Tipe data khusus","Method untuk menghapus variabel"]'::jsonb, 1, 'Closure adalah fungsi yang tetap punya akses ke variabel dari scope pembuatnya, meskipun scope itu sudah selesai dieksekusi.', 0, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('9112376e-4d17-4c50-b22e-947548c3d012', '1065af1e-2c02-4a29-878a-0523e4f7b2c6', 'Kalau buatCounter() dipanggil 2 kali, berapa banyak closure independen yang terbentuk?', '["1","2","0","Tergantung browser"]'::jsonb, 1, 'Setiap pemanggilan buatCounter() menghasilkan closure baru dengan variabel jumlah masing-masing, saling independen.', 1, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('cb05c648-6c96-4483-8677-fc91936944f2', '1065af1e-2c02-4a29-878a-0523e4f7b2c6', 'Closure sering dipakai untuk membuat apa?', '["Data privat / pola module","Query database","Elemen HTML","File CSS"]'::jsonb, 0, 'Karena variabel di dalam closure tidak bisa diakses langsung dari luar, closure sering dipakai untuk menyembunyikan/mengenkapsulasi data (pola module).', 2, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('452dbe3d-afa0-4d68-8943-4ab7890f0140', '0769c792-0dde-47ba-bc93-f4e5da16e884', 'Kapan TypeScript memeriksa kecocokan tipe?', '["Saat program berjalan (runtime)","Saat kompilasi (compile time)","Setelah program selesai","Tidak pernah"]'::jsonb, 1, 'TypeScript adalah static type checker — pengecekan tipe dilakukan saat kompilasi, sebelum kode dijalankan.', 0, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('b6ae1e34-1ceb-4f0f-b86c-53a4ff0b9b47', '0769c792-0dde-47ba-bc93-f4e5da16e884', 'Apa yang dimaksud dengan "type inference" di TypeScript?', '["Tipe harus selalu ditulis manual","TypeScript otomatis menebak tipe dari nilai yang diberikan","Semua variabel bertipe any","Fitur ini hanya ada di JavaScript"]'::jsonb, 1, 'Kalau tidak ditulis manual, TypeScript tetap mencoba menebak tipe lewat inference berdasarkan nilai awalnya.', 1, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('b502be86-efa5-402e-8d4c-a184472f7e8f', '0769c792-0dde-47ba-bc93-f4e5da16e884', 'Ekstensi file apa yang dipakai untuk TypeScript biasa (bukan JSX/React)?', '[".js",".ts",".tsx",".jsx"]'::jsonb, 1, 'File TypeScript berekstensi .ts, sedangkan .tsx dipakai kalau berisi JSX/React.', 2, '2026-09-21 09:32:19.89676+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('42acce6e-34ad-4e69-8871-ae71ea6d9243', '5dacd9a7-113a-4bbb-ac1c-73077beec662', 'Perintah CLI resmi apa yang dipakai untuk membuat project Next.js baru?', '["create-next-app","create-react-app","next new","npm init react-app"]'::jsonb, 0, '`npx create-next-app@latest` adalah CLI resmi untuk scaffold project Next.js siap pakai dalam satu perintah.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('4b21055d-d6b6-4126-ae4c-13fa6fb91600', '5dacd9a7-113a-4bbb-ac1c-73077beec662', 'File khusus apa di dalam folder app/ yang berfungsi sebagai error boundary untuk menangkap crash runtime?', '["loading.tsx","not-found.tsx","error.tsx","layout.tsx"]'::jsonb, 2, '`error.tsx` menangkap crash runtime tanpa merusak seluruh web, sedangkan `loading.tsx` untuk skeleton loading dan `not-found.tsx` untuk halaman 404.', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('5917a855-9a5a-4d54-b091-13e46f764f8c', '5dacd9a7-113a-4bbb-ac1c-73077beec662', 'Folder apa yang menjadi tempat utama routing dan UI pages pada project Next.js App Router?', '["app/","public/","pages/","components/"]'::jsonb, 0, 'Struktur berbasis folder di `app/` secara otomatis memetakan folder menjadi rute URL di browser.', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('b8319a3b-cb6d-4ac3-a884-d7d91477c952', 'd32cf121-3b02-42ce-bc5d-ea8577f5c39d', 'Apa yang dipakai Next.js App Router sebagai dasar penentuan routing, menggantikan config routing terpisah?', '["Struktur folder di dalam app/","File konfigurasi routing terpisah","Library React Router","State management global"]'::jsonb, 0, 'Next.js App Router memakai struktur folder itu sendiri sebagai definisi routing — tidak ada file config routing terpisah untuk disinkronkan.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('7f6cd754-43c7-4115-9dd6-94ba44a579d1', 'd32cf121-3b02-42ce-bc5d-ea8577f5c39d', 'Penulisan nama folder seperti apa yang menandakan sebuah dynamic route segment di App Router?', '["{slug}","[slug]","<slug>","(slug)"]'::jsonb, 1, 'Nama folder di dalam kurung siku `[slug]` berarti segmen URL dinamis, dan nilainya diterima lewat prop `params`.', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('1c31c5e4-2a5f-49bb-902c-cd4d23b95862', 'd32cf121-3b02-42ce-bc5d-ea8577f5c39d', 'Sejak Next.js 15, tipe data `params` pada halaman dynamic route berubah menjadi apa?', '["Object biasa seperti sebelumnya","Promise yang harus di-await","Array of string","Class instance"]'::jsonb, 1, 'Sejak Next.js 15, params berupa Promise sehingga harus di-await dulu sebelum dipakai — berbeda dari versi Next.js 14 ke bawah.', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('82754e93-6c0f-45ca-a2ea-bcfd81f70d53', '75351001-c5ee-4c99-a786-8ad8354733da', 'Mengapa sebaiknya tidak memakai tag `<a href="...">` biasa untuk navigasi antar halaman di Next.js?', '["Karena memicu full page reload dan membuang keuntungan performa React","Karena tidak valid secara HTML","Karena tidak bisa dipakai di Server Component","Karena akan error saat build"]'::jsonb, 0, 'Tag `<a>` biasa memicu full page reload — semua state hilang dan seluruh halaman di-fetch ulang dari server.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('c26478ba-e429-4933-992a-4ce334a6a219', '75351001-c5ee-4c99-a786-8ad8354733da', 'Hook apa yang dipakai untuk navigasi programatik (misal setelah submit form) di App Router?', '["useNavigate dari react-router","useHistory dari next/router","useRouter dari next/navigation","useRouter dari next/router"]'::jsonb, 2, 'Di App Router, useRouter wajib di-import dari `next/navigation`, bukan `next/router` (Pages Router lama).', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('b9c81c9b-ac5d-4493-92fd-e1d2c8458699', '75351001-c5ee-4c99-a786-8ad8354733da', 'Apa yang otomatis dilakukan Next.js saat komponen `<Link>` muncul di viewport?', '["Prefetching resource route di background","Mengompres semua gambar di halaman","Validasi form otomatis","Menghapus cache halaman sebelumnya"]'::jsonb, 0, 'Next.js otomatis melakukan prefetching resource di background saat link muncul di viewport, sehingga transisi halaman terasa instan.', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('85a07bd0-5e30-453e-9e17-f54e12de2299', '2c353801-6cec-4671-a4a3-d29eced08c1b', 'Apa yang terjadi pada layout ketika user berpindah halaman di dalam layout yang sama?', '["Layout di-render ulang dari awal","Layout tetap bertahan (persisted state), tidak di-render ulang","Layout dihapus dan dimuat ulang dari server","Layout otomatis berubah jadi Client Component"]'::jsonb, 1, 'Layout adalah komponen UI yang dibagikan ke beberapa halaman anak; saat berpindah halaman di layout yang sama, layout tetap bertahan dan tidak di-render ulang dari awal.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('07ff2932-efb8-4f2b-8cb8-6c0e1735c59f', '2c353801-6cec-4671-a4a3-d29eced08c1b', 'File apa yang wajib dimiliki setiap aplikasi App Router untuk membungkus elemen dasar dokumen HTML?', '["app/page.tsx","app/globals.css","app/layout.tsx (Root Layout)","app/loading.tsx"]'::jsonb, 2, 'Setiap aplikasi Next.js App Router wajib memiliki satu Root Layout (`app/layout.tsx`) untuk membungkus elemen dasar dokumen HTML seperti `<html>` dan `<body>`.', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('3529ddcc-4868-431f-b844-8fbb09272a74', '2c353801-6cec-4671-a4a3-d29eced08c1b', 'Nested layout seperti `app/dashboard/layout.tsx` berlaku untuk rute yang mana saja?', '["Seluruh aplikasi tanpa kecuali","Hanya semua rute di dalam subfolder tersebut","Hanya halaman utama (root)","Hanya Client Component"]'::jsonb, 1, 'Layout bersarang (nested layout) hanya membungkus semua rute di dalam subfolder tempat file layout itu berada.', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('896264a7-83e4-4cd5-b17e-ceb4bd12e55e', 'b38b67fc-0349-4842-a63d-3ea5cf6cdd1a', 'Secara default, semua komponen di dalam folder app/ pada Next.js App Router adalah jenis komponen apa?', '["Client Component","Server Component","Static Component","Hybrid Component"]'::jsonb, 1, 'Di App Router, semua komponen di dalam folder app/ adalah Server Component secara default — dirender di server tanpa mengirim JavaScript komponennya ke browser.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('ea0360c4-006f-4a81-b004-c54a3003548e', 'b38b67fc-0349-4842-a63d-3ea5cf6cdd1a', 'Directive apa yang wajib ditulis paling atas file (sebelum import lain) untuk menandai sebuah Client Component?', '["\"use server\"","\"use client\"","\"use strict\"","\"use state\""]'::jsonb, 1, 'Directive "use client" wajib ditulis paling atas file supaya komponen (dan semua yang di-import olehnya) dikirim juga ke browser sebagai JavaScript.', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('b36bdb0f-2b5b-4ce7-b79b-e9d41a3be99e', 'b38b67fc-0349-4842-a63d-3ea5cf6cdd1a', 'Fitur apa yang TIDAK bisa dipakai langsung di Server Component dan harus dipindah ke Client Component terpisah?', '["useState, useEffect, dan event handler seperti onClick","async/await untuk fetch data","Import komponen lain","Penulisan JSX"]'::jsonb, 0, 'Server Component tidak bisa memakai useState, useEffect, atau event handler — bagian interaktif itu harus dipindah ke Client Component terpisah.', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('0208903d-5267-4d1d-86f7-bd7cbfca96f9', '74c8b4b2-9b99-4bd6-a4cd-aa30d30961dc', 'Bagaimana cara Server Component mengambil data tanpa perlu useEffect?', '["Memakai async/await langsung di badan fungsi komponen","Memakai useEffect + useState seperti biasa","Memakai class component lifecycle method","Memakai Redux middleware"]'::jsonb, 0, 'Server Component dapat langsung mengambil data secara asynchronous (async/await) di badan fungsi komponen tanpa perlu useEffect atau useState.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('60bc970c-c144-436c-9b37-66d77d83c4c6', '74c8b4b2-9b99-4bd6-a4cd-aa30d30961dc', 'Opsi caching pada fetch() mana yang membuat data selalu di-fetch segar di setiap request (dynamic data)?', '["cache: ''force-cache''","cache: ''no-store''","next: { revalidate: 3600 }","cache: ''default''"]'::jsonb, 1, 'cache: "no-store" berarti dynamic data — selalu fetch data segar setiap request masuk, berbeda dengan force-cache (statis) atau revalidate (ISR).', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('631b6efe-4af8-415e-9b78-f3be4ea9fa6c', '74c8b4b2-9b99-4bd6-a4cd-aa30d30961dc', 'Apa keuntungan keamanan dari melakukan data fetching di Server Component dibanding di browser?', '["Kredensial API key dan query database tetap berada di server, tidak bocor ke browser","Data otomatis terenkripsi end-to-end","Tidak perlu menggunakan database","Semua data otomatis menjadi public"]'::jsonb, 0, 'Karena fetching terjadi di server, kredensial API key dan query database tetap berada di server dan tidak bocor ke browser.', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('68709469-b476-4641-a6ee-4424e5595064', '450a660e-26e5-4470-9ac7-6db63edb259b', 'Nama file apa yang dipakai untuk membuat Route Handler / custom API endpoint di App Router?', '["page.tsx","route.ts","api.ts","handler.tsx"]'::jsonb, 1, 'Route Handlers dibuat menggunakan Web Standard Request dan Response API di dalam file route.ts.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('f02f534a-7179-43ec-a82c-fed3a2d77b89', '450a660e-26e5-4470-9ac7-6db63edb259b', 'Apakah file route.ts boleh ditaruh di folder yang sama dengan page.tsx?', '["Boleh, tidak masalah sama sekali","Tidak boleh","Boleh hanya untuk method GET","Boleh hanya di folder root app/"]'::jsonb, 1, 'File route.ts tidak boleh ditaruh di folder yang sama dengan page.tsx.', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('cdbab029-7971-4a13-b656-5bad9b5b7b26', '450a660e-26e5-4470-9ac7-6db63edb259b', 'Bagaimana cara menangani HTTP method POST pada sebuah Route Handler?', '["function handlePost() { ... }","export async function POST(request) { ... }","export default POST()","function onPost(req, res) { ... }"]'::jsonb, 1, 'Method HTTP ditangani dengan mengekspor fungsi async bernama sesuai method-nya, misalnya export async function POST(request).', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('70161f6b-2dd1-4983-b930-11a5bb0ec6ae', 'c357b844-d366-44d5-8d81-7377d8abd0d2', 'Prefix apa yang wajib ditambahkan pada environment variable agar bisa dibaca di Client Component/browser?', '["PUBLIC_","NEXT_PUBLIC_","CLIENT_","ENV_PUBLIC_"]'::jsonb, 1, 'Prefix NEXT_PUBLIC_ wajib diberikan jika suatu variabel perlu dibaca di sisi klien/browser.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('375979c4-561c-42ae-88e5-14a4eb47a991', 'c357b844-d366-44d5-8d81-7377d8abd0d2', 'File apa yang dipakai Next.js untuk memuat environment variables secara lokal?', '[".env.local","config.json","next.config.mjs","package.json"]'::jsonb, 0, 'Next.js memiliki dukungan bawaan untuk memuat environment variables dari file .env.local.', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('69eddf7f-acc7-49d6-885c-4790560f544c', 'c357b844-d366-44d5-8d81-7377d8abd0d2', 'Mengapa variabel seperti DATABASE_URL (tanpa prefix NEXT_PUBLIC_) aman dari kebocoran ke browser?', '["Karena otomatis dienkripsi oleh Next.js","Karena hanya terbaca di Server Environment (Node.js Runtime), bernilai undefined di Client Component","Karena disimpan langsung di database","Karena Next.js menghapusnya saat build"]'::jsonb, 1, 'Variabel tanpa prefix NEXT_PUBLIC_ hanya terbaca di Server Environment; saat diakses dari Client Component nilainya undefined, mencegah kebocoran kunci rahasia.', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('e4432874-5cb0-4989-ae56-c659bd3c7594', '0bd6b9e8-c329-4078-a066-f00213688aee', 'Fungsi apa yang dipakai untuk membuat metadata dinamis berdasarkan data seperti slug artikel?', '["generateMetadata","getMetadata","createMetadata","useMetadata"]'::jsonb, 0, 'generateMetadata adalah fungsi async yang dipakai untuk metadata dinamis, misalnya pada halaman artikel blog app/notes/[slug]/page.tsx.', 0, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('cb518d8a-bcb2-47a9-bbe8-253af571b6c5', '0bd6b9e8-c329-4078-a066-f00213688aee', 'Informasi apa yang didefinisikan oleh Metadata API di Next.js App Router?', '["Informasi <head> HTML seperti title, description, dan OpenGraph tag","Konfigurasi routing dinamis","State global aplikasi","Skema database"]'::jsonb, 0, 'Metadata API mendefinisikan informasi <head> HTML seperti title, description, favicon, dan OpenGraph tag untuk media sosial, baik statis maupun dinamis.', 1, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('ec81c523-eb33-4d43-bc49-65a4adf45f31', '0bd6b9e8-c329-4078-a066-f00213688aee', 'Apa fungsi title template seperti `{ template: "%s | Catatan Belajar" }` di app/layout.tsx?', '["Membuat format title konsisten di seluruh halaman turunan","Mengubah bahasa halaman secara otomatis","Menentukan warna tema situs","Membuat favicon otomatis"]'::jsonb, 0, 'Title template di Root Layout membuat format title konsisten — setiap halaman turunan tinggal mengisi bagian %s.', 2, '2026-09-21 10:03:34.082505+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('381b8d37-0b5d-4d30-8613-8bee858345e7', 'd2e61558-75c1-4704-87ef-ef56220afdb8', 'Alat modern apa yang direkomendasikan untuk scaffolding project React karena dev server-nya sangat cepat (pakai native ES modules)?', '["Vite","webpack","Gulp","Babel"]'::jsonb, 0, 'Vite dipakai karena dev server-nya sangat cepat (native ES modules), berbeda dari Create React App yang sekarang sudah tidak direkomendasikan lagi oleh tim React.', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('83841c2d-3cc8-4d9e-bbf2-46542a76ff22', 'd2e61558-75c1-4704-87ef-ef56220afdb8', 'Fungsi apa yang menghubungkan aplikasi React ke elemen DOM nyata (`#root`)?', '["createRoot","useEffect","document.createElement","useState"]'::jsonb, 0, '`createRoot(document.getElementById(''root'')).render(...)` adalah titik pertemuan antara HTML biasa dan dunia React.', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('fafa487e-c69e-4699-837e-8507e3341b41', 'd2e61558-75c1-4704-87ef-ef56220afdb8', 'Apa fungsi `<StrictMode>` di `src/main.jsx`?', '["Alat bantu development yang sengaja menjalankan sebagian fungsi dua kali untuk membantu menemukan bug","Component UI utama aplikasi","Mengatur routing aplikasi","Mempercepat build production"]'::jsonb, 0, 'StrictMode bukan komponen UI, melainkan alat bantu development untuk menemukan side effect yang tidak bersih; tidak berpengaruh di production.', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('767a1628-38f3-42be-ab55-a272cbc8b499', 'ef237ccd-12be-46e1-af47-198a937b5a2a', 'JSX pada akhirnya dikompilasi menjadi apa oleh Babel/Vite?', '["React.createElement()","HTML murni","CSS","WebAssembly"]'::jsonb, 0, 'JSX cuma sintaks yang mirip HTML; di balik layar dikompilasi jadi pemanggilan React.createElement().', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('1f63423d-1a55-420d-b451-182d81e6335a', 'ef237ccd-12be-46e1-af47-198a937b5a2a', 'Kenapa JSX memakai `className`, bukan `class`, untuk atribut CSS?', '["class adalah keyword reserved di JavaScript","className lebih pendek untuk diketik","HTML tidak mendukung atribut class","class cuma untuk komponen berbasis class"]'::jsonb, 0, 'class adalah kata kunci reserved di JavaScript, jadi JSX memakai className sebagai gantinya.', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('993fddc3-523c-4045-843b-b904b2d1c4d3', 'ef237ccd-12be-46e1-af47-198a937b5a2a', 'Apa yang wajib dipenuhi JSX terkait root element yang dikembalikan sebuah component?', '["Wajib satu root element pembungkus (atau Fragment <>...</>)","Boleh banyak root element tanpa pembungkus","Wajib pakai <div> sebagai root","Tidak boleh ada elemen bersarang"]'::jsonb, 0, 'JSX wajib punya satu root element; kalau tidak mau ada tag pembungkus tambahan di DOM, pakai Fragment (<>...</>).', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('87240fb5-11f8-41ac-9729-9e0985b69485', 'f630317b-981e-41b2-b3fb-b80b1cc345d7', 'Kenapa nama component React wajib diawali huruf kapital, misalnya `KartuProduk`?', '["Supaya React bisa membedakan component dari tag HTML biasa","Supaya lebih mudah dibaca saja","Itu aturan penamaan JavaScript pada umumnya","Supaya bisa dipakai di file .jsx"]'::jsonb, 0, 'React memakai huruf kapital di awal nama untuk membedakan <KartuProduk /> (component) dari <div /> (tag HTML biasa).', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('9499698d-2f17-4de1-aff4-1f4319e89cb0', 'f630317b-981e-41b2-b3fb-b80b1cc345d7', 'Bagaimana sifat props yang diterima sebuah component?', '["Read-only, tidak boleh diubah component itu sendiri","Bisa diubah bebas oleh component itu sendiri","Otomatis ter-update dua arah ke parent","Hanya boleh berisi string"]'::jsonb, 0, 'Data mengalir satu arah (one-way data flow) dari parent ke child; component tidak boleh mengubah props yang diterimanya sendiri.', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('624a54a0-8ad4-4980-bf08-ed501fd8a73e', 'f630317b-981e-41b2-b3fb-b80b1cc345d7', '`function KartuProduk({ nama, harga })` — teknik apa yang dipakai pada parameter itu?', '["Destructuring dari objek props","Spread operator","Template literal","Optional chaining"]'::jsonb, 0, 'Itu sama dengan menulis function KartuProduk(props) { const { nama, harga } = props; ... } — destructuring objek props langsung di parameter.', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('5a412e1c-bb98-4380-991f-8fbc8c2a3408', '5b25c713-0c3b-467d-9bd2-3f5002f12668', 'Kenapa variabel biasa di dalam fungsi component tidak cukup untuk menyimpan data yang berubah seiring waktu (mis. jumlah klik)?', '["Di-reset ke nilai awal tiap render ulang, dan mengubahnya tidak memicu render ulang","Variabel biasa berjalan lebih lambat","JavaScript tidak mendukung variabel di dalam fungsi","useState wajib dipakai di semua fungsi JavaScript"]'::jsonb, 0, 'Tiap render, fungsi component dijalankan dari awal sehingga variabel biasa di-reset, dan mengubahnya langsung tidak memberi tahu React untuk render ulang.', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('43ea5789-6bcb-4c34-9dff-00aeca50efc5', '5b25c713-0c3b-467d-9bd2-3f5002f12668', 'Apa yang dikembalikan oleh pemanggilan `useState(0)`?', '["Array berisi nilai state saat ini dan fungsi untuk mengubahnya","Objek dengan properti value","String kosong","Sebuah Promise"]'::jsonb, 0, 'useState mengembalikan array [nilaiSaatIni, fungsiSetter], biasa didestructuring jadi const [count, setCount] = useState(0).', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('2d4fe525-11c9-41ae-b2a4-a8e4cce57198', '5b25c713-0c3b-467d-9bd2-3f5002f12668', 'Kalau `<Counter />` dipakai dua kali di halaman yang sama, bagaimana state `count` di masing-masing instance?', '["Masing-masing instance punya count sendiri-sendiri, terpisah total","Keduanya berbagi nilai count yang sama","Cuma instance pertama yang benar-benar punya state","Akan terjadi error karena komponen duplikat"]'::jsonb, 0, 'State bersifat lokal per instance component — mengklik salah satu Counter tidak memengaruhi Counter lainnya.', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('ca5acd51-25b4-49c1-bcf8-f646e8943606', 'eb9e7936-95b5-42b9-9396-12637e884505', 'Kenapa `onClick={handleClick()}` salah dipakai sebagai event handler?', '["Fungsi langsung terpanggil sekali waktu render, bukan waktu diklik","Sintaksnya langsung error di JSX","Tidak bisa dipakai sama sekali di JSX","Harus selalu pakai arrow function tanpa terkecuali"]'::jsonb, 0, 'onClick={handleClick()} memanggil fungsinya sekali saat render (karena ada tanda kurung), bukan mengirim referensi fungsi untuk dipanggil nanti saat event terjadi.', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('33845c87-d26b-4c0b-8fd2-dca1edf063a8', 'eb9e7936-95b5-42b9-9396-12637e884505', 'Kenapa handler dengan parameter tambahan (misal id item) perlu dibungkus arrow function, seperti `onClick={() => onHapus(item.id)}`?', '["Supaya pemanggilannya ditunda sampai event benar-benar terjadi","Supaya dieksekusi lebih cepat","Karena onHapus tidak bisa dipanggil langsung sama sekali","Itu wajib secara sintaks JSX untuk semua handler"]'::jsonb, 0, 'Arrow function membungkus pemanggilan onHapus(item.id) supaya baru dieksekusi saat event klik terjadi, bukan langsung saat render.', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('10c564f1-a4dc-4bd8-8aae-2469903eb2ed', 'eb9e7936-95b5-42b9-9396-12637e884505', 'Apa sebutan untuk event object di React yang dibungkus supaya perilakunya konsisten di semua browser?', '["Synthetic Event","Native Event","Virtual Event","Custom Event"]'::jsonb, 0, 'React membungkus event native browser jadi Synthetic Event supaya API-nya (e.target, e.preventDefault(), dst) konsisten di semua browser.', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('76f8e52a-6630-4dc4-97cc-8e7c5cc7c1c2', '97bae629-d766-42d8-b52f-72403968fe7e', 'Kenapa React tidak bisa langsung menulis if/else di tengah markup JSX?', '["JSX cuma ekspresi, bukan statement","JSX tidak mendukung JavaScript sama sekali","if/else sudah deprecated di JavaScript modern","React secara sengaja melarang percabangan"]'::jsonb, 0, 'JSX adalah ekspresi yang menghasilkan nilai, sedangkan if/else adalah statement — makanya percabangan besar ditulis di luar JSX (mis. return lebih awal).', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('4b2ba4b0-f968-4360-8c77-85ad123d5c76', '97bae629-d766-42d8-b52f-72403968fe7e', 'Apa jebakan umum menulis `{jumlahPesan && <span>...</span>}` tanpa perbandingan eksplisit (mis. `> 0`)?', '["Kalau jumlahPesan bernilai 0, angka \"0\" itu sendiri ikut ter-render ke layar","Kode itu akan selalu error saat build","Component tidak akan pernah ter-render","jumlahPesan otomatis dianggap true"]'::jsonb, 0, '0 dianggap falsy oleh JavaScript, tapi karena bukan null/undefined/false, React tetap merender nilai 0 itu sendiri sebagai teks di layar.', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('c4fe8be9-25cd-4b05-96bc-b2089d8fbb80', '97bae629-d766-42d8-b52f-72403968fe7e', 'Untuk percabangan besar yang paling jelas dibaca, cara apa yang direkomendasikan?', '["if/else di luar JSX dengan return lebih awal","Ternary bersarang berkali-kali di dalam JSX","switch-case langsung di dalam JSX","Selalu pakai operator && untuk semua kasus"]'::jsonb, 0, 'if/else di luar JSX dengan return lebih awal paling gampang dibaca untuk percabangan besar, dibanding ternary bersarang yang cepat sulit dibaca.', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('1801331a-022a-40bb-926e-b4bac4388c78', '925ecd75-7b79-409e-b372-642eafd5f496', 'Fungsi JavaScript apa yang dipakai untuk mengubah array data jadi array elemen JSX?', '[".map()",".filter()",".reduce()",".forEach()"]'::jsonb, 0, 'React memakai Array.prototype.map() biasa (bukan API baru) untuk mentransformasi array data jadi array elemen JSX.', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('c4475d6a-f630-48f5-99f3-597388afdff6', '925ecd75-7b79-409e-b372-642eafd5f496', 'Kenapa prop `key` penting saat me-render list di React?', '["React memakainya untuk mencocokkan elemen list antar render supaya tidak salah mencocokkan item","Supaya CSS bisa styling per item secara otomatis","Wajib untuk validasi HTML","Untuk mempercepat network request"]'::jsonb, 0, 'key membantu React mencocokkan item mana yang ditambah/dihapus/digeser urutannya antar render, mencegah bug halus seperti state yang "nempel" ke item salah.', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('a91bf28f-9d2d-4b90-b458-2cd337406817', '925ecd75-7b79-409e-b372-642eafd5f496', 'Kapan memakai index array sebagai `key` dianggap berisiko?', '["Kalau list itu bisa diurutkan ulang, ditambah di tengah, atau dihapus sebagian","Selalu aman dipakai kapan saja tanpa pengecualian","Cuma berisiko kalau list-nya kosong","Index tidak pernah boleh dipakai sama sekali walau list statis"]'::jsonb, 0, 'Kalau list berubah urutan/ditambah/dihapus, index tiap item bisa berubah walau datanya sama, membuat React salah mencocokkan elemen.', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('4e405100-e203-4768-8a40-d0c802b216aa', '098092c7-34cf-4366-9ae8-9b3167714015', 'Apa yang dimaksud dengan "controlled component" pada form React?', '["Nilai input disimpan di state React dan disinkronkan lewat onChange, bukan disimpan di DOM","Input yang otomatis tervalidasi tanpa kode tambahan","Component yang di-render di server","Form yang tidak bisa diedit oleh user"]'::jsonb, 0, 'Controlled component menjadikan state React sebagai single source of truth untuk nilai input, bukan DOM yang menyimpannya sendiri.', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('df4e7a37-07e1-401a-ad72-fbe7296fc906', '098092c7-34cf-4366-9ae8-9b3167714015', 'Kalau `value` di-set pada `<input>` tapi `onChange` tidak disediakan, apa yang terjadi?', '["Input jadi read-only (tidak bisa diketik) karena state tidak pernah diperbarui","Input berjalan normal seperti biasa","React otomatis menambahkan onChange sendiri","Akan muncul error saat proses build"]'::jsonb, 0, 'Tanpa onChange, state yang jadi sumber value tidak pernah berubah, jadi input terlihat seperti tidak bisa diketik.', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('d895e5db-7c69-4697-a351-fc959c6f9f62', '098092c7-34cf-4366-9ae8-9b3167714015', 'Pola `{...data, [e.target.name]: e.target.value}` dipakai untuk apa?', '["Meng-update satu field dalam objek state tanpa memutasi objek lamanya langsung","Menghapus semua data lama di state","Membuat array baru dari sebuah objek","Validasi format input"]'::jsonb, 0, 'Spread {...data} menyalin field lama, lalu [e.target.name]: e.target.value menimpa satu field sesuai input yang berubah — tanpa memutasi objek state lama secara langsung.', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('de7528ba-267f-4fd6-ad0c-4af7a73402e6', '4a0c242e-8f48-4777-8060-ad5d6073febd', 'Kapan efek pada `useEffect(() => {...}, [])` (dependency array kosong) dijalankan?', '["Cuma sekali, tepat setelah render pertama (mount)","Setiap kali component render ulang, apa pun penyebabnya","Tidak akan pernah dijalankan","Hanya saat component di-unmount"]'::jsonb, 0, 'Dependency array kosong [] berarti efek cuma jalan sekali setelah render pertama (mount), tidak berulang di render selanjutnya.', 0, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('aa918c04-a4c3-4532-b81d-7aa3c4a4c4ac', '4a0c242e-8f48-4777-8060-ad5d6073febd', 'Apa fungsi cleanup function yang dikembalikan dari sebuah useEffect?', '["Dijalankan sebelum efek berikutnya jalan / sebelum component unmount, untuk membereskan resource seperti interval","Untuk memulai efek yang benar-benar baru","Untuk mengubah isi dependency array","Untuk mempercepat proses render"]'::jsonb, 0, 'Cleanup function (mis. return () => clearInterval(id)) dipanggil sebelum efek berikutnya jalan atau saat component unmount, untuk membereskan resource dari efek sebelumnya.', 1, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+INSERT INTO note_quiz_questions (id, note_id, question, options, correct_index, explanation, order_index, created_at) VALUES ('3c1fe9aa-7028-4d1a-b150-b1405f69d665', '4a0c242e-8f48-4777-8060-ad5d6073febd', 'Apa akibat kalau `clearInterval` tidak dipanggil di cleanup function pada contoh Timer?', '["Menumpuk interval baru yang jalan terus di background (memory leak)","Timer otomatis berhenti sendiri","Tidak ada dampak apa pun ke aplikasi","Component akan langsung error saat render"]'::jsonb, 0, 'Tanpa clearInterval di cleanup, tiap kali component ini remount akan menumpuk interval baru yang terus berjalan di background — memory leak klasik.', 2, '2026-09-21 23:49:42.152147+00') ON CONFLICT (id) DO UPDATE SET note_id = EXCLUDED.note_id, question = EXCLUDED.question, options = EXCLUDED.options, correct_index = EXCLUDED.correct_index, explanation = EXCLUDED.explanation, order_index = EXCLUDED.order_index;
+
+COMMIT;

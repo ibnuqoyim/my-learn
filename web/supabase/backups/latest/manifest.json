@@ -1,0 +1,17 @@
+{
+  "project_ref": "sgtopeghogkwaaaygakc",
+  "timestamp": "2026-09-22T10:51:15.550Z",
+  "tables": {
+    "categories": 12,
+    "notes": 84,
+    "profiles": 1,
+    "comments": 0,
+    "note_progress": 0,
+    "category_quiz_questions": 6,
+    "category_quiz_attempts": 0,
+    "note_quiz_questions": 60,
+    "note_quiz_attempts": 0,
+    "category_ai_chat_messages": 0,
+    "note_ai_chat_messages": 5
+  }
+}

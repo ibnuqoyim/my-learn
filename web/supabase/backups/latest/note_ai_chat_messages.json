@@ -1,0 +1,42 @@
+[
+  {
+    "id": "d64695a2-2699-452b-a8c7-2e6d0272936d",
+    "user_id": "5e19ce02-a843-43bf-9ae5-cb0b293d114b",
+    "note_id": "eb9e7936-95b5-42b9-9396-12637e884505",
+    "role": "user",
+    "content": "halo",
+    "created_at": "2026-09-22 04:19:40.650063+00"
+  },
+  {
+    "id": "4c42e41b-3795-45ab-95d9-a90d1a0d26b0",
+    "user_id": "5e19ce02-a843-43bf-9ae5-cb0b293d114b",
+    "note_id": "eb9e7936-95b5-42b9-9396-12637e884505",
+    "role": "user",
+    "content": "halo",
+    "created_at": "2026-09-22 06:05:27.482415+00"
+  },
+  {
+    "id": "1bdd4b1e-d1aa-4d20-b6f6-534fb6a33153",
+    "user_id": "5e19ce02-a843-43bf-9ae5-cb0b293d114b",
+    "note_id": "eb9e7936-95b5-42b9-9396-12637e884505",
+    "role": "user",
+    "content": "hi",
+    "created_at": "2026-09-22 06:05:46.281591+00"
+  },
+  {
+    "id": "130a9e77-9664-4697-bbc5-3f2b893b30da",
+    "user_id": "5e19ce02-a843-43bf-9ae5-cb0b293d114b",
+    "note_id": "eb9e7936-95b5-42b9-9396-12637e884505",
+    "role": "user",
+    "content": "hi",
+    "created_at": "2026-09-22 06:48:09.826584+00"
+  },
+  {
+    "id": "14ab1ca2-ff89-4713-b8cd-d65d6ba8efc9",
+    "user_id": "5e19ce02-a843-43bf-9ae5-cb0b293d114b",
+    "note_id": "eb9e7936-95b5-42b9-9396-12637e884505",
+    "role": "assistant",
+    "content": "Halo! Ada yang bisa saya bantu hari ini? 😊",
+    "created_at": "2026-09-22 06:48:13.990731+00"
+  }
+]

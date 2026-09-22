@@ -1,0 +1,92 @@
+[
+  {
+    "id": "373a1cba-5b63-4c5b-a3ba-76baace97746",
+    "category_id": "9deddb76-862f-4fce-83e4-57a0202df83b",
+    "question": "Manakah yang BUKAN termasuk topik dasar JavaScript yang sudah dipelajari di roadmap ini?",
+    "options": [
+      "Variabel & scope",
+      "Closure",
+      "Arrow function",
+      "Migrasi database SQL"
+    ],
+    "correct_index": 3,
+    "explanation": "Migrasi database bukan bagian dari roadmap dasar JavaScript di kategori ini — itu topik terpisah (mis. Supabase).",
+    "order_index": 0,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "1a9c68fc-6c7d-49d4-bdcd-0c3b206bf299",
+    "category_id": "9deddb76-862f-4fce-83e4-57a0202df83b",
+    "question": "Apa fungsi utama Promise di JavaScript?",
+    "options": [
+      "Menyimpan data ke localStorage",
+      "Merepresentasikan hasil operasi asynchronous yang belum tentu selesai",
+      "Mengubah CSS secara dinamis",
+      "Membuat elemen HTML baru"
+    ],
+    "correct_index": 1,
+    "explanation": "Promise merepresentasikan nilai yang mungkin belum tersedia sekarang tapi akan selesai (resolve/reject) di masa depan.",
+    "order_index": 1,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "bb803c87-fd08-44c9-8c6d-2e6abdcba2b4",
+    "category_id": "9deddb76-862f-4fce-83e4-57a0202df83b",
+    "question": "async/await adalah gula sintaks di atas apa?",
+    "options": [
+      "Callback",
+      "Promise",
+      "Closure",
+      "Array method"
+    ],
+    "correct_index": 1,
+    "explanation": "async/await mempermudah penulisan kode asynchronous yang sebenarnya tetap berbasis Promise di baliknya.",
+    "order_index": 2,
+    "created_at": "2026-09-21 09:32:19.89676+00"
+  },
+  {
+    "id": "81a0b296-cebd-4c16-acd0-a195d76c9a10",
+    "category_id": "874d0ef2-3e06-451f-80e8-6cd10276bd6a",
+    "question": "Apa masalah utama yang diselesaikan React dibanding manipulasi DOM manual?",
+    "options": [
+      "React pakai pendekatan deklaratif — deskripsikan UI berdasarkan state, React yang urus update DOM-nya",
+      "React menghilangkan kebutuhan JavaScript sama sekali",
+      "React otomatis membuat API backend",
+      "React hanya alat untuk styling CSS"
+    ],
+    "correct_index": 0,
+    "explanation": "Sebelum React, memperbarui tampilan berarti memanipulasi DOM manual satu per satu — React menyelesaikan ini lewat pendekatan deklaratif.",
+    "order_index": 0,
+    "created_at": "2026-09-22 03:55:16.577906+00"
+  },
+  {
+    "id": "c3cc2b3f-1b2e-4c95-bbb7-40870b85f788",
+    "category_id": "874d0ef2-3e06-451f-80e8-6cd10276bd6a",
+    "question": "Roadmap React di platform ini dimulai dari instalasi project sampai ke topik apa di langkah terakhir?",
+    "options": [
+      "useEffect (sinkronisasi dengan sistem luar)",
+      "Redux",
+      "TypeScript generics",
+      "Server Component"
+    ],
+    "correct_index": 0,
+    "explanation": "Sembilan langkah roadmap ini diakhiri di catatan useEffect Dasar, tentang menyinkronkan component dengan hal di luar React seperti fetch data dan timer.",
+    "order_index": 1,
+    "created_at": "2026-09-22 03:55:16.577906+00"
+  },
+  {
+    "id": "b97322a5-f519-4a0b-94d9-b7f614167b6f",
+    "category_id": "874d0ef2-3e06-451f-80e8-6cd10276bd6a",
+    "question": "Apa prasyarat pengetahuan yang disebutkan di deskripsi roadmap React ini?",
+    "options": [
+      "Dasar JavaScript (variabel, fungsi, array method seperti map/filter, destructuring)",
+      "Pengalaman pakai Next.js terlebih dahulu",
+      "Sertifikasi cloud tertentu",
+      "Menguasai bahasa pemrograman Python"
+    ],
+    "correct_index": 0,
+    "explanation": "Deskripsi roadmap ini secara eksplisit meminta familiar dengan dasar JavaScript dulu, dan mengarahkan ke roadmap JavaScript di platform ini kalau belum.",
+    "order_index": 2,
+    "created_at": "2026-09-22 03:55:16.577906+00"
+  }
+]
