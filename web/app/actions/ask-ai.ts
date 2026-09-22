@@ -13,6 +13,38 @@ type ClearResult = { success: true } | { success: false; error: string };
 const MAX_MESSAGE_LENGTH = 1000;
 const MAX_HISTORY_MESSAGES = 12;
 
+// Kita minta stream: false ke provider (lihat pemanggilan fetch di bawah),
+// tapi beberapa endpoint OpenAI-compatible tetap balas Server-Sent Events
+// ("data: {...}" per baris, diakhiri "data: [DONE]") apa pun yang diminta.
+// Coba parse sebagai satu JSON object dulu (kasus normal); kalau gagal,
+// anggap SSE dan gabungkan potongan content dari tiap baris data.
+function parseChatCompletionContent(rawBody: string): string | undefined {
+  try {
+    const json = JSON.parse(rawBody);
+    return json.choices?.[0]?.message?.content;
+  } catch {
+    // Bukan JSON tunggal -- kemungkinan SSE, lanjut ke parsing di bawah.
+  }
+
+  const content = rawBody
+    .split("\n")
+    .filter((line) => line.startsWith("data:"))
+    .map((line) => line.slice(5).trim())
+    .filter((data) => data && data !== "[DONE]")
+    .map((data) => {
+      try {
+        return JSON.parse(data);
+      } catch {
+        return null;
+      }
+    })
+    .filter((chunk): chunk is Record<string, any> => chunk !== null)
+    .map((chunk) => chunk.choices?.[0]?.delta?.content ?? chunk.choices?.[0]?.message?.content ?? "")
+    .join("");
+
+  return content || undefined;
+}
+
 function chatTable(scope: AiChatScope) {
   return "noteId" in scope ? "note_ai_chat_messages" : "category_ai_chat_messages";
 }
@@ -119,7 +151,10 @@ export async function askAiAction(scope: AiChatScope, message: string): Promise<
           "Content-Type": "application/json",
           Authorization: `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({ model, messages, temperature: 0.3 }),
+        // stream eksplisit false -- tanpa ini, beberapa provider OpenAI-compatible
+        // (mis. Groq) default balas Server-Sent Events ("data: {...}" per baris),
+        // padahal kode di bawah cuma bisa parse satu JSON object utuh lewat res.json().
+        body: JSON.stringify({ model, messages, temperature: 0.3, stream: false }),
       });
 
       if (!res.ok) {
@@ -127,8 +162,8 @@ export async function askAiAction(scope: AiChatScope, message: string): Promise<
         return { success: false, error: `AI API error (${res.status}): ${errText.slice(0, 200)}` };
       }
 
-      const json = await res.json();
-      reply = json.choices?.[0]?.message?.content?.trim();
+      const rawBody = await res.text();
+      reply = parseChatCompletionContent(rawBody)?.trim();
     } catch (e) {
       return { success: false, error: e instanceof Error ? e.message : "Gagal menghubungi AI." };
     }
