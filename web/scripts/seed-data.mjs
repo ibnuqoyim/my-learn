@@ -5,6 +5,33 @@
 
 export const categories = [
   {
+    name: "Java Dasar",
+    slug: "java-dasar",
+    description: `Java adalah salah satu bahasa pemrograman paling stabil dan banyak digunakan di dunia — dari backend sistem perbankan, aplikasi Android, hingga platform big data. Filosofi utamanya adalah **"Write Once, Run Anywhere" (WORA)**: kode Java yang dikompilasi menjadi bytecode dapat berjalan di sistem operasi apa pun (Windows, Linux, macOS) asalkan memiliki Java Virtual Machine (JVM).
+
+Roadmap ini membangun fondasi Java murni dari nol: mulai dari setup JDK dan memahami ekosistem JVM, tipe data primitif vs reference, percabangan dan perulangan modern, dasar Pemrograman Berorientasi Objek (Class, Object, Constructor), pewarisan sifat (Inheritance & Polymorphism), sampai merancang kontrak modular lewat Interface dan Abstract Class. Enam langkah berjenjang, ikuti berurutan.
+
+**Asumsi:** belum pernah menulis Java sama sekali tidak masalah — roadmap ini menjelaskan dari nol. Familiar dengan konsep logika dasar komputer akan membantu mempercepat pemahaman.`,
+  },
+  {
+    name: "Java Lanjutan (Advance)",
+    slug: "java-advance",
+    description: `Setelah memahami sintaks dasar dan konsep OOP di roadmap Java Dasar, menulis kode Java modern skala industri menuntut pemahaman teknik lanjutan: bagaimana mengelola koleksi data secara dinamis, menulis kode yang type-safe tanpa duplikasi, dan memproses ribuan data secara deklaratif serta konkruen.
+
+Roadmap ini membawamu menguasai fitur-fitur penting Java modern: Generics untuk fleksibilitas tipe data, Java Collections Framework (List, Set, Map), Functional Programming dengan Lambda Expressions, pemrosesan data deklaratif lewat Stream API, penanganan null yang aman dengan Optional, sampai revolusi konkurensi modern lewat Virtual Threads (Java 21 / Project Loom). Enam langkah, ikuti berurutan setelah menyelesaikan Java Dasar.
+
+**Asumsi:** sudah menyelesaikan atau familiar dengan materi di roadmap [Java Dasar](/kategori/java-dasar) (OOP, class, inheritance, interface).`,
+  },
+  {
+    name: "Quarkus",
+    slug: "quarkus",
+    description: `Framework Java tradisional (seperti Spring konvensional atau Java EE lama) dirancang di era monolithic server: memakan waktu startup beberapa detik hingga puluhan detik dan menghabiskan memori RAM ratusan megabyte — sangat boros ketika dijalankan di arsitektur cloud modern, Kubernetes, atau serverless containers. **Quarkus** adalah framework revolusioner berslogan **"Supersonic Subatomic Java"**: memindahkan proses pemindaian anotasi dan konfigurasi ke tahap *build-time*, menghasilkan startup hitungan milidetik dan konsumsi memori super hemat.
+
+Roadmap ini membawamu dari nol membangun aplikasi cloud-native: instalasi Quarkus CLI dan sensasi instan Live Coding (\`quarkus dev\`), membangun REST API reaktif dengan RESTEasy Reactive, Dependency Injection tanpa reflection menggunakan ArC (Jakarta CDI), akses database sangat mudah dengan Hibernate ORM with Panache, sampai kompilasi native binary menggunakan GraalVM. Lima langkah, ikuti berurutan.
+
+**Asumsi:** familiar dengan dasar bahasa Java (OOP) dan konsep dasar REST API. Prasyarat tool (JDK 17+, GraalVM opsional) disebutkan di catatan pertama.`,
+  },
+  {
     name: "React",
     slug: "react",
     description: `React adalah library JavaScript paling populer untuk membangun antarmuka (UI) — dipakai jutaan aplikasi web, dari dashboard internal sampai produk skala besar seperti Instagram dan Facebook (yang menciptakannya). Sebelum React (dan library serupa), memperbarui tampilan setelah data berubah berarti memanipulasi DOM manual satu per satu (\`document.getElementById(...).innerHTML = ...\`) — gampang jadi berantakan dan bug begitu aplikasinya makin besar. React menyelesaikan ini lewat pendekatan deklaratif: kamu deskripsikan UI seharusnya terlihat seperti apa berdasarkan state saat ini, React yang mengurus cara memperbaruinya di DOM.
@@ -115,6 +142,1404 @@ Roadmap ini membawamu dari instalasi & menjalankan aplikasi pertama, Dependency 
 ];
 
 export const notes = [
+  {
+    category: "java-dasar",
+    slug: "pengenalan-jdk-dan-program-pertama",
+    order: 0,
+    title: "Pengenalan Java, JDK, dan Program Pertama",
+    content: `**Masalah yang diselesaikan:** bahasa seperti C/C++ dikompilasi langsung ke instruksi mesin spesifik untuk prosesor dan OS tertentu — program yang dicompile di Windows tidak bisa jalan di Linux tanpa dicompile ulang dari kode sumber. Java memecahkan masalah ini dengan konsep **Java Virtual Machine (JVM)**: kode Java dicompile menjadi berkas perantara (*bytecode* berekstensi \`.class\`), dan JVM di masing-masing sistem operasi yang akan menjalankannya.
+
+Slogan legendaris Java adalah **"Write Once, Run Anywhere" (Tulis Sekali, Jalankan di Mana Saja)**.
+
+\`\`\`mermaid
+flowchart LR
+  Src["Kode Sumber (.java)<br/>Main.java"] --> Compiler["Java Compiler (javac)"]
+  Compiler --> Bytecode["Bytecode (.class)<br/>Main.class"]
+  Bytecode --> JVM_Win["JVM Windows ➔ Windows App"]
+  Bytecode --> JVM_Linux["JVM Linux ➔ Linux App"]
+  Bytecode --> JVM_Mac["JVM macOS ➔ Mac App"]
+\`\`\`
+
+### 1. Struktur Program Pertama (\`Main.java\`)
+
+Setiap baris kode yang dieksekusi di Java harus berada di dalam sebuah \`class\`, dan nama class harus sama persis dengan nama filenya:
+
+\`\`\`java
+// Nama file: Main.java
+public class Main {
+    // Titik masuk utama eksekusi program (entry point)
+    public static void main(String[] args) {
+        System.out.println("Halo Dunia, selamat datang di Java!");
+    }
+}
+\`\`\`
+
+Menjalankan program lewat terminal:
+
+\`\`\`bash
+# 1. Kompilasi kode sumber .java menjadi bytecode .class
+javac Main.java
+
+# 2. Jalankan bytecode di atas JVM (tanpa ekstensi .class)
+java Main
+
+# Sejak Java 11+, kamu bisa langsung menjalankan file tunggal tanpa javac manual:
+java Main.java
+\`\`\`
+
+Poin penting:
+
+- **JDK (Java Development Kit)** adalah paket lengkap untuk developer (compiler \`javac\`, debugger, dan runtime).
+- **JVM (Java Virtual Machine)** adalah mesin virtual yang mengeksekusi bytecode di komputer target.
+- Java bersifat *case-sensitive* (huruf besar dan kecil dibedakan) dan setiap perintah diakhiri tanda titik koma (\`;\`).
+- \`System.out.println()\` digunakan untuk mencetak teks ke layar terminal diikuti baris baru.`,
+    sources: [
+      {
+            "label": "Oracle Java Documentation — Getting Started with Java",
+            "url": "https://docs.oracle.com/en/java/javase/21/start/index.html"
+      },
+      {
+            "label": "Adoptium (Eclipse Temurin) — Official OpenJDK Builds",
+            "url": "https://adoptium.net/"
+      }
+],
+    prerequisites: [
+      {
+            "label": "JDK (Java Development Kit) versi 17 atau 21 sudah terinstall (cek dengan `java -version` di terminal)",
+            "url": "https://adoptium.net/"
+      }
+],
+    practice: `Buka terminal di komputermu:
+1. Pastikan JDK terpasang dengan mengetik \`java -version\` dan \`javac -version\`.
+2. Buat folder baru \`belajar-java\` dan buat file \`Main.java\`.
+3. Tulis kode program seperti contoh di atas, ubah teks salam menjadi namamu sendiri.
+4. Kompilasi dengan \`javac Main.java\` dan amati munculnya file baru \`Main.class\`.
+5. Jalankan dengan \`java Main\` dan lihat output teks muncul di layar terminal.`,
+  },
+  {
+    category: "java-dasar",
+    slug: "tipe-data-dan-variabel",
+    order: 1,
+    title: "Tipe Data Primitif, Reference, dan Operator",
+    content: `Catatan sebelumnya menunjukkan cara menjalankan program Java pertama. **Masalah yang diselesaikan sekarang:** komputer perlu menyimpan dan mengolah berbagai jenis informasi dalam memori — angka umur, desimal harga, huruf inisial, status kebenaran, atau teks panjang. Karena Java adalah bahasa yang *statically-typed*, setiap variabel wajib dideklarasikan tipe datanya secara jelas sebelum bisa diisi nilai.
+
+Java membagi tipe data ke dalam dua kategori besar: **Tipe Data Primitif** (menyimpan nilai langsung di memori Stack) dan **Tipe Data Reference / Objek** (menyimpan alamat memori/pointer yang menunjuk ke objek di memori Heap).
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Primitif["Tipe Primitif (Memori Stack Cepat)"]
+    P1["int, long (bilangan bulat)"]
+    P2["double, float (desimal)"]
+    P3["boolean (true / false)"]
+    P4["char (satu karakter: 'A')"]
+  end
+  subgraph Reference["Tipe Reference / Objek (Memori Heap)"]
+    R1["String (teks: 'Budi')"]
+    R2["Array (koleksi: int[])"]
+    R3["Objek Class Kustom"]
+  end
+\`\`\`
+
+Contoh deklarasi variabel dan operasi dasar:
+
+\`\`\`java
+public class VariabelDemo {
+    public static void main(String[] args) {
+        // 1. Tipe Data Primitif
+        int umur = 20;
+        double beratBadan = 65.5;
+        boolean isAktif = true;
+        char inisial = 'B';
+
+        // 2. Tipe Data Reference (String & Array)
+        String namaLengkap = "Budi Santoso";
+        int[] nilaiUjian = { 85, 90, 78 };
+
+        // 3. Operator Aritmatika & Penggabungan Teks
+        int tahunLahir = 2026 - umur;
+        System.out.println("Nama: " + namaLengkap);
+        System.out.println("Perkiraan tahun lahir: " + tahunLahir);
+        System.out.println("Nilai pertama: " + nilaiUjian[0]);
+
+        // Sejak Java 10, bisa menggunakan 'var' untuk tipe lokal yang jelas nilainya (type inference)
+        var kota = "Jakarta"; // Otomatis dikenali sebagai String
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Tipe data primitif memiliki ukuran tetap: \`int\` (4 byte), \`long\` (8 byte), \`double\` (8 byte), \`boolean\` (1 bit logis).
+- Karakter tunggal ditulis dengan kutip satu (\`'A'\`), sedangkan teks (String) ditulis dengan kutip dua (\`"Budi"\`).
+- Variabel primitif tidak bisa bernilai \`null\`, sedangkan variabel reference bisa bernilai \`null\` jika belum menunjuk ke objek mana pun.
+- Kata kunci \`var\` hanya boleh dipakai untuk variabel lokal di dalam method yang langsung diberi nilai awal.`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Primitive Data Types",
+            "url": "https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html"
+      },
+      {
+            "label": "Oracle Java Tutorial — Variables",
+            "url": "https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di file \`Main.java\` kamu:
+1. Deklarasikan variabel primitif: \`double harga = 50000.0;\` dan \`int jumlah = 3;\`.
+2. Hitung total bayar: \`double total = harga * jumlah;\`.
+3. Terapkan diskon 10% jika total di atas 100.000 menggunakan operator perkalian \`total = total * 0.9;\`.
+4. Cetak rincian nama barang, jumlah, dan total akhir bayar ke terminal.
+5. Jalankan program dengan \`java Main.java\` dan periksa kebenaran hasil perhitungannya.`,
+  },
+  {
+    category: "java-dasar",
+    slug: "struktur-kontrol-percabangan-perulangan",
+    order: 2,
+    title: "Struktur Kontrol: Percabangan & Perulangan",
+    content: `Catatan sebelumnya membahas tipe data dan variabel. **Masalah yang diselesaikan sekarang:** program tidak selalu berjalan lurus dari baris atas ke bawah. Kamu perlu membuat keputusan (misal: jika nilai >= 75 lulus, jika tidak maka remidi) dan mengulang pekerjaan tanpa menyalin baris kode yang sama berulang-ulang.
+
+Java menyediakan dua struktur kontrol utama: **Percabangan** (\`if-else\`, modern \`switch\`) dan **Perulangan** (\`for\`, enhanced \`for-each\`, \`while\`).
+
+\`\`\`mermaid
+flowchart TD
+  Start["Input Nilai Ujian"] --> Cond{"nilai >= 75 ?"}
+  Cond -- Ya --> Lulus["Status: LULUS"]
+  Cond -- Tidak --> Remidi["Status: REMIDI"]
+  Lulus --> Loop["Loop for-each cetak daftar siswa"]
+  Remidi --> Loop
+\`\`\`
+
+Contoh percabangan modern dan perulangan:
+
+\`\`\`java
+public class KontrolDemo {
+    public static void main(String[] args) {
+        int skor = 85;
+
+        // 1. Percabangan if - else if - else
+        if (skor >= 90) {
+            System.out.println("Grade: A");
+        } else if (skor >= 75) {
+            System.out.println("Grade: B");
+        } else {
+            System.out.println("Grade: C");
+        }
+
+        // 2. Modern Switch Expression (Java 14+) — mengembalikan nilai langsung
+        String peran = "ADMIN";
+        String hakAkses = switch (peran) {
+            case "ADMIN" -> "Akses Penuh";
+            case "EDITOR" -> "Akses Tulis";
+            default -> "Akses Baca Saja";
+        };
+        System.out.println("Hak akses: " + hakAkses);
+
+        // 3. Enhanced for-each loop (cara paling elegan membaca isi array)
+        String[] daftarHobi = { "Membaca", "Coding", "Bermain Musik" };
+        System.out.println("
+Daftar Hobi:");
+        for (String hobi : daftarHobi) {
+            System.out.println("- " + hobi);
+        }
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Operator pembanding di Java: \`==\` (sama dengan), \`!=\` (tidak sama), \`>\`, \`<\`, \`>=\`, \`<=\`.
+- Perhatian khusus: untuk membandingkan isi teks \`String\`, **selalu gunakan \`.equals()\`** (\`teks.equals("ADMIN")\`), JANGAN gunakan \`==\` karena \`==\` membandingkan alamat memori objek, bukan isi teksnya.
+- Switch expression modern dengan operator panah (\`->\`) tidak memerlukan kata kunci \`break\` manual dan tidak memiliki celah bug *fall-through*.
+- Gunakan perulangan \`for-each\` ketika hanya ingin membaca semua elemen array tanpa membutuhkan nomor indeksnya.`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Control Flow Statements",
+            "url": "https://docs.oracle.com/javase/tutorial/java/nutsandbolts/flow.html"
+      },
+      {
+            "label": "Oracle Documentation — Switch Expressions",
+            "url": "https://docs.oracle.com/en/java/javase/21/language/switch-expressions.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di file latihan kamu:
+1. Buat array angka: \`int[] nilaiList = { 65, 80, 92, 55, 78 };\`.
+2. Gunakan perulangan \`for-each\` untuk memeriksa setiap angka.
+3. Di dalam perulangan, gunakan \`if-else\` untuk mencetak apakah angka tersebut lulus (>= 75) atau tidak.
+4. Hitung total nilai yang lulus menggunakan variabel counter \`int jumlahLulus = 0;\`.
+5. Cetak jumlah siswa yang lulus di akhir program.`,
+  },
+  {
+    category: "java-dasar",
+    slug: "class-object-dan-constructor",
+    order: 3,
+    title: "Class, Object, dan Constructor (Dasar OOP)",
+    content: `Catatan sebelumnya membahas logika percabangan dan perulangan. **Masalah yang diselesaikan sekarang:** di aplikasi nyata, data dan fungsi yang memanipulasinya saling terikat erat. Mengelola data user menggunakan variabel terpisah (\`nama1\`, \`umur1\`, \`nama2\`, \`umur2\`) akan sangat kacau saat ada ratusan data. Java adalah bahasa **Object-Oriented Programming (OOP)** murni: segala entitas di dunia nyata dimodelkan sebagai **Class** dan **Object**.
+
+- **Class** adalah cetak biru (*blueprint*) atau rancangan.
+- **Object** adalah wujud nyata (*instance*) dari blueprint tersebut yang menempati memori.
+- **Constructor** adalah method khusus yang otomatis dipanggil saat object pertama kali dibuat dengan kata kunci \`new\`.
+
+\`\`\`mermaid
+flowchart TD
+  Blueprint["Class Produk (Blueprint)<br/>Atribut: nama, harga<br/>Method: tampilkanInfo()"]
+  Blueprint -->|new Produk('Buku', 50000)| Obj1["Objek 1 di Heap<br/>nama: 'Buku', harga: 50000"]
+  Blueprint -->|new Produk('Pensil', 5000)| Obj2["Objek 2 di Heap<br/>nama: 'Pensil', harga: 5000"]
+\`\`\`
+
+Contoh pembuatan Class dan Constructor:
+
+\`\`\`java
+// File: Produk.java
+class Produk {
+    // 1. Atribut / Field (State)
+    private String nama;
+    private double harga;
+
+    // 2. Constructor: nama sama persis dengan nama Class, tanpa return type
+    public Produk(String nama, double harga) {
+        this.nama = nama; // 'this.nama' merujuk ke atribut class
+        this.harga = harga;
+    }
+
+    // 3. Method (Perilaku / Behavior)
+    public void tampilkanInfo() {
+        System.out.println("Produk: " + this.nama + " | Harga: Rp" + this.harga);
+    }
+
+    // Getter untuk membaca atribut private (Enkapsulasi)
+    public String getNama() {
+        return nama;
+    }
+}
+
+// File: Main.java
+public class Main {
+    public static void main(String[] args) {
+        // Instansiasi objek nyata menggunakan kata kunci 'new'
+        Produk p1 = new Produk("Laptop Pro", 15000000.0);
+        Produk p2 = new Produk("Mouse Wireless", 250000.0);
+
+        p1.tampilkanInfo();
+        p2.tampilkanInfo();
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Kata kunci \`this\` digunakan untuk merujuk pada objek saat ini, membedakan nama parameter constructor dari nama atribut class.
+- **Enkapsulasi**: Praktik terbaik OOP adalah menjadikan atribut bersifat \`private\` dan menyediakannya lewat method \`getter\`/\`setter\` agar data terlindungi dari modifikasi liar.
+- Jika kamu tidak mendefinisikan constructor sama sekali, Java akan menyediakan satu *default constructor* kosong secara otomatis. Namun jika kamu sudah membuat constructor berparameter, default constructor tersebut tidak lagi otomatis dibuat.`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Classes and Objects",
+            "url": "https://docs.oracle.com/javase/tutorial/java/javaOO/classes.html"
+      },
+      {
+            "label": "Oracle Java Tutorial — Providing Constructors for your Classes",
+            "url": "https://docs.oracle.com/javase/tutorial/java/javaOO/constructors.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di project latihan kamu:
+1. Buat class \`Mobil\` dengan atribut \`merk\` (String), \`tahun\` (int), dan \`kecepatan\` (int, default 0).
+2. Buat constructor yang menerima parameter \`merk\` dan \`tahun\`.
+3. Buat method \`tambahKecepatan(int akselerasi)\` yang menambah nilai kecepatan dan mencetak kecepatan saat ini.
+4. Di method \`main\`, buat objek \`Mobil mobilSaya = new Mobil("Toyota", 2022);\`.
+5. Panggil \`mobilSaya.tambahKecepatan(40);\` dua kali dan amati perubahan kecepatannya.`,
+  },
+  {
+    category: "java-dasar",
+    slug: "inheritance-dan-polymorphism",
+    order: 4,
+    title: "Pewarisan (Inheritance) & Polimorfisme",
+    content: `Catatan sebelumnya membahas cara membuat class dan objek. **Masalah yang diselesaikan sekarang:** bayangkan kamu membuat aplikasi game yang memiliki karakter \`Prajurit\`, \`Penyihir\`, dan \`Pemanah\`. Ketiganya sama-sama memiliki atribut \`nama\` dan \`darah\`, serta method \`berjalan()\`. Menuliskan kode ini berulang-ulang di setiap class memicu duplikasi besar (*DRY violation*).
+
+Java menyediakan dua pilar utama OOP untuk ini:
+1. **Inheritance (Pewarisan):** Class anak (*Subclass*) mewarisi atribut dan method dari class induk (*Superclass*) menggunakan kata kunci \`extends\`.
+2. **Polymorphism (Banyak Bentuk):** Objek anak dapat diperlakukan sebagai objek induknya, namun tetap menjalankan perilaku spesifik miliknya lewat \`@Override\`.
+
+\`\`\`mermaid
+classDiagram
+  class Karakter {
+    +String nama
+    +int darah
+    +serang()
+  }
+  class Prajurit {
+    +serang() tebas pedang
+  }
+  class Penyihir {
+    +serang() lempar sihir
+  }
+  Karakter <|-- Prajurit : extends
+  Karakter <|-- Penyihir : extends
+\`\`\`
+
+Contoh kode Inheritance dan Polimorfisme:
+
+\`\`\`java
+// 1. Superclass (Class Induk)
+class Karakter {
+    protected String nama; // 'protected' agar bisa diakses oleh subclass
+
+    public Karakter(String nama) {
+        this.nama = nama;
+    }
+
+    public void serang() {
+        System.out.println(nama + " melakukan serangan biasa!");
+    }
+}
+
+// 2. Subclass 1 (Prajurit)
+class Prajurit extends Karakter {
+    public Prajurit(String nama) {
+        super(nama); // Memanggil constructor milik superclass
+    }
+
+    @Override
+    public void serang() {
+        System.out.println(nama + " menebas dengan pedang tajam!");
+    }
+}
+
+// 3. Subclass 2 (Penyihir)
+class Penyihir extends Karakter {
+    public Penyihir(String nama) {
+        super(nama);
+    }
+
+    @Override
+    public void serang() {
+        System.out.println(nama + " meluncurkan bola api sihir!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Polimorfisme: tipe variabel Karakter, tetapi objek nyatanya Prajurit & Penyihir
+        Karakter k1 = new Prajurit("Arthur");
+        Karakter k2 = new Penyihir("Merlin");
+
+        // Memanggil method yang sama, tetapi output berbeda sesuai bentuk aslinya
+        k1.serang();
+        k2.serang();
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Kata kunci \`super(...)\` wajib dipanggil di baris pertama constructor subclass untuk menginisialisasi superclass.
+- Anotasi \`@Override\` memberi tahu compiler bahwa method ini sengaja menggantikan method milik class induk, mencegah kesalahan ketik nama method.
+- Java **tidak mendukung** *Multiple Inheritance* untuk class (satu class hanya boleh \`extends\` tepat satu superclass) untuk menghindari kebingungan hierarki (*Diamond Problem*).`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Inheritance",
+            "url": "https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html"
+      },
+      {
+            "label": "Oracle Java Tutorial — Polymorphism",
+            "url": "https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di project kamu:
+1. Buat class induk \`Pegawai\` dengan atribut \`nama\` dan method \`hitungGaji()\` yang mengembalikan \`4000000\`.
+2. Buat subclass \`Manager extends Pegawai\` yang meng-override method \`hitungGaji()\` menjadi \`8000000\` (ditambah bonus).
+3. Buat array polimorfis: \`Pegawai[] daftar = { new Pegawai("Rudi"), new Manager("Siti") };\`.
+4. Buat perulangan untuk mencetak nama dan gaji masing-masing pegawai, dan buktikan bahwa method gaji Manager otomatis terhitung lebih besar.`,
+  },
+  {
+    category: "java-dasar",
+    slug: "interface-dan-abstract-class",
+    order: 5,
+    title: "Interface & Abstract Class: Merancang Kontrak Kode",
+    content: `Catatan sebelumnya membahas bagaimana class anak mewarisi perilaku class induk. **Masalah yang diselesaikan sekarang (dan menutup roadmap Java Dasar):** kadang class induk terlalu abstrak untuk memiliki implementasi nyata — bayangkan class \`Pembayaran\`. Tidak ada pembayaran yang mengambang tanpa metode konkret; pembayaran *harus* berupa \`TransferBank\`, \`KartuKredit\`, atau \`EWallet\`. Selain itu, bagaimana jika sebuah class butuh mengadopsi banyak kemampuan sekaligus (misal: bisa disimpan DAN bisa dicetak)?
+
+Java menyelesaikannya lewat dua konsep:
+1. **Abstract Class:** Class setengah jadi yang tidak bisa di-instansiasi langsung (\`new\`) dan dapat memuat method abstrak tanpa body.
+2. **Interface:** Kontrak murni yang mendefinisikan *apa* yang harus dilakukan suatu class, bukan *bagaimana* caranya. Satu class dapat mengimplementasikan **banyak interface** sekaligus (\`implements A, B\`).
+
+\`\`\`mermaid
+flowchart TD
+  Contract["<< Interface >> Pembayaran<br/>+bayar(jumlah)<br/>+batal()"]
+  Bank["TransferBank<br/>implements Pembayaran"] -->|Patuhi Kontrak| Contract
+  EWallet["EWalletOvo<br/>implements Pembayaran"] -->|Patuhi Kontrak| Contract
+\`\`\`
+
+Contoh penggunaan Interface untuk sistem pembayaran:
+
+\`\`\`java
+// 1. Definisi Kontrak Interface
+interface Pembayaran {
+    // Method di interface secara otomatis bersifat public dan abstract
+    void bayar(double jumlah);
+}
+
+// 2. Implementasi 1: Transfer Bank
+class TransferBank implements Pembayaran {
+    private String nomorRekening;
+
+    public TransferBank(String nomorRekening) {
+        this.nomorRekening = nomorRekening;
+    }
+
+    @Override
+    public void bayar(double jumlah) {
+        System.out.println("Memproses transfer Rp" + jumlah + " ke rekening " + nomorRekening);
+    }
+}
+
+// 3. Implementasi 2: E-Wallet
+class EWallet implements Pembayaran {
+    private String nomorHp;
+
+    public EWallet(String nomorHp) {
+        this.nomorHp = nomorHp;
+    }
+
+    @Override
+    public void bayar(double jumlah) {
+        System.out.println("Memotong saldo e-wallet Rp" + jumlah + " dari akun " + nomorHp);
+    }
+}
+
+// 4. Penggunaan: Kode bergantung pada Interface, bukan class konkrit
+public class KasirApp {
+    public static void prosesCheckout(Pembayaran metode, double total) {
+        // Bebas menerima metode apa pun asalkan mematuhi kontrak Pembayaran
+        metode.bayar(total);
+    }
+
+    public static void main(String[] args) {
+        Pembayaran metode1 = new TransferBank("123-456-789");
+        Pembayaran metode2 = new EWallet("08123456789");
+
+        prosesCheckout(metode1, 150000.0);
+        prosesCheckout(metode2, 50000.0);
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Interface adalah fondasi arsitektur perangkat lunak modern (seperti pola *Dependency Injection* di Spring Boot): kode kita bergantung pada *abstraksi*, bukan implementasi konkret.
+- Sebuah class bisa mengimplementasikan banyak interface sekaligus: \`class User implements Serializable, Cloneable\`.
+- Perbedaan ringkas: gunakan \`abstract class\` jika ada kode dasar bersama yang ingin dibagikan ke anak; gunakan \`interface\` jika ingin mendefinisikan kontrak kemampuan umum lintas class yang tidak sekeluarga.`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Interfaces",
+            "url": "https://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html"
+      },
+      {
+            "label": "Oracle Java Tutorial — Abstract Methods and Classes",
+            "url": "https://docs.oracle.com/javase/tutorial/java/IandI/abstract.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di project kamu:
+1. Buat interface \`Notifikasi\` dengan method \`void kirimPesan(String pesan);\`.
+2. Buat class \`EmailNotifikasi\` dan \`SmsNotifikasi\` yang mengimplementasikan interface tersebut.
+3. Buat method statis \`broadcast(Notifikasi layanan, String pesan)\` yang memanggil \`layanan.kirimPesan(pesan)\`.
+4. Uji panggil method \`broadcast\` menggunakan objek Email dan SMS bergantian di method \`main\`. Ini menutup roadmap Java Dasar: kamu siap melangkah ke Java Lanjutan!`,
+  },
+  {
+    category: "java-advance",
+    slug: "generics-dasar",
+    order: 0,
+    title: "Generics: Type Safety Tanpa Type Casting Manual",
+    content: `Catatan di roadmap Java Dasar mengajarkan cara membuat class dan interface. **Masalah yang diselesaikan sekarang:** sebelum Java 5, untuk membuat wadah penampung serbaguna (seperti kotak penyimpanan), developer harus menggunakan tipe \`Object\` (\`class Kotak { Object isi; }\`). Masalahnya: semua tipe data bisa masuk, tapi saat mengambilnya kamu harus melakukan *type casting* manual \`(String) kotak.getIsi()\`. Jika tipe aslinya salah, aplikasi akan crash seketika di runtime dengan error \`ClassCastException\`!
+
+**Generics** memungkinkan kita membuat class, interface, dan method dengan parameter tipe placeholder (\`<T>\`). Pemeriksaan tipe dilakukan saat kompilasi (*compile-time type safety*), menghilangkan kebutuhan casting manual.
+
+\`\`\`mermaid
+flowchart LR
+  subgraph NonGeneric["Sebelum Generics (Raw Object)"]
+    O1["Kotak.set('Teks')"] --> O2["(Integer) Kotak.get()"]
+    O2 --> Crash["Runtime CRASH: ClassCastException!"]
+  end
+  subgraph Generic["Dengan Generics (<T>)"]
+    G1["Kotak<String> k = new Kotak<>()"] --> G2["k.set(123)"]
+    G2 --> Alert["Compiler Langsung Tolak saat Ngetik:<br/>Tipe tidak cocok!"]
+  end
+\`\`\`
+
+Contoh Generic Class dan Method:
+
+\`\`\`java
+// 1. Generic Class: 'T' adalah placeholder tipe (Type Parameter)
+public class Kotak<T> {
+    private T isi;
+
+    public void simpan(T isi) {
+        this.isi = isi;
+    }
+
+    public T ambil() {
+        return this.isi;
+    }
+}
+
+// 2. Penggunaan di Main
+public class Main {
+    public static void main(String[] args) {
+        // Kotak yang secara ketat hanya menampung String
+        Kotak<String> kotakTeks = new Kotak<>();
+        kotakTeks.simpan("Dokumen Rahasia");
+        String hasilTeks = kotakTeks.ambil(); // Tidak butuh casting (String) lagi!
+        System.out.println("Isi kotak: " + hasilTeks);
+
+        // Kotak yang khusus menampung Integer
+        Kotak<Integer> kotakAngka = new Kotak<>();
+        kotakAngka.simpan(100);
+        // kotakAngka.simpan("Salah"); // Error kompilasi langsung tertangkap!
+        System.out.println("Nilai angka: " + kotakAngka.ambil());
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Konvensi penamaan type parameter umum: \`T\` (Type), \`E\` (Element koleksi), \`K\` (Key), \`V\` (Value).
+- Generics di Java hanya bekerja dengan tipe Object (Reference), bukan tipe primitif langsung — gunakan wrapper class seperti \`Integer\` alih-alih \`int\`, \`Double\` alih-alih \`double\`.
+- Java menerapkan **Type Erasure**: informasi tipe generic diperiksa ketat oleh compiler, lalu dihapus saat kompilasi ke bytecode agar kompatibel dengan versi JVM terdahulu.`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Generics",
+            "url": "https://docs.oracle.com/javase/tutorial/java/generics/index.html"
+      },
+      {
+            "label": "Oracle Java Tutorial — Generic Methods",
+            "url": "https://docs.oracle.com/javase/tutorial/java/generics/methods.html"
+      }
+],
+    prerequisites: [
+      {
+            "label": "Familiar dengan konsep Class dan Object dari roadmap Java Dasar",
+            "url": "/kategori/java-dasar"
+      }
+],
+    practice: `Di project latihan kamu:
+1. Buat generic class \`Pasangan<K, V>\` dengan dua atribut: \`K kunci\` dan \`V nilai\`.
+2. Buat constructor dan method getter untuk kedua atribut tersebut.
+3. Di method \`main\`, buat objek \`Pasangan<String, Integer> skor = new Pasangan<>("Budi", 95);\`.
+4. Cetak kunci dan nilainya: \`System.out.println(skor.getKunci() + ": " + skor.getNilai());\`.
+5. Coba buat pasangan lain dengan tipe data berbeda, misal \`Pasangan<Integer, String> idUser\`.`,
+  },
+  {
+    category: "java-advance",
+    slug: "collections-framework",
+    order: 1,
+    title: "Java Collections Framework: List, Set, dan Map",
+    content: `Catatan sebelumnya mengenalkan Generics. **Masalah yang diselesaikan sekarang:** array biasa di Java memiliki satu kelemahan fatal: **ukurannya paten** sejak pertama kali dibuat. Kalau kamu membuat \`int[] data = new int[5];\`, kamu tidak bisa menambah elemen ke-6 tanpa membuat array baru dan menyalin isinya manual. Selain itu, bagaimana kalau kamu butuh data yang otomatis menolak duplikasi atau pencarian data secepat kilat berdasarkan kunci?
+
+Java menyediakan **Collections Framework**: kumpulan struktur data dinamis berstandar tinggi yang siap pakai, terbagi menjadi tiga jenis utama:
+1. **List (\`ArrayList\`):** Koleksi berurutan (*ordered*), bisa bertambah ukurannya secara otomatis, dan mengizinkan duplikasi.
+2. **Set (\`HashSet\`):** Koleksi yang **menolak duplikasi** (hanya menyimpan elemen unik).
+3. **Map (\`HashMap\`):** Struktur pasangan kunci-nilai (*key-value*) untuk pencarian instan $O(1)$.
+
+\`\`\`mermaid
+flowchart TD
+  Iterable["<< Interface >> Iterable"] --> Collection["<< Interface >> Collection"]
+  Collection --> List["<< Interface >> List (Berurutan, Duplikat)"]
+  Collection --> Set["<< Interface >> Set (Unik, Tanpa Duplikat)"]
+  List --> ArrayList["ArrayList"]
+  Set --> HashSet["HashSet"]
+  Map["<< Interface >> Map (Key-Value Lookup)"] --> HashMap["HashMap"]
+\`\`\`
+
+Contoh penggunaan List, Set, dan Map:
+
+\`\`\`java
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.Map;
+
+public class KoleksiDemo {
+    public static void main(String[] args) {
+        // 1. List: Ukuran dinamis, boleh duplikat
+        List<String> daftarNama = new ArrayList<>();
+        daftarNama.add("Budi");
+        daftarNama.add("Ani");
+        daftarNama.add("Budi"); // Boleh duplikat
+        System.out.println("Total nama di List: " + daftarNama.size()); // 3
+
+        // 2. Set: Otomatis membuang duplikat
+        Set<String> emailUnik = new HashSet<>();
+        emailUnik.add("budi@gmail.com");
+        emailUnik.add("ani@gmail.com");
+        emailUnik.add("budi@gmail.com"); // Duplikat diabaikan otomatis!
+        System.out.println("Total email unik: " + emailUnik.size()); // 2
+
+        // 3. Map: Pasangan Key-Value untuk lookup cepat
+        Map<String, Integer> stokBarang = new HashMap<>();
+        stokBarang.put("Buku", 15);
+        stokBarang.put("Pensil", 50);
+
+        System.out.println("Stok buku saat ini: " + stokBarang.get("Buku"));
+        System.out.println("Apakah ada stok Penghapus? " + stokBarang.containsKey("Penghapus"));
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Praktik terbaik arsitektur adalah selalu menggunakan interface sebagai tipe variabelnya: \`List<String> list = new ArrayList<>();\` (bukan \`ArrayList<String> list = ...\`), agar mudah diganti implementasinya jika diperlukan.
+- \`HashMap\` dan \`HashSet\` menggunakan fungsi hashing (\`hashCode()\` dan \`equals()\`) untuk mencapai kecepatan operasi rata-rata $O(1)$.
+- Koleksi ini menjadi input utama bagi **Stream API** yang akan kita pelajari di bab berikutnya.`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Collections Framework Overview",
+            "url": "https://docs.oracle.com/javase/tutorial/collections/intro/index.html"
+      },
+      {
+            "label": "Oracle Java Documentation — List Interface",
+            "url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di project latihan kamu:
+1. Buat program inventaris belanjaan menggunakan \`Map<String, Double> daftarHarga = new HashMap<>();\`.
+2. Masukkan 3 barang beserta harganya.
+3. Buat perulangan membaca seluruh isi Map menggunakan \`for (Map.Entry<String, Double> entry : daftarHarga.entrySet())\`.
+4. Cetak nama barang dan harganya ke terminal.
+5. Coba buat \`Set<String>\` dari daftar kategori barang belanjaan tersebut.`,
+  },
+  {
+    category: "java-advance",
+    slug: "lambda-dan-functional-interface",
+    order: 2,
+    title: "Lambda Expressions & Functional Interface",
+    content: `Catatan sebelumnya mengajarkan cara menyimpan data dalam Collections. **Masalah yang diselesaikan sekarang:** sebelum Java 8, jika kamu ingin mengoper sebuah fungsi/logika aksi ke method lain (misal: menyaring data atau merespons klik tombol), kamu terpaksa membuat *Anonymous Inner Class* yang panjang dan penuh boilerplate (bisa memakan 6-8 baris kode hanya untuk 1 baris logika).
+
+Sejak Java 8, Java mendukung paradigma fungsional lewat **Lambda Expression** (sintaks \`(param) -> { body }\`) dan **Functional Interface** (interface yang hanya memiliki satu method abstrak).
+
+\`\`\`mermaid
+flowchart LR
+  subgraph CaraLama["Sebelum Java 8: Anonymous Class (Panjang)"]
+    A1["new Predicate() {<br/>  public boolean test(int n) {<br/>    return n % 2 == 0;<br/>  }<br/>};"]
+  end
+  subgraph Lambda["Modern Java: Lambda Expression (Ringkas)"]
+    L1["n -> n % 2 == 0"]
+  end
+  CaraLama -->|Disederhanakan menjadi| Lambda
+\`\`\`
+
+Contoh penggunaan Lambda dan Functional Interface bawaan:
+
+\`\`\`java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.function.Consumer;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<String> bahasa = new ArrayList<>(List.of("Java", "Kotlin", "Python", "JavaScript"));
+
+        // 1. Consumer: Menerima satu parameter dan tidak mengembalikan nilai
+        Consumer<String> cetakHurufBesar = teks -> System.out.println(teks.toUpperCase());
+        bahasa.forEach(cetakHurufBesar);
+
+        // Lebih singkat lagi dengan method reference:
+        // bahasa.forEach(System.out::println);
+
+        // 2. Predicate: Menerima satu parameter dan mengembalikan boolean (kondisi)
+        Predicate<String> dimulaiDenganJ = teks -> teks.startsWith("J");
+
+        // Menghapus elemen yang memenuhi kondisi Predicate
+        bahasa.removeIf(dimulaiDenganJ);
+        System.out.println("Setelah dihapus yang berawalan J: " + bahasa);
+    }
+}
+\`\`\`
+
+Empat Functional Interface Bawaan yang Paling Sering Dipakai:
+| Interface | Method Signature | Penggunaan Umum |
+| --- | --- | --- |
+| \`Predicate<T>\` | \`boolean test(T t)\` | Memeriksa kondisi filter |
+| \`Consumer<T>\` | \`void accept(T t)\` | Menjalankan aksi (misal print / simpan) |
+| \`Function<T, R>\` | \`R apply(T t)\` | Mengubah/transformasi tipe \`T\` ke \`R\` |
+| \`Supplier<T>\` | \`T get()\` | Menyediakan / memproduksi data baru |
+
+Poin penting:
+
+- Anotasi \`@FunctionalInterface\` bersifat opsional tetapi sangat disarankan pada interface buatanmu untuk memastikan hanya ada satu method abstrak.
+- **Method Reference (\`::\`)** adalah jalan pintas jika lambda hanya memanggil method yang sudah ada: \`x -> System.out.println(x)\` disingkat jadi \`System.out::println\`.
+- Lambda adalah pondasi utama untuk memahami **Stream API** di bab berikutnya.`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Lambda Expressions",
+            "url": "https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html"
+      },
+      {
+            "label": "Oracle Documentation — java.util.function package",
+            "url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/package-summary.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di project latihan kamu:
+1. Buat list angka: \`List<Integer> angkaList = new ArrayList<>(List.of(12, 5, 8, 20, 3, 15));\`.
+2. Gunakan \`angkaList.removeIf(n -> n < 10);\` untuk menghapus semua angka di bawah 10 menggunakan Lambda Predicate.
+3. Cetak elemen yang tersisa menggunakan \`angkaList.forEach(System.out::println);\`.
+4. Amati betapa ringkasnya kode dibandingkan perulangan \`for\` konvensional.`,
+  },
+  {
+    category: "java-advance",
+    slug: "stream-api",
+    order: 3,
+    title: "Stream API: Pemrosesan Data Deklaratif",
+    content: `Catatan sebelumnya membahas Lambda Expressions. **Masalah yang diselesaikan sekarang:** memanipulasi koleksi data secara imperatif membutuhkan perulangan \`for\` bersarang dan variabel penampung sementara di mana-mana — misal: *"ambil daftar user, filter yang usianya > 18 tahun, ubah namanya jadi huruf kapital, lalu urutkan berdasarkan nama"*. Menulis ini secara imperatif memakan belasan baris kode dan gampang terselip bug mutasi state.
+
+**Stream API** menyediakan cara deklaratif untuk memproses koleksi data seperti saluran pipa (*pipeline*): kamu menentukan *apa* yang ingin dicapai, bukan mendikte langkah *bagaimana* perulangannya.
+
+\`\`\`mermaid
+flowchart LR
+  Source["List Asli: [1, 2, 3, 4, 5, 6]"] --> Filter[".filter(n -> n % 2 == 0)"]
+  Filter --> Map[".map(n -> n * 10)"]
+  Map --> Collect[".toList()"]
+  Collect --> Result["Hasil Baru: [20, 40, 60]"]
+\`\`\`
+
+Contoh pemrosesan data dengan Stream API:
+
+\`\`\`java
+import java.util.List;
+
+public class StreamDemo {
+    public static void main(String[] args) {
+        List<String> daftarNama = List.of("Budi", "Ani", "Bambang", "Joko", "Bayu");
+
+        // Pipeline Stream: Source -> Intermediate Operations -> Terminal Operation
+        List<String> hasilFilter = daftarNama.stream()
+                // 1. Filter: Hanya ambil nama yang berawalan 'B'
+                .filter(nama -> nama.startsWith("B"))
+                // 2. Map: Transformasi setiap nama menjadi huruf kapital
+                .map(String::toUpperCase)
+                // 3. Sorted: Urutkan secara alfabetis
+                .sorted()
+                // 4. Terminal: Kumpulkan hasil akhirnya menjadi List baru (Java 16+)
+                .toList();
+
+        System.out.println("Hasil akhir: " + hasilFilter);
+        // Output: [BAMBANG, BAYU, BUDI]
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- **Stream tidak mengubah data sumber aslinya**: data \`daftarNama\` tetap utuh; operasi stream menghasilkan list baru.
+- **Lazy Evaluation (Evaluasi Tertunda)**: Operasi perantara (*intermediate operations* seperti \`filter\`, \`map\`) tidak akan dieksekusi sebelum ada *terminal operation* (seperti \`toList()\`, \`count()\`, \`findFirst()\`).
+- Terdapat fungsi reduksi matematika siap pakai: \`.mapToInt(...).sum()\`, \`.average()\`, \`.max()\`.
+- Untuk pemrosesan data sangat besar, kamu bisa mengubah \`.stream()\` menjadi \`.parallelStream()\` untuk membagi komputasi ke banyak core CPU secara otomatis.`,
+    sources: [
+      {
+            "label": "Oracle Java Tutorial — Aggregate Operations (Streams)",
+            "url": "https://docs.oracle.com/javase/tutorial/collections/streams/index.html"
+      },
+      {
+            "label": "Oracle Documentation — java.util.stream Package",
+            "url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/package-summary.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di project latihan kamu:
+1. Buat record produk: \`record Produk(String nama, double harga) {}\`.
+2. Buat \`List<Produk> katalog\` berisi 5 produk dengan harga bervariasi.
+3. Buat pipeline stream untuk menyaring produk dengan harga > 50.000, ambil namanya saja (\`.map(Produk::nama)\`), lalu cetak dengan \`.forEach(System.out::println)\`.
+4. Hitung rata-rata harga seluruh produk menggunakan \`.mapToDouble(Produk::harga).average().orElse(0.0)\`.`,
+  },
+  {
+    category: "java-advance",
+    slug: "optional-dan-modern-exception",
+    order: 4,
+    title: "Null-Safety dengan Optional & Penanganan Exception Modern",
+    content: `Catatan sebelumnya membahas Stream API. **Masalah yang diselesaikan sekarang:** penemu konsep \`null\`, Sir Tony Hoare, menyebut \`null reference\` sebagai *"The Billion Dollar Mistake"* (kesalahan bernilai miliaran dolar). Di Java, memanggil method pada variabel yang ternyata bernilai \`null\` seketika memicu \`NullPointerException\` (NPE) yang sering meloloskan crash ke produksi.
+
+Untuk mengatasi ini, Java modern menyediakan **\`Optional<T>\`** — wadah pembungkus yang secara eksplisit menyatakan bahwa sebuah nilai bisa saja "ada" atau "kosong", memaksa developer menangani kemungkinan ketiadaan data sebelum memakainya.
+
+\`\`\`mermaid
+flowchart TD
+  Find["Cari User di Database"] --> Check{"Apakah ada?"}
+  Check -- Ditemukan --> Val["Optional.of(user)"]
+  Check -- Tidak Ada --> Empty["Optional.empty()"]
+  Val --> Unpack[".orElseThrow() atau .ifPresent()"]
+  Empty --> Unpack
+\`\`\`
+
+Contoh penggunaan \`Optional\` dan Modern Exception Handling:
+
+\`\`\`java
+import java.util.Optional;
+
+public class OptionalDemo {
+    // Method mengembalikan Optional: tanda jelas bagi pemanggil bahwa data bisa saja kosong
+    public static Optional<String> cariEmailPengguna(String id) {
+        if ("user123".equals(id)) {
+            return Optional.of("user@perusahaan.com");
+        }
+        return Optional.empty(); // Menggantikan return null yang berbahaya!
+    }
+
+    public static void main(String[] args) {
+        // 1. Mengambil data dengan aman menggunakan orElse
+        String email1 = cariEmailPengguna("user123").orElse("tidak-ada@domain.com");
+        System.out.println("Email 1: " + email1);
+
+        String email2 = cariEmailPengguna("user_salah").orElse("Email cadangan");
+        System.out.println("Email 2: " + email2);
+
+        // 2. Mengambil data atau melempar Exception jika kosong
+        try {
+            String emailValid = cariEmailPengguna("user_salah")
+                    .orElseThrow(() -> new IllegalArgumentException("User ID tidak valid!"));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Tertangkap error yang aman: " + e.getMessage());
+        }
+
+        // 3. Try-with-resources: resource otomatis ditutup tanpa blok finally manual
+        // try (var reader = new BufferedReader(...)) { ... }
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Jangan gunakan \`Optional\` sebagai tipe atribut class atau parameter method; \`Optional\` didesain khusus sebagai **return type** method pencarian.
+- Hindari pemanggilan \`.get()\` langsung pada Optional tanpa memeriksa \`.isPresent()\` terlebih dahulu (gunakan \`.orElse()\`, \`.orElseGet()\`, atau \`.ifPresent()\`).
+- Fitur **Try-With-Resources** (Java 7+) otomatis menutup berkas/koneksi database yang mengimplementasikan \`AutoCloseable\` begitu blok try selesai, mencegah kebocoran memori (*memory leak*).`,
+    sources: [
+      {
+            "label": "Oracle Documentation — java.util.Optional Class",
+            "url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html"
+      },
+      {
+            "label": "Oracle Java Tutorial — The try-with-resources Statement",
+            "url": "https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html"
+      }
+],
+    prerequisites: [],
+    practice: `Di project latihan kamu:
+1. Buat method \`public static Optional<Integer> cariNilaiTertinggi(List<Integer> list)\`.
+2. Jika list kosong, kembalikan \`Optional.empty()\`. Jika ada isi, kembalikan nilai tertingginya dibungkus \`Optional.of(...)\`.
+3. Panggil method tersebut dengan list kosong, lalu gunakan \`.ifPresentOrElse(...)\` untuk mencetak angka atau menampilkan pesan "Daftar masih kosong".`,
+  },
+  {
+    category: "java-advance",
+    slug: "concurrency-dan-virtual-threads",
+    order: 5,
+    title: "Concurrency Dasar hingga Virtual Threads (Java 21)",
+    content: `Catatan sebelumnya melengkapi teknik null-safety dan exception modern. **Masalah yang diselesaikan sekarang (dan menutup roadmap Java Advance):** aplikasi web modern harus melayani ribuan request pengguna secara bersamaan. Di Java konvensional, satu thread Java dipetakan 1-ke-1 ke **Platform Thread (OS Thread)**. Masalahnya: OS thread sangat mahal (memakan memori ~1MB per thread dan terbatas beberapa ribu thread sebelum server kehabisan memori). Saat thread menunggu respon database (*blocking I/O*), OS thread itu menganggur dan terbuang sia-sia.
+
+Java 21 merevolusi ini lewat **Virtual Threads** (Project Loom): thread super ringan yang dikelola langsung oleh JVM (bukan kernel OS). Satu aplikasi Java kini bisa menjalankan **jutaan virtual thread** secara bersamaan dengan memori hanya beberapa kilobyte!
+
+\`\`\`mermaid
+flowchart TD
+  subgraph Tradisional["Platform Thread Lama (1-to-1 OS Kernel)"]
+    T1["Java Thread 1"] --- OS1["OS Kernel Thread (~1MB RAM)"]
+    T2["Java Thread 2"] --- OS2["OS Kernel Thread (~1MB RAM)"]
+    Note1["Maksimal ribuan thread sebelum server OOM!"]
+  end
+  subgraph VirtualThread["Java 21: Virtual Threads (M-to-N)"]
+    V1["Virtual Thread 1"]
+    V2["Virtual Thread 2"]
+    V3["Virtual Thread ... 1.000.000"]
+    V1 & V2 & V3 --> JVM_Carrier["Sedikit Carrier OS Thread (Sesuai Core CPU)"]
+    Note2["Ringan, hemat memori, I/O non-blocking otomatis!"]
+  end
+\`\`\`
+
+Contoh menjalankan Concurrency dengan Virtual Threads (Java 21):
+
+\`\`\`java
+import java.util.concurrent.Executors;
+import java.time.Duration;
+
+public class VirtualThreadDemo {
+    public static void main(String[] args) throws InterruptedException {
+        // Membuat ExecutorService yang otomatis memakai Virtual Thread per-task
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (int i = 1; i <= 10_000; i++) {
+                final int taskId = i;
+                executor.submit(() -> {
+                    // Simulasi I/O blocking (misal request API / query database)
+                    Thread.sleep(Duration.ofMillis(500));
+                    if (taskId % 2000 == 0) {
+                        System.out.println("Task selesai: " + taskId + " di " + Thread.currentThread());
+                    }
+                    return taskId;
+                });
+            }
+        } // Blok try-with-resources otomatis menunggu semua 10.000 task selesai
+
+        System.out.println("Seluruh 10.000 virtual threads berhasil diselesaikan dalam sekejap!");
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Virtual Thread dirancang khusus untuk pekerjaan yang didominasi oleh **I/O blocking** (seperti web server, panggilan REST API, dan query database), bukan untuk komputasi CPU intensif (seperti video rendering/kriptografi).
+- Kamu tidak perlu mengubah gaya koding menjadi reaktif (*reactive programming* yang rumit dengan Mono/Flux) — kamu bisa tetap menulis kode sinkron yang mudah dibaca (\`blocking\`), namun JVM menjalankannya secara non-blocking di belakang layar.
+- Fitur ini menjadi senjata utama framework cloud-native modern seperti **Quarkus** dan Spring Boot 3.2+.`,
+    sources: [
+      {
+            "label": "Oracle Documentation — Virtual Threads (Java 21)",
+            "url": "https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html"
+      },
+      {
+            "label": "OpenJDK Project Loom — Fibers and Continuations for the Java Platform",
+            "url": "https://openjdk.org/projects/loom/"
+      }
+],
+    prerequisites: [
+      {
+            "label": "JDK 21 LTS sudah terpasang untuk mencoba fitur Virtual Threads",
+            "url": "https://adoptium.net/"
+      }
+],
+    practice: `Di file latihan kamu (jalankan dengan Java 21):
+1. Buat program yang menjalankan 1.000 task menggunakan \`Executors.newVirtualThreadPerTaskExecutor()\`.
+2. Di dalam setiap task, cetak nama thread dan lakukan simulasi jeda \`Thread.sleep(Duration.ofMillis(200))\`.
+3. Hitung waktu total eksekusi menggunakan \`System.currentTimeMillis()\`.
+4. Amati bahwa 1.000 task tersebut selesai dalam waktu kurang dari 1 detik. Ini menutup roadmap Java Lanjutan!`,
+  },
+  {
+    category: "quarkus",
+    slug: "pengenalan-quarkus-dan-live-coding",
+    order: 0,
+    title: "Pengenalan Quarkus, CLI, & Live Coding Dev Mode",
+    content: `**Masalah yang diselesaikan:** framework Java enterprise tradisional (seperti Spring konvensional) dirancang puluhan tahun lalu ketika server fisik jarang di-restart. Masalahnya di era modern: saat kita men-deploy aplikasi ke container Kubernetes atau arsitektur serverless, startup lambat (3-10 detik) dan konsumsi memori tinggi (300MB - 1GB per pod) menjadi pemborosan biaya cloud yang sangat mahal. Selain itu, developer Java harus restart aplikasi manual setiap kali mengubah sebaris kode.
+
+**Quarkus** memecahkan masalah ini dengan konsep **"Supersonic Subatomic Java"**:
+1. **Build-time Processing:** Semua pemindaian anotasi (*reflection scanning*) diselesaikan saat kompilasi build, sehingga runtime JVM bersih dan instan.
+2. **Live Coding (\`quarkus dev\`):** Setiap kali kamu menyimpan file kode (\`Ctrl+S\`), perubahan langsung aktif dalam hitungan milidetik tanpa restart manual!
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Tradisional["Framework Java Lama"]
+    C1["Ubah Kode"] --> C2["Kompilasi & Restart Penuh (10-30 detik)"]
+    C2 --> C3["Test di Browser"]
+  end
+  subgraph Quarkus["Quarkus Live Coding ('quarkus dev')"]
+    Q1["Ubah Kode & Save"] --> Q2["Deteksi Perubahan Otomatis (<0.5 detik)"]
+    Q2 --> Q3["Test di Browser Langsung Berubah!"]
+  end
+\`\`\`
+
+Perintah instalasi Quarkus CLI dan membuat project pertama:
+
+\`\`\`bash
+# 1. Instalasi Quarkus CLI (macOS via Homebrew)
+brew install quarkusio/tap/quarkus
+
+# 2. Buat project baru dengan ekstensi REST
+quarkus create app com.example:belajar-quarkus --extension='resteasy-reactive-jackson'
+
+# 3. Masuk ke folder project
+cd belajar-quarkus
+
+# 4. Jalankan Dev Mode dengan Live Coding aktif
+quarkus dev
+\`\`\`
+
+Saat Dev Mode berjalan, buka browser di \`http://localhost:8080/hello\` dan \`http://localhost:8080/q/dev\` (Quarkus Dev UI yang interaktif).
+
+Poin penting:
+
+- Quarkus mendukung standar terbuka **Jakarta EE** dan **MicroProfile**, sehingga kamu tidak terikat pada satu vendor proprietary.
+- Mode \`quarkus dev\` juga menyediakan fitur **Dev Services**: jika aplikasimu butuh database PostgreSQL atau Kafka, Quarkus otomatis menjalankan container Docker lokal tanpa kamu perlu menulis docker-compose!
+- Konsumsi memori Quarkus di mode JVM biasa hanya sekitar 50-75MB (separuh dari framework Java standar).`,
+    sources: [
+      {
+            "label": "Quarkus Official Website & Documentation",
+            "url": "https://quarkus.io/"
+      },
+      {
+            "label": "Quarkus Guides — Creating Your First Application",
+            "url": "https://quarkus.io/guides/getting-started"
+      }
+],
+    prerequisites: [
+      {
+            "label": "JDK 17 atau 21 sudah terpasang di komputer",
+            "url": "https://adoptium.net/"
+      }
+],
+    practice: `Buka terminal:
+1. Pasang Quarkus CLI atau gunakan Maven: \`mvn io.quarkus.platform:quarkus-maven-plugin:create -DprojectGroupId=org.acme -DprojectArtifactId=proyek-pertama\`.
+2. Jalankan \`quarkus dev\` (atau \`./mvnw quarkus:dev\`).
+3. Buka browser di \`http://localhost:8080/hello\`.
+4. Buka file \`GreetingResource.java\`, ubah teks return menjadi \`"Halo dari Quarkus Live Coding!"\`, lalu simpan file.
+5. Refresh browser dan saksikan teksnya berubah instan tanpa kamu pernah me-restart server!`,
+  },
+  {
+    category: "quarkus",
+    slug: "rest-api-resteasy-reactive",
+    order: 1,
+    title: "Membangun REST API dengan RESTEasy Reactive",
+    content: `Catatan sebelumnya mengenalkan Quarkus dan Dev Mode. **Masalah yang diselesaikan sekarang:** bagaimana cara membangun REST API endpoint yang mampu menangani ribuan request secara bersamaan tanpa menghabiskan thread server?
+
+Quarkus menyediakan **RESTEasy Reactive**: implementasi standar Jakarta REST yang berjalan di atas arsitektur non-blocking Netty. Hebatnya, kamu bisa menulis kode bergaya imperatif biasa yang mudah dipahami, tetapi Quarkus mengeksekusinya secara reaktif di belakang layar dengan serialisasi JSON otomatis (Jackson).
+
+\`\`\`mermaid
+sequenceDiagram
+  autonumber
+  participant C as Client (Frontend / Curl)
+  participant R as RESTEasy Reactive Endpoint
+  participant S as Jackson JSON Serializer
+  C->>R: GET /api/produk
+  R->>R: Ambil daftar data Produk
+  R->>S: Konversi List<Produk> ke JSON
+  S-->>C: HTTP 200 OK + JSON Payload
+\`\`\`
+
+Contoh pembuatan REST Controller endpoint lengkap:
+
+\`\`\`java
+package com.example;
+
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
+
+// Record model data DTO
+record Produk(int id, String nama, double harga) {}
+
+@Path("/api/produk")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class ProdukResource {
+
+    private static List<Produk> database = new ArrayList<>(List.of(
+        new Produk(1, "Kopi Arabika", 35000.0),
+        new Produk(2, "Teh Hijau", 20000.0)
+    ));
+
+    // 1. GET: Ambil semua produk
+    @GET
+    public List<Produk> ambilSemua() {
+        return database;
+    }
+
+    // 2. GET by ID dengan PathParam
+    @GET
+    @Path("/{id}")
+    public Response ambilById(@PathParam("id") int id) {
+        return database.stream()
+                .filter(p -> p.id() == id)
+                .findFirst()
+                .map(p -> Response.ok(p).build())
+                .orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+
+    // 3. POST: Tambah produk baru
+    @POST
+    public Response tambahProduk(Produk input) {
+        database.add(input);
+        return Response.status(Response.Status.CREATED).entity(input).build();
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- Anotasi \`@Path("/api/produk")\` menentukan rute URL dasar resource ini.
+- \`@Produces(MediaType.APPLICATION_JSON)\` otomatis mengonversi return type Java (seperti \`List<Produk>\`) menjadi respons JSON valid.
+- Objek \`Response\` dari \`jakarta.ws.rs.core\` memberi kontrol penuh atas HTTP Status Code (\`200 OK\`, \`201 Created\`, \`404 Not Found\`).
+- RESTEasy Reactive jauh lebih cepat dan hemat memori dibanding RESTEasy klasik karena routing dipetakan saat *build-time*.`,
+    sources: [
+      {
+            "label": "Quarkus Guides — Writing REST Services with RESTEasy Reactive",
+            "url": "https://quarkus.io/guides/resteasy-reactive"
+      },
+      {
+            "label": "Jakarta RESTful Web Services Specification",
+            "url": "https://jakarta.ee/specifications/restful-ws/"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Quarkus latihan kamu:
+1. Buat class \`TugasResource.java\` di dalam folder \`src/main/java/com/example/\`.
+2. Pasang anotasi \`@Path("/api/tugas")\`.
+3. Buat endpoint \`@GET\` yang mengembalikan daftar to-do sederhana dalam bentuk list string.
+4. Buat endpoint \`@GET @Path("/{index}")\` yang mengembalikan satu item berdasarkan indeks.
+5. Uji kedua endpoint tersebut lewat browser atau \`curl http://localhost:8080/api/tugas\`.`,
+  },
+  {
+    category: "quarkus",
+    slug: "dependency-injection-arc",
+    order: 2,
+    title: "Dependency Injection dengan ArC (Jakarta CDI)",
+    content: `Catatan sebelumnya membahas pembuatan endpoint REST. **Masalah yang diselesaikan sekarang:** logika bisnis tidak boleh ditumpuk langsung di dalam class Resource/Controller. Menulis \`new ProdukService()\` di dalam controller membuat kode terikat mati (*tightly coupled*) dan sulit diuji (*mocking unit test*).
+
+Quarkus menggunakan **ArC**: implementasi standar **Jakarta CDI (Contexts and Dependency Injection)** berbasis *build-time*:
+- Di framework lama, container dependency injection memindai class lewat refleksi runtime saat aplikasi baru booting (bikin startup lambat).
+- Di Quarkus ArC, dependensi dipetakan dan dianalisis **saat kompilasi**, menghasilkan startup instan dan konsumsi memori yang sangat minim.
+
+\`\`\`mermaid
+flowchart TD
+  subgraph ServiceLayer["Lapisan Bisnis (Service)"]
+    Service["@ApplicationScoped<br/>class DiskonService"]
+  end
+  subgraph ControllerLayer["Lapisan Web (Resource)"]
+    Controller["@Path('/api/hitung')<br/>class HitungResource<br/>@Inject DiskonService diskonService;"]
+  end
+  Service -->|Di-inject otomatis oleh ArC| Controller
+\`\`\`
+
+Contoh implementasi Service dan Injection:
+
+\`\`\`java
+package com.example.service;
+
+import jakarta.enterprise.context.ApplicationScoped;
+
+// 1. Definisikan Service sebagai Bean dengan scope ApplicationScoped (Singleton)
+@ApplicationScoped
+public class KalkulatorPajakService {
+
+    public double hitungTotalDenganPajak(double hargaAwal) {
+        double tarifPajak = 0.11; // PPN 11%
+        return hargaAwal + (hargaAwal * tarifPajak);
+    }
+}
+\`\`\`
+
+\`\`\`java
+package com.example;
+
+import com.example.service.KalkulatorPajakService;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.QueryParam;
+
+@Path("/api/pajak")
+public class PajakResource {
+
+    // 2. Inject service ke dalam controller
+    @Inject
+    KalkulatorPajakService pajakService;
+
+    @GET
+    public String cekTotal(@QueryParam("harga") double harga) {
+        double total = pajakService.hitungTotalDenganPajak(harga);
+        return "Total setelah pajak: Rp" + total;
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- \`@ApplicationScoped\`: Bean dibuat sekali dan dipakai bersama sepanjang aplikasi hidup (setara *Singleton*).
+- \`@RequestScoped\`: Bean dibuat baru untuk setiap request HTTP yang masuk, lalu dihancurkan setelah respons dikirim.
+- \`@Inject\`: Anotasi standar Jakarta untuk meminta container ArC menyuntikkan dependensi instance yang sesuai.
+- Jika ada kesalahan dependensi yang tidak ditemukan, Quarkus akan menolaknya langsung saat *build/compile time* — kamu tidak akan pernah mengalami crash *NoClassDefFoundError* di production!`,
+    sources: [
+      {
+            "label": "Quarkus Guides — Introduction to Contexts and Dependency Injection (CDI)",
+            "url": "https://quarkus.io/guides/cdi-reference"
+      },
+      {
+            "label": "Jakarta Contexts and Dependency Injection Specification",
+            "url": "https://jakarta.ee/specifications/cdi/"
+      }
+],
+    prerequisites: [],
+    practice: `Di project Quarkus kamu:
+1. Buat class \`@ApplicationScoped public class SalamService\`.
+2. Tambahkan method \`public String sapa(String nama) { return "Halo, " + nama + "! Selamat belajar Quarkus."; }\`.
+3. Di dalam \`GreetingResource.java\`, gunakan \`@Inject SalamService salamService;\`.
+4. Panggil \`salamService.sapa(nama)\` dari endpoint REST dan uji hasilnya di browser.`,
+  },
+  {
+    category: "quarkus",
+    slug: "panache-orm-database",
+    order: 3,
+    title: "Akses Database Mudah dengan Hibernate ORM with Panache",
+    content: `Catatan sebelumnya membahas Dependency Injection. **Masalah yang diselesaikan sekarang:** berinteraksi dengan database lewat JPA/Hibernate murni membutuhkan banyak boilerplate: menulis *DAO / Repository*, menyusun EntityManager, dan mengelola transaksi secara manual.
+
+Quarkus menyediakan **Hibernate ORM with Panache**: modul yang menyederhanakan akses database dengan dua pola elegan:
+1. **Active Record Pattern (\`extends PanacheEntity\`):** Operasi database langsung menempel pada Entity (\`User.listAll()\`, \`user.persist()\`).
+2. **Dev Services:** Saat kamu menambahkan ekstensi database (misal PostgreSQL), Quarkus **otomatis menyalakan container PostgreSQL lokal di background** tanpa konfigurasi \`application.properties\` apa pun!
+
+\`\`\`mermaid
+flowchart TD
+  Entity["@Entity Item extends PanacheEntity<br/>id (otomatis disediakan)<br/>nama, harga"]
+  Query1["Item.listAll() ➔ SELECT *"]
+  Query2["itemBaru.persist() ➔ INSERT"]
+  Query3["Item.findById(1) ➔ SELECT WHERE id=1"]
+  Entity --> Query1 & Query2 & Query3
+  Query1 & Query2 & Query3 --> PostgreSQL["PostgreSQL (Auto-start via Dev Services)"]
+\`\`\`
+
+Contoh Active Record Entity dengan Panache:
+
+\`\`\`bash
+# Tambahkan ekstensi Panache dan driver PostgreSQL
+quarkus extension add 'hibernate-orm-panache' 'jdbc-postgresql'
+\`\`\`
+
+\`\`\`java
+package com.example;
+
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Entity;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
+import java.util.List;
+
+// 1. Entity mewarisi PanacheEntity (otomatis punya field 'id' bertipe Long)
+@Entity
+public class Catatan extends PanacheEntity {
+    public String judul;
+    public String isi;
+}
+
+// 2. Resource REST
+@Path("/api/catatan")
+@Produces("application/json")
+@Consumes("application/json")
+public class CatatanResource {
+
+    // SELECT ALL langsung dari class Entity
+    @GET
+    public List<Catatan> ambilSemua() {
+        return Catatan.listAll();
+    }
+
+    // INSERT data baru (wajib diberi anotasi @Transactional)
+    @POST
+    @Transactional
+    public Response buatBaru(Catatan data) {
+        data.persist(); // Menyimpan objek ke database
+        return Response.status(201).entity(data).build();
+    }
+
+    // DELETE data
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    public boolean hapus(@PathParam("id") Long id) {
+        return Catatan.deleteById(id);
+    }
+}
+\`\`\`
+
+Poin penting:
+
+- \`PanacheEntity\` secara otomatis menyediakan kolom \`id\` (Primary Key sequence) dan method statis bawaan seperti \`.listAll()\`, \`.findById()\`, \`.find("status", "aktif")\`, dan \`.deleteById()\`.
+- Anotasi \`@Transactional\` wajib dipasang pada method yang memodifikasi data (\`persist\`, \`update\`, \`delete\`) agar dikelola dalam satu transaksi database atomik.
+- Berkat **Quarkus Dev Services**, kamu tidak perlu install PostgreSQL lokal atau menulis kredensial koneksi saat development — Quarkus menggunakan Testcontainers untuk mengelolanya secara transparan.`,
+    sources: [
+      {
+            "label": "Quarkus Guides — Simplified Hibernate ORM with Panache",
+            "url": "https://quarkus.io/guides/hibernate-orm-panache"
+      },
+      {
+            "label": "Quarkus Guides — Dev Services for PostgreSQL",
+            "url": "https://quarkus.io/guides/databases-dev-services"
+      }
+],
+    prerequisites: [
+      {
+            "label": "Docker desktop / Podman sudah berjalan untuk memanfaatkan fitur auto Dev Services",
+            "url": "https://www.docker.com/"
+      }
+],
+    practice: `Di project Quarkus latihan kamu:
+1. Pasang ekstensi: \`quarkus extension add hibernate-orm-panache jdbc-postgresql\`.
+2. Buat entity \`Artikel extends PanacheEntity\` dengan field publik \`public String judul;\`.
+3. Buat endpoint \`@GET\` yang memanggil \`Artikel.listAll()\` dan endpoint \`@POST @Transactional\` yang memanggil \`data.persist()\`.
+4. Jalankan \`quarkus dev\`, lalu coba kirim data lewat POST: \`curl -X POST -H "Content-Type: application/json" -d '{"judul":"Belajar Panache"}' http://localhost:8080/api/catatan\`.
+5. Amati kemudahan query tanpa menulis repository manual satu pun!`,
+  },
+  {
+    category: "quarkus",
+    slug: "graalvm-native-image",
+    order: 4,
+    title: "Kompilasi Native Image dengan GraalVM",
+    content: `Catatan sebelumnya melengkapi operasi REST dan database di Quarkus. **Masalah yang diselesaikan sekarang (dan menjadi puncak kekuatan Quarkus):** aplikasi Java biasa membutuhkan JVM untuk berjalan. Saat aplikasi dikemas ke dalam container Docker, ukuran image menjadi ratusan megabyte dan butuh waktu 1-5 detik untuk mulai melayani request. Di arsitektur Serverless (seperti AWS Lambda atau Google Cloud Run), keterlambatan ini disebut **Cold Start** dan membuat pengguna harus menunggu.
+
+Quarkus terintegrasi mendalam dengan **GraalVM Native Image**: aplikasi Java dikompilasi langsung menjadi **file binary biner native OS** (seperti file executable C/Go). Hasilnya: tidak butuh JVM lagi saat dijalankan di server!
+
+\`\`\`mermaid
+flowchart LR
+  subgraph Tradisional["Java Tradisional (JVM)"]
+    J1[".jar file"] --> J2["JVM Warmup & JIT Compile"]
+    J2 --> J3["Startup: 2-5 detik<br/>RAM: 250MB+"]
+  end
+  subgraph Native["Quarkus + GraalVM Native Binary"]
+    N1["Ahead-Of-Time (AOT) Build"] --> N2["Standalone Executable Binary"]
+    N2 --> N3["Startup: 0.015 detik (15 ms!)<br/>RAM: ~25MB"]
+  end
+\`\`\`
+
+Perbandingan Performa Drastis:
+| Metrik | Mode JVM Standar | Mode GraalVM Native |
+| --- | --- | --- |
+| **Waktu Startup** | 1.800 ms (1,8 detik) | **14 ms (0,014 detik!)** |
+| **Penggunaan Memori (RSS)** | ~180 MB RAM | **~28 MB RAM** |
+| **Kebutuhan JVM di Server** | Wajib install JDK/JRE | **Tidak butuh sama sekali!** |
+
+Perintah membuat Native Image:
+
+\`\`\`bash
+# 1. Build native executable menggunakan container builder (tidak perlu install GraalVM lokal!)
+quarkus build --native -Dquarkus.native.container-build=true
+
+# 2. File binary siap dieksekusi langsung tanpa 'java -jar' di target/
+./target/belajar-quarkus-1.0.0-SNAPSHOT-runner
+\`\`\`
+
+Output terminal saat dijalankan:
+\`\`\`text
+__  ____  __  _____   ___  __ ____  ______ 
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/ 
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \   
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/   
+2026-09-22 10:00:00,014 INFO  [io.quarkus] (main) belajar-quarkus 1.0.0-SNAPSHOT native (powered by Quarkus) started in 0.015s. Listening on: http://0.0.0.0:8080
+\`\`\`
+
+Poin penting:
+
+- **Ahead-Of-Time (AOT) Compilation**: GraalVM menganalisis seluruh jalur kode yang bisa dijangkau (*reachability analysis*) dan membuang kode yang tidak terpakai, menghasilkan binary yang sangat ramping.
+- Parameter \`-Dquarkus.native.container-build=true\` memungkinkan Quarkus menjalankan compiler GraalVM di dalam container Docker, sehingga kamu tidak wajib memasang SDK GraalVM lokal di komputermu.
+- Ini adalah standar tertinggi cloud-native Java masa kini: efisiensi biaya infrastruktur cloud yang setara dengan bahasa Go dan Rust.`,
+    sources: [
+      {
+            "label": "Quarkus Guides — Building a Native Executable",
+            "url": "https://quarkus.io/guides/building-native-image"
+      },
+      {
+            "label": "GraalVM Official Documentation",
+            "url": "https://www.graalvm.org/latest/reference-manual/native-image/"
+      }
+],
+    prerequisites: [
+      {
+            "label": "Docker terpasang untuk menjalankan proses containerized native compilation",
+            "url": "https://www.docker.com/"
+      }
+],
+    practice: `Di project Quarkus kamu:
+1. Jalankan perintah kompilasi native container: \`./mvnw package -Dnative -Dquarkus.native.container-build=true\`.
+2. Tunggu proses AOT compilation selesai (memerlukan waktu beberapa menit).
+3. Buka folder \`target/\` dan temukan file executable binary bernama \`*-runner\`.
+4. Jalankan binary tersebut secara langsung di terminal: \`./target/*-runner\`.
+5. Perhatikan log banner startup Quarkus: kamu akan melihat aplikasi menyala dalam 10-30 milidetik! Ini menutup roadmap Quarkus.`,
+  },
   {
     category: "react",
     slug: "instalasi-dan-membuat-project",
