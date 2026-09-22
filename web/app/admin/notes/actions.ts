@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { requireAdmin } from "@/lib/admin-guard";
 import { validateNoteInput } from "@/lib/validateNote";
 import type { NoteFormInput } from "@/lib/types";
@@ -33,6 +33,7 @@ export async function createNoteAction(input: NoteFormInput): Promise<ActionResu
 
     revalidatePath("/admin/notes");
     revalidatePath("/");
+    revalidateTag("notes", { expire: 0 });
     return { success: true, id: data.id };
   } catch (e) {
     return { success: false, error: e instanceof Error ? e.message : "Terjadi kesalahan" };
@@ -79,6 +80,7 @@ export async function updateNoteAction(id: string, input: NoteFormInput): Promis
     }
     revalidatePath("/admin/notes");
     revalidatePath("/");
+    revalidateTag("notes", { expire: 0 });
     return { success: true, id };
   } catch (e) {
     return { success: false, error: e instanceof Error ? e.message : "Terjadi kesalahan" };
@@ -93,6 +95,7 @@ export async function deleteNoteAction(id: string): Promise<ActionResult> {
 
     revalidatePath("/admin/notes");
     revalidatePath("/");
+    revalidateTag("notes", { expire: 0 });
     return { success: true, id };
   } catch (e) {
     return { success: false, error: e instanceof Error ? e.message : "Terjadi kesalahan" };
