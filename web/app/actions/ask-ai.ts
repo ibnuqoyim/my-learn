@@ -1,11 +1,30 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { getCategoryAiContext, getNoteAiContext } from "@/lib/queries";
-import type { AiChatScope } from "@/lib/types";
+import { getAiChatMessages, getCategoryAiContext, getNoteAiContext } from "@/lib/queries";
+import type { AiChatMessage, AiChatScope } from "@/lib/types";
 
 type AskAiResult = { success: true; reply: string } | { success: false; error: string };
 type ClearResult = { success: true } | { success: false; error: string };
+type HistoryResult = { success: true; messages: AiChatMessage[] } | { success: false; error: string };
+
+// Dipanggil begitu user klik tombol buka Tanya AI (lihat components/AskAiPanel.tsx)
+// -- bukan lagi di-fetch otomatis waktu halaman catatan/kategori dimuat, supaya
+// user yang tidak pernah buka chat-nya tidak ikut menanggung query riwayatnya.
+export async function getAiChatHistoryAction(scope: AiChatScope): Promise<HistoryResult> {
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return { success: false, error: "Masuk dulu untuk pakai fitur Tanya AI." };
+
+    const messages = await getAiChatMessages(user.id, scope);
+    return { success: true, messages };
+  } catch (e) {
+    return { success: false, error: e instanceof Error ? e.message : "Terjadi kesalahan" };
+  }
+}
 
 // Batasi panjang pertanyaan & jumlah riwayat yang dikirim ulang ke API
 // supaya prompt tidak membengkak tanpa batas dan biaya API per-request

@@ -2,17 +2,21 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { askAiAction, clearAiChatAction } from "@/app/actions/ask-ai";
+import { askAiAction, clearAiChatAction, getAiChatHistoryAction } from "@/app/actions/ask-ai";
+import Modal from "@/components/Modal";
 import type { AiChatMessage, AiChatScope, Profile } from "@/lib/types";
 
 type Props = {
   scope: AiChatScope;
   currentUser: Profile | null;
-  initialMessages: AiChatMessage[];
 };
 
-export default function AskAiPanel({ scope, currentUser, initialMessages }: Props) {
-  const [messages, setMessages] = useState(initialMessages);
+export default function AskAiPanel({ scope, currentUser }: Props) {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [messages, setMessages] = useState<AiChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [clearing, setClearing] = useState(false);
@@ -30,6 +34,24 @@ export default function AskAiPanel({ scope, currentUser, initialMessages }: Prop
         </p>
       </section>
     );
+  }
+
+  async function handleOpen() {
+    setOpen(true);
+    if (loaded || loading) return;
+
+    setLoading(true);
+    setLoadError(null);
+    const result = await getAiChatHistoryAction(scope);
+    setLoading(false);
+
+    if (!result.success) {
+      setLoadError(result.error);
+      return;
+    }
+
+    setMessages(result.messages);
+    setLoaded(true);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -83,58 +105,70 @@ export default function AskAiPanel({ scope, currentUser, initialMessages }: Prop
 
   return (
     <section className="mt-10">
-      <div className="mb-4 flex items-center justify-between gap-3 border-b border-border pb-1">
-        <h2 className="text-xl font-bold">🤖 Tanya AI</h2>
-        {messages.length > 0 && (
-          <button
-            type="button"
-            onClick={handleClear}
-            disabled={clearing}
-            className="text-xs text-muted underline underline-offset-2 disabled:opacity-60"
-          >
-            {clearing ? "Menghapus..." : "Hapus riwayat"}
-          </button>
-        )}
-      </div>
-
+      <h2 className="mb-2 border-b border-border pb-1 text-xl font-bold">🤖 Tanya AI</h2>
       <p className="mb-3 text-sm text-muted">
-        Tanya seputar materi ini saja — jawabannya dibatasi ke konteks catatan/kategori ini, di luar itu akan ditolak.
+        Tanya seputar materi ini saja — jawabannya dibatasi ke konteks catatan/kategori ini.
       </p>
+      <button type="button" onClick={handleOpen} className="rounded-md bg-accent px-4 py-2 text-sm text-white">
+        Buka Tanya AI
+      </button>
 
-      {messages.length > 0 && (
-        <ul className="mb-4 flex flex-col gap-3">
-          {messages.map((message) => (
-            <li
-              key={message.id}
-              className={`rounded-md border p-3 text-sm whitespace-pre-wrap ${
-                message.role === "user" ? "border-accent/40 bg-code-bg" : "border-border"
-              }`}
-            >
-              <p className="mb-1 text-xs font-bold text-muted">{message.role === "user" ? "Kamu" : "AI"}</p>
-              {message.content}
-            </li>
-          ))}
-        </ul>
-      )}
+      <Modal open={open} onClose={() => setOpen(false)} title="🤖 Tanya AI">
+        {loading && <p className="text-sm text-muted">Memuat riwayat...</p>}
+        {loadError && <p className="text-sm text-red-500">{loadError}</p>}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          rows={2}
-          placeholder="Tanya sesuatu tentang materi ini..."
-          className="rounded-md border border-border bg-code-bg px-3 py-2 text-sm text-text"
-          disabled={sending}
-        />
-        {error && <p className="text-sm text-red-500">{error}</p>}
-        <button
-          type="submit"
-          disabled={sending || !input.trim()}
-          className="self-start rounded-md bg-accent px-4 py-2 text-sm text-white disabled:opacity-60"
-        >
-          {sending ? "Mengirim..." : "Kirim"}
-        </button>
-      </form>
+        {loaded && (
+          <>
+            {messages.length > 0 && (
+              <div className="mb-3 flex justify-end">
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  disabled={clearing}
+                  className="text-xs text-muted underline underline-offset-2 disabled:opacity-60"
+                >
+                  {clearing ? "Menghapus..." : "Hapus riwayat"}
+                </button>
+              </div>
+            )}
+
+            {messages.length > 0 && (
+              <ul className="mb-4 flex max-h-96 flex-col gap-3 overflow-y-auto">
+                {messages.map((message) => (
+                  <li
+                    key={message.id}
+                    className={`rounded-md border p-3 text-sm whitespace-pre-wrap ${
+                      message.role === "user" ? "border-accent/40 bg-code-bg" : "border-border"
+                    }`}
+                  >
+                    <p className="mb-1 text-xs font-bold text-muted">{message.role === "user" ? "Kamu" : "AI"}</p>
+                    {message.content}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                rows={2}
+                placeholder="Tanya sesuatu tentang materi ini..."
+                className="rounded-md border border-border bg-code-bg px-3 py-2 text-sm text-text"
+                disabled={sending}
+              />
+              {error && <p className="text-sm text-red-500">{error}</p>}
+              <button
+                type="submit"
+                disabled={sending || !input.trim()}
+                className="self-start rounded-md bg-accent px-4 py-2 text-sm text-white disabled:opacity-60"
+              >
+                {sending ? "Mengirim..." : "Kirim"}
+              </button>
+            </form>
+          </>
+        )}
+      </Modal>
     </section>
   );
 }
